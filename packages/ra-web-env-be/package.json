@@ -1,0 +1,19 @@
+{
+  "name": "ra-web-env-be",
+  "version": "1.1.0",
+  "description": "> TODO: description",
+  "author": "Hajek Jiri <hajekj14@gmail.com>",
+  "homepage": "https://bitbucket.org/rapid-addition/ra-web#readme",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/rapid-addition/ra-web.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "@nestjs/common": "5.4.0",
+    "typescript": "3.2.1"
+  }
+}

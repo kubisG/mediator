@@ -1,0 +1,46 @@
+{
+	"folders": [
+		{
+			"path": "packages\\ra-trader-be"
+		},
+		{
+			"path": "packages\\ra-trader-fe"
+		},
+		{
+			"path": "packages\\ra-web-auth-be"
+		},
+		{
+			"path": "packages\\ra-web-auth-fe"
+		},
+		{
+			"path": "packages\\ra-web-core-be"
+		},
+		{
+			"path": "packages\\ra-web-core-fe"
+		},
+		{
+			"path": "packages\\ra-web-dao"
+		},
+		{
+			"path": "packages\\ra-web-env-be"
+		},
+		{
+			"path": "packages\\ra-web-env-fe"
+		},
+		{
+			"path": "packages\\ra-web-platform-be"
+		},
+		{
+			"path": "packages\\ra-web-platform-fe"
+		},
+		{
+			"path": "packages\\ra-wolt-be"
+		},
+		{
+			"path": "packages\\ra-wolt-fe"
+		}
+	],
+	"settings": {
+		"typescript.tsdk": "ra-trader-be\\node_modules\\typescript\\lib"
+	}
+}
