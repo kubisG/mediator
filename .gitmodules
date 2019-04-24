@@ -16,3 +16,6 @@
 [submodule "packages/ra-web-platform-fe"]
 	path = packages/ra-web-platform-fe
 	url = git@bitbucket.org:rapid-addition/ra-web-platform-fe.git
+[submodule "packages/ra-web-auth"]
+	path = packages/ra-web-auth
+	url = git@bitbucket.org:rapid-addition/ra-web-auth.git
