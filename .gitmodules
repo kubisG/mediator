@@ -1,28 +1,28 @@
 [submodule "packages/ra-trader-be"]
 	path = packages/ra-trader-be
 	url = git@bitbucket.org:rapid-addition/ra-trader-be.git
-	branch = develop
+	branch = .
 [submodule "packages/ra-trader-fe"]
 	path = packages/ra-trader-fe
 	url = git@bitbucket.org:rapid-addition/ra-trader-fe.git
-	branch = develop
+	branch = .
 [submodule "packages/ra-wolt-be"]
 	path = packages/ra-wolt-be
 	url = git@bitbucket.org:rapid-addition/ra-wolt-be.git
-	branch = master
+	branch = .
 [submodule "packages/ra-wolt-fe"]
 	path = packages/ra-wolt-fe
 	url = git@bitbucket.org:rapid-addition/ra-wolt-fe.git
-	branch = master
+	branch = .
 [submodule "packages/ra-web-platform-be"]
 	path = packages/ra-web-platform-be
 	url = git@bitbucket.org:rapid-addition/ra-web-platform-be.git
-	branch = master
+	branch = .
 [submodule "packages/ra-web-platform-fe"]
 	path = packages/ra-web-platform-fe
 	url = git@bitbucket.org:rapid-addition/ra-web-platform-fe.git
-	branch = master
+	branch = .
 [submodule "packages/ra-web-auth"]
 	path = packages/ra-web-auth
 	url = git@bitbucket.org:rapid-addition/ra-web-auth.git
-	branch = master
+	branch = .

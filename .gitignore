@@ -5,6 +5,8 @@
 /dist
 /tmp
 /out-tsc
+packages/**/*.d.ts
+packages/**/*.js
 
 # documentation
 /docs

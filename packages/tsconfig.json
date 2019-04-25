@@ -10,16 +10,6 @@
         "experimentalDecorators": true,
         "target": "es6",
         "sourceMap": true,
-        "allowJs": true,
-        "outDir": "./dist",
-        "baseUrl": "./src"
-    },
-    "include": [
-        "src/**/*",
-        "play.ts"
-    ],
-    "exclude": [
-        "node_modules",
-        "**/*.spec.ts"
-    ]
+        "allowJs": true
+    }
 }

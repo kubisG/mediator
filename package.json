@@ -1,6 +1,10 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "ra-web-env-be": "lerna run --scope ra-web-env-be build",
+    "ra-trader-be:prod": "npm run ra-web-env-be && lerna run --scope ra-trader-be build:prod"
+  },
   "devDependencies": {
     "lerna": "^3.13.3"
   }
