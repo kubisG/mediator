@@ -7,7 +7,7 @@ import { mailerFactory } from "./mailer/mailer.provider";
 import { SessionStore } from "./sessions/providers/session-store.interface";
 import { databaseProviders, EntityProviders } from "./db/db.provider";
 import { sessionStoreFactory } from "./sessions/sessions.provider";
-import { EnvironmentsModule } from "../environments/environments.module";
+import { EnvironmentsModule } from "ra-web-env-be/environments.module";
 import { DbService } from "./db/db.service";
 import { clientProxyProviders } from "./client-proxy.provider";
 import { MessageValidatorService } from "./validators/message-validator.service";

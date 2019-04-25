@@ -2,9 +2,9 @@ import * as redis from "redis";
 
 import { Logger } from "../../logger/providers/logger";
 import { SessionStore } from "./session-store.interface";
-import { EnvironmentService } from "../../../environments/environment.service";
+import { EnvironmentService } from "ra-web-env-be/environment.service";
 import { Inject } from "@nestjs/common";
-import { closeHandlers } from "../../../main";
+// import { closeHandlers } from "../../../main";
 
 export class RedisStore implements SessionStore {
 
@@ -18,10 +18,10 @@ export class RedisStore implements SessionStore {
         this.redisClient.on("error", (error) => {
             this.logger.error(error);
         });
-        closeHandlers.push(async () => {
-            this.logger.warn(`Closing RedisStore`);
-            await this.close();
-        });
+        // closeHandlers.push(async () => {
+        //     this.logger.warn(`Closing RedisStore`);
+        //     await this.close();
+        // });
     }
 
     public set(sid: string, data: any) {

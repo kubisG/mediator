@@ -1,7 +1,7 @@
 import { Connection, createConnection, getConnectionManager } from "typeorm";
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
 
-import { EnvironmentService } from "../../environments/environment.service";
+import { EnvironmentService } from "ra-web-env-be/environment.service";
 import { RaUser } from "./entity/ra-user";
 import { RaCompany } from "./entity/ra-company";
 import { RaOrderStore } from "./entity/ra-order-store";
@@ -18,7 +18,7 @@ import { RaCounterParty } from "./entity/ra-counter-party";
 import { RaOrderRel } from "./entity/ra-order-rel";
 import { RaPortfolioAudit } from "./entity/ra-portfolio-audit";
 import { RaOrderStoreAudit } from "./entity/ra-order-store-audit";
-import { closeHandlers } from "../../main";
+// import { closeHandlers } from "../../main";
 import { entities } from "./entities";
 
 export const databaseProviders = [
@@ -41,12 +41,12 @@ export const databaseProviders = [
                 logging: ((env.logging.db === "true" || env.logging.db === true) ? true : ["error"]),
                 logger: "advanced-console"
             } as PostgresConnectionOptions);
-            closeHandlers.push(async () => {
-                console.log(`Closing DbConnection`);
-                if (connection.isConnected) {
-                    await connection.close();
-                }
-            });
+            // closeHandlers.push(async () => {
+            //     console.log(`Closing DbConnection`);
+            //     if (connection.isConnected) {
+            //         await connection.close();
+            //     }
+            // });
             return connection;
         },
         inject: [EnvironmentService],

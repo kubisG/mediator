@@ -1,10 +1,8 @@
-import { Inject } from "@nestjs/common";
-
 import { Smtp } from "./providers/smtp";
 import { LoggerService } from "../logger/logger.service";
 import { Mailer } from "./providers/mailer.interface";
 import { mailerType } from "./constants";
-import { EnvironmentService } from "../../environments/environment.service";
+import { EnvironmentService } from "ra-web-env-be/environment.service";
 
 export const mailerFactory = {
     provide: "mailer",

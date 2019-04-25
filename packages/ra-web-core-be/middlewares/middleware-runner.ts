@@ -1,5 +1,5 @@
 import { MessageMiddleware } from "./message-middleware.interface";
-import { Logger } from "../../core/logger/providers/logger";
+import { Logger } from "../logger/providers/logger";
 import { ContextMiddlewareInterface } from "./context-middleware.interface";
 import { NoDataError } from "./no-data-error";
 

@@ -2,7 +2,7 @@ import { ConsoleLogger } from "./providers/console-logger";
 import { LoggerGateway } from "./logger.gateway";
 import { VoidLogger } from "./providers/void-logger";
 import { loggers } from "./constants";
-import { EnvironmentService } from "../../environments/environment.service";
+import { EnvironmentService } from "ra-web-env-be/environment.service";
 
 export const loggerFactory = {
     provide: "logger",

@@ -1,7 +1,5 @@
-import { MessagesRouter } from "../../messages/routing/messages-router";
-
 export interface ContextMiddlewareInterface {
-    messageRouter: MessagesRouter;
+    messageRouter: any;
     userData?: any;
     app: number;
     queue: string;

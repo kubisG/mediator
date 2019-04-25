@@ -2,8 +2,8 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "ra-bundle": "lerna run --no-bail build",
-    "ra-trader-be:prod": "npm run ra-bundle && lerna run --scope ra-trader-be build:prod"
+    "bundle": "lerna run --no-bail build",
+    "trader": "npm run ra-bundle && lerna run --scope ra-trader-be build:prod"
   },
   "devDependencies": {
     "lerna": "^3.13.3"

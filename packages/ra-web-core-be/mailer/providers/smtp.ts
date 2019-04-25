@@ -1,9 +1,9 @@
 import { Logger } from "../../logger/providers/logger";
 import { Mailer } from "./mailer.interface";
-import { EnvironmentService } from "environments/environment.service";
+import { EnvironmentService } from "ra-web-env-be/environment.service";
 
 import * as Nodemailer from "nodemailer";
-import { closeHandlers } from "../../../main";
+// import { closeHandlers } from "../../../main";
 
 export class Smtp implements Mailer {
 
@@ -13,10 +13,10 @@ export class Smtp implements Mailer {
         private logger: Logger,
         private env: EnvironmentService,
     ) {
-        closeHandlers.push(async () => {
-            this.logger.warn(`Closing Smtp`);
-            await this.close();
-        });
+        // closeHandlers.push(async () => {
+        //     this.logger.warn(`Closing Smtp`);
+        //     await this.close();
+        // });
     }
 
     public async connect() {
