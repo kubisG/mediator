@@ -10,7 +10,8 @@
     "url": "git+ssh://git@bitbucket.org/rapid-addition/ra-web.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build": "rm -rf dist && tsc -p tsconfig.json"
   },
   "dependencies": {
     "@nestjs/common": "^5.4.0",
