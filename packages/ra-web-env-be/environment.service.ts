@@ -1,8 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import * as config from "config";
-import { Subject } from "rxjs/internal/Subject";
-import { Observable } from "rxjs/internal/Observable";
-import { Logger } from "../core/logger/providers/logger";
 @Injectable()
 export class EnvironmentService {
 
