@@ -15,9 +15,6 @@ import { RaStock } from "./entity/ra-stock";
 import { RaAllocationMessage } from "./entity/ra-allocation-message";
 import { RaIoi } from "./entity/ra-ioi";
 import { RaCounterParty } from "./entity/ra-counter-party";
-import { RaOrderRel } from "./entity/ra-order-rel";
-import { RaPortfolioAudit } from "./entity/ra-portfolio-audit";
-import { RaOrderStoreAudit } from "./entity/ra-order-store-audit";
 // import { closeHandlers } from "../../main";
 import { entities } from "./entities";
 

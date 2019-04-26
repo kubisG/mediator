@@ -17,10 +17,10 @@
     "@nestjs/common": "5.4.0",
     "config": "2.0.1",
     "reflect-metadata": "0.1.12",
-    "rxjs": "^6.2.2",
-    "typescript": "3.2.1"
+    "rxjs": "6.2.2",
+    "typescript": "3.1.6"
   },
   "devDependencies": {
-    "@types/node": "^9.3.0"
+    "@types/node": "9.3.0"
   }
 }
