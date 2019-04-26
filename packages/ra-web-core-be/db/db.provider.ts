@@ -1,7 +1,7 @@
 import { Connection, createConnection, getConnectionManager } from "typeorm";
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
 
-import { EnvironmentService } from "ra-web-env-be/environment.service";
+import { EnvironmentService } from "@ra/web-env-be/environment.service";
 import { RaUser } from "./entity/ra-user";
 import { RaCompany } from "./entity/ra-company";
 import { RaOrderStore } from "./entity/ra-order-store";
