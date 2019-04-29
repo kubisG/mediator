@@ -26,6 +26,7 @@ node("centos7"){
                 [credentialsId: 'hajek', url: 'git@bitbucket.org:rapid-addition/ra-web.git']
             ]
         ]);
+        sh "git pull origin master"
     }
     stage('Build'){
         if(params.BUILD == 'true'){
