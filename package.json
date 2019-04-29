@@ -8,7 +8,7 @@
     "init": "npm run clean && npm run hoists && npm run nohoists",
     "reinit": "npm run hoists && npm run nohoists",
     "bundle": "lerna run --no-bail bundle",
-    "trader": "npm run bundle && lerna run --scope ra-trader-be build:prod"
+    "ra-trader-be": "npm run bundle && lerna run --scope ra-trader-be build:prod"
   },
   "devDependencies": {
     "lerna": "^3.13.3"
