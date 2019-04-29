@@ -9,49 +9,100 @@ properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKe
                         ])
         ])
 node("centos7"){
-    stage ('Clean') {
-        deleteDir()
-    }
-    stage('Clone'){
-        checkout([
-            $class: 'GitSCM',
-            branches: [
-                [name: '*/master']
-            ],
-            doGenerateSubmoduleConfigurations: false,
-            extensions: [
-                [$class: 'CleanBeforeCheckout'],
-                [$class: 'CleanCheckout'],
-                [$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', trackingSubmodules: false],
-                [$class: 'CheckoutOption', timeout: 10],
-                [$class: 'CloneOption', depth: 0, noTags: false, reference: '', shallow: false, timeout: 10]
-            ],
-            submoduleCfg: [],
-            userRemoteConfigs: [
-                [credentialsId: 'hajek', url: 'git@bitbucket.org:rapid-addition/ra-web.git']
-            ]
-        ]);
-    }
-    stage('Build'){
-        if(params.BUILD == 'true'){
-            sh "git submodule foreach 'git checkout "+params.BRANCH_NAME+" || :'"
-            sh "npm install"
-            sh "cp packages/"+params.REPO_NAME+"/Dockerfile ./Dockerfile"
-            sh "cat Dockerfile"
-            sh "sudo docker build . -t "+params.DOCKER_REGISTRY+"/"+params.REPO_NAME+":"+params.GIT_COMMIT+"-"+params.BRANCH_NAME
+    try {
+        timestamps {
+            stage ('Clean') {
+                deleteDir()
+            }
+            stage('Clone'){
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [
+                        [name: '*/master']
+                    ],
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: [
+                        [$class: 'CleanBeforeCheckout'],
+                        [$class: 'CleanCheckout'],
+                        [$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', trackingSubmodules: false],
+                        [$class: 'CheckoutOption', timeout: 10],
+                        [$class: 'CloneOption', depth: 0, noTags: false, reference: '', shallow: false, timeout: 10]
+                    ],
+                    submoduleCfg: [],
+                    userRemoteConfigs: [
+                        [credentialsId: 'hajek', url: 'git@bitbucket.org:rapid-addition/ra-web.git']
+                    ]
+                ]);
+            }
+            stage('Build'){
+                if(params.BUILD == 'true'){
+                    sh "git submodule foreach 'git checkout "+params.BRANCH_NAME+" || :'"
+                    sh "npm install"
+                    sh "cp packages/"+params.REPO_NAME+"/Dockerfile ./Dockerfile"
+                    sh "cat Dockerfile"
+                    sh "sudo docker build . -t "+params.DOCKER_REGISTRY+"/"+params.REPO_NAME+":"+params.GIT_COMMIT+"-"+params.BRANCH_NAME
+                    pushDocker(params.DOCKER_REGISTRY, params.REPO_NAME, params.GIT_COMMIT, params.BRANCH_NAME)
+                }
+            }
+            stage('Log'){
+                sh """
+                    ls -lattr packages/ra-trader-be/dist
+                    ls -lattr packages
+                """
+                echo params.BUILD;
+                echo params.DEPLOY;
+                echo params.GIT_COMMIT;
+                echo params.TARGET_ENV;
+                echo params.DOCKER_REGISTRY;
+                echo params.BRANCH_NAME;
+                echo params.REPO_NAME;
+            }
         }
+    } catch (e) {
+        // If there was an exception thrown, the build failed
+        currentBuild.result = "FAILED"
+        throw e
+    } finally {
+        // Success or failure, always send notifications
+        notifyBuild(currentBuild.result)
     }
-    stage('Log'){
-        sh """
-            ls -lattr packages/ra-trader-be/dist
-            ls -lattr packages
-        """
-        echo params.BUILD;
-        echo params.DEPLOY;
-        echo params.GIT_COMMIT;
-        echo params.TARGET_ENV;
-        echo params.DOCKER_REGISTRY;
-        echo params.BRANCH_NAME;
-        echo params.REPO_NAME;
-    }
+}
+
+void pushDocker(String registry, String imgName, String shortHash, String branch) {
+    sh "echo `aws ecr get-login --no-include-email --region eu-west-1` | sudo sh"
+
+    sh "sudo docker build . -t "+registry+"/"+imgName+":"+shortHash+"-"+branch
+    sh "sudo docker push "+registry+"/"+imgName+":"+shortHash+"-"+branch
+
+    sh "sudo docker build . -t "+registry+"/"+imgName+":latest-"+branch
+    sh "sudo docker push "+registry+"/"+imgName+":latest-"+branch
+}
+
+def notifyBuild(String buildStatus = 'STARTED') {
+  // build status of null means successful
+  buildStatus =  buildStatus ?: 'SUCCESSFUL'
+
+  // Default values
+  def colorName = 'RED'
+  def colorCode = '#FF0000'
+  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+  def summary = "${subject} (${env.BUILD_URL})"
+  def details = """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+    <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>"""
+
+  // Override default values based on build status
+  if (buildStatus == 'STARTED') {
+    color = 'YELLOW'
+    colorCode = '#FFFF00'
+  } else if (buildStatus == 'SUCCESSFUL') {
+    color = 'GREEN'
+    colorCode = '#00FF00'
+  } else {
+    color = 'RED'
+    colorCode = '#FF0000'
+  }
+
+  // Send notifications
+  slackSend (color: colorCode, message: summary)
+
 }
