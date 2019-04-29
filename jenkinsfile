@@ -35,7 +35,7 @@ node("centos7"){
             sh "npm run bundle"
             sh "npm run "+params.REPO_NAME
             sh "cd packages/"+params.REPO_NAME
-            sh "sudo docker build . -t "+registry+"/"+params.REPO_NAME+":"+shortHash+"-"+branch
+            sh "sudo docker build . -t "+registry+"/"+params.REPO_NAME+":"+params.GIT_COMMIT+"-"+params.BRANCH_NAME
         }
     }
     stage('Log'){
