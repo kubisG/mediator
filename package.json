@@ -6,6 +6,7 @@
     "hoists": "lerna bootstrap --ignore ra-trader-fe --hoist",
     "nohoists": "lerna bootstrap --scope ra-trader-fe",
     "init": "npm run clean && npm run hoists && npm run nohoists",
+    "bootstrap": "npm run clean && lerna bootstrap",
     "reinit": "npm run hoists && npm run nohoists",
     "bundle": "lerna run --no-bail bundle",
     "ra-trader-be": "npm run bundle && lerna run --scope ra-trader-be build:prod"
