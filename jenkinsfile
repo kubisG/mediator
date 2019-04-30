@@ -12,6 +12,7 @@ node("centos7"){
     try {
         timestamps {
             stage ('Clean') {
+                cleanWs()
                 deleteDir()
             }
             stage('Clone'){
