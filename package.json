@@ -9,7 +9,8 @@
     "bootstrap": "npm run clean && lerna bootstrap",
     "reinit": "npm run hoists",
     "bundle": "lerna run --no-bail bundle",
-    "ra-trader-be": "lerna run --scope ra-trader-be build:prod"
+    "ra-trader-be": "lerna run --scope ra-trader-be build:prod",
+    "ra-trader-fe": "lerna run --scope ra-trader-fe build:all"
   },
   "devDependencies": {
     "lerna": "3.13.3"
