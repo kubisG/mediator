@@ -3,15 +3,15 @@
   "private": true,
   "scripts": {
     "clean": "lerna clean",
-    "hoists": "lerna bootstrap --ignore ra-trader-fe --hoist",
-    "nohoists": "lerna bootstrap --scope ra-trader-fe",
-    "init": "npm run clean && npm run hoists && npm run nohoists",
+    "hoists": "lerna bootstrap --hoist",
+    "nohoists": "lerna bootstrap --scope ra-trader-fe --scope ra-web-test-fe",
+    "init": "npm run clean && npm run hoists",
     "bootstrap": "npm run clean && lerna bootstrap",
-    "reinit": "npm run hoists && npm run nohoists",
+    "reinit": "npm run hoists",
     "bundle": "lerna run --no-bail bundle",
     "ra-trader-be": "lerna run --scope ra-trader-be build:prod"
   },
   "devDependencies": {
-    "lerna": "^3.13.3"
+    "lerna": "3.13.3"
   }
 }
