@@ -46,10 +46,6 @@ node("centos7"){
                 }
             }
             stage('Log'){
-                sh """
-                    ls -lattr packages/ra-trader-be/dist
-                    ls -lattr packages
-                """
                 echo params.BUILD;
                 echo params.DEPLOY;
                 echo params.GIT_COMMIT;
