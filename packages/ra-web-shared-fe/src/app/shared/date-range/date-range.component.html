@@ -1,0 +1,8 @@
+<button [disabled]="!dataLoaded" *ngIf="loadedRange" class="dataRangeBtn" matTooltip="Clear date {{dateTimeRange | rangeDate}}" mat-icon-button (click)="clearDate()">
+    <mat-icon [ngClass]="{'clicked': loadedRange}">timer</mat-icon>
+</button>
+<button [disabled]="!dataLoaded" *ngIf="!loadedRange" class="dataRangeBtn" matTooltip="Choose date" mat-icon-button [owlDateTimeTrigger]="dtRange1">
+    <mat-icon [ngClass]="{'clicked': loadedRange}">timer_off</mat-icon>
+</button>
+<input [(ngModel)]="dateTimeRange" [selectMode]="'range'" [owlDateTime]="dtRange1" style="visibility:hidden; width:0px;">
+<owl-date-time #dtRange1 [firstDayOfWeek]="1" (afterPickerClosed)="onClose($event)" (afterPickerOpen)="onOpen($event)"></owl-date-time>

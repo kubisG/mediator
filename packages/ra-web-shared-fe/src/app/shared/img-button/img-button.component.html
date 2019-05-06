@@ -1,0 +1,2 @@
+<img [matTooltip]="action.label" [ngClass]="{'hide': !action.visible(data), 'font-red': (action.color && action.color(data)) }" class="click"
+    [src]="'assets/img/'+action.icon+'.svg'" (click)="click($event)">
