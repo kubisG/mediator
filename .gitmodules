@@ -6,9 +6,6 @@
 	path = packages/ra-trader-fe
 	url = git@bitbucket.org:rapid-addition/ra-trader-fe.git
 	branch = .
-[submodule "packages/ra-web-monitor-fe"]
-	path = packages/ra-web-monitor-fe
-	url = git@bitbucket.org:rapid-addition/ra-web-monitor-fe.git
 [submodule "packages/ra-web-monitor-be"]
 	path = packages/ra-web-monitor-be
 	url = git@bitbucket.org:rapid-addition/ra-web-monitor-be.git
