@@ -161,7 +161,7 @@ export class RaOrderStoreAudit extends AEntity {
     public OrigClOrdID: string;
 
     // @Mapping(MappingRequirement.OPTIONAL)
-    @Column({ type: "timestamptz", default: new Date() })
+    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
     public Placed: Date;
 
     @Mapping({
@@ -205,11 +205,11 @@ export class RaOrderStoreAudit extends AEntity {
     public companyId: number;
 
     @Mapping(MappingRequirement.OPTIONAL)
-    @Column({ type: "timestamptz", default: new Date() })
+    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
     public createDate: Date;
 
     @Mapping(MappingRequirement.OPTIONAL)
-    @Column({ type: "timestamptz", default: new Date() })
+    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
     public updateDate: Date;
 
     @Mapping(MappingRequirement.OPTIONAL)
@@ -275,7 +275,7 @@ export class RaOrderStoreAudit extends AEntity {
     public splitted: string;
 
     @Mapping(MappingRequirement.OPTIONAL)
-    @Column({ type: "timestamptz", default: new Date() })
+    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
     public archDate: Date;
 
     @Mapping(MappingRequirement.OPTIONAL)

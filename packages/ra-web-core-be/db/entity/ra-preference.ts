@@ -18,10 +18,10 @@ export class RaPreference extends AEntity {
     @PrimaryColumn()
     public companyId: number;
 
-    @Column({ type: "timestamptz", default: new Date() })
+    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
     public createDate: Date;
 
-    @Column({ type: "timestamptz", default: new Date() })
+    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
     public updatedDate: Date;
 
     @BeforeUpdate()

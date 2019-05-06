@@ -144,7 +144,7 @@ export class RaMessage extends AEntity {
     public BookingType: string;
 
     // @Mapping(MappingRequirement.OPTIONAL)
-    @Column({ type: "timestamptz", default: new Date() })
+    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
     public Placed: Date;
 
     @Mapping({
@@ -257,7 +257,7 @@ export class RaMessage extends AEntity {
             }
         }
     })
-    @Column({ type: "timestamptz", default: new Date() })
+    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP'})
     public createDate: Date;
 
     /**

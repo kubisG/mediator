@@ -7,7 +7,7 @@ import { RaPortfolio } from "./ra-portfolio";
 export class RaPortfolioAudit extends RaPortfolio {
 
     @Mapping(MappingRequirement.OPTIONAL)
-    @Column({ type: "timestamptz", default: new Date() })
+    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
     public archDate: Date;
 
     @Mapping(MappingRequirement.OPTIONAL)
