@@ -1,12 +1,13 @@
 import { RaOrderStore } from "@ra/web-core-be/db/entity/ra-order-store";
-import { EntityRepository,  Repository} from "typeorm";
+import { EntityRepository, Repository } from "typeorm";
 import { OrdStatus } from "@ra/web-core-be/enums/ord-status.enum";
 import { TIF } from "@ra/web-core-be/enums/tif.enum";
 import { OrderAllocated } from "@ra/web-core-be/enums/order-allocated.enum";
+import { SpecType } from "@ra/web-core-be/enums/spec-type.enum";
 import { Apps } from "@ra/web-core-be/enums/apps.enum";
 
 @EntityRepository(RaOrderStore)
-export class OrderStoreRepository extends  Repository<RaOrderStore> {
+export class OrderStoreRepository extends Repository<RaOrderStore> {
 
     public async getOrdersForCancel(side: any[], compId, userId, filtr) {
         const dateFrom = new Date();
@@ -48,19 +49,25 @@ export class OrderStoreRepository extends  Repository<RaOrderStore> {
         return result;
     }
 
-    public async getOrders(app, dateFrom, dateTo, compId, userId, compOrders, gtcGtd, clOrdLinkID?) {
+    public async getOrders(app, dateFrom, dateTo, compId, userId, compOrders, gtcGtd, clOrdLinkID?, isPhone?) {
         const queryBuilder = this.createQueryBuilder("ord");
         const selectBuilder = queryBuilder;
 
-        if (gtcGtd === "true" || gtcGtd === true) {
+        const actDate = new Date();
+        actDate.setHours(0, 0, 0, 0);
+
+        if ((gtcGtd === "true" || gtcGtd === true) && (new Date(dateFrom).getTime() === actDate.getTime())) {
             const gtc = TIF.GoodTillCancel;
             const gtd = TIF.GoodTillDate;
+
             selectBuilder
-                .where("((ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo)"
+                .where("(((ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo)"
                     + " or (ord.\"TimeInForce\" IN (:gtd) and ord.\"ExpireDate\" >= NOW())"
                     + " or (ord.\"TimeInForce\" IN (:gtc) and ord.\"OrdStatus\" not in (:...ordStatus)))"
+                    //                    + " and ord.\"OrdStatus\" not in (:done)"
+                    + ")"
                     , {
-                        dateFrom, dateTo, gtd, gtc, ordStatus:
+                        dateFrom, dateTo, gtd, gtc, done: OrdStatus.DoneForDay, ordStatus:
                             [OrdStatus.Canceled]
                     });
         } else {
@@ -75,6 +82,10 @@ export class OrderStoreRepository extends  Repository<RaOrderStore> {
         if (compOrders === "false" || compOrders === false) {
             selectBuilder.andWhere("ord.user = :userId", { userId: userId });
         }
+        if (isPhone === SpecType.phone) {
+            selectBuilder.andWhere("ord.specType = :phone", { phone: SpecType.phone });
+        }
+
         if (clOrdLinkID) {
             selectBuilder.andWhere(
                 "ord.id in (select \"childId\" from ra_order_rel rl where rl.\"parentClOrdId\"=:clOrdLinkID and \"companyId\"=:compId)"

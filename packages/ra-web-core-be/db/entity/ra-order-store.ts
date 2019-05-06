@@ -304,11 +304,17 @@ export class RaOrderStore extends AEntity {
     @Column({ default: "N" })
     public splitted: string;
 
+    @Mapping(MappingRequirement.OPTIONAL)
+    @Column({ nullable: true })
+    public specType: string;
+
     @Column({ nullable: true })
     public replaceMessage: string;
+
 
     @BeforeInsert()
     public setPlaced() {
         (this.Placed as any) = new Date().toISOString();
     }
 }
+
