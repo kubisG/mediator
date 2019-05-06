@@ -15,3 +15,6 @@
 [submodule "packages/ra-web-platform-fe"]
 	path = packages/ra-web-platform-fe
 	url = git@bitbucket.org:rapid-addition/ra-web-platform-fe.git
+[submodule "packages/ra-web-monitor-fe"]
+	path = packages/ra-web-monitor-fe
+	url = git@bitbucket.org:rapid-addition/ra-web-monitor-fe.git
