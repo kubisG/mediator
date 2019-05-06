@@ -29,3 +29,4 @@ export { CxlRejResponseTo } from "./src/app/shared/enums/cxl-rej-response-to.enu
 export { ExecTransType } from "./src/app/shared/enums/exec-trans-type.enum";
 export { OrderAllocated } from "./src/app/shared/enums/order-allocated.enum";
 export { OrderPackage } from "./src/app/shared/enums/order-package.enum";
+export { SpecType } from "./src/app/shared/enums/spec-type.enum";
