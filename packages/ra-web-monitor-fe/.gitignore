@@ -1,21 +1,18 @@
-# Add any directories, files, or patterns you don't want to be tracked by version control
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
 /dist
 /tmp
 /out-tsc
-packages/**/*.d.ts
-packages/**/*.js
-packages/**/*.js.map
-packages/**/*.ts
-
-# documentation
-/docs
+# Only exists if Bazel was run
+/bazel-out
 
 # dependencies
-node_modules/
-**/node_modules
+/node_modules
+
+# profiling files
+chrome-profiler-events.json
+speed-measure-plugin.json
 
 # IDEs and editors
 /.idea
@@ -32,6 +29,7 @@ node_modules/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.history/*
 
 # misc
 /.sass-cache
@@ -46,5 +44,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-.env
-/logs
