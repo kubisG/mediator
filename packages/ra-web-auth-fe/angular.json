@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ra-web-authentication-fe": {
+    "ra-web-auth-fe": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ra-web-authentication-fe",
+            "outputPath": "dist/ra-web-auth-fe",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ra-web-authentication-fe:build"
+            "browserTarget": "ra-web-auth-fe:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ra-web-authentication-fe:build:production"
+              "browserTarget": "ra-web-auth-fe:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ra-web-authentication-fe:build"
+            "browserTarget": "ra-web-auth-fe:build"
           }
         },
         "test": {
@@ -107,7 +107,7 @@
         }
       }
     },
-    "ra-web-authentication-fe-e2e": {
+    "ra-web-auth-fe-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -116,11 +116,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ra-web-authentication-fe:serve"
+            "devServerTarget": "ra-web-auth-fe:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ra-web-authentication-fe:serve:production"
+              "devServerTarget": "ra-web-auth-fe:serve:production"
             }
           }
         },
@@ -136,5 +136,5 @@
       }
     }
   },
-  "defaultProject": "ra-web-authentication-fe"
+  "defaultProject": "ra-web-auth-fe"
 }
