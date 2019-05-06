@@ -1,0 +1,18 @@
+{
+    "verbose": true,
+    "watch": [
+        "packages/ra-web-auth-be",
+        "packages/ra-web-core-be",
+        "packages/ra-web-dao",
+        "packages/ra-web-env-be"
+    ],
+    "ext": "ts",
+    "ignore": [
+        "**/*.js",
+        "**/*.d.ts",
+        "**/*.js.map",
+        "packages/**/node_modules",
+        "packages/**/node_modules/**/node_modules"
+    ],
+    "exec": "npm run bundle"
+}

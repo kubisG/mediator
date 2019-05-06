@@ -1,5 +1,5 @@
 {
-  "name": "@ra/web-authentication-fe",
+  "name": "@ra/web-auth-fe",
   "version": "1.1.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "lint:fix": "ng lint ra-web-authentication-fe --fix",
+    "lint:fix": "ng lint ra-web-auth-fe --fix",
     "e2e": "ng e2e"
   },
   "private": true,
