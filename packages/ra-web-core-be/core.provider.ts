@@ -6,7 +6,7 @@ export const fastRandomFactory = {
         const fastRnd = fastRandom.default ? fastRandom.default(new Date().getTime()) : fastRandom(new Date().getTime());
         return {
             nextInt: () => {
-                return Number(`${fastRnd.nextInt()}${new Date().getTime()}`);
+                return Number(`${new Date().toISOString().substr(0, 10).replace(/-/g, "")}${fastRnd.nextInt()}`);
             }
         };
     },

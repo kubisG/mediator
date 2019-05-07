@@ -87,11 +87,11 @@ export class RaPortfolio extends AEntity {
     public company: RaCompany;
 
     @Mapping(MappingRequirement.OPTIONAL)
-    @Column({ type: "timestamptz", default: new Date() })
+    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
     public createDate: Date;
 
     @Mapping(MappingRequirement.OPTIONAL)
-    @Column({ type: "timestamptz", default: new Date() })
+    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
     public updateDate: Date;
 }
 

@@ -146,7 +146,7 @@ export class RaAllocationMessage extends AEntity {
             }
         }
     })
-    @Column({ type: "timestamptz", default: new Date() })
+    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
     public createDate: Date;
 
 }

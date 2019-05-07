@@ -49,10 +49,10 @@ export class RaAccounts extends AEntity {
     @Index()
     public counterParty: number;
 
-    @Column({ type: "timestamptz", default: new Date() })
+    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
     public createDate: Date;
 
-    @Column({ type: "timestamptz", default: new Date() })
+    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
     public updatedDate: Date;
 
     @Mapping({

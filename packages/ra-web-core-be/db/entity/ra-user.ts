@@ -54,7 +54,7 @@ export class RaUser extends AEntity {
     @Column({ unique: true })
     public email: string;
 
-    @Column({ type: "timestamptz", nullable: true, default: new Date() })
+    @Column({ type: "timestamptz", nullable: true, default: () => 'CURRENT_TIMESTAMP' })
     public createDate: Date;
 
     @Column({ type: "timestamptz", nullable: true })
@@ -102,7 +102,7 @@ export class RaUser extends AEntity {
     @OneToMany(() => RaOrderRel, (raOrderRel) => raOrderRel.user)
     public orderRel: RaOrderRel;
 
-    @Column({ type: "timestamptz", default: new Date() })
+    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
     public updatedDate: Date;
 
     @BeforeUpdate()
