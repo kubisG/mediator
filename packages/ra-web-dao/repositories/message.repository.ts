@@ -16,7 +16,7 @@ export class MessageRepository extends  Repository<RaMessage> {
             })
             .andWhere("not exists (select id from ra_message rm" +
                 " where rm.\"RaID\"=:raId and rm.\"app\"=:app and rm.\"ClOrdID\"=:OrigClOrdID and "
-                + "((rm.\"msgType\" not in (:...BmsgType)) and (rm.\"msgType\" not in (:...CmsgType) and rm.\"OrdStatus\" not in (:...PendingNew)))"
+                + "((rm.\"msgType\" not in (:...BmsgType)) and (rm.\"msgType\" not in (:...CmsgType) and rm.\"OrdStatus\" not in (:...PendingNew))))"
                 , {
                     raId: raId, OrigClOrdID: OrigClOrdID, app: app,
                     BmsgType: [MessageType.Replace, MessageType.Order, MessageType.Cancel],
