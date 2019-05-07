@@ -13,7 +13,7 @@ export function getCompanyId(queueName: string, prefix: string) {
     return queueName.replace(prefix, "");
 }
 
-export function parseCompanyId(queue: string) {
+export function parseCompanyId(queue: string): any {
     return queue.split("_")[1];
 }
 
