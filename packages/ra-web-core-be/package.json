@@ -28,7 +28,7 @@
     "redis": "2.8.0",
     "rxjs": "6.5.1",
     "typeorm": "0.2.7",
-    "typescript": "3.2.2",
+    "typescript": "3.2.4",
     "winston": "3.0.0",
     "winston-daily-rotate-file": "3.5.1"
   }
