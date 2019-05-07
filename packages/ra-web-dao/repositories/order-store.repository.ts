@@ -79,7 +79,7 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
             .andWhere("ord.company = :compId", { compId: compId })
             .andWhere("ord.app = :app", { app })
             .orderBy("ord.id", "ASC");
-        if (compOrders === "false" || compOrders === false) {
+        if ((compOrders === "false" || compOrders === false) && (app !== Apps.broker)) {
             selectBuilder.andWhere("ord.user = :userId", { userId: userId });
         }
         if (isPhone === SpecType.phone) {
