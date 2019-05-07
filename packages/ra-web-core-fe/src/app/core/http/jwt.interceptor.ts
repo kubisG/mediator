@@ -13,7 +13,7 @@ import { Observable } from "rxjs/internal/Observable";
 export class JwtInterceptor implements HttpInterceptor {
 
     constructor(private store: Store,
-        private router: Router) {
+                private router: Router) {
 
     }
 

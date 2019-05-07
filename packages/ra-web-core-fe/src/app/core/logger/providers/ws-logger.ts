@@ -25,7 +25,7 @@ export class WsLogger extends WebSocketService implements Logger {
 
     public log(level: string, msg: any) {
         if (this.enabled) {
-            this.emit("message", { level: level, message: msg });
+            this.emit("message", { level, message: msg });
         }
     }
 

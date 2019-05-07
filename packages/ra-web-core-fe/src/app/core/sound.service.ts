@@ -11,41 +11,41 @@ export class SoundService {
     private soundsInitialized = false;
 
     private sounds: { [key: string]: any } = {
-        "disconnect": {
-            "name": "disconnect",
-            "file": "/assets/sound/disconnect.wav"
+        disconnect: {
+            name: "disconnect",
+            file: "/assets/sound/disconnect.wav"
         },
-        "error": {
-            "name": "error",
-            "file": "/assets/sound/error.wav"
+        error: {
+            name: "error",
+            file: "/assets/sound/error.wav"
         },
-        "info": {
-            "name": "info",
-            "file": ""
+        info: {
+            name: "info",
+            file: ""
         },
-        "success": {
-            "name": "success",
-            "file": ""
+        success: {
+            name: "success",
+            file: ""
         },
-        "warning": {
-            "name": "warning",
-            "file": "/assets/sound/warning.wav"
+        warning: {
+            name: "warning",
+            file: "/assets/sound/warning.wav"
         },
-        "message_ioi": {
-            "name": "message_ioi",
-            "file": "/assets/sound/ioi.wav"
+        message_ioi: {
+            name: "message_ioi",
+            file: "/assets/sound/ioi.wav"
         },
-        "message_order": {
-            "name": "message_order",
-            "file": "/assets/sound/order.wav"
+        message_order: {
+            name: "message_order",
+            file: "/assets/sound/order.wav"
         },
-        "message_fill": {
-            "name": "message_fill",
-            "file": "/assets/sound/fill.wav"
+        message_fill: {
+            name: "message_fill",
+            file: "/assets/sound/fill.wav"
         },
-        "message_allocation": {
-            "name": "message_allocation",
-            "file": ""
+        message_allocation: {
+            name: "message_allocation",
+            file: ""
         }
     };
 

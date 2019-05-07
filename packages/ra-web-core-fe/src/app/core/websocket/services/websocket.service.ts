@@ -26,7 +26,7 @@ export class WebSocketService {
             const token = store.selectSnapshot(AuthState.getToken);
             this.ioOptions = {
                 query: {
-                    token: token
+                    token
                 }
             };
         }
@@ -69,7 +69,7 @@ export class WebSocketService {
             const token = store.selectSnapshot(AuthState.getToken);
             this.ioOptions = {
                 query: {
-                    token: token
+                    token
                 }
             };
         }
