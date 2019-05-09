@@ -13,6 +13,7 @@ export class ImgButtonComponent implements OnInit {
         label: "",
         visible: (data) => false,
         color: (data) => false,
+        display: (data) => false,
         icon: "",
     };
 
