@@ -1,2 +1,2 @@
-<img [matTooltip]="action.label" [ngClass]="{'nodisplay': !action.display(data), 'hide': !action.visible(data), 'font-red': (action.color && action.color(data)) }" class="click"
+<img [matTooltip]="action.label" [ngClass]="{'nodisplay': action.display && !action.display(data), 'hide': !action.visible(data), 'font-red': (action.color && action.color(data)) }" class="click"
     [src]="'assets/img/'+action.icon+'.svg'" (click)="click($event)">
