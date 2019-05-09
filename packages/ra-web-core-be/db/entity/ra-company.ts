@@ -49,6 +49,18 @@ export class RaCompany extends AEntity {
     @Column({ nullable: true })
     public state: string;
 
+    @Mapping(MappingRequirement.OPTIONAL)
+    @Column({ nullable: true })
+    public partyRole: string;
+
+    @Mapping(MappingRequirement.OPTIONAL)
+    @Column({ nullable: true })
+    public partyID: string;
+
+    @Mapping(MappingRequirement.OPTIONAL)
+    @Column({ nullable: true })
+    public partyIDSource: string;
+
     @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
     public createDate: Date;
 
