@@ -32,12 +32,6 @@
 		},
 		{
 			"path": "packages\\ra-web-platform-fe"
-		},
-		{
-			"path": "packages\\ra-wolt-be"
-		},
-		{
-			"path": "packages\\ra-wolt-fe"
 		}
 	],
 	"settings": {
