@@ -5,10 +5,8 @@ import { AuthDto } from "./dto/auth.dto";
 import { BearerData } from "./interfaces/bearer-data.interface";
 import { BearerToken } from "./interfaces/bearer-token.interface";
 import { SessionStore } from "@ra/web-core-be/sessions/providers/session-store.interface";
-import { EnvironmentService } from "@ra/web-env-be/environment.service";
 import * as uuid from "uuid/v4";
 import { Logger } from "@ra/web-core-be/logger/providers/logger";
-import { PreferencesService } from "@ra/web-core-be/preferences.service";
 import { VerifyProviderService } from "./verify-provider.service";
 import { SessionDataProviderService } from "./session-data-provider.service";
 import { SessionData } from "./session-data/session-data.interface";
@@ -22,15 +20,14 @@ export class AuthService {
         private readonly jwtService: JwtService,
         @Inject("sessions") private sessions: SessionStore,
         private verifyService: VerifyProviderService,
-        private preferencesService: PreferencesService,
         @Inject("logger") private logger: Logger,
-        private env: EnvironmentService,
         private sessionDataProviderService: SessionDataProviderService,
     ) {
-        this.sessionDataService = this.sessionDataProviderService.sessionDataService;
+
     }
 
     async createToken(auth: AuthDto): Promise<BearerToken> {
+        this.sessionDataService = this.sessionDataProviderService.sessionDataService;
         const entry: any = await this.verifyService.find(auth);
         if (entry === null) {
             return null;
