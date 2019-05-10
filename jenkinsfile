@@ -41,7 +41,6 @@ node("centos7"){
                     sh "npm install"
                     sh "cp packages/"+params.REPO_NAME+"/Dockerfile ./Dockerfile"
                     sh "cat Dockerfile"
-                    sh "sudo docker build . -t "+params.DOCKER_REGISTRY+"/"+params.REPO_NAME+":"+params.GIT_COMMIT+"-"+params.BRANCH_NAME
                     pushDocker(params.DOCKER_REGISTRY, params.REPO_NAME, params.GIT_COMMIT, params.BRANCH_NAME)
                 }
             }
