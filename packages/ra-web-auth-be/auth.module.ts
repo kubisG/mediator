@@ -9,8 +9,10 @@ import { WsAuthGuard } from "./guards/ws-auth.guard";
 import { RolesGuard } from "./guards/roles.guard";
 import { EnvironmentsModule } from "@ra/web-env-be/environments.module";
 import { EnvironmentService } from "@ra/web-env-be/environment.service";
-import { verifyServiceFactory } from "./verify.provider";
+import { verifyServiceFactory, sessionDataFactory } from "./verify.provider";
 import { DaoModule } from "@ra/web-dao/dao.module";
+import { VerifyProviderService } from "./verify-provider.service";
+import { SessionDataProviderService } from "./session-data-provider.service";
 
 @Module({
     imports: [
@@ -32,13 +34,18 @@ import { DaoModule } from "@ra/web-dao/dao.module";
         JwtStrategy,
         WsAuthGuard,
         RolesGuard,
+        sessionDataFactory,
         verifyServiceFactory,
+        VerifyProviderService,
+        SessionDataProviderService,
     ],
     exports: [
         AuthService,
         JwtStrategy,
         WsAuthGuard,
         RolesGuard,
+        VerifyProviderService,
+        SessionDataProviderService,
     ]
 })
 export class AuthModule { }

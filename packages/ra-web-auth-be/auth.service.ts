@@ -6,71 +6,44 @@ import { BearerData } from "./interfaces/bearer-data.interface";
 import { BearerToken } from "./interfaces/bearer-token.interface";
 import { SessionStore } from "@ra/web-core-be/sessions/providers/session-store.interface";
 import { EnvironmentService } from "@ra/web-env-be/environment.service";
-import { Verify } from "./verify/verify.interface";
 import * as uuid from "uuid/v4";
 import { Logger } from "@ra/web-core-be/logger/providers/logger";
 import { PreferencesService } from "@ra/web-core-be/preferences.service";
-import { RaUser } from "@ra/web-core-be/db/entity/ra-user";
+import { VerifyProviderService } from "./verify-provider.service";
+import { SessionDataProviderService } from "./session-data-provider.service";
+import { SessionData } from "./session-data/session-data.interface";
 
 @Injectable()
 export class AuthService {
+
+    private sessionDataService: SessionData;
+
     constructor(
         private readonly jwtService: JwtService,
         @Inject("sessions") private sessions: SessionStore,
-        @Inject("verifyService") private verifyService: Verify,
+        private verifyService: VerifyProviderService,
         private preferencesService: PreferencesService,
         @Inject("logger") private logger: Logger,
         private env: EnvironmentService,
-    ) { }
+        private sessionDataProviderService: SessionDataProviderService,
+    ) {
+        this.sessionDataService = this.sessionDataProviderService.sessionDataService;
+    }
 
     async createToken(auth: AuthDto): Promise<BearerToken> {
-        const entry: RaUser = await this.verifyService.find(auth);
+        const entry: any = await this.verifyService.find(auth);
         if (entry === null) {
             return null;
         }
         const sid = uuid.default ? uuid.default() : uuid();
-        const accessToken = this.jwtService.sign({ email: auth.email, sid });
+        const accessToken: string = this.jwtService.sign({ email: auth.email, sid });
         const tokenData: BearerData = this.jwtService.verify<BearerData>(accessToken);
 
-        const prefs = await this.preferencesService.findPrefs(entry.id);
-        const appPrefs = await this.preferencesService.findCompanyPrefs(entry.company.id);
+        const sessionData = await this.sessionDataService.getSessionData(entry, tokenData, accessToken);
+        const responseData = await this.sessionDataService.getResponseData(entry, tokenData, accessToken);
 
-        this.sessions.set(sid, {
-            email: tokenData.email,
-            sid: tokenData.sid,
-            iat: tokenData.iat,
-            exp: tokenData.exp,
-            compQueue: `${this.env.queue.prefixTrader}${entry.company.id}`,
-            compQueueTrader: `${this.env.queue.prefixTrader}${entry.company.id}`,
-            compQueueBroker: `${this.env.queue.prefixBroker}${entry.company.id}`,
-            compId: entry.company.id,
-            userId: entry.id,
-            role: entry.class,
-            companyName: entry.company.companyName,
-            nickName: entry.username,
-            app: entry.app,
-            appPrefs: appPrefs,
-            ClientID: entry.company.ClientID,
-        });
-        return {
-            expiresIn: this.env.auth.expiresIn,
-            accessToken,
-            role: entry.class,
-            rows: prefs ? prefs.rows : 5,
-            theme: prefs ? prefs.theme : "none",
-            id: entry.id,
-            firstName: entry.firstName,
-            lastName: entry.lastName,
-            companyName: entry.company.companyName,
-            nickName: entry.username,
-            compId: entry.company.id,
-            compQueue: `${this.env.queue.prefixTrader}${entry.company.id}`,
-            compQueueTrader: `${this.env.queue.prefixTrader}${entry.company.id}`,
-            compQueueBroker: `${this.env.queue.prefixBroker}${entry.company.id}`,
-            app: entry.app,
-            appPrefs: appPrefs,
-            ClientID: entry.company.ClientID,
-        };
+        this.sessions.set(sid, sessionData);
+        return responseData;
     }
 
 
@@ -96,22 +69,7 @@ export class AuthService {
         return await this.sessions.get(encodedToken.sid);
     }
 
-    public createDummyToken(companyId, userId, app): any {
-        return {
-            email: null,
-            sid: null,
-            iat: null,
-            exp: null,
-            compQueue: `${this.env.queue.prefixTrader}${companyId}`,
-            compQueueTrader: `${this.env.queue.prefixTrader}${companyId}`,
-            compQueueBroker: `${this.env.queue.prefixBroker}${companyId}`,
-            compId: Number(companyId),
-            userId: null,
-            role: null,
-            companyName: null,
-            nickName: null,
-            app: app,
-            appPrefs: null,
-        };
+    public createDummyToken(...args: any[]): any {
+        return this.sessionDataService.getDummyToken(args);
     }
 }
