@@ -88,6 +88,16 @@ export class EnvironmentService {
                     password: process.env.RABBIT_MQ_PASSWORD,
                     heartbeat: process.env.RABBIT_MQ_HEARTBEAT ? process.env.RABBIT_MQ_HEARTBEAT : 10,
                 },
+                nats: {
+                    host: process.env.NATS_HOST,
+                    port: Number(process.env.NATS_PORT),
+                    exchange: null,
+                    qTrader: null,
+                    qBroker: null,
+                    user: process.env.NATS_USER,
+                    password: process.env.NATS_PASSWORD,
+                    heartbeat: 10,
+                }
             }
         };
     }
