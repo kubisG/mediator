@@ -9,9 +9,11 @@ import { DxButtonModule } from "devextreme-angular/ui/button";
 import { DxTemplateModule } from "devextreme-angular/core/template";
 import { LoginFormComponent } from "./login-form/login-form.component";
 import { LostPasswordComponent } from './lost-password/lost-password.component';
+import { CoreModule } from '@ra/web-core-fe';
 @NgModule({
     imports: [
         CommonModule,
+        CoreModule,
         SharedModule,
         ReactiveFormsModule,
         FormsModule,

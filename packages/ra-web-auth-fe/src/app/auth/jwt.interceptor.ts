@@ -7,6 +7,7 @@ import { catchError } from "rxjs/operators";
 import { throwError } from "rxjs/internal/observable/throwError";
 import { EMPTY } from "rxjs/internal/observable/empty";
 import { Observable } from "rxjs/internal/Observable";
+import { AuthState } from "@ra/web-core-fe";
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {

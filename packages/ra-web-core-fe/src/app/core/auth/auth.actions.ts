@@ -1,3 +1,4 @@
+import { AuthStateModel } from './model/auth-state.model';
 
 export class Login {
     static readonly type = "[Auth] Login";
@@ -10,6 +11,13 @@ export class Login {
 export class Logout {
     static readonly type = "[Auth] Logout";
     constructor() { }
+}
+
+export class AuthData {
+    static readonly type = "[Auth] Data";
+    constructor(
+        public data: AuthStateModel,
+    ) { }
 }
 
 // Events
