@@ -1,3 +1,4 @@
+
 export class Login {
     static readonly type = "[Auth] Login";
     constructor(
@@ -8,6 +9,7 @@ export class Login {
 
 export class Logout {
     static readonly type = "[Auth] Logout";
+    constructor() { }
 }
 
 // Events

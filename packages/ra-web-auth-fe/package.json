@@ -23,11 +23,12 @@
         "@ngx-translate/core": "10.0.2",
         "@ngxs/storage-plugin": "3.2.0",
         "@ngxs/store": "3.2.0",
+        "@ra/web-core-fe": "^1.1.0",
         "@ra/web-material-fe": "^1.1.0",
         "@ra/web-shared-fe": "^1.1.0",
+        "core-js": "2.5.4",
         "devextreme": "18.2.6",
         "devextreme-angular": "18.2.6",
-        "core-js": "2.5.4",
         "rxjs": "6.5.1",
         "tslib": "1.9.0",
         "zone.js": "0.8.29"
