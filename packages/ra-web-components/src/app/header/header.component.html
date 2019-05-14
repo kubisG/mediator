@@ -1,0 +1,39 @@
+<mat-toolbar color="primary" class="fixed-header">
+    <span *ngIf="logoUrl && logoImg" class="ra-logo"><a href="{{logoUrl}}" target="_blank"><img
+                src="{{logoImg}}"></a></span>
+    <span title="{{appVersionLong}}">{{ appLabel }}</span>
+    <span *ngIf="appVersionLong && activeModule" class="slash-separator">-</span>
+    <span *ngIf="activeModule">{{ activeModule.label }}</span>
+    <span class="fill-remaining-space"></span>
+    <ra-header-alert-message *ngIf="alertMessage" [message]="alertMessage"></ra-header-alert-message>
+    <span class="fill-remaining-space"></span>
+    <span class="header-controls">
+        <span class="user-name" *ngIf="user">{{ user.companyName }} - {{ user.firstName }} {{ user.lastName }}</span>
+        <button *ngIf="messageButton" mat-icon-button (click)="messageButton.callBack()">
+            <mat-icon *ngIf="messageButton.count === 0">message</mat-icon>
+            <mat-icon *ngIf="messageButton.count > 0" [matBadge]="messageButton.count" matBadgePosition="before"
+                matBadgeColor="accent">
+                message</mat-icon>
+        </button>
+        <button *ngIf="cloudButton" mat-icon-button (click)="cloudButton.callBack()">
+            <mat-icon *ngIf="cloudButton.count > 0" [matBadge]="cloudButton.count" matBadgePosition="before"
+                matBadgeColor="accent">cloud_off</mat-icon>
+            <mat-icon *ngIf="cloudButton.count === 0">cloud_queue</mat-icon>
+        </button>
+        <button *ngIf="wifiButton" mat-icon-button>
+            <mat-icon *ngIf="!wifiButton.on">wifi_off</mat-icon>
+            <mat-icon *ngIf="wifiButton.on">wifi</mat-icon>
+        </button>
+        <button *ngIf="modules" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu *ngIf="modules" #menu="matMenu" [overlapTrigger]="false">
+            <button *ngFor="let module of modules" mat-menu-item routerLink="{{module.route}}"
+                (click)="activeModule = module">
+                <mat-icon>{{module.icon}}</mat-icon>
+                <span>{{module.label}}</span>
+            </button>
+        </mat-menu>
+    </span>
+</mat-toolbar>
+<div class="margin-header"></div>

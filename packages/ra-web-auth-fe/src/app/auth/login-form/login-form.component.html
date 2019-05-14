@@ -5,8 +5,8 @@
             <div id="login-fab" class="mdl-color--accent mdl-color-text--white">
                 <i id="lock-icon" class="material-icons">lock</i>
             </div>
-            <h2 class="card-heading" title="{{appVersionLong}}">
-                RA Order Manager {{appVersion}}
+            <h2 *ngIf="label" class="card-heading" title="{{appVersionLong}}">
+                {{label}}
             </h2>
             <form class="login-form" #loginForm="ngForm">
                 <mat-form-field>

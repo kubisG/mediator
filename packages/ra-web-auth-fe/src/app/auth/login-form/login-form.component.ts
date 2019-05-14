@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject } from "@angular/core";
+import { Component, OnInit, OnDestroy, Inject, Input } from "@angular/core";
 import { Store, Actions, ofActionDispatched } from "@ngxs/store";
 import { FormControl, Validators } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
@@ -15,8 +15,9 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     private logoutSub;
     private loginSub;
 
-    public appVersion = "";
-    public appVersionLong = "";
+    @Input() public appVersion = "";
+    @Input() public appVersionLong = "";
+    @Input() public label;
 
     public emailField: FormControl = new FormControl("", [Validators.required, Validators.email]);
     public passwordField: FormControl = new FormControl("", [Validators.required]);
