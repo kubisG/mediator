@@ -60,7 +60,7 @@ export class RaUserSessionData implements SessionData {
         };
     }
 
-    public async getDummyToken(companyId, userId, app): Promise<any> {
+    public getDummyToken(companyId, userId, app): any {
         return {
             email: null,
             sid: null,

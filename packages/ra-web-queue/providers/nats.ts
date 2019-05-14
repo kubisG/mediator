@@ -64,9 +64,8 @@ export class Nats implements Queue {
     private consumeChannel(queue: string) {
         this.initializedConsumersChannel[queue] = this.connection.subscribe(queue, (msg) => {
             if (msg !== null) {
-                const mess = JSON.parse(msg.content.toString());
                 this.consumeSubjects[queue].next({
-                    ...mess
+                    msg
                 });
             }
         });
@@ -144,9 +143,9 @@ export class Nats implements Queue {
      */
     public async sendToQueue(msg: any, queue: string): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.connection.publish(queue, Buffer.from(JSON.stringify(msg)), (err, ok) => {
+            this.connection.publish(queue, msg, (err, ok) => {
                 if (err) {
-                    reject(new QueueConnectionError("RMQ sendToQueue error", err));
+                    reject(new QueueConnectionError("NATS sendToQueue error", err));
                     return;
                 }
                 resolve(true);
@@ -157,7 +156,7 @@ export class Nats implements Queue {
     public createConsumers(queue: string): void {
         if (this.initializedConsumers.indexOf(queue) === -1) {
             this.initializedConsumers.push(queue);
-            this.logger.info(`AMPQ: CREATING CONSUMER FOR: ${queue}`);
+            this.logger.info(`NATS: CREATING CONSUMER FOR: ${queue}`);
             this.consumeSubjects[queue] = new Subject<any>();
             this.consumeSubjects$[queue] = this.consumeSubjects[queue].asObservable();
             this.consumeChannel(queue);
