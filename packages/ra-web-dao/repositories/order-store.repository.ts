@@ -9,7 +9,7 @@ import { Apps } from "@ra/web-core-be/enums/apps.enum";
 @EntityRepository(RaOrderStore)
 export class OrderStoreRepository extends Repository<RaOrderStore> {
 
-    public async getOrdersForCancel(side: any[], compId, userId, filtr) {
+    public async getOrdersForCancel(side: any[], compId, userId, filtr, ClientID) {
         const dateFrom = new Date();
         dateFrom.setHours(0, 0, 0, 0);
         const dateTo = new Date();
@@ -33,6 +33,9 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
             .andWhere("ord.Side in (:...side)", { side: side });
         if (filtr === "personal") {
             selectBuilder.andWhere("ord.user = :userId", { userId: userId });
+        }
+        if (ClientID) {
+            selectBuilder.andWhere("ord.\"ClientID\" = :clientId", { clientId: ClientID });
         }
         const result = await selectBuilder.getMany();
         for (let i = 0; i < result.length; i++) {
@@ -139,4 +142,31 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
             .getCount();
     }
 
+
+    public async getClients(companyId: number, app: number) {
+        const dateFrom = new Date();
+        dateFrom.setHours(0, 0, 0, 0);
+        const dateTo = new Date();
+        dateTo.setHours(23, 59, 59, 99);
+        const gtc = TIF.GoodTillCancel;
+        const gtd = TIF.GoodTillDate;
+
+        return await this.createQueryBuilder("ord")
+            .select("distinct ord.\"ClientID\"", "ClientID")
+            .where("ord.\"ClientID\" is not null and ord.\"OrdStatus\" in (:...AordStatus)", {
+                AordStatus:
+                    [OrdStatus.New, OrdStatus.PartiallyFilled, OrdStatus.Replaced, OrdStatus.PendingNew, OrdStatus.PendingReplace]
+            })
+            .andWhere("((ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo)"
+                + " or (ord.\"TimeInForce\" IN (:gtd) and ord.\"ExpireDate\" >= NOW())"
+                + " or (ord.\"TimeInForce\" IN (:gtc) and ord.\"OrdStatus\" not in (:...BordStatus)))"
+                , {
+                    dateFrom, dateTo, gtd, gtc, BordStatus:
+                        [OrdStatus.Canceled]
+                })
+            .andWhere("ord.company = :compId", { compId: companyId })
+            .andWhere("ord.app=:app", { app: app })
+            .orderBy("ord.ClientID", "DESC")
+            .getRawMany();
+    }
 }

@@ -268,23 +268,24 @@ export class RaOrderStore extends AEntity {
 
     @Mapping(MappingRequirement.OPTIONAL)
     @Column({ nullable: true })
-    @Index()
     public AllocRejCode: string;
 
     @Mapping(MappingRequirement.OPTIONAL)
     @Column({ nullable: true })
-    @Index()
     public LastCapacity: string;
 
     @Mapping(MappingRequirement.OPTIONAL)
     @Column({ nullable: true })
-    @Index()
     public LastLiquidityInd: string;
 
     @Mapping(MappingRequirement.OPTIONAL)
     @Column({ nullable: true })
-    @Index()
     public LocateReqd: string;
+
+    @Mapping(MappingRequirement.OPTIONAL)
+    @Column({ nullable: true })
+    @Index()
+    public ClientID: string;    
 
     @Mapping(MappingRequirement.OPTIONAL)
     @Column({ type: "timestamptz", nullable: true })
