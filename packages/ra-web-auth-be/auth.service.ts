@@ -68,6 +68,6 @@ export class AuthService {
 
     public createDummyToken(...args: any[]): any {
         this.sessionDataService = this.sessionDataProviderService.sessionDataService;        
-        return this.sessionDataService.getDummyToken(args);
+        return this.sessionDataService.getDummyToken(...args);
     }
 }
