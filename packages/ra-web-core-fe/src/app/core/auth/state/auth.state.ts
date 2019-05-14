@@ -1,8 +1,6 @@
 import { NgxsOnInit, StateContext, State, Store, Selector, Action } from "@ngxs/store";
 import { AuthStateModel } from "../model/auth-state.model";
-import { Login, LoginSuccess, LoginFailed, Logout, LogoutSuccess } from '../auth.actions';
-import { Injector, ApplicationRef } from "@angular/core";
-import { AuthService } from '../auth.service';
+import { Login, Logout, AuthData, LoginSuccess, LogoutSuccess } from '../auth.actions';
 
 @State<AuthStateModel>({
     name: "auth",
@@ -14,9 +12,7 @@ import { AuthService } from '../auth.service';
 })
 export class AuthState implements NgxsOnInit {
 
-    constructor(
-        private authService: AuthService,
-    ) { }
+    constructor() { }
 
     @Selector()
     static getToken(state: AuthStateModel): string {
@@ -25,31 +21,26 @@ export class AuthState implements NgxsOnInit {
 
     @Action(Login)
     public login(ctx: StateContext<AuthStateModel>, action: Login) {
-        console.log(this.authService);
-        // return this.authService.login(action.email, action.password).then(
-        //     (data) => {
-        //         ctx.setState(data);
-        //         ctx.dispatch(new LoginSuccess(data));
-        //     })
-        //     .catch((error) => {
-        //         ctx.dispatch(new LoginFailed(error));
-        //     });
+        return action;
     }
 
     @Action(Logout)
     public logout(ctx: StateContext<AuthStateModel>, action: Logout) {
-        // const logoutCallBack = (data) => {
-        //     ctx.setState({
-        //         expiresIn: null,
-        //         accessToken: null,
-        //         payload: {}
-        //     });
-        //     ctx.dispatch(new LogoutSuccess(data));
-        // };
-        // return this.authService.logout().then(logoutCallBack).catch(logoutCallBack);
+        ctx.setState({
+            expiresIn: null,
+            accessToken: null,
+            payload: {}
+        });
+        ctx.dispatch(LogoutSuccess);
     }
 
-    ngxsOnInit(ctx: StateContext<AuthStateModel>) {
+    @Action(AuthData)
+    public setAuthData(ctx: StateContext<AuthStateModel>, action: AuthData) {
+        ctx.setState(action.data);
+        ctx.dispatch(LoginSuccess);
+    }
+
+    public ngxsOnInit(ctx: StateContext<AuthStateModel>) {
 
     }
 

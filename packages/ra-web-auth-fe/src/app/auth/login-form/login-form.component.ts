@@ -3,7 +3,7 @@ import { Store, Actions, ofActionDispatched } from "@ngxs/store";
 import { FormControl, Validators } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import { DOCUMENT } from "@angular/common";
-import { Login, AuthState, Logout, LoginSuccess, LoginFailed } from "@ra/web-core-fe";
+import { Login, AuthState, Logout, LoginSuccess } from "@ra/web-core-fe";
 @Component({
     selector: "ra-login-form",
     templateUrl: "./login-form.component.html",
@@ -27,7 +27,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
         private store: Store,
         private actions: Actions,
         private translate: TranslateService,
-        @Inject(DOCUMENT) private document: any
+        @Inject(DOCUMENT) private document: any,
     ) { }
 
     /**
@@ -52,7 +52,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
 
     private loginAction() {
         this.loginSub = this.actions.pipe(ofActionDispatched(LoginSuccess)).subscribe(() => {
-            console.log("private loginAction");
+
         });
     }
 
@@ -61,9 +61,6 @@ export class LoginFormComponent implements OnInit, OnDestroy {
         this.loadTranslations();
         this.dispatchLogout();
         this.loginAction();
-        this.logoutSub = this.actions.pipe(ofActionDispatched(LoginFailed)).subscribe((eee) => {
-
-        });
     }
 
     ngOnDestroy() {
