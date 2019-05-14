@@ -1,12 +1,9 @@
 import { Component, OnInit, OnDestroy, Inject } from "@angular/core";
 import { Store, Actions, ofActionDispatched } from "@ngxs/store";
-import { Router } from "@angular/router";
 import { FormControl, Validators } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import { DOCUMENT } from "@angular/common";
-import { Login, Logout, LoginSuccess, LoginFailed } from "../auth.actions";
-import { AuthState } from "../state/auth.state";
-
+import { Login, AuthState, Logout, LoginSuccess, LoginFailed } from "@ra/web-core-fe";
 @Component({
     selector: "ra-login-form",
     templateUrl: "./login-form.component.html",
@@ -15,8 +12,8 @@ import { AuthState } from "../state/auth.state";
 export class LoginFormComponent implements OnInit, OnDestroy {
 
     private transSub;
-    private loginSub;
     private logoutSub;
+    private loginSub;
 
     public appVersion = "";
     public appVersionLong = "";
@@ -29,7 +26,6 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     constructor(
         private store: Store,
         private actions: Actions,
-        private router: Router,
         private translate: TranslateService,
         @Inject(DOCUMENT) private document: any
     ) { }
@@ -56,7 +52,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
 
     private loginAction() {
         this.loginSub = this.actions.pipe(ofActionDispatched(LoginSuccess)).subscribe(() => {
-
+            console.log("private loginAction");
         });
     }
 
@@ -73,9 +69,6 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         if (this.transSub) {
             this.transSub.unsubscribe();
-        }
-        if (this.loginSub) {
-            this.loginSub.unsubscribe();
         }
         if (this.logoutSub) {
             this.logoutSub.unsubscribe();
