@@ -14,6 +14,7 @@ import { RaCounterParty } from "./entity/ra-counter-party";
 import { RaOrderRel } from "./entity/ra-order-rel";
 import { RaPortfolioAudit } from "./entity/ra-portfolio-audit";
 import { RaOrderStoreAudit } from "./entity/ra-order-store-audit";
+import { RaCurrency } from "./entity/ra-currency";
 
 export const entities = [
     RaUser,
@@ -28,6 +29,7 @@ export const entities = [
     RaAllocationMessage,
     RaIoi,
     RaStock,
+    RaCurrency,
     RaCounterParty,
     RaOrderRel,
     RaPortfolioAudit,

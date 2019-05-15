@@ -137,6 +137,7 @@ export class EnvironmentService {
     get stockDataService() {
         return {
             baseUrl: this.conf.get("stockDataService.baseUrl"),
+            currUrl: this.conf.get("stockDataService.currUrl"),
             apiKey: this.conf.get("stockDataService.apiKey")
         };
     }
