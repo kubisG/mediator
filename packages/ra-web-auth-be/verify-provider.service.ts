@@ -5,9 +5,9 @@ import { AuthDto } from "./dto/auth.dto";
 @Injectable()
 export class VerifyProviderService {
 
-    constructor(
-        @Inject("verifyService") public verifyService: Verify,
-    ) { }
+    public verifyService: Verify
+
+    constructor() { }
 
     public setVerifyService(verifyService: Verify) {
         this.verifyService = verifyService;

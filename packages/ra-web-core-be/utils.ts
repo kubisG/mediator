@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import * as crypto from "crypto";
 import * as bcrypt from "bcryptjs";
-import { INestApplication } from "@nestjs/common";
 
 export const GATEWAY_METADATA = "__isGateway";
 export const PORT_METADATA = "port";
