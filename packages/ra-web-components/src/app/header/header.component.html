@@ -24,15 +24,21 @@
             <mat-icon *ngIf="!wifiButton.on">wifi_off</mat-icon>
             <mat-icon *ngIf="wifiButton.on">wifi</mat-icon>
         </button>
-        <button *ngIf="modules" mat-icon-button [matMenuTriggerFor]="menu">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>menu</mat-icon>
         </button>
-        <mat-menu *ngIf="modules" #menu="matMenu" [overlapTrigger]="false">
-            <button *ngFor="let module of modules" mat-menu-item routerLink="{{module.route}}"
-                (click)="activeModule = module">
-                <mat-icon>{{module.icon}}</mat-icon>
-                <span>{{module.label}}</span>
-            </button>
+        <mat-menu #menu="matMenu" [overlapTrigger]="false">
+            <span *ngFor="let module of menuItems | async">
+                <button *ngIf="module.route" mat-menu-item routerLink="{{module.route}}"
+                    (click)="menuItemClick(module)">
+                    <mat-icon>{{module.icon}}</mat-icon>
+                    <span>{{module.label}}</span>
+                </button>
+                <button mat-menu-item (click)="menuItemClick(module)">
+                    <mat-icon>{{module.icon}}</mat-icon>
+                    <span>{{module.label}}</span>
+                </button>
+            </span>
         </mat-menu>
     </span>
 </mat-toolbar>
