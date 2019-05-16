@@ -169,4 +169,25 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
             .orderBy("ord.ClientID", "DESC")
             .getRawMany();
     }
+
+    public async updateDFD(data: any) {
+        const gtc = TIF.GoodTillCancel;
+        const gtd = TIF.GoodTillDate;
+        const orders = await this.createQueryBuilder("ord")
+            .where("ord.\"OrdStatus\" = 'DoneForDay'"
+                + " and ((ord.\"TimeInForce\" IN (:gtd) and ord.\"ExpireDate\" >= NOW())"
+                + " or (ord.\"TimeInForce\" IN (:gtc)))",
+                { gtd: gtd, gtc: gtc })
+            .getMany();
+
+        for (let i = 0; i < orders.length; i++) {
+            let ordStatus = OrdStatus.DoneForDay;
+            if ((orders[i].CumQty === 0) && (orders[i].LeavesQty > 0)) {
+                ordStatus = OrdStatus.New;
+            } else if ((orders[i].CumQty > 0) && (orders[i].LeavesQty > 0)) {
+                ordStatus = OrdStatus.PartiallyFilled;
+            }
+            this.update({id: orders[i].id}, {OrdStatus: ordStatus});
+        }
+    }
 }
