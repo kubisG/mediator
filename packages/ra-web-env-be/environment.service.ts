@@ -97,6 +97,8 @@ export class EnvironmentService {
                     user: process.env.NATS_USER,
                     password: process.env.NATS_PASSWORD,
                     heartbeat: 10,
+                    dataQueue: process.env.NATS_QUEUE_DATA,
+                    requestQueue: process.env.NATS_QUEUE_REQUEST,
                 }
             }
         };

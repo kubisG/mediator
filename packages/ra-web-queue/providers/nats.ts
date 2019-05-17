@@ -47,7 +47,7 @@ export class Nats implements Queue {
         });
         connection.on("reconnecting", () => {
             this.logger.warn("NATS CONNECTION RECONNECTING");
-        });        
+        });
     }
 
     private async createConnection() {
@@ -64,9 +64,7 @@ export class Nats implements Queue {
     private consumeChannel(queue: string) {
         this.initializedConsumersChannel[queue] = this.connection.subscribe(queue, (msg) => {
             if (msg !== null) {
-                this.consumeSubjects[queue].next({
-                    msg
-                });
+                this.consumeSubjects[queue].next(msg);
             }
         });
     }
@@ -95,7 +93,7 @@ export class Nats implements Queue {
     }
 
     public reconsumeChannel() {
-        this.initializedConsumers.forEach((queue) => {            
+        this.initializedConsumers.forEach((queue) => {
             this.logger.info(`NATS: RECONSUME CHANNEL: ${queue}`);
             this.unsubscribeChannel(queue);
             this.consumeChannel(queue);
@@ -174,7 +172,7 @@ export class Nats implements Queue {
     public async createQueue(queue: string) {
         // dummy for NATS
         return null;
-    }    
+    }
 
     public consumeQueue(queue: string): Observable<any> {
         this.createConsumers(queue);
