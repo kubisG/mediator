@@ -19,22 +19,41 @@
 			"path": "packages\\ra-web-core-fe"
 		},
 		{
-			"path": "packages\\ra-web-dao"
-		},
-		{
 			"path": "packages\\ra-web-env-be"
 		},
 		{
 			"path": "packages\\ra-web-env-fe"
 		},
 		{
+			"path": "packages\\ra-web-material-fe"
+		},
+		{
+			"path": "packages\\ra-web-modules-fe"
+		},
+		{
+			"path": "packages\\ra-web-monitor-be"
+		},
+		{
+			"path": "packages\\ra-web-monitor-fe"
+		},
+		{
 			"path": "packages\\ra-web-platform-be"
 		},
 		{
 			"path": "packages\\ra-web-platform-fe"
+		},
+		{
+			"path": "packages\\ra-web-queue"
+		},
+		{
+			"path": "packages\\ra-web-shared-fe"
 		}
 	],
 	"settings": {
-		"typescript.tsdk": "ra-trader-be\\node_modules\\typescript\\lib"
+		"files.exclude": {
+			"**/*.d.ts": true,
+			"**/*.js": true,
+			"**/*.js.map": true
+		}
 	}
 }

@@ -9,8 +9,6 @@ import { WsAuthGuard } from "./guards/ws-auth.guard";
 import { RolesGuard } from "./guards/roles.guard";
 import { EnvironmentsModule } from "@ra/web-env-be/environments.module";
 import { EnvironmentService } from "@ra/web-env-be/environment.service";
-import { verifyServiceFactory, sessionDataFactory } from "./verify.provider";
-import { DaoModule } from "@ra/web-dao/dao.module";
 import { VerifyProviderService } from "./verify-provider.service";
 import { SessionDataProviderService } from "./session-data-provider.service";
 
@@ -18,7 +16,6 @@ import { SessionDataProviderService } from "./session-data-provider.service";
     imports: [
         CoreModule,
         EnvironmentsModule,
-        DaoModule,
         PassportModule.register({ defaultStrategy: "jwt" }),
         JwtModule.register({
             secretOrPrivateKey: EnvironmentService.instance.auth.secretKey,
@@ -34,8 +31,6 @@ import { SessionDataProviderService } from "./session-data-provider.service";
         JwtStrategy,
         WsAuthGuard,
         RolesGuard,
-        sessionDataFactory,
-        verifyServiceFactory,
         VerifyProviderService,
         SessionDataProviderService,
     ],
