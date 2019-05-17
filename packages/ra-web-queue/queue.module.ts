@@ -6,8 +6,7 @@ import { CoreModule } from "@ra/web-core-be/core.module";
         CoreModule,
     ],
     controllers: [],
-    providers: [
-    ]
+    providers: []
 })
 export class QueueModule {
 }
