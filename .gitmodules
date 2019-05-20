@@ -21,3 +21,6 @@
 [submodule "packages/ra-web-forms-fe"]
 	path = packages/ra-web-forms-fe
 	url = git@bitbucket.org:rapid-addition/ra-web-forms-fe.git
+[submodule "packages/ra-web-forms-be"]
+	path = packages/ra-web-forms-be
+	url = git@bitbucket.org:rapid-addition/ra-web-forms-be.git
