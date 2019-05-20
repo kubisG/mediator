@@ -50,6 +50,12 @@
 		},
 		{
 			"path": "packages\\ra-web-forms-fe"
+		},
+		{
+			"path": "packages\\ra-web-components"
+		},
+		{
+			"path": "packages\\ra-web-ee-router"
 		}
 	],
 	"settings": {
