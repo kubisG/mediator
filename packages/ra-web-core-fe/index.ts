@@ -14,3 +14,5 @@ export { AuthStateModel } from "./src/app/core/auth/model/auth-state.model";
 export { CoreModule } from "./src/app/core/core.module";
 export { WebSocketService } from "./src/app/core/websocket/services/websocket.service";
 export { WebSocketSetup, WebSocketEvent } from "./src/app/core/websocket/decorators/websocket-service.decorator";
+export { ChannelsMap } from "./src/app/core/channels-map";
+export { LayoutEvents } from "./src/app/core/enums/layout-events.enum";
