@@ -33,5 +33,4 @@ export class JwtInterceptor implements HttpInterceptor {
         // return next.handle(authReq).catch(x => this.handleAuthError(x));
         return next.handle(authReq).pipe(catchError(x => this.handleAuthError(x)));
     }
-
 }
