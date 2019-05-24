@@ -1,8 +1,12 @@
-0 silly argv { _: [ 'bootstrap' ],
-0 silly argv   hoist: true,
+0 silly argv { _: [ 'add' ],
+0 silly argv   scope: '@ra/web-forms-fe',
+0 silly argv   globs: [],
 0 silly argv   lernaVersion: '3.13.3',
-0 silly argv   '$0': 'node_modules\\lerna\\cli.js' }
+0 silly argv   '$0': 'lerna',
+0 silly argv   pkg: '@ra/web-component' }
 1 notice cli v3.13.3
-2 verbose rootPath C:\Users\Jirin\Documents\NetbeansProjects\rapid-addition\ra-web
+2 verbose rootPath /home/ladin/rapid/git/ra-web
 3 info versioning independent
-4 error
+4 error Error: 404 Not Found - GET https://registry.npmjs.org/@ra%2fweb-component - Not found
+4 error     at res.buffer.catch.then.body (/home/ladin/rapid/git/ra-web/node_modules/npm-registry-fetch/check-response.js:104:15)
+4 error     at <anonymous>

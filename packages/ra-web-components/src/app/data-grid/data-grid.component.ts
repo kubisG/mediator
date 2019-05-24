@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { DataGridService } from './data-grid.service';
-import DataSource from 'devextreme/data/data_source';
+import { Component, Input, OnInit, ChangeDetectionStrategy, EventEmitter, Output, ViewChild } from "@angular/core";
+import DataSource from "devextreme/data/data_source";
 import ArrayStore from "devextreme/data/array_store";
+import { DxDataGridComponent } from "devextreme-angular";
 
 @Component({
     selector: "ra-data-grid",
@@ -9,9 +9,11 @@ import ArrayStore from "devextreme/data/array_store";
     styleUrls: ["./data-grid.component.less"],
 })
 export class DataGridComponent implements OnInit {
-
-    public _data: any[];
-    public _updates: any[];
+    @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;
+    
+    public inicialized = false;
+    private currentKey = -1;
+    private _inserts: any[];
     public _columns: any[];
     public _key: string;
     public dataSource: DataSource;
@@ -19,81 +21,110 @@ export class DataGridComponent implements OnInit {
 
     public ids: string[] = [];
 
-    @Input() set data(data: any) {
-        this._data = data;
-        this.insert(data);
-        this.reloadIdsMap(this._data);
-    };
+    @Input() set data(rows: any[]) {
+        this._inserts = rows;
+        this.reloadIdsMap(rows);
+    }
 
-    @Input() set updates(updates: any[]) {
-        this._updates = updates;
-        this.update(updates);
-        this.reloadIdsMap(this._updates);
-    };
+    @Input() set updates(rows: any[]) {
+        this.reloadIdsMap(rows);
+    }
+
+    @Input() set removes(rows: any[]) {
+        this.reloadIdsMap(rows, "D");
+    }
 
     @Input() set key(key: string) {
         this._key = key;
-        this.setIdKey(key, this.data);
-        this.reloadIdsMap(this._data);
-        this.reloadIdsMap(this._updates);
-        this.initDataSource(this.arrayStore);
-    };
+        this.setIdKey(key);
+    }
 
     @Input() set columns(columns: any[]) {
         this._columns = columns;
-    };
+    }
+
+    @Output() rowClick: EventEmitter<any> = new EventEmitter();
 
     constructor() { }
 
-    private initDataSource(store: ArrayStore) {
-        this.dataSource = new DataSource({
-            store: store,
-            reshapeOnPush: true
-        });
+    public setIdKey(key: string, initData?: any[]) {
+        this._key = key;
+        this.initGrid();
     }
 
-    private initStore(initData: any[]) {
+    private initGrid() {
         this.arrayStore = new ArrayStore({
             key: this._key,
-            data: initData
+            data: this._inserts
         });
+
+        this.dataSource = new DataSource({
+            store: this.arrayStore,
+            reshapeOnPush: true
+        });
+        this.inicialized = true;
+
     }
 
-    public insert(data: any[]) {
-        for (let i = 0; i < data.length; i++) {
-            const row = data[i];
-            if (this.ids.indexOf(row[this._key]) === -1) {
-                this.arrayStore.push([{ type: "insert", data: row }]);
-            }
+    public insert(row: any) {
+        if (this.inicialized) {
+            this.arrayStore.push([{ type: "insert", data: row }]);
         }
     }
 
-    public update(data: any[]) {
-        for (let i = 0; i < data.length; i++) {
-            const row = data[i];
+    public update(row: any) {
+        if (this.inicialized) {
             this.arrayStore.push([{ type: "update", data: row, key: row[this._key] }]);
         }
     }
 
-    public delete(data: any[]) {
-
+    public delete(row: any) {
+        if (this.inicialized) {
+            this.arrayStore.push([{ type: "remove", key: row[this._key] }]);
+        }
     }
 
-    public setIdKey(key: string, initData?: any[]) {
-        this._key = key;
-        this.initStore(initData);
-    }
-
-    public reloadIdsMap(data: any[]) {
+    public reloadIdsMap(data: any[], action = "N") {
         if (!this._key || !data) {
             return;
         }
         for (let i = 0; i < data.length; i++) {
             const row = data[i];
-            if (this.ids.indexOf(row[this._key]) === -1) {
-                this.ids.push(row[this._key]);
+            if (action === "D") {
+                const index = this.ids.indexOf(row[this._key]);
+                if (index !== -1) {
+                    this.ids.splice(index, 1);
+                    this.delete(row);
+                }
+            } else {
+                if (this.ids.indexOf(row[this._key]) === -1) {
+                    this.ids.push(row[this._key]);
+                    this.insert(row);
+                } else {
+                    this.update(row);
+                }
             }
         }
+    }
+
+    public onRowClick(e) {
+        if (e.rowType !== "data") { return; }
+        if (this.currentKey > -1) {
+            const prevIndex = this.dataGrid.instance.getRowIndexByKey(this.currentKey);
+
+            (this.dataGrid.instance.getRowElement(prevIndex) as any[])
+                .forEach(el => el.classList.remove("highlightColor"));
+        }
+
+        if (this.currentKey === e.key) {
+            this.currentKey = null;
+        } else {
+            this.currentKey = e.key;
+            (this.dataGrid.instance.getRowElement(e.rowIndex) as any[])
+                .forEach(el => el.classList.add("highlightColor"));
+        }
+
+        this.rowClick.emit(e);
     }
 
     public ngOnInit(): void {
