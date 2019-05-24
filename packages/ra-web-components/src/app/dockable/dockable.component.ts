@@ -12,13 +12,14 @@ export abstract class DockableComponent implements GlOnTab, OnDestroy {
     private initialized = false;
     private config: DockableConfig;
 
-    protected componentFactoryResolver: ComponentFactoryResolver;
-    protected injector: Injector;
-    protected applicationRef: ApplicationRef;
     protected componentRefTab: ComponentRef<any>;
     protected componentRefHeader: ComponentRef<any>;
 
-    constructor() { }
+    constructor(
+        protected componentFactoryResolver: ComponentFactoryResolver,
+        protected injector: Injector,
+        protected applicationRef: ApplicationRef,
+    ) { }
 
     private createComponentRef(componentType: Type<any>) {
         const factory = this.componentFactoryResolver.resolveComponentFactory(componentType);
