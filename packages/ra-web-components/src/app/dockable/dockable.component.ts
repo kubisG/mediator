@@ -54,7 +54,9 @@ export abstract class DockableComponent implements GlOnTab, OnDestroy {
 
     private appendHeader() {
         if (this.componentRefHeader && this.canAppend()) {
-            (this.tab.header.controlsContainer as any).append($(this.componentRefHeader.location.nativeElement));
+            const li = $(`<li></li>`);
+            li.append($(this.componentRefHeader.location.nativeElement));
+            (this.tab.header.controlsContainer as any).prepend(li);
         }
     }
 
