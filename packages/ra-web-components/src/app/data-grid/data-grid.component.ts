@@ -10,7 +10,7 @@ import { DxDataGridComponent } from "devextreme-angular";
 })
 export class DataGridComponent implements OnInit {
     @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;
-    
+
     public inicialized = false;
     private currentKey = -1;
     private _inserts: any[];
@@ -69,18 +69,21 @@ export class DataGridComponent implements OnInit {
     public insert(row: any) {
         if (this.inicialized) {
             this.arrayStore.push([{ type: "insert", data: row }]);
+            this.currentKey = null;
         }
     }
 
     public update(row: any) {
         if (this.inicialized) {
             this.arrayStore.push([{ type: "update", data: row, key: row[this._key] }]);
+            this.currentKey = null;
         }
     }
 
     public delete(row: any) {
         if (this.inicialized) {
-            this.arrayStore.push([{ type: "remove", key: row[this._key] }]);
+            this.arrayStore.push([{ type: "remove", key: row }]);
+            this.currentKey = null;
         }
     }
 
@@ -91,7 +94,7 @@ export class DataGridComponent implements OnInit {
         for (let i = 0; i < data.length; i++) {
             const row = data[i];
             if (action === "D") {
-                const index = this.ids.indexOf(row[this._key]);
+                const index = this.ids.indexOf(row);
                 if (index !== -1) {
                     this.ids.splice(index, 1);
                     this.delete(row);
