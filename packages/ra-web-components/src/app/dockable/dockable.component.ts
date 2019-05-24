@@ -32,8 +32,12 @@ export abstract class DockableComponent implements GlOnTab, OnDestroy {
             return;
         }
         this.config = Reflect.getMetadata(DOCKABLE_CONFIG, this.constructor);
-        this.componentRefTab = this.createComponentRef(this.config.tab.component);
-        this.componentRefHeader = this.createComponentRef(this.config.header.component);
+        if (this.config.tab) {
+            this.componentRefTab = this.createComponentRef(this.config.tab.component);
+        }
+        if (this.config.header) {
+            this.componentRefHeader = this.createComponentRef(this.config.header.component);
+        }
         this.initialized = true;
     }
 
@@ -45,7 +49,7 @@ export abstract class DockableComponent implements GlOnTab, OnDestroy {
         for (let i = 0; i < controls.length; i++) {
             const child = controls[i];
             const tagName = this.componentRefHeader.location.nativeElement.tagName;
-            if (child.tagName === tagName) {
+            if (child.childNodes.length > 0 && child.childNodes[0].tagName === tagName) {
                 return false;
             }
         }
@@ -78,10 +82,14 @@ export abstract class DockableComponent implements GlOnTab, OnDestroy {
     }
 
     public ngOnDestroy() {
-        this.applicationRef.detachView(this.componentRefTab.hostView);
-        this.componentRefTab.destroy();
-        this.applicationRef.detachView(this.componentRefHeader.hostView);
-        this.componentRefHeader.destroy();
+        if (this.componentRefTab) {
+            this.applicationRef.detachView(this.componentRefTab.hostView);
+            this.componentRefTab.destroy();
+        }
+        if (this.componentRefHeader) {
+            this.applicationRef.detachView(this.componentRefHeader.hostView);
+            this.componentRefHeader.destroy();
+        }
     }
 
 }
