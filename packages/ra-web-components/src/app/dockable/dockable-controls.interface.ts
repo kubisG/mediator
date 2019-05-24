@@ -1,4 +1,4 @@
-export interface DockableControls<T, U> {
-    data: T;
-    result: U;
+export interface DockableControls<InputData, ComponentResult> {
+    data: InputData;
+    result: ComponentResult;
 }

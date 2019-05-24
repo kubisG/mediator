@@ -7,3 +7,4 @@ export { DataGridModule } from "./src/app/data-grid/data-grid.module";
 export { DockableComponent } from "./src/app/dockable/dockable.component";
 export { Dockable, DOCKABLE_CONFIG } from "./src/app/dockable/decorators/dockable.decorators";
 export { DockableControls } from "./src/app/dockable/dockable-controls.interface";
+export { DockableModule } from "./src/app/dockable/dockable.module";
