@@ -157,7 +157,6 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, OnDestroy 
     }
 
     public glOnShow(): void {
-        console.log("SHOW", this.tab);
         const controls: any = (this.tab.header.controlsContainer as any).get(0).childNodes;
         for (let i = 0; i < controls.length; i++) {
             const child = controls[i];
