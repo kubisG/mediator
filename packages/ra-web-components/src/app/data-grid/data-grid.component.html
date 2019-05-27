@@ -1,5 +1,5 @@
 <div *ngIf="dataSource && inicialized" class="ra-data-grid">
     <dx-data-grid [repaintChangesOnly]="true" [dataSource]="dataSource" [columns]="_columns"
-        (onRowClick)="onRowClick($event)" (onRowUpdated)="onRowUpdated($event)">
+        (onRowClick)="onRowClick($event)" (onRowPrepared)="onRowPrepared($event)">
     </dx-data-grid>
 </div>

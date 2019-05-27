@@ -121,17 +121,15 @@ export class DataGridComponent implements OnInit {
             this.currentKey = null;
         } else {
             this.currentKey = e.key;
-            (this.dataGrid.instance.getRowElement(e.rowIndex) as any[])
-                .forEach(el => el.classList.add("highlightColor"));
+            e.rowElement.classList.add("highlightColor");
         }
 
         this.rowClick.emit(e);
     }
 
-    public onRowUpdated(e) {
+    public onRowPrepared(e) {
         if (this.currentKey === e.key) {
-            (this.dataGrid.instance.getRowElement(e.rowIndex) as any[])
-                .forEach(el => el.classList.add("highlightColor"));
+            e.rowElement.classList.add("highlightColor");
         }
     }
 
