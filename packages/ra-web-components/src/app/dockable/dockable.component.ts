@@ -1,6 +1,6 @@
 import { Reflect } from "core-js";
 import { ComponentFactoryResolver, Injector, Type, ApplicationRef, OnDestroy, ComponentRef, EventEmitter } from "@angular/core";
-import { GlOnTab, GlOnShow } from '@embedded-enterprises/ng6-golden-layout';
+import { GlOnTab, GlOnShow, GlOnHide } from '@embedded-enterprises/ng6-golden-layout';
 import * as GoldenLayout from 'golden-layout';
 import * as $ from "jquery";
 import { DOCKABLE_CONFIG } from './decorators/dockable.decorators';
@@ -119,7 +119,7 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, OnDestroy 
 
     private appendTab() {
         if (this.componentRefTab) {
-            (this.tab.element as any).append($(this.componentRefTab.location.nativeElement));
+            (this.tab.element as any).prepend($(this.componentRefTab.location.nativeElement));
         }
     }
 
@@ -157,14 +157,15 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, OnDestroy 
     }
 
     public glOnShow(): void {
-        // const controls: any = (this.tab.header.controlsContainer as any).get(0).childNodes;
-        // for (let i = 0; i < controls.length; i++) {
-        //     const child = controls[i];
-        //     if (child.className === "ra-custom-header") {
-        //         child.remove();
-        //     }
-        // }
-        // this.appendHeader();
+        console.log("SHOW", this.tab);
+        const controls: any = (this.tab.header.controlsContainer as any).get(0).childNodes;
+        for (let i = 0; i < controls.length; i++) {
+            const child = controls[i];
+            if (child.className === "ra-custom-header") {
+                child.remove();
+            }
+        }
+        this.appendHeader();
     }
 
     public ngOnDestroy() {
