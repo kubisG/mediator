@@ -1,6 +1,6 @@
 import { Reflect } from "core-js";
 import { ComponentFactoryResolver, Injector, Type, ApplicationRef, OnDestroy, ComponentRef, EventEmitter } from "@angular/core";
-import { GlOnTab, GlOnShow, GlOnHide } from '@embedded-enterprises/ng6-golden-layout';
+import { GlOnTab, GlOnShow } from '@embedded-enterprises/ng6-golden-layout';
 import * as GoldenLayout from 'golden-layout';
 import * as $ from "jquery";
 import { DOCKABLE_CONFIG } from './decorators/dockable.decorators';
