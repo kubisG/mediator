@@ -1,13 +1,13 @@
 import { Reflect } from "core-js";
 import { ComponentFactoryResolver, Injector, Type, ApplicationRef, OnDestroy, ComponentRef, EventEmitter } from "@angular/core";
-import { GlOnTab } from '@embedded-enterprises/ng6-golden-layout';
+import { GlOnTab, GlOnShow } from '@embedded-enterprises/ng6-golden-layout';
 import * as GoldenLayout from 'golden-layout';
 import * as $ from "jquery";
 import { DOCKABLE_CONFIG } from './decorators/dockable.decorators';
 import { DockableConfig } from './decorators/dockable-config.interface';
 import { ComponentsMapService } from './components-map.service';
 
-export abstract class DockableComponent implements GlOnTab, OnDestroy {
+export abstract class DockableComponent implements GlOnTab, GlOnShow, OnDestroy {
 
     private elemetCid = "cId";
     private tab: GoldenLayout.Tab;
@@ -48,7 +48,7 @@ export abstract class DockableComponent implements GlOnTab, OnDestroy {
     }
 
     private getComponentSelector(componentType: Type<any>) {
-        return (componentType as any).__annotations__[0].selector.toUpperCase()
+        return (componentType as any).__annotations__[0].selector.toUpperCase();
     }
 
     private getComponentRef(componentType: Type<any>) {
@@ -110,7 +110,7 @@ export abstract class DockableComponent implements GlOnTab, OnDestroy {
             const header = $(this.componentRefHeader.location.nativeElement);
             const elm = this.findExists(this.getComponentSelector(this.config.header.component));
             if (!elm) {
-                const li = $(`<li></li>`);
+                const li = $(`<li class="ra-custom-header"></li>`);
                 li.append(header);
                 (this.tab.header.controlsContainer as any).prepend(li);
             }
@@ -154,6 +154,17 @@ export abstract class DockableComponent implements GlOnTab, OnDestroy {
         this.tab = tab;
         this.initComponents();
         this.appendAll();
+    }
+
+    public glOnShow(): void {
+        // const controls: any = (this.tab.header.controlsContainer as any).get(0).childNodes;
+        // for (let i = 0; i < controls.length; i++) {
+        //     const child = controls[i];
+        //     if (child.className === "ra-custom-header") {
+        //         child.remove();
+        //     }
+        // }
+        // this.appendHeader();
     }
 
     public ngOnDestroy() {
