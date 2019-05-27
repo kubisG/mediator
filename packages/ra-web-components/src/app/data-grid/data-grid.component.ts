@@ -69,14 +69,12 @@ export class DataGridComponent implements OnInit {
     public insert(row: any) {
         if (this.inicialized) {
             this.arrayStore.push([{ type: "insert", data: row }]);
-            this.currentKey = null;
         }
     }
 
     public update(row: any) {
         if (this.inicialized) {
             this.arrayStore.push([{ type: "update", data: row, key: row[this._key] }]);
-            this.currentKey = null;
         }
     }
 
@@ -128,6 +126,13 @@ export class DataGridComponent implements OnInit {
         }
 
         this.rowClick.emit(e);
+    }
+
+    public onRowUpdated(e) {
+        if (this.currentKey === e.key) {
+            (this.dataGrid.instance.getRowElement(e.rowIndex) as any[])
+                .forEach(el => el.classList.add("highlightColor"));
+        }
     }
 
     public ngOnInit(): void {
