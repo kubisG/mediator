@@ -168,18 +168,8 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     }
 
     public glOnShow(): void {
-<<<<<<< HEAD
-        console.log("SHOW ME", this.tab);
-        const controls: any = (this.tab.header.controlsContainer as any).get(0).childNodes;
-        for (let i = 0; i < controls.length; i++) {
-            const child = controls[i];
-            if (child.className === "ra-custom-header") {
-                child.remove();
-            }
-=======
         if ((this as any).dockableShow) {
             (this as any).dockableShow();
->>>>>>> 6d5e9c4b63ca8ef07d3e6d571788af877b7c3336
         }
     }
 
