@@ -1,16 +1,18 @@
 import { Reflect } from "core-js";
 import { ComponentFactoryResolver, Injector, Type, ApplicationRef, OnDestroy, ComponentRef, EventEmitter } from "@angular/core";
-import { GlOnTab, GlOnShow } from '@embedded-enterprises/ng6-golden-layout';
+import { GlOnTab, GlOnShow, GlOnHide, GlOnClose } from '@embedded-enterprises/ng6-golden-layout';
 import * as GoldenLayout from 'golden-layout';
 import * as $ from "jquery";
 import { DOCKABLE_CONFIG } from './decorators/dockable.decorators';
 import { DockableConfig } from './decorators/dockable-config.interface';
 import { ComponentsMapService } from './components-map.service';
 
-export abstract class DockableComponent implements GlOnTab, GlOnShow, OnDestroy {
+export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, GlOnClose, OnDestroy {
 
-    private elemetCid = "cId";
-    private tab: GoldenLayout.Tab;
+    private elemetCidAttr = "cId";
+    public elementCid;
+
+    public tab: GoldenLayout.Tab;
     private config: DockableConfig;
     private componentsMapService: ComponentsMapService;
     private attachedSubs = [];
@@ -27,6 +29,7 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, OnDestroy 
         protected applicationRef: ApplicationRef,
     ) {
         this.componentsMapService = this.injector.get(ComponentsMapService);
+        this.elementCid = this.componentsMapService.createKey();
     }
 
     private createComponentRef(componentType: Type<any>) {
@@ -34,6 +37,24 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, OnDestroy 
         const componentRef = factory.create(this.injector);
         this.applicationRef.attachView(componentRef.hostView);
         return componentRef;
+    }
+
+    private removeAllCompoChilds(elm: any) {
+        const attr = this.elemetCidAttr;
+        const childs = elm.children();
+        for (let i = 0; i < childs.length; i++) {
+            const elm = $(childs[i]);
+            if (elm.attr(attr)) {
+                elm.remove();
+            }
+        }
+    }
+
+    private removeFromDOM() {
+        if (this.tab) {
+            this.removeAllCompoChilds(this.tab.element);
+            this.removeAllCompoChilds(this.tab.header.controlsContainer);
+        }
     }
 
     private clearComponents() {
@@ -45,21 +66,19 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, OnDestroy 
             this.applicationRef.detachView(this.componentRefHeader.hostView);
             this.componentRefHeader.destroy();
         }
+        this.removeFromDOM();
     }
 
-    private getComponentSelector(componentType: Type<any>) {
-        return (componentType as any).__annotations__[0].selector.toUpperCase();
-    }
-
-    private getComponentRef(componentType: Type<any>) {
-        const elm = this.findExists(this.getComponentSelector(componentType));
-        if (!elm) {
-            const ref = this.createComponentRef(componentType);
-            const refElm = ref.location.nativeElement;
-            refElm.setAttribute(this.elemetCid, this.componentsMapService.addComponent(ref));
-            return ref;
+    private getComponentRef(componentType: Type<any>, name: string) {
+        const compo = this.componentsMapService.getComponent(this.elementCid, name);
+        if (compo) {
+            return compo;
         }
-        return this.componentsMapService.getComponent(elm.getAttribute(this.elemetCid));
+        const ref = this.createComponentRef(componentType);
+        const refElm = ref.location.nativeElement;
+        this.componentsMapService.addComponent(this, ref, this.elementCid, name);
+        refElm.setAttribute(this.elemetCidAttr, this.elementCid);
+        return ref;
     }
 
     private attachEmitters(component: ComponentRef<any>, emitter: EventEmitter<any>) {
@@ -77,43 +96,13 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, OnDestroy 
         }
     }
 
-    private initComponents() {
-        this.clearSubs();
-        this.config = Reflect.getMetadata(DOCKABLE_CONFIG, this.constructor);
-        if (this.config.tab) {
-            this.componentRefTab = this.createComponentRef(this.config.tab.component);
-            this.attachEmitters(this.componentRefTab, this.tabEmitter);
-        }
-        if (this.config.header) {
-            this.componentRefHeader = this.getComponentRef(this.config.header.component);
-            this.attachEmitters(this.componentRefHeader, this.headerEmitter);
-        }
-    }
-
-    private findExists(tagName?: string): any {
-        tagName = tagName ? tagName : this.componentRefHeader.location.nativeElement.tagName;
-        if (!this.config.header.single) {
-            return;
-        }
-        const controls: any = (this.tab.header.controlsContainer as any).get(0).childNodes;
-        for (let i = 0; i < controls.length; i++) {
-            const child = controls[i];
-            if (child.childNodes.length > 0 && child.childNodes[0].tagName === tagName) {
-                return child.childNodes[0];
-            }
-        }
-        return;
-    }
-
     private appendHeader() {
         if (this.componentRefHeader) {
             const header = $(this.componentRefHeader.location.nativeElement);
-            const elm = this.findExists(this.getComponentSelector(this.config.header.component));
-            if (!elm) {
-                const li = $(`<li class="ra-custom-header"></li>`);
-                li.append(header);
-                (this.tab.header.controlsContainer as any).prepend(li);
-            }
+            const li = $(`<li></li>`);
+            li.attr(this.elemetCidAttr, this.elementCid);
+            li.append(header);
+            (this.tab.header.controlsContainer as any).prepend(li);
         }
     }
 
@@ -121,11 +110,6 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, OnDestroy 
         if (this.componentRefTab) {
             (this.tab.element as any).prepend($(this.componentRefTab.location.nativeElement));
         }
-    }
-
-    private appendAll() {
-        this.appendTab();
-        this.appendHeader();
     }
 
     protected setHeaderData(data: any) {
@@ -150,24 +134,57 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, OnDestroy 
         return this.tabEmitter;
     }
 
+    public initComponents() {
+        this.removeFromDOM();
+        this.clearSubs();
+        this.config = Reflect.getMetadata(DOCKABLE_CONFIG, this.constructor);
+        if (this.config.tab) {
+            this.componentRefTab = this.getComponentRef(this.config.tab.component, "tab");
+            this.attachEmitters(this.componentRefTab, this.tabEmitter);
+        }
+        if (this.config.header) {
+            this.componentRefHeader = this.getComponentRef(this.config.header.component, "header");
+            this.attachEmitters(this.componentRefHeader, this.headerEmitter);
+        }
+    }
+
+    public appendAll() {
+        this.appendTab();
+        this.appendHeader();
+    }
+
     public glOnTab(tab: GoldenLayout.Tab): void {
+        if ((this as any).dockableTab) {
+            (this as any).dockableTab();
+        }
+        (tab.element as any).attr(this.elemetCidAttr, this.elementCid);
+        this.componentsMapService.setStack(tab.contentItem.parent);
         this.tab = tab;
         this.initComponents();
         this.appendAll();
     }
 
     public glOnShow(): void {
-        const controls: any = (this.tab.header.controlsContainer as any).get(0).childNodes;
-        for (let i = 0; i < controls.length; i++) {
-            const child = controls[i];
-            if (child.className === "ra-custom-header") {
-                child.remove();
-            }
+        if ((this as any).dockableShow) {
+            (this as any).dockableShow();
         }
-        this.appendHeader();
+    }
+
+    public glOnHide(): void {
+        if ((this as any).dockableHide) {
+            (this as any).dockableHide();
+        }
+    }
+
+    public glOnClose(): Promise<void> {
+        if ((this as any).dockableClose) {
+            (this as any).dockableClose();
+        }
+        return Promise.resolve();
     }
 
     public ngOnDestroy() {
+        this.componentsMapService.deleteComponents(this.elementCid);
         this.clearComponents();
     }
 
