@@ -24,7 +24,11 @@ export class ComponentsMapService {
             this.stackItr++;
             this.stacks[key] = stack;
             this.stacks[key].on("activeContentItemChanged", (item) => {
-                const component: DockableComponent = this.map[item.tab.element.attr(this.elemetCidAttr)].instance;
+                const mapItem = this.map[item.tab.element.attr(this.elemetCidAttr)];
+                if (!mapItem) {
+                    return;
+                }
+                const component: DockableComponent = mapItem.instance;
                 component.initComponents();
                 component.appendAll();
             });

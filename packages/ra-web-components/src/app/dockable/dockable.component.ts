@@ -99,7 +99,7 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     private appendHeader() {
         if (this.componentRefHeader) {
             const header = $(this.componentRefHeader.location.nativeElement);
-            const li = $(`<li></li>`);
+            const li = $(document.createElement("LI"));
             li.attr(this.elemetCidAttr, this.elementCid);
             li.append(header);
             (this.tab.header.controlsContainer as any).prepend(li);
@@ -113,14 +113,14 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     }
 
     protected setHeaderData(data: any) {
-        if (this.componentRefHeader.instance.data) {
+        if (this.componentRefHeader && this.componentRefHeader.instance.data) {
             this.componentRefHeader.instance.data = data;
             this.componentRefHeader.changeDetectorRef.markForCheck();
         }
     }
 
     protected setTabData(data: any) {
-        if (this.componentRefTab.instance.data) {
+        if (this.componentRefTab && this.componentRefTab.instance.data) {
             this.componentRefTab.instance.data = data;
             this.componentRefTab.changeDetectorRef.markForCheck();
         }
