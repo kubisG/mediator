@@ -9,8 +9,8 @@ import {
 import { Reflect } from "core-js";
 import { Store, Actions, ofActionDispatched } from "@ngxs/store";
 import { ReplaySubject } from "rxjs/internal/ReplaySubject";
-import { AuthState } from '../../auth/state/auth.state';
-import { LogoutSuccess, LoginSuccess } from '../../auth/auth.actions';
+import { AuthState } from "../../auth/state/auth.state";
+import { LogoutSuccess, LoginSuccess } from "../../auth/auth.actions";
 
 export abstract class WebSocketService {
 
@@ -54,7 +54,7 @@ export abstract class WebSocketService {
             const token = store.selectSnapshot(AuthState.getToken);
             this.ioOptions = {
                 query: {
-                    token: token
+                    token
                 }
             };
         }
@@ -83,7 +83,7 @@ export abstract class WebSocketService {
             const token = store.selectSnapshot(AuthState.getToken);
             this.ioOptions = {
                 query: {
-                    token: token
+                    token
                 }
             };
         }

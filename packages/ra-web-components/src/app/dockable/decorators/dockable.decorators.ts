@@ -1,7 +1,7 @@
 import { Reflect } from "core-js";
-import { DockableConfig } from './dockable-config.interface';
+import { DockableConfig } from "./dockable-config.interface";
 
-export const DOCKABLE_CONFIG: string = "__dockableConfig";
+export const DOCKABLE_CONFIG = "__dockableConfig";
 
 export function Dockable(config: DockableConfig) {
     return (target: any) => {

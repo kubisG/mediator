@@ -1,15 +1,15 @@
 import { Reflect } from "core-js";
-import { ComponentFactoryResolver, Injector, Type, ApplicationRef, OnDestroy, ComponentRef, EventEmitter } from "@angular/core";
-import { GlOnTab, GlOnShow, GlOnHide, GlOnClose } from '@embedded-enterprises/ng6-golden-layout';
-import * as GoldenLayout from 'golden-layout';
+import { ComponentFactoryResolver, Injector, Type, ApplicationRef, OnDestroy, ComponentRef, EventEmitter, ElementRef } from "@angular/core";
+import { GlOnTab, GlOnShow, GlOnHide, GlOnClose } from "@embedded-enterprises/ng6-golden-layout";
+import * as GoldenLayout from "golden-layout";
 import * as $ from "jquery";
-import { DOCKABLE_CONFIG } from './decorators/dockable.decorators';
-import { DockableConfig } from './decorators/dockable-config.interface';
-import { ComponentsMapService } from './components-map.service';
+import { DOCKABLE_CONFIG } from "./decorators/dockable.decorators";
+import { DockableConfig } from "./decorators/dockable-config.interface";
+import { ComponentsMapService } from "./components-map.service";
+import { COMPONENT_ID } from './constants';
 
 export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, GlOnClose, OnDestroy {
 
-    private elemetCidAttr = "cId";
     public elementCid;
 
     public tab: GoldenLayout.Tab;
@@ -20,8 +20,10 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     protected componentRefTab: ComponentRef<any>;
     protected componentRefHeader: ComponentRef<any>;
 
-    protected tabEmitter: EventEmitter<any> = new EventEmitter();
-    protected headerEmitter: EventEmitter<any> = new EventEmitter();
+    public tabEmitter: EventEmitter<any> = new EventEmitter();
+    public headerEmitter: EventEmitter<any> = new EventEmitter();
+    public componentEmitter: EventEmitter<any> = new EventEmitter();
+    protected elm: ElementRef;
 
     constructor(
         protected componentFactoryResolver: ComponentFactoryResolver,
@@ -29,7 +31,13 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
         protected applicationRef: ApplicationRef,
     ) {
         this.componentsMapService = this.injector.get(ComponentsMapService);
+        this.elm = this.injector.get(ElementRef);
+        this.init();
+    }
+
+    private init() {
         this.elementCid = this.componentsMapService.createKey();
+        this.elm.nativeElement.setAttribute(COMPONENT_ID, this.elementCid);
     }
 
     private createComponentRef(componentType: Type<any>) {
@@ -40,7 +48,7 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     }
 
     private removeAllCompoChilds(elm: any) {
-        const attr = this.elemetCidAttr;
+        const attr = COMPONENT_ID;
         const childs = elm.children();
         for (let i = 0; i < childs.length; i++) {
             const elm = $(childs[i]);
@@ -77,7 +85,7 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
         const ref = this.createComponentRef(componentType);
         const refElm = ref.location.nativeElement;
         this.componentsMapService.addComponent(this, ref, this.elementCid, name);
-        refElm.setAttribute(this.elemetCidAttr, this.elementCid);
+        refElm.setAttribute(COMPONENT_ID, this.elementCid);
         return ref;
     }
 
@@ -100,7 +108,7 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
         if (this.componentRefHeader) {
             const header = $(this.componentRefHeader.location.nativeElement);
             const li = $(document.createElement("LI"));
-            li.attr(this.elemetCidAttr, this.elementCid);
+            li.attr(COMPONENT_ID, this.elementCid);
             li.append(header);
             (this.tab.header.controlsContainer as any).prepend(li);
         }
@@ -157,7 +165,7 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
         if ((this as any).dockableTab) {
             (this as any).dockableTab();
         }
-        (tab.element as any).attr(this.elemetCidAttr, this.elementCid);
+        (tab.element as any).attr(COMPONENT_ID, this.elementCid);
         this.componentsMapService.setStack(tab.contentItem.parent);
         this.tab = tab;
         this.initComponents();

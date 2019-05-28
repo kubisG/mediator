@@ -1,37 +1,63 @@
 import { Injectable, ComponentRef } from "@angular/core";
-import { DockableComponent } from './dockable.component';
-import * as GoldenLayout from 'golden-layout';
+import { DockableComponent } from "./dockable.component";
+import * as GoldenLayout from "golden-layout";
+import { COMPONENT_ID } from "./constants";
 
 @Injectable({
     providedIn: "root"
 })
 export class ComponentsMapService {
 
-    private elemetCidAttr = "cId";
-
     private itr = 1;
     public map: { [key: string]: { [key: string]: any } } = {};
 
     private stackItr = 1;
-    public stacks: { [key: string]: any } = {};
+    public stacks: { [key: string]: GoldenLayout.ContentItem } = {};
 
     constructor() { }
 
-    public setStack(stack: GoldenLayout.ContentItem) {
-        if (!(stack.element as any).attr(this.elemetCidAttr)) {
-            const key = `comp_${this.stackItr}`;
-            (stack.element as any).attr(this.elemetCidAttr, `comp_${this.stackItr}`)
-            this.stackItr++;
-            this.stacks[key] = stack;
-            this.stacks[key].on("activeContentItemChanged", (item) => {
-                const mapItem = this.map[item.tab.element.attr(this.elemetCidAttr)];
-                if (!mapItem) {
-                    return;
+    private addStack(key: string, stack: GoldenLayout.ContentItem) {
+        this.stacks[key] = stack;
+        this.stacks[key].on("activeContentItemChanged", (item) => {
+            const mapItem = this.map[item.tab.element.attr(COMPONENT_ID)];
+            if (!mapItem) {
+                return;
+            }
+            const component: DockableComponent = mapItem.instance;
+            component.initComponents();
+            component.appendAll();
+        });
+    }
+
+    private findStackByComponentCid(cid: string) {
+        for (const key in this.stacks) {
+            if (this.stacks[key]) {
+                const stack = this.stacks[key];
+                for (let i = 0; i < stack.contentItems.length; i++) {
+                    const item = stack.contentItems[i];
+                    if (cid === (item.element as any).children().children().attr(COMPONENT_ID)) {
+                        return stack;
+                    }
                 }
-                const component: DockableComponent = mapItem.instance;
-                component.initComponents();
-                component.appendAll();
-            });
+            }
+        }
+    }
+
+    public findOtherComponentsInStackAndEmitt(data: any, cid: string) {
+        const stack = this.findStackByComponentCid(cid);
+        for (let i = 0; i < stack.contentItems.length; i++) {
+            const item = stack.contentItems[i];
+            const key = (item.element as any).children().children().attr(COMPONENT_ID);
+            this.map[key].instance.componentEmitter.emit(data);
+        }
+    }
+
+    public setStack(stack: GoldenLayout.ContentItem) {
+        if (!(stack.element as any).attr(COMPONENT_ID)) {
+            const key = `comp_${this.stackItr}`;
+            (stack.element as any).attr(COMPONENT_ID, `comp_${this.stackItr}`);
+            this.stackItr++;
+            this.addStack(key, stack);
         }
     }
 
@@ -64,8 +90,10 @@ export class ComponentsMapService {
 
     public getDockableLayouts() {
         const instances = [];
-        for (let key in this.map) {
-            instances.push(this.map[key]["instance"]);
+        for (const key in this.map) {
+            if (this.map[key]) {
+                instances.push(this.map[key]["instance"]);
+            }
         }
         return instances;
     }

@@ -1,6 +1,6 @@
 import { NgxsOnInit, StateContext, State, Store, Selector, Action } from "@ngxs/store";
 import { AuthStateModel } from "../model/auth-state.model";
-import { Login, Logout, AuthData, LoginSuccess, LogoutSuccess } from '../auth.actions';
+import { Login, Logout, AuthData, LoginSuccess, LogoutSuccess } from "../auth.actions";
 
 @State<AuthStateModel>({
     name: "auth",

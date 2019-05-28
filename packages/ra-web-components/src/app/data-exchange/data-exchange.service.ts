@@ -14,7 +14,7 @@ export class DataExchangeService {
 
     public pushData(data: any, key: string) {
         this.actData[key] = data;
-        this.dataSubject.next({ data: data, key: key });
+        this.dataSubject.next({ data, key });
     }
 
     public getData() {
@@ -23,7 +23,7 @@ export class DataExchangeService {
 
     public getActData(key: string): any {
         if (this.actData && this.actData[key]) {
-            return { data: this.actData[key], key: key };
+            return { data: this.actData[key], key };
         }
 
         return { data: null, key: null};
