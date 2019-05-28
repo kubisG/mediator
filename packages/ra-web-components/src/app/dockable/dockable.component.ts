@@ -6,8 +6,13 @@ import * as $ from "jquery";
 import { DOCKABLE_CONFIG } from './decorators/dockable.decorators';
 import { DockableConfig } from './decorators/dockable-config.interface';
 import { ComponentsMapService } from './components-map.service';
+import { Subscription } from "rxjs/internal/Subscription";
 
 export abstract class DockableComponent implements GlOnTab, GlOnShow, OnDestroy {
+
+    
+    protected dataSub: Subscription;
+    protected clickSub: Subscription;
 
     private elemetCid = "cId";
     private tab: GoldenLayout.Tab;
@@ -157,6 +162,7 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, OnDestroy 
     }
 
     public glOnShow(): void {
+        console.log("SHOW ME", this.tab);
         const controls: any = (this.tab.header.controlsContainer as any).get(0).childNodes;
         for (let i = 0; i < controls.length; i++) {
             const child = controls[i];
@@ -169,6 +175,16 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, OnDestroy 
 
     public ngOnDestroy() {
         this.clearComponents();
+    }
+
+
+    public unsubscribe() {
+        if (this.clickSub) {
+            this.clickSub.unsubscribe();
+        }
+        if (this.dataSub) {
+            this.dataSub.unsubscribe();
+        }
     }
 
 }
