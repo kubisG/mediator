@@ -11,4 +11,5 @@ export { DockableControls } from "./src/app/dockable/dockable-controls.interface
 export { DockableModule } from "./src/app/dockable/dockable.module";
 export { DockableHooks } from "./src/app/dockable/dockable-hooks.interface";
 export { DockableService } from "./src/app/dockable/dockable.service";
+export { DockableComponentConfig } from "./src/app/dockable/dockable-component-config.interface";
 export { COMPONENT_ID } from "./src/app/dockable/constants";
