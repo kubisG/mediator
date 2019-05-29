@@ -12,6 +12,7 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
 
     protected dataSub: Subscription;
     protected clickSub: Subscription;
+    protected isBind = true;
 
     private elemetCidAttr = "cId";
     public elementCid;
