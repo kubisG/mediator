@@ -59,6 +59,9 @@
 		},
 		{
 			"path": "packages\\ra-web-bundle-fe"
+		},
+		{
+			"path": "packages\\ra-web-bundle-be"
 		}
 	],
 	"settings": {

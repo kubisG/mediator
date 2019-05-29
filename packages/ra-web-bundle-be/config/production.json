@@ -1,0 +1,36 @@
+{
+    "production": true,
+    "logging": {
+        "provider": 0,
+        "remote": true,
+        "db": false
+    },
+    "app": {
+        "port": 3000
+    },
+    "cors": {
+        "origin": []
+    },
+    "auth": {
+        "expiresIn": 96000,
+        "secretKey": "secretKey",
+        "sessionStore": 0
+    },
+    "queue": {
+        "type": "nats",
+        "prefix": "prod_"
+    },
+    "mailer": {
+        "type": "smtp"
+    },
+    "verifyService": {
+        "provider": "db"
+    },
+    "stockDataService": {
+        "baseUrl": "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY",
+        "apiKey": "G6IVKKTQ14S4RS1W"
+    },
+    "worker": {
+        "resending": 300
+    }
+}

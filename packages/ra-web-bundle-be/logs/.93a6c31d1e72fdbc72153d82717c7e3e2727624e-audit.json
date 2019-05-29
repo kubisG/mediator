@@ -1,0 +1,59 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 1
+    },
+    "auditLog": "logs\\.93a6c31d1e72fdbc72153d82717c7e3e2727624e-audit.json",
+    "files": [
+        {
+            "date": 1559109061370,
+            "name": "logs\\ra-trader-2019-05-29-07.log",
+            "hash": "2ebe06c8c05f1ed3015a29769eb3bfae"
+        },
+        {
+            "date": 1559109624213,
+            "name": "logs\\ra-trader-2019-05-29-08.log",
+            "hash": "b31456280ade591fb6c4ab66d3a67376"
+        },
+        {
+            "date": 1559113975656,
+            "name": "logs\\ra-trader-2019-05-29-09.log",
+            "hash": "e7ed70c74da28b6b81f1c6ad50824777"
+        },
+        {
+            "date": 1559117381631,
+            "name": "logs\\ra-trader-2019-05-29-10.log",
+            "hash": "ae393e546a0240d7897fe842801984ea"
+        },
+        {
+            "date": 1559121227682,
+            "name": "logs\\ra-trader-2019-05-29-11.log",
+            "hash": "d8a7e1db5c6ccb9ebab808f388315fe3"
+        },
+        {
+            "date": 1559129667263,
+            "name": "logs\\ra-trader-2019-05-29-13.log",
+            "hash": "8a3e5f0862564c79b29e880e93cfaaa1"
+        },
+        {
+            "date": 1559132235287,
+            "name": "logs\\ra-trader-2019-05-29-14.log",
+            "hash": "07638c5de92b51028aa401160fda5596"
+        },
+        {
+            "date": 1559134845521,
+            "name": "logs\\ra-trader-2019-05-29-15.log",
+            "hash": "d2def74adc4c754d6296147b47312c76"
+        },
+        {
+            "date": 1559138583336,
+            "name": "logs\\ra-trader-2019-05-29-16.log",
+            "hash": "19ee42e5dea572059465b5e8e6979b29"
+        },
+        {
+            "date": 1559143055247,
+            "name": "logs\\ra-trader-2019-05-29-17.log",
+            "hash": "35b713c789f791408a043cab7882aec2"
+        }
+    ]
+}
