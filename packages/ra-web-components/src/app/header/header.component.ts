@@ -1,8 +1,8 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { MenuItem } from './menu-item.interface';
-import { UserInfo } from './user-info.interface';
-import { ImgButton } from './img-button.interface';
-import { Observable } from 'rxjs/internal/Observable';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from "@angular/core";
+import { MenuItem } from "./menu-item.interface";
+import { UserInfo } from "./user-info.interface";
+import { ImgButton } from "./img-button.interface";
+import { Observable } from "rxjs/internal/Observable";
 @Component({
     selector: "ra-header",
     templateUrl: "./header.component.html",

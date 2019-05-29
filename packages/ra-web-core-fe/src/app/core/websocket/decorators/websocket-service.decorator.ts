@@ -1,5 +1,5 @@
 import { Reflect } from "core-js";
-import { WsOptions } from './ws-options.interface';
+import { WsOptions } from "./ws-options.interface";
 
 export const WEBSOCKET_NAMESPACE_METADATA = "socketNamespace";
 export const WEBSOCKET_URL_METADATA = "socketUrl";

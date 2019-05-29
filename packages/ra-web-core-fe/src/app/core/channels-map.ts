@@ -1,6 +1,6 @@
-import { Subject } from 'rxjs/internal/Subject';
+import { Subject } from "rxjs/internal/Subject";
 
-type SubjectMap = { [key: string]: Subject<any> };
+interface SubjectMap { [key: string]: Subject<any> }
 
 export class ChannelsMap {
 

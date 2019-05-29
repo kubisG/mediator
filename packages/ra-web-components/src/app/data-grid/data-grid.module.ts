@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { MaterialModule } from "@ra/web-material-fe";
-import { DataGridComponent } from './data-grid.component';
+import { DataGridComponent } from "./data-grid.component";
 import { DxDataGridModule } from "devextreme-angular";
-import { DataGridService } from './data-grid.service';
+import { DataGridService } from "./data-grid.service";
 
 @NgModule({
     imports: [
