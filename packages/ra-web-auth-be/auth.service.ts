@@ -61,13 +61,13 @@ export class AuthService {
         return this.jwtService.verify<BearerData>(token);
     }
 
-    async getUserData(token: string): Promise<any> {
+    async getUserData<T>(token: string): Promise<T> {
         const encodedToken = this.verifyToken(token);
         return await this.sessions.get(encodedToken.sid);
     }
 
     public createDummyToken(...args: any[]): any {
-        this.sessionDataService = this.sessionDataProviderService.sessionDataService;        
+        this.sessionDataService = this.sessionDataProviderService.sessionDataService;
         return this.sessionDataService.getDummyToken(...args);
     }
 }
