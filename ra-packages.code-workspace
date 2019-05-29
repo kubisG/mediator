@@ -56,6 +56,9 @@
 		},
 		{
 			"path": "packages\\ra-web-ee-router"
+		},
+		{
+			"path": "packages\\ra-web-bundle-fe"
 		}
 	],
 	"settings": {

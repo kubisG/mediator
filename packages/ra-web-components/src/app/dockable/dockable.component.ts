@@ -6,7 +6,7 @@ import * as $ from "jquery";
 import { DOCKABLE_CONFIG } from "./decorators/dockable.decorators";
 import { DockableConfig } from "./decorators/dockable-config.interface";
 import { ComponentsMapService } from "./components-map.service";
-import { COMPONENT_ID } from './constants';
+import { COMPONENT_ID } from "./constants";
 
 export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, GlOnClose, OnDestroy {
 
