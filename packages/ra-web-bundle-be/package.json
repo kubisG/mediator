@@ -15,7 +15,7 @@
         "test:cov": "jest --coverage",
         "test:e2e": "jest --config ./test/jest-e2e.json",
         "webpack": "webpack --config webpack.config.js",
-        "all": "ts-node --project ./module-config/tsconfig.json ./module-config/generate.ts -- -m all",
+        "all": "ts-node --project ./module-config/tsconfig.json ./module-config/generate.ts -- -c all",
         "generate": "ts-node --project ./module-config/tsconfig.json ./module-config/generate.ts"
     },
     "dependencies": {

@@ -3,7 +3,7 @@ import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { MenuItem, DockableService, DockableConfig } from "@ra/web-components";
 import { Observable } from "rxjs/internal/Observable";
 import { RestUsersService } from "../rest/rest-users.service";
-import { Store, Actions } from "@ngxs/store";
+import { Store } from "@ngxs/store";
 import { Router } from "@angular/router";
 import { LogoutSuccess } from "@ra/web-core-fe";
 import { componentsList } from "../components-list";

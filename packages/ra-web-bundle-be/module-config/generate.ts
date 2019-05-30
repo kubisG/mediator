@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { modulesList } from "./modules";
 
-const MODULES_ARG = ["-m", "-modules"];
+const MODULES_ARG = ["-c", "-components"];
 
 let modules: string[] = [];
 

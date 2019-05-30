@@ -73,6 +73,9 @@ function saveFiles(componentsBody: string, modulesBody: string) {
 }
 
 function saveConfig() {
+    if (configs.length === 0) {
+        configs[0] = "default";
+    }
     let configString = JSON.stringify(defaultLayouts[configs[0]]);
     configString = configString.replace("default-component", components[0]);
     configString = "export const layoutConfig = " + configString + ";";
