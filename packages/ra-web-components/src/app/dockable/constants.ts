@@ -1,1 +1,1 @@
-export const COMPONENT_ID: string = "cid";
+export const COMPONENT_ID = "cid";

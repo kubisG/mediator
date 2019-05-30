@@ -51,7 +51,7 @@ export abstract class WebSocketService {
 
     private setAuth(store: Store, auth: boolean = false) {
         if (store && auth) {
-            const token = store.selectSnapshot(AuthState.getToken);
+            const token = store.snapshot().auth.accessToken;
             this.ioOptions = {
                 query: {
                     token

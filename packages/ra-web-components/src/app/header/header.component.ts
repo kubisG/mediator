@@ -28,7 +28,7 @@ export class HeaderComponent {
     @Output() onMenuItemClick: EventEmitter<MenuItem> = new EventEmitter<MenuItem>();
 
     public menuItemClick(item: MenuItem) {
-        this.activeModule = item;
+    //    this.activeModule = item;
         this.onMenuItemClick.emit(item);
     }
 

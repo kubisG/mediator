@@ -1,8 +1,11 @@
-import { Injectable, ElementRef } from "@angular/core";
+import { Reflect } from "core-js";
+import { Injectable, ElementRef, Type } from "@angular/core";
 import { GoldenLayoutService } from "@embedded-enterprises/ng6-golden-layout";
 import { ComponentsMapService } from "./components-map.service";
 import { COMPONENT_ID } from "./constants";
 import { DockableComponentConfig } from "./dockable-component-config.interface";
+import { DOCKABLE_CONFIG } from './decorators/dockable.decorators';
+import { DockableConfig } from './decorators/dockable-config.interface';
 
 @Injectable()
 export class DockableService {
@@ -29,6 +32,10 @@ export class DockableService {
             componentName: config.componentName,
             component: config.component
         }, config.label);
+    }
+
+    public getComponentConfig(component: Type<any>): DockableConfig {
+        return Reflect.getMetadata(DOCKABLE_CONFIG, component);
     }
 
 }

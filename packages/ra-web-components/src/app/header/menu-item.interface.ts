@@ -1,5 +1,7 @@
 export interface MenuItem {
     route?: string;
-    icon: string;
+    icon?: string;
     label: string;
+    data?: any;
+    divider?: boolean;
 }
