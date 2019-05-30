@@ -41,6 +41,7 @@ node("centos7"){
                     sh "git submodule foreach 'git checkout "+params.BRANCH_NAME+" || :'"
                     sh "npm install"
                     if(params.COMPONENTS != '') {
+                        sh "npm install -g ts-node@5.0.1"
                         sh "npm --prefix packages/"+params.REPO_NAME+"/ run generate -- -c "+params.COMPONENTS
                     }
                     sh "cp packages/"+params.REPO_NAME+"/Dockerfile ./Dockerfile"
