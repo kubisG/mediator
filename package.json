@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "lerna": "3.13.3",
-    "nodemon": "1.19.0"
+    "nodemon": "1.19.0",
+    "ts-node": "5.0.1"
   }
 }
