@@ -1,7 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { AppComponent } from "./app.component";
-import { NgxsModule, Actions, Store, ofActionDispatched } from "@ngxs/store";
+import { NgxsModule } from "@ngxs/store";
 import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
 import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
 import { NgxsStoragePluginModule, StorageOption } from "@ngxs/storage-plugin";
@@ -14,6 +14,7 @@ import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { CoreModule, AuthState } from "@ra/web-core-fe";
 import { MonitorAuthModule } from "./monitor-auth/monitor-auth.module";
+import { RestModule } from "./rest/rest.module";
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -51,6 +52,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         HttpClientModule,
         AppRoutingModule,
         MonitorAuthModule,
+        RestModule,
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

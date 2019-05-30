@@ -58,7 +58,6 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.document.body.classList.add("rapid-body");
         this.loadTranslations();
         this.dispatchLogout();
         this.loginAction();

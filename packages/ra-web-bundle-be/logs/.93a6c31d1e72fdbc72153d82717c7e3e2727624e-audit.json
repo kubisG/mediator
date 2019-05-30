@@ -6,31 +6,6 @@
     "auditLog": "logs\\.93a6c31d1e72fdbc72153d82717c7e3e2727624e-audit.json",
     "files": [
         {
-            "date": 1559109061370,
-            "name": "logs\\ra-trader-2019-05-29-07.log",
-            "hash": "2ebe06c8c05f1ed3015a29769eb3bfae"
-        },
-        {
-            "date": 1559109624213,
-            "name": "logs\\ra-trader-2019-05-29-08.log",
-            "hash": "b31456280ade591fb6c4ab66d3a67376"
-        },
-        {
-            "date": 1559113975656,
-            "name": "logs\\ra-trader-2019-05-29-09.log",
-            "hash": "e7ed70c74da28b6b81f1c6ad50824777"
-        },
-        {
-            "date": 1559117381631,
-            "name": "logs\\ra-trader-2019-05-29-10.log",
-            "hash": "ae393e546a0240d7897fe842801984ea"
-        },
-        {
-            "date": 1559121227682,
-            "name": "logs\\ra-trader-2019-05-29-11.log",
-            "hash": "d8a7e1db5c6ccb9ebab808f388315fe3"
-        },
-        {
             "date": 1559129667263,
             "name": "logs\\ra-trader-2019-05-29-13.log",
             "hash": "8a3e5f0862564c79b29e880e93cfaaa1"
@@ -54,6 +29,31 @@
             "date": 1559143055247,
             "name": "logs\\ra-trader-2019-05-29-17.log",
             "hash": "35b713c789f791408a043cab7882aec2"
+        },
+        {
+            "date": 1559197457392,
+            "name": "logs\\ra-trader-2019-05-30-08.log",
+            "hash": "4174dee6299abe0f38a40e0b4844e0b2"
+        },
+        {
+            "date": 1559201821049,
+            "name": "logs\\ra-trader-2019-05-30-09.log",
+            "hash": "4c2ada62ac4fd0ad3ef5e71301010300"
+        },
+        {
+            "date": 1559203202215,
+            "name": "logs\\ra-trader-2019-05-30-10.log",
+            "hash": "622c823d5b5229031154e4b1a0ba2a31"
+        },
+        {
+            "date": 1559207296188,
+            "name": "logs\\ra-trader-2019-05-30-11.log",
+            "hash": "d0075579ab841d7510347989f49342c6"
+        },
+        {
+            "date": 1559210502962,
+            "name": "logs\\ra-trader-2019-05-30-12.log",
+            "hash": "83f2588791c985b25fdb10b9837015ab"
         }
     ]
 }

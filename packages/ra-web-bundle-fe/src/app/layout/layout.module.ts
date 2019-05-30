@@ -14,12 +14,11 @@ import {
 import { MaterialModule } from "@ra/web-material-fe";
 import { LayoutStateStorage } from "./layout-state-storage";
 import { LayoutComponent } from "./layout.component";
-import { LayoutSubHeaderComponent } from "./layout-subheader/layout-subheader.component";
 import { RestModule } from "../rest/rest.module";
 import { RestUsersService } from "../rest/rest-users.service";
 import { componentsList } from "../components-list";
-import { modulesList } from "../modules-list";
 import { layoutConfig } from "../layout-config";
+import { modulesList } from "../modules-list";
 
 const config: GoldenLayoutConfiguration = {
     components: [
@@ -50,7 +49,6 @@ export function DEFAULT_LOCAL_STORAGE_STATE_STORE_FACTORY(restUsersService: Rest
     ],
     declarations: [
         LayoutComponent,
-        LayoutSubHeaderComponent,
     ],
     exports: [],
     entryComponents: [],
