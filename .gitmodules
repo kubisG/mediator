@@ -24,3 +24,9 @@
 [submodule "packages/ra-web-forms-be"]
 	path = packages/ra-web-forms-be
 	url = git@bitbucket.org:rapid-addition/ra-web-forms-be.git
+[submodule "packages/ra-web-bundle-fe"]
+	path = packages/ra-web-bundle-fe
+	url = git@bitbucket.org:rapid-addition/ra-web-bundle-fe.git
+[submodule "packages/ra-web-bundle-be"]
+	path = packages/ra-web-bundle-be
+	url = git@bitbucket.org:rapid-addition/ra-web-bundle-be.git
