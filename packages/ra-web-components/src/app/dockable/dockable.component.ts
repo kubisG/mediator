@@ -7,11 +7,15 @@ import { DOCKABLE_CONFIG } from "./decorators/dockable.decorators";
 import { DockableConfig } from "./decorators/dockable-config.interface";
 import { ComponentsMapService } from "./components-map.service";
 import { COMPONENT_ID } from "./constants";
+import { Subscription } from "rxjs/internal/Subscription";
 
 export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, GlOnClose, OnDestroy {
 
-    public elementCid;
+    protected dataSub: Subscription;
+    protected clickSub: Subscription;
+    protected isBind = true;
 
+    public elementCid;
     public tab: GoldenLayout.Tab;
     private config: DockableConfig;
     private componentsMapService: ComponentsMapService;
@@ -51,9 +55,9 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
         const attr = COMPONENT_ID;
         const childs = elm.children();
         for (let i = 0; i < childs.length; i++) {
-            const elm = $(childs[i]);
-            if (elm.attr(attr)) {
-                elm.remove();
+            const celm = $(childs[i]);
+            if (celm.attr(attr)) {
+                celm.remove();
             }
         }
     }
@@ -194,6 +198,16 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     public ngOnDestroy() {
         this.componentsMapService.deleteComponents(this.elementCid);
         this.clearComponents();
+    }
+
+
+    public unsubscribe() {
+        if (this.clickSub) {
+            this.clickSub.unsubscribe();
+        }
+        if (this.dataSub) {
+            this.dataSub.unsubscribe();
+        }
     }
 
 }
