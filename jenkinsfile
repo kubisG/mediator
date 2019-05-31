@@ -74,10 +74,12 @@ node("centos7"){
 void pushDocker(String registry, String imgName, String shortHash, String branch) {
     sh "echo `aws ecr get-login --no-include-email --region eu-west-1` | sudo sh"
 
-    sh "sudo docker system prune -f"
+    sh "sudo docker system prune -all -f"
 
     sh "sudo docker build . -t "+registry+"/"+imgName+":"+shortHash+"-"+branch
     sh "sudo docker push "+registry+"/"+imgName+":"+shortHash+"-"+branch
+
+    sh "sudo docker system prune -all -f"
 
     sh "sudo docker build . -t "+registry+"/"+imgName+":latest-"+branch
     sh "sudo docker push "+registry+"/"+imgName+":latest-"+branch
