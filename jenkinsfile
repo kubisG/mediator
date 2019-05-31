@@ -39,6 +39,7 @@ node("centos7"){
             stage('Build'){
                 if(params.BUILD == 'true'){
                     sh "git submodule foreach 'git checkout "+params.BRANCH_NAME+" || :'"
+                    sh "npm install"
                     if(params.COMPONENTS != '') {
                         sh "npm run init"
                         sh "npm --prefix packages/"+params.REPO_NAME+"/ run generate -- -c "+params.COMPONENTS
