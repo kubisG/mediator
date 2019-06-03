@@ -5,4 +5,5 @@ export interface DockableConfig {
     header?: { component: Type<any> };
     label?: string;
     icon?: string;
+    single?: boolean;
 }

@@ -4,4 +4,5 @@ export interface MenuItem {
     label: string;
     data?: any;
     divider?: boolean;
+    single?: boolean;
 }
