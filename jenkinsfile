@@ -67,7 +67,7 @@ node("centos7"){
         throw e
     } finally {
         // Success or failure, always send notifications
-        notifyBuild(currentBuild.result)
+        notifyBuild(currentBuild.result,params.REPO_NAME)
     }
 }
 
@@ -85,7 +85,7 @@ void pushDocker(String registry, String imgName, String shortHash, String branch
     sh "sudo docker push "+registry+"/"+imgName+":latest-"+branch
 }
 
-def notifyBuild(String buildStatus = 'STARTED') {
+def notifyBuild(String buildStatus = 'STARTED', String repo) {
   // build status of null means successful
   buildStatus =  buildStatus ?: 'SUCCESSFUL'
 
