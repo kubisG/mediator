@@ -133,6 +133,18 @@ export class DataGridComponent implements OnInit {
         }
     }
 
+    public onRowUpdated(e) {
+
+    }
+
+    public onRowInserted(e) {
+
+    }
+
+    public onContentReady(e) {
+
+    }
+
     public ngOnInit(): void {
 
     }

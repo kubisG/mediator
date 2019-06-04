@@ -1,9 +1,27 @@
 <mat-toolbar color="primary" class="fixed-header">
     <span *ngIf="logoUrl && logoImg" class="ra-logo"><a href="{{logoUrl}}" target="_blank"><img
                 src="{{logoImg}}"></a></span>
+    <button *ngIf="leftMenuItems" mat-icon-button [matMenuTriggerFor]="leftMenu">
+        <mat-icon>{{ leftMenuLabel ? leftMenuLabel : 'menu' }}</mat-icon>
+    </button>
+    <mat-menu #leftMenu="matMenu" [overlapTrigger]="false">
+        <span *ngFor="let module of leftMenuItems | async">
+            <button *ngIf="module.route && !module.divider" mat-menu-item routerLink="{{module.route}}"
+                (click)="menuItemClick(module)">
+                <mat-icon *ngIf="module.icon">{{module.icon}}</mat-icon>
+                <span>{{module.label}}</span>
+            </button>
+            <button *ngIf="!module.route && !module.divider" mat-menu-item (click)="menuItemClick(module)">
+                <mat-icon *ngIf="module.icon">{{module.icon}}</mat-icon>
+                <span>{{module.label}}</span>
+            </button>
+            <mat-divider *ngIf="module.divider"></mat-divider>
+        </span>
+    </mat-menu>
     <span title="{{appVersionLong}}">{{ appLabel }}</span>
     <span *ngIf="appVersionLong && activeModule" class="slash-separator">-</span>
     <span *ngIf="activeModule">{{ activeModule.label }}</span>
+    <span *ngIf="subTitle">{{ subTitle }}</span>
     <span class="fill-remaining-space"></span>
     <ra-header-alert-message *ngIf="alertMessage" [message]="alertMessage"></ra-header-alert-message>
     <span class="fill-remaining-space"></span>

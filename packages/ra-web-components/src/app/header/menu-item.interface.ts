@@ -5,4 +5,5 @@ export interface MenuItem {
     data?: any;
     divider?: boolean;
     class?: string;
+    single?: boolean;
 }

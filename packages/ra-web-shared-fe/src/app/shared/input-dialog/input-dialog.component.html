@@ -1,0 +1,13 @@
+<div mat-dialog-content>
+    {{data.text}}
+    <form class="login-form" #inputForm="ngForm">
+        <input type="text" required matInput placeholder="Layout name" [formControl]="layoutName" name="layoutName"
+            cdkFocusInitial>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button *ngIf="!data.type || data.type === 0"
+        (click)="onNoClick()">{{'butt.cancel' | translate}}</button>
+    <span class="fill-remaining-space"></span>
+    <button [disabled]="layoutName.invalid" mat-raised-button color="primary" (click)="onOkClick()">{{data.ok}}</button>
+</div>

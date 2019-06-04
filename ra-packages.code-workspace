@@ -52,6 +52,9 @@
 			"path": "packages\\ra-web-forms-fe"
 		},
 		{
+			"path": "packages\\ra-web-forms-be"
+		},
+		{
 			"path": "packages\\ra-web-components"
 		},
 		{

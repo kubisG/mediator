@@ -1,6 +1,6 @@
 import { NgModule, Optional, SkipSelf, ModuleWithProviders } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { RangeDatePipe } from "./pipes/date-range.pipe";
 import { EnumToArrayPipe } from "./pipes/enum-to-array.pipe";
@@ -18,7 +18,7 @@ import { DateRangeComponent } from "./date-range/date-range.component";
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from "ng-pick-datetime";
 import { ImgButtonComponent } from "./img-button/img-button.component";
 import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.component";
-
+import { InputDialogComponent } from "./input-dialog/input-dialog.component";
 
 @NgModule({
     imports: [
@@ -26,6 +26,7 @@ import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.componen
         FormsModule,
         MaterialModule,
         TranslateModule,
+        ReactiveFormsModule,
         OwlDateTimeModule,
         OwlNativeDateTimeModule,
     ],
@@ -43,11 +44,13 @@ import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.componen
         DateRangeComponent,
         ImgButtonComponent,
         ConfirmDialogComponent,
+        InputDialogComponent,
     ],
     providers: [
     ],
     entryComponents: [
         ConfirmDialogComponent,
+        InputDialogComponent,
     ],
     exports: [
         RangeDatePipe,

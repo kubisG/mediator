@@ -24,11 +24,14 @@ export class HeaderComponent {
     @Input() cloudButton: ImgButton;
     @Input() wifiButton: ImgButton;
     @Input() menuItems: Observable<MenuItem[]>;
+    @Input() leftMenuLabel: string;
+    @Input() leftMenuItems: Observable<MenuItem[]>;
+    @Input() subTitle: string;
 
     @Output() onMenuItemClick: EventEmitter<MenuItem> = new EventEmitter<MenuItem>();
 
     public menuItemClick(item: MenuItem) {
-    //    this.activeModule = item;
+        //    this.activeModule = item;
         this.onMenuItemClick.emit(item);
     }
 
