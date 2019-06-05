@@ -8,6 +8,7 @@ import { DockableConfig } from "./decorators/dockable-config.interface";
 import { ComponentsMapService } from "./components-map.service";
 import { COMPONENT_ID } from "./constants";
 import { Subscription } from "rxjs/internal/Subscription";
+import { DockableService } from './dockable.service';
 
 export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, GlOnClose, OnDestroy {
 
@@ -28,6 +29,7 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     public headerEmitter: EventEmitter<any> = new EventEmitter();
     public componentEmitter: EventEmitter<any> = new EventEmitter();
     protected elm: ElementRef;
+    protected dockableService: DockableService;
 
     constructor(
         protected componentFactoryResolver: ComponentFactoryResolver,
@@ -36,6 +38,7 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     ) {
         this.componentsMapService = this.injector.get(ComponentsMapService);
         this.elm = this.injector.get(ElementRef);
+        this.dockableService = this.injector.get(DockableService);
         this.init();
     }
 
@@ -197,6 +200,7 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
 
     public ngOnDestroy() {
         this.componentsMapService.deleteComponents(this.elementCid);
+        this.dockableService.removeComponent(this.constructor.name);
         this.clearComponents();
     }
 
