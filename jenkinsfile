@@ -79,9 +79,10 @@ void pushDocker(String registry, String imgName, String shortHash, String branch
     sh "sudo docker build . -t "+registry+"/"+imgName+":"+shortHash+"-"+branch
     sh "sudo docker push "+registry+"/"+imgName+":"+shortHash+"-"+branch
 
-    sh "sudo docker system prune -f"
+    // sh "sudo docker system prune -f"
 
-    sh "sudo docker build . -t "+registry+"/"+imgName+":latest-"+branch
+    // sh "sudo docker build . -t "+registry+"/"+imgName+":latest-"+branch
+    sh "sudo docker tag "+registry+"/"+imgName+":"+shortHash+"-"+branch+" "+registry+"/"+imgName+":latest-"+branch
     sh "sudo docker push "+registry+"/"+imgName+":latest-"+branch
 }
 

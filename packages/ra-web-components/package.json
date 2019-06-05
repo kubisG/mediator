@@ -23,6 +23,8 @@
         "@embedded-enterprises/ng6-golden-layout": "0.0.12",
         "@ngxs/storage-plugin": "3.2.0",
         "@ngxs/store": "3.2.0",
+        "@ra/web-shared-fe": "^1.1.0",
+        "@ra/web-core-fe": "^1.1.0",
         "jquery": "3.4.1",
         "core-js": "2.5.4",
         "devextreme": "19.1.3",

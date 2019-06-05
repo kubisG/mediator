@@ -4,8 +4,8 @@ import { GoldenLayoutService } from "@embedded-enterprises/ng6-golden-layout";
 import { ComponentsMapService } from "./components-map.service";
 import { COMPONENT_ID } from "./constants";
 import { DockableComponentConfig } from "./dockable-component-config.interface";
-import { DOCKABLE_CONFIG } from './decorators/dockable.decorators';
-import { DockableConfig } from './decorators/dockable-config.interface';
+import { DOCKABLE_CONFIG } from "./decorators/dockable.decorators";
+import { DockableConfig } from "./decorators/dockable-config.interface";
 
 @Injectable()
 export class DockableService {

@@ -15,7 +15,7 @@
     "ra-trader-fe": "lerna run --scope ra-trader-fe build:all",
     "ra-web-bundle-be": "lerna run --scope @ra/web-bundle-be build",
     "ra-web-bundle-fe": "lerna run --scope @ra/web-bundle-fe build",
-     "watch:bundle": "nodemon -e ts --config nodemon.json"
+    "watch:bundle": "nodemon -e ts --config nodemon.json"
   },
   "devDependencies": {
     "lerna": "3.13.3",

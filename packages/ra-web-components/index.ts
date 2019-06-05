@@ -15,3 +15,8 @@ export { DockableService } from "./src/app/dockable/dockable.service";
 export { DockableComponentConfig } from "./src/app/dockable/dockable-component-config.interface";
 export { COMPONENT_ID } from "./src/app/dockable/constants";
 export { DockableConfig } from "./src/app/dockable/decorators/dockable-config.interface";
+export { LayoutService } from "./src/app/layout/layout.service";
+export { LayoutModule } from "./src/app/layout/layout.module";
+export { LayoutComponent } from "./src/app/layout/layout.component";
+export { LayoutStateStorage } from "./src/app/layout/layout-state-storage.interface";
+export { LayoutMenuItemsService } from "./src/app/layout/layout-menu-items.service";
