@@ -31,7 +31,7 @@ export class DockableService {
         this.goldenLayoutService.createNewComponent({
             componentName: config.componentName,
             component: config.component
-        }, config.label);
+        }, config.label, config.state );
     }
 
     public getComponentConfig(component: Type<any>): DockableConfig {

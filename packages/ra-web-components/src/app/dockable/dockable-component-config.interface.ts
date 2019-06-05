@@ -7,5 +7,5 @@ export interface DockableComponentConfig {
     label: string;
     componentName: string;
     component: Type<any>;
-
+    state?: any;
 }

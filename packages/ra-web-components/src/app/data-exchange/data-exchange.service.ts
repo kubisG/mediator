@@ -12,8 +12,10 @@ export class DataExchangeService {
 
     constructor() { }
 
-    public pushData(data: any, key: string) {
-        this.actData[key] = data;
+    public pushData(data: any, key: string[]) {
+        for (let i = 0; i < key.length; i++) {
+            this.actData[key[i]] = data;
+        }
         this.dataSubject.next({ data, key });
     }
 
@@ -26,6 +28,6 @@ export class DataExchangeService {
             return { data: this.actData[key], key };
         }
 
-        return { data: null, key: null};
+        return { data: null, key: null };
     }
 }

@@ -46,7 +46,7 @@
             <mat-icon>menu</mat-icon>
         </button>
         <mat-menu #menu="matMenu" [overlapTrigger]="false">
-            <span *ngFor="let module of menuItems | async">
+            <span *ngFor="let module of menuItems | async" class="{{module.class}}">
                 <button *ngIf="module.route && !module.divider" mat-menu-item routerLink="{{module.route}}"
                     (click)="menuItemClick(module)">
                     <mat-icon *ngIf="module.icon">{{module.icon}}</mat-icon>
