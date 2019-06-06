@@ -8,7 +8,7 @@ import { DockableConfig } from "./decorators/dockable-config.interface";
 import { ComponentsMapService } from "./components-map.service";
 import { COMPONENT_ID } from "./constants";
 import { Subscription } from "rxjs/internal/Subscription";
-import { DockableService } from './dockable.service';
+import { DockableService } from "./dockable.service";
 
 export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, GlOnClose, OnDestroy {
 
