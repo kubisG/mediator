@@ -34,6 +34,11 @@ export class DockableService {
         }, config.label, config.state);
     }
 
+    public removeAll() {
+        this.componentsMapService.deleteAll();
+        this.singleComponentsMap = {};
+    }
+
     public removeComponent(name: string) {
         delete this.singleComponentsMap[name];
     }

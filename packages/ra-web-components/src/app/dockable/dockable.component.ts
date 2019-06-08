@@ -199,6 +199,9 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     }
 
     public ngOnDestroy() {
+        if ((this as any).dockableClose) {
+            (this as any).dockableClose();
+        }
         this.componentsMapService.deleteComponents(this.elementCid);
         this.dockableService.removeComponent(this.constructor.name);
         this.clearComponents();

@@ -84,8 +84,23 @@ export class ComponentsMapService {
         return this.map[key][name];
     }
 
+    public deleteAll() {
+        for (const key of Object.keys(this.map)) {
+            if (this.map[key]) {
+                this.map[key].instance.ngOnDestroy();
+                this.deleteComponents(key);
+            }
+        }
+        this.map = {};
+        this.stacks = {};
+        this.itr = 0;
+        this.stackItr = 0;
+    }
+
     public deleteComponents(key: string) {
-        delete this.map[key];
+        if (this.map[key]) {
+            delete this.map[key];
+        }
     }
 
     public getDockableLayouts() {

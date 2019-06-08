@@ -61,6 +61,7 @@ export class LayoutService {
     private loadLayout(name: string) {
         this.stateStore.setLayoutName(name);
         this.layoutReload.next(false);
+        this.dockableService.removeAll();
         setTimeout((instance) => {
             instance.layoutReload.next(true);
         }, 100, this);
