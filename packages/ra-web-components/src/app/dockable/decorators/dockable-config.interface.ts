@@ -6,4 +6,5 @@ export interface DockableConfig {
     label?: string;
     icon?: string;
     single?: boolean;
+    closeable?: boolean;
 }
