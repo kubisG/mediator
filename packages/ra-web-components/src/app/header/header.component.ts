@@ -1,13 +1,12 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from "@angular/core";
 import { MenuItem } from "./menu-item.interface";
 import { UserInfo } from "./user-info.interface";
-import { ImgButton } from "./img-button.interface";
 import { Observable } from "rxjs/internal/Observable";
+import { ButtonItem } from "./button-item.interface";
 @Component({
     selector: "ra-header",
     templateUrl: "./header.component.html",
     styleUrls: ["./header.component.less"],
-    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
 
@@ -20,9 +19,7 @@ export class HeaderComponent {
     @Input() appLabel: string;
     @Input() alertMessage: string;
     @Input() user: UserInfo;
-    @Input() messageButton: ImgButton;
-    @Input() cloudButton: ImgButton;
-    @Input() wifiButton: ImgButton;
+    @Input() buttonItems: Observable<ButtonItem[]>;
     @Input() menuItems: Observable<MenuItem[]>;
     @Input() leftMenuLabel: string;
     @Input() leftMenuItems: Observable<MenuItem[]>;

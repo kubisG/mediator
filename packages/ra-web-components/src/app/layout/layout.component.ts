@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy } from "@angular/core";
+import { Component, OnInit, Inject, OnDestroy, Input } from "@angular/core";
 import { LayoutMenuItemsService } from "./layout-menu-items.service";
 import { Observable } from "rxjs/internal/Observable";
 import { LayoutService } from "./layout.service";
@@ -6,6 +6,9 @@ import { Subscription } from "rxjs/internal/Subscription";
 import { GoldenLayoutStateStore } from "@embedded-enterprises/ng6-golden-layout";
 import { LayoutStateStorage } from "./layout-state-storage.interface";
 import { MenuItem } from "../header/menu-item.interface";
+import { ImgButton } from "../header/img-button.interface";
+import { UserInfo } from "../header/user-info.interface";
+import { ButtonItem } from "../header/button-item.interface";
 
 @Component({
     selector: "ra-layout",
@@ -14,8 +17,17 @@ import { MenuItem } from "../header/menu-item.interface";
 })
 export class LayoutComponent implements OnInit, OnDestroy {
 
+    @Input() logoUrl: string;
+    @Input() logoImg: string;
+    @Input() appVersion: string;
+    @Input() appVersionLong: string;
+    @Input() appLabel: string;
+    @Input() alertMessage: string;
+    @Input() user: UserInfo;
+
     public headerMenuItems: Observable<MenuItem[]>;
     public headerLeftMenuItems: Observable<MenuItem[]>;
+    public buttonItems: Observable<ButtonItem[]>;
     public reload = true;
     public subTitle = "";
 
@@ -47,6 +59,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.headerMenuItems = this.layoutMenuItemsService.headerMenuItems$;
         this.headerLeftMenuItems = this.layoutMenuItemsService.headerLeftMenuItems$;
+        this.buttonItems = this.layoutMenuItemsService.headerButtonItems$;
+
         this.layoutService.loadSavedLayoutsNames();
         this.layoutReloadSubscribe();
         this.layoutNameSubscribe();

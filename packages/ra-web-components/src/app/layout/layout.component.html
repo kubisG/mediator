@@ -1,5 +1,7 @@
 <ra-header [subTitle]="subTitle" [menuItems]="headerMenuItems" [leftMenuItems]="headerLeftMenuItems"
-    (onMenuItemClick)="onMenuItemClick($event)" [leftMenuLabel]="'picture_in_picture'"></ra-header>
+    (onMenuItemClick)="onMenuItemClick($event)" [leftMenuLabel]="'picture_in_picture'" [appLabel]="appLabel"
+    [appVersion]="appVersion" [appVersionLong]="appVersionLong" [user]="user" [buttonItems]="buttonItems"
+    [logoImg]="'assets/img/jira-favicon-scaled_t.png'" [logoUrl]="'https://rapidaddition.com/'"></ra-header>
 <div class="ra-layout">
     <golden-layout-root *ngIf="reload"></golden-layout-root>
 </div>

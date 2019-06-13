@@ -1,7 +1,4 @@
 import { Injectable, Inject } from "@angular/core";
-import { Store } from "@ngxs/store";
-import { Router } from "@angular/router";
-import { LogoutSuccess } from "@ra/web-core-fe";
 import { MatDialog } from "@angular/material/dialog";
 import { InputDialogComponent, ConfirmDialogComponent } from "@ra/web-shared-fe";
 import { GoldenLayoutStateStore } from "@embedded-enterprises/ng6-golden-layout";

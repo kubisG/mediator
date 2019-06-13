@@ -4,15 +4,12 @@ import { Observable } from "rxjs/internal/Observable";
 import { MenuItem } from "../header/menu-item.interface";
 import { DockableService } from "../dockable/dockable.service";
 import { DockableConfig } from "../dockable/decorators/dockable-config.interface";
+import { ButtonItem } from "../header/button-item.interface";
 
 @Injectable()
 export class LayoutMenuItemsService {
 
     private menuItems: MenuItem[] = [
-        {
-            label: "Logout",
-            icon: "exit_to_app",
-        }
     ];
 
     private leftMenuItems: MenuItem[] = [
@@ -26,6 +23,12 @@ export class LayoutMenuItemsService {
         }
     ];
 
+    private buttonItems: ButtonItem[] = [
+    ];
+
+    public headerButtonItems: BehaviorSubject<ButtonItem[]> = new BehaviorSubject<ButtonItem[]>(this.buttonItems);
+    public headerButtonItems$: Observable<ButtonItem[]> = this.headerButtonItems.asObservable();
+
     public headerMenuItems: BehaviorSubject<MenuItem[]> = new BehaviorSubject<MenuItem[]>(this.menuItems);
     public headerMenuItems$: Observable<MenuItem[]> = this.headerMenuItems.asObservable();
 
@@ -36,21 +39,46 @@ export class LayoutMenuItemsService {
         private dockableService: DockableService,
     ) { }
 
-    public setComponentList(componentsList: any[]) {
-        this.menuItems.unshift({
-            label: "",
-            divider: true,
-        });
-        for (const component of componentsList) {
-            const componentConfig: DockableConfig = this.dockableService.getComponentConfig(component.component);
-            this.menuItems.unshift({
-                label: componentConfig.label ? componentConfig.label : component.componentName,
-                icon: componentConfig.icon ? componentConfig.icon : undefined,
-                data: component,
-                single: componentConfig.single ? componentConfig.single : undefined,
-            });
+    public setComponentList(componentsList: any[], menuItems?: any[], submenu?: string) {
+
+        this.menuItems = [];
+
+
+        const length = menuItems ? menuItems.length : 1;
+
+        for (let i = 0; i < length; i++) {
+            if (!menuItems || !submenu || menuItems[i].label === submenu) {
+                if (menuItems && menuItems[i]) {
+                    this.menuItems.push(menuItems[i]);
+                }
+                this.menuItems.push({
+                    label: "",
+                    divider: true,
+                });
+                for (const component of componentsList) {
+                    const componentConfig: DockableConfig = this.dockableService.getComponentConfig(component.component);
+                    this.menuItems.push({
+                        label: componentConfig.label ? componentConfig.label : component.componentName,
+                        icon: componentConfig.icon ? componentConfig.icon : undefined,
+                        data: component,
+                        single: componentConfig.single ? componentConfig.single : undefined,
+                        class: "submenu",
+                    });
+                }
+                this.menuItems.push({
+                    label: "",
+                    divider: true,
+                });
+            } else if (menuItems && menuItems[i]) {
+                this.menuItems.push(menuItems[i]);
+            }
         }
-        this.headerLeftMenuItems.next(this.menuItems);
+        this.menuItems.push(
+            {
+                label: "Logout",
+                icon: "exit_to_app",
+            });
+        this.headerMenuItems.next(this.menuItems);
     }
 
     public addLeftMenuItem(item: MenuItem) {
@@ -65,6 +93,15 @@ export class LayoutMenuItemsService {
                 return false;
             }
         });
+    }
+
+    public addButtonItem(button: ButtonItem) {
+        this.buttonItems.push(button);
+        this.headerButtonItems.next(this.buttonItems);
+    }
+
+    public setButtonItems(buttons: ButtonItem[]) {
+        this.headerButtonItems.next(buttons);
     }
 
 }
