@@ -24,9 +24,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
     @Input() appLabel: string;
     @Input() alertMessage: string;
     @Input() user: UserInfo;
-    @Input() messageButton: ImgButton;
-    @Input() cloudButton: ImgButton;
-    @Input() wifiButton: ImgButton;
 
     public headerMenuItems: Observable<MenuItem[]>;
     public headerLeftMenuItems: Observable<MenuItem[]>;

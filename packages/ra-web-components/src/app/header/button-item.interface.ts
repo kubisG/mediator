@@ -1,7 +1,7 @@
 export interface ButtonItem {
     callBack: () => void;
     count: number;
-    isTrue: () => void;
+    isTrue: boolean;
     icoTrue: string;
     icoFalse: string;
 }

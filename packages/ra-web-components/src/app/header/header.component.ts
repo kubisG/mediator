@@ -7,7 +7,6 @@ import { ButtonItem } from "./button-item.interface";
     selector: "ra-header",
     templateUrl: "./header.component.html",
     styleUrls: ["./header.component.less"],
-    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
 
