@@ -5,9 +5,10 @@ import { MenuItem } from "../header/menu-item.interface";
 import { DockableService } from "../dockable/dockable.service";
 import { DockableConfig } from "../dockable/decorators/dockable-config.interface";
 import { ButtonItem } from "../header/button-item.interface";
+import { LayoutMenuInterface } from "./layout-menu-interface";
 
 @Injectable()
-export class LayoutMenuItemsService {
+export class LayoutMenuItemsService implements LayoutMenuInterface {
 
     private menuItems: MenuItem[] = [
     ];
@@ -40,9 +41,7 @@ export class LayoutMenuItemsService {
     ) { }
 
     public setComponentList(componentsList: any[], menuItems?: any[], submenu?: string) {
-
         this.menuItems = [];
-
 
         const length = menuItems ? menuItems.length : 1;
 

@@ -3,9 +3,9 @@ import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { MaterialModule } from "@ra/web-material-fe";
-import { DataGridComponent } from "./data-grid.component";
-import { DataGridService } from "./data-grid.service";
-import { DataDxGridModule } from "../data-dx-grid/data-dx-grid.module";
+import { DataDxGridComponent } from "./data-dx-grid.component";
+import { DxDataGridModule } from "devextreme-angular";
+import { DataDxGridService } from "./data-dx-grid.service";
 
 @NgModule({
     imports: [
@@ -14,17 +14,18 @@ import { DataDxGridModule } from "../data-dx-grid/data-dx-grid.module";
         FormsModule,
         RouterModule,
         MaterialModule,
-        DataDxGridModule,
+        DxDataGridModule,
     ],
     providers: [
-        DataGridService,
+        DataDxGridService,
     ],
     declarations: [
-        DataGridComponent,
+        DataDxGridComponent,
     ],
     exports: [
-        DataGridComponent,
+        DataDxGridComponent,
     ]
 })
-export class DataGridModule {
+export class DataDxGridModule {
+
 }
