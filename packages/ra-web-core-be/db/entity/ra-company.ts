@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryColumn, OneToMany, PrimaryGeneratedColumn, Index, BeforeUpdate } from "typeorm";
-import { Mapping, MappingRequirement } from "light-mapper/dist/lib/light-mapper.decorators";
+import { Mapping, MappingRequirement } from "light-mapper";
 
 import { AEntity } from "../a-entity";
 import { RaUser } from "./ra-user";

@@ -4,5 +4,6 @@
         [columnAutoWidth]="true" [allowColumnReordering]="true" (onRowClick)="onRowClick($event)"
         (onRowUpdated)="onRowUpdated($event)" (onRowInserted)="onRowInserted($event)" [showRowLines]="true"
         (onContentReady)="onContentReady($event)" [columnResizingMode]="'widget'">
+        <dxo-scrolling mode="virtual"></dxo-scrolling>
     </dx-data-grid>
 </div>
