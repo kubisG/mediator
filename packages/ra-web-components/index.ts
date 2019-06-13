@@ -3,6 +3,7 @@ export { HeaderComponent } from "./src/app/header/header.component";
 export { ImgButton } from "./src/app/header/img-button.interface";
 export { MenuItem } from "./src/app/header/menu-item.interface";
 export { UserInfo } from "./src/app/header/user-info.interface";
+export { DataDxGridModule } from "./src/app/data-dx-grid/data-dx-grid.module";
 export { DataGridModule } from "./src/app/data-grid/data-grid.module";
 export { DataExchangeModule } from "./src/app/data-exchange/data-exchange.module";
 export { DataExchangeService } from "./src/app/data-exchange/data-exchange.service";

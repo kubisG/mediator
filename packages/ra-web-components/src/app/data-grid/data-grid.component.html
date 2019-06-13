@@ -1,9 +1,1 @@
-<div *ngIf="dataSource && inicialized" class="ra-data-grid">
-    <dx-data-grid [repaintChangesOnly]="true" [dataSource]="dataSource" [columns]="_columns"
-        (onRowPrepared)="onRowPrepared($event)" [allowColumnResizing]="true" [showBorders]="true"
-        [columnAutoWidth]="true" [allowColumnReordering]="true" (onRowClick)="onRowClick($event)"
-        (onRowUpdated)="onRowUpdated($event)" (onRowInserted)="onRowInserted($event)" [showRowLines]="true"
-        (onContentReady)="onContentReady($event)" [columnResizingMode]="'widget'">
-        <dxo-scrolling mode="virtual"></dxo-scrolling>
-    </dx-data-grid>
-</div>
+<ra-data-dx-grid [columns]="columns" [data]="data" [updates]="updates" [key]="key" [removes]="removes" (rowClick)="onRowClick($event)"></ra-data-dx-grid>

@@ -6,7 +6,6 @@ import { Subscription } from "rxjs/internal/Subscription";
 import { GoldenLayoutStateStore } from "@embedded-enterprises/ng6-golden-layout";
 import { LayoutStateStorage } from "./layout-state-storage.interface";
 import { MenuItem } from "../header/menu-item.interface";
-import { ImgButton } from "../header/img-button.interface";
 import { UserInfo } from "../header/user-info.interface";
 import { ButtonItem } from "../header/button-item.interface";
 

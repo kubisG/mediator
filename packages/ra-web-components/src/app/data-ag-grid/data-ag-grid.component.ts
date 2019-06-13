@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ChangeDetectionStrategy } from "@angular/compiler/src/core";
 import { GridOptions, RowNode } from "ag-grid-community";
+import { DataGridInterface } from "../data-grid/data-grid-interface";
 
 @Component({
     selector: "ra-data-ag-grid",
@@ -26,7 +27,7 @@ export class DataAgGridComponent implements OnInit {
 
     @Input() set initColumns(columns: any[]) {
         this.columns = columns;
-        this.setGridOptions();
+        this.setupGrid();
     }
 
     constructor() { }
@@ -51,7 +52,7 @@ export class DataAgGridComponent implements OnInit {
         }
     }
 
-    private setGridOptions() {
+    private setupGrid() {
         this.gridOptions = {
             enableRangeSelection: true,
             columnDefs: this.columns,
