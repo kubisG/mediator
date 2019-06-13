@@ -1,7 +1,6 @@
 import { Type } from "@angular/core";
 
 export interface DockableComponentConfig {
-
     single?: boolean;
     closeable?: boolean;
     label: string;
