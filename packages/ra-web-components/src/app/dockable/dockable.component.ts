@@ -43,8 +43,16 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     }
 
     private init() {
+        this.config = Reflect.getMetadata(DOCKABLE_CONFIG, this.constructor);
         this.elementCid = this.componentsMapService.createKey();
         this.elm.nativeElement.setAttribute(COMPONENT_ID, this.elementCid);
+        this.dockableService.addToSingleComponentsMap({
+            label: this.config.label,
+            componentName: this.config.label,
+            component: this.constructor as Type<any>,
+            single: this.config.single,
+            closeable: this.config.closeable
+        });
     }
 
     private createComponentRef(componentType: Type<any>) {
@@ -152,7 +160,6 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     public initComponents() {
         this.removeFromDOM();
         this.clearSubs();
-        this.config = Reflect.getMetadata(DOCKABLE_CONFIG, this.constructor);
         if (this.config.tab) {
             this.componentRefTab = this.getComponentRef(this.config.tab.component, "tab");
             this.attachEmitters(this.componentRefTab, this.tabEmitter);
@@ -192,6 +199,9 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     }
 
     public glOnClose(): Promise<void> {
+        if (this.config.closeable === false) {
+            return Promise.reject();
+        }
         if ((this as any).dockableClose) {
             (this as any).dockableClose();
         }

@@ -70,7 +70,8 @@ export class LayoutService {
             label: component.componentName,
             componentName: component.componentName,
             component: component.component,
-            single: item.single
+            single: item.single,
+            closeable: item.closeable
         });
     }
 
