@@ -6,10 +6,10 @@ import { DockableService } from "../dockable/dockable.service";
 import { DockableConfig } from "../dockable/decorators/dockable-config.interface";
 import { ButtonItem } from "../header/button-item.interface";
 import { LayoutMenuInterface } from "./layout-menu-interface";
-import { Store } from "@ngxs/store";
 import { LAYOUTRIGHTS_CONFIG } from "./decorators/layout-rights.decorators";
 import { Reflect } from "core-js";
 import { LayoutRightsConfig } from "./decorators/layout-rights-config.interface";
+import { ReplaySubject } from "rxjs/internal/ReplaySubject";
 
 @Injectable()
 export class LayoutMenuItemsService implements LayoutMenuInterface {
@@ -31,13 +31,13 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
     private buttonItems: ButtonItem[] = [
     ];
 
-    public headerButtonItems: BehaviorSubject<ButtonItem[]> = new BehaviorSubject<ButtonItem[]>(this.buttonItems);
+    public headerButtonItems: ReplaySubject<ButtonItem[]> = new ReplaySubject<ButtonItem[]>(1);
     public headerButtonItems$: Observable<ButtonItem[]> = this.headerButtonItems.asObservable();
 
-    public headerMenuItems: BehaviorSubject<MenuItem[]> = new BehaviorSubject<MenuItem[]>(this.menuItems);
+    public headerMenuItems: ReplaySubject<MenuItem[]> = new ReplaySubject<MenuItem[]>(1);
     public headerMenuItems$: Observable<MenuItem[]> = this.headerMenuItems.asObservable();
 
-    public headerLeftMenuItems: BehaviorSubject<MenuItem[]> = new BehaviorSubject<MenuItem[]>(this.leftMenuItems);
+    public headerLeftMenuItems: ReplaySubject<MenuItem[]> = new ReplaySubject<MenuItem[]>(1);
     public headerLeftMenuItems$: Observable<MenuItem[]> = this.headerLeftMenuItems.asObservable();
 
     public user;
@@ -46,6 +46,13 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
     constructor(
         protected dockableService: DockableService,
     ) {
+        this.setInitValues();
+    }
+
+    setInitValues() {
+        this.headerMenuItems.next(this.menuItems);
+        this.headerLeftMenuItems.next(this.leftMenuItems);
+        this.headerButtonItems.next(this.buttonItems);
     }
 
     public setComponentList(componentsList: any[], menuItems?: any[], submenu?: string) {
@@ -121,4 +128,6 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
     }
 
 
+    public unsubscribeAll() {
+    }
 }

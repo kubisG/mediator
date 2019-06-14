@@ -1,5 +1,5 @@
 import { MenuItem } from "../header/menu-item.interface";
-import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
+import { ReplaySubject } from "rxjs/internal/ReplaySubject";
 import { Observable } from "rxjs/internal/Observable";
 import { ButtonItem } from "../header/button-item.interface";
 import { Type } from "@angular/core";
@@ -7,13 +7,13 @@ import { LayoutRightsConfig } from "./decorators/layout-rights-config.interface"
 
 export interface LayoutMenuInterface {
 
-    headerButtonItems: BehaviorSubject<ButtonItem[]>;
+    headerButtonItems: ReplaySubject<ButtonItem[]>;
     headerButtonItems$: Observable<ButtonItem[]>;
 
-    headerMenuItems: BehaviorSubject<MenuItem[]>;
+    headerMenuItems: ReplaySubject<MenuItem[]>;
     headerMenuItems$: Observable<MenuItem[]>;
 
-    headerLeftMenuItems: BehaviorSubject<MenuItem[]>;
+    headerLeftMenuItems: ReplaySubject<MenuItem[]>;
     headerLeftMenuItems$: Observable<MenuItem[]>;
 
 
@@ -26,4 +26,6 @@ export interface LayoutMenuInterface {
     setButtonItems(buttons: ButtonItem[]);
 
     getLayoutRightsConfig(component: Type<any>): LayoutRightsConfig;
+
+    unsubscribeAll();
 }
