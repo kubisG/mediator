@@ -1,5 +1,5 @@
 export interface LayoutRightsConfig {
     roles?: string[];
     modules?: string[];
-    ioi?: boolean;
+    params?: { [key: string]: any };
 }
