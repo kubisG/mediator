@@ -33,9 +33,8 @@ export class ComponentsMapService {
         for (const key in this.stacks) {
             if (this.stacks[key]) {
                 const stack = this.stacks[key];
-                for (let i = 0; i < stack.contentItems.length; i++) {
-                    const item = stack.contentItems[i];
-                    if (cid === (item.element as any).children().children().attr(COMPONENT_ID)) {
+                for (const contentItem of stack.contentItems) {
+                    if (cid === (contentItem.element as any).children().children().attr(COMPONENT_ID)) {
                         return stack;
                     }
                 }
@@ -45,9 +44,8 @@ export class ComponentsMapService {
 
     public findOtherComponentsInStackAndEmitt(data: any, cid: string) {
         const stack = this.findStackByComponentCid(cid);
-        for (let i = 0; i < stack.contentItems.length; i++) {
-            const item = stack.contentItems[i];
-            const key = (item.element as any).children().children().attr(COMPONENT_ID);
+        for (const contentItem of stack.contentItems) {
+            const key = (contentItem.element as any).children().children().attr(COMPONENT_ID);
             this.map[key].instance.componentEmitter.emit(data);
         }
     }

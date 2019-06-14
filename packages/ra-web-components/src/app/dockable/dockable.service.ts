@@ -22,11 +22,19 @@ export class DockableService {
         this.componentsMapService.findOtherComponentsInStackAndEmitt(msg, compId);
     }
 
-    public addComponent(config: DockableComponentConfig) {
+    public addToSingleComponentsMap(config: DockableComponentConfig): boolean {
         if (config.single && this.singleComponentsMap[config.component.name]) {
-            return;
+            return false;
         } else if (config.single && !this.singleComponentsMap[config.component.name]) {
             this.singleComponentsMap[config.component.name] = config;
+            return true;
+        }
+        return true;
+    }
+
+    public addComponent(config: DockableComponentConfig) {
+        if (!this.addToSingleComponentsMap(config)) {
+            return;
         }
         this.goldenLayoutService.createNewComponent({
             componentName: config.componentName,
