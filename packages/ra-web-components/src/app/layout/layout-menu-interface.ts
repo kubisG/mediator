@@ -2,6 +2,8 @@ import { MenuItem } from "../header/menu-item.interface";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { Observable } from "rxjs/internal/Observable";
 import { ButtonItem } from "../header/button-item.interface";
+import { Type } from "@angular/core";
+import { LayoutRightsConfig } from "./decorators/layout-rights-config.interface";
 
 export interface LayoutMenuInterface {
 
@@ -23,4 +25,5 @@ export interface LayoutMenuInterface {
     addButtonItem(button: ButtonItem);
     setButtonItems(buttons: ButtonItem[]);
 
+    getLayoutRightsConfig(component: Type<any>): LayoutRightsConfig;
 }

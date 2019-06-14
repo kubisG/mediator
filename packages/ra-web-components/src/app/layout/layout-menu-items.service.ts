@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Type } from "@angular/core";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { Observable } from "rxjs/internal/Observable";
 import { MenuItem } from "../header/menu-item.interface";
@@ -6,6 +6,10 @@ import { DockableService } from "../dockable/dockable.service";
 import { DockableConfig } from "../dockable/decorators/dockable-config.interface";
 import { ButtonItem } from "../header/button-item.interface";
 import { LayoutMenuInterface } from "./layout-menu-interface";
+import { Store } from "@ngxs/store";
+import { LAYOUTRIGHTS_CONFIG } from "./decorators/layout-rights.decorators";
+import { Reflect } from "core-js";
+import { LayoutRightsConfig } from "./decorators/layout-rights-config.interface";
 
 @Injectable()
 export class LayoutMenuItemsService implements LayoutMenuInterface {
@@ -36,9 +40,13 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
     public headerLeftMenuItems: BehaviorSubject<MenuItem[]> = new BehaviorSubject<MenuItem[]>(this.leftMenuItems);
     public headerLeftMenuItems$: Observable<MenuItem[]> = this.headerLeftMenuItems.asObservable();
 
+    public user;
+    public app;
+
     constructor(
-        private dockableService: DockableService,
-    ) { }
+        protected dockableService: DockableService,
+    ) {
+    }
 
     public setComponentList(componentsList: any[], menuItems?: any[], submenu?: string) {
         this.menuItems = [];
@@ -102,5 +110,15 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
     public setButtonItems(buttons: ButtonItem[]) {
         this.headerButtonItems.next(buttons);
     }
+
+
+    public isVisible(roles) {
+        return (!roles || (this.user && roles.indexOf(this.user.role) > -1));
+    }
+
+    public getLayoutRightsConfig(component: Type<any>): LayoutRightsConfig {
+        return Reflect.getMetadata(LAYOUTRIGHTS_CONFIG, component);
+    }
+
 
 }
