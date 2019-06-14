@@ -37,7 +37,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
         @Inject(GoldenLayoutStateStore) private stateStore: LayoutStateStorage,
         private layoutMenuItemsService: LayoutMenuItemsService,
         private layoutService: LayoutService,
-    ) { }
+    ) {
+    }
 
     private layoutReloadSubscribe() {
         this.reloadSub = this.layoutService.layoutReload$.subscribe((reload) => {
@@ -72,5 +73,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
         if (this.layoutNameSub) {
             this.layoutNameSub.unsubscribe();
         }
+        this.layoutMenuItemsService.unsubscribeAll();
     }
 }
