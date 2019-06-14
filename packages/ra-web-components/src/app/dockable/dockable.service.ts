@@ -36,10 +36,11 @@ export class DockableService {
         if (!this.addToSingleComponentsMap(config)) {
             return;
         }
+        const componentConfig = this.getComponentConfig(config.component);
         this.goldenLayoutService.createNewComponent({
             componentName: config.componentName,
             component: config.component
-        }, config.label, config.state);
+        }, componentConfig.label, config.state);
     }
 
     public removeAll() {
