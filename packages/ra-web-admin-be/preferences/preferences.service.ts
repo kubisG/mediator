@@ -5,6 +5,7 @@ import { AuthService } from "@ra/web-auth-be/auth.service";
 import { PreferenceRepository } from "../repositories/preference.repository";
 import { UserRepository } from "../repositories/user.repository";
 import { RaPreference } from "@ra/web-core-be/db/entity/ra-preference";
+import { UserData } from "../repositories/user-data.interface";
 
 @Injectable()
 export class PreferencesService {
@@ -25,7 +26,7 @@ export class PreferencesService {
     }
 
     async find(token: string): Promise<any> {
-        const userData = await this.authService.getUserData(token);
+        const userData: UserData = await this.authService.getUserData<UserData>(token);
         const pref = await this.findPrefs(userData.userId);
         const user = await this.raUser.findOne({ id: userData.userId });
         const data = {};
@@ -54,7 +55,7 @@ export class PreferencesService {
     }
 
     async save(prefs: any, token: string): Promise<any> {
-        const userData = await this.authService.getUserData(token);
+        const userData: UserData = await this.authService.getUserData<UserData>(token);
         try {
             if (prefs.pref) {
                 const newPref = new RaPreference();
@@ -70,7 +71,7 @@ export class PreferencesService {
     }
 
     async update(pref: any, token: string) {
-        const userData = await this.authService.getUserData(token);
+        const userData: UserData = await this.authService.getUserData<UserData>(token);
         try {
             let storedPref = await this.raPreference.findOne({
                 userId: userData.userId, companyId: userData.compId, name: "layout.prefs"
@@ -121,12 +122,12 @@ export class PreferencesService {
     }
 
     async loadUserPref(token: string, key: string): Promise<any> {
-        const userData = await this.authService.getUserData(token);
+        const userData: UserData = await this.authService.getUserData<UserData>(token);
         return await this.findPref(userData.userId, userData.compId, key);
     }
 
     async saveUserPref(token: string, key: string, value: any): Promise<[RaPreference[]]> {
-        const userData = await this.authService.getUserData(token);
+        const userData: UserData = await this.authService.getUserData<UserData>(token);
         return await this.savePref(userData.userId, userData.compId, key, value);
     }
 
