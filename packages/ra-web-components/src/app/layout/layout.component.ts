@@ -16,22 +16,23 @@ import { ButtonItem } from "../header/button-item.interface";
 })
 export class LayoutComponent implements OnInit, OnDestroy {
 
-    @Input() logoUrl: string;
-    @Input() logoImg: string;
-    @Input() appVersion: string;
-    @Input() appVersionLong: string;
-    @Input() appLabel: string;
-    @Input() alertMessage: string;
-    @Input() user: UserInfo;
-
     public headerMenuItems: Observable<MenuItem[]>;
     public headerLeftMenuItems: Observable<MenuItem[]>;
     public buttonItems: Observable<ButtonItem[]>;
+    public user: UserInfo;
+    public alertMessage: string;
+    public appVersion: string;
+    public appVersionLong: string;
+
     public reload = true;
     public subTitle = "";
+    public appLabel: string;
 
     public reloadSub: Subscription;
     public layoutNameSub: Subscription;
+    public appSettSub: Subscription;
+    public userSub: Subscription;
+    public alertSub: Subscription;
 
     constructor(
         @Inject(GoldenLayoutStateStore) private stateStore: LayoutStateStorage,
@@ -60,6 +61,17 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.headerMenuItems = this.layoutMenuItemsService.headerMenuItems$;
         this.headerLeftMenuItems = this.layoutMenuItemsService.headerLeftMenuItems$;
         this.buttonItems = this.layoutMenuItemsService.headerButtonItems$;
+        this.userSub = this.layoutMenuItemsService.user$.subscribe((data) => {
+            this.user = data;
+        });
+        this.alertSub = this.layoutMenuItemsService.alertMessage$.subscribe((data) => {
+            this.alertMessage = data;
+        });
+        this.appSettSub = this.layoutMenuItemsService.appSettings$.subscribe((data) => {
+            this.appVersion = data["version"];
+            this.appVersionLong = data["versionLong"];
+            this.appLabel = data["submenu"];
+        });
 
         this.layoutService.loadSavedLayoutsNames();
         this.layoutReloadSubscribe();
@@ -72,6 +84,16 @@ export class LayoutComponent implements OnInit, OnDestroy {
         }
         if (this.layoutNameSub) {
             this.layoutNameSub.unsubscribe();
+        }
+        if (this.appSettSub) {
+            this.appSettSub.unsubscribe();
+        }
+
+        if (this.userSub) {
+            this.userSub.unsubscribe();
+        }
+        if (this.alertSub) {
+            this.alertSub.unsubscribe();
         }
         this.layoutMenuItemsService.unsubscribeAll();
     }

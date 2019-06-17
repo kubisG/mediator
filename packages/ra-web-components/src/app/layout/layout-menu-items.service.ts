@@ -10,6 +10,7 @@ import { LAYOUTRIGHTS_CONFIG } from "./decorators/layout-rights.decorators";
 import { Reflect } from "core-js";
 import { LayoutRightsConfig } from "./decorators/layout-rights-config.interface";
 import { ReplaySubject } from "rxjs/internal/ReplaySubject";
+import { UserInfo } from "../header/user-info.interface";
 
 @Injectable()
 export class LayoutMenuItemsService implements LayoutMenuInterface {
@@ -40,8 +41,18 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
     public headerLeftMenuItems: ReplaySubject<MenuItem[]> = new ReplaySubject<MenuItem[]>(1);
     public headerLeftMenuItems$: Observable<MenuItem[]> = this.headerLeftMenuItems.asObservable();
 
-    public user;
+    public user: ReplaySubject<UserInfo> = new ReplaySubject<UserInfo>(1);
+    public user$: Observable<UserInfo> = this.user.asObservable();
+
+    public alertMessage: ReplaySubject<string> = new ReplaySubject<string>(1);
+    public alertMessage$: Observable<string> = this.alertMessage.asObservable();
+
+    public appSettings: ReplaySubject<any> = new ReplaySubject<any>(1);
+    public appSettings$: Observable<any> = this.appSettings.asObservable();
+
     public app;
+    public submenu;
+
 
     constructor(
         protected dockableService: DockableService,
@@ -56,6 +67,7 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
     }
 
     public setComponentList(componentsList: any[], menuItems?: any[], submenu?: string) {
+        this.submenu = submenu;
         this.menuItems = [];
 
         const length = menuItems ? menuItems.length : 1;
@@ -95,6 +107,10 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
         this.headerMenuItems.next(this.menuItems);
     }
 
+    public setApp(version, versionLong) {
+        this.appSettings.next({version, versionLong, submenu: this.submenu});
+    }
+
     public addLeftMenuItem(item: MenuItem) {
         this.leftMenuItems.push(item);
         this.headerLeftMenuItems.next(this.leftMenuItems);
@@ -118,15 +134,17 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
         this.headerButtonItems.next(buttons);
     }
 
-
-    public isVisible(roles) {
-        return (!roles || (this.user && roles.indexOf(this.user.role) > -1));
-    }
-
     public getLayoutRightsConfig(component: Type<any>): LayoutRightsConfig {
         return Reflect.getMetadata(LAYOUTRIGHTS_CONFIG, component);
     }
 
+    public setUser(user) {
+        this.user.next(user);
+    }
+
+    public setAlertMessage(alertMessage) {
+        this.alertMessage.next(alertMessage);
+    }
 
     public unsubscribeAll() {
     }
