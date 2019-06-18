@@ -40,7 +40,7 @@ export class DockableService {
         this.goldenLayoutService.createNewComponent({
             componentName: config.componentName,
             component: config.component
-        }, componentConfig.label, config.state);
+        }, config.state && config.state.label ? config.state.label : componentConfig.label, config.state);
     }
 
     public removeAll() {
