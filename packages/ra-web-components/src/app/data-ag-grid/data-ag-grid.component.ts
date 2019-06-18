@@ -1,7 +1,5 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { ChangeDetectionStrategy } from "@angular/compiler/src/core";
+import { Component, Input, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { GridOptions, RowNode } from "ag-grid-community";
-import { DataGridInterface } from "../data-grid/data-grid-interface";
 
 @Component({
     selector: "ra-data-ag-grid",
