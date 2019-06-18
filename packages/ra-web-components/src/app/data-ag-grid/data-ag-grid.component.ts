@@ -11,24 +11,18 @@ import { DataGridInterface } from "../data-grid/data-grid-interface";
 export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     public gridOptions: GridOptions;
-    public data: any[];
-    public updateData: any[];
+    public data: any[] = [];
+    public updateData: any[] = [];
     public columns: any[];
 
     @Input() set initData(data: any[]) {
-        if (!data || data.length === 0) {
-            return;
-        }
-        this.data = data;
+        this.data = data ? data : [];
         this.cd.markForCheck();
     }
 
     @Input() set update(data: any[]) {
-        if (!data || data.length === 0) {
-            return;
-        }
-        this.updateData = data;
-        this.updateRow(data);
+        this.updateData = data ? data : [];
+        this.updateRow();
         this.cd.markForCheck();
     }
 
@@ -41,21 +35,22 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         this.cd.markForCheck();
     }
 
+    @Input() gridKey: string;
+
     constructor(
         private cd: ChangeDetectorRef,
     ) { }
 
-    public updateRow(data: any[]) {
+    public updateRow() {
         if (!this.gridOptions || !this.gridOptions.api) {
             return;
         }
-        if (this.gridOptions.api.getDisplayedRowCount() === 0) {
-            this.gridOptions.api.setRowData(data);
+        if (this.gridOptions.api.getDisplayedRowCount() === 0 && this.data.length > 0) {
+            this.gridOptions.api.setRowData(this.data);
             return;
         }
-        this.updateData = data;
         for (const update of this.updateData) {
-            const rowNode: RowNode = this.gridOptions.api.getRowNode(update.id);
+            const rowNode: RowNode = this.gridOptions.api.getRowNode(update[this.gridKey]);
             if (!rowNode) {
                 this.gridOptions.api.updateRowData({ add: [update] });
                 continue;
@@ -71,13 +66,13 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
             enableRangeSelection: true,
             columnDefs: this.columns,
             getRowNodeId: (data) => {
-                return data.id;
+                return data[this.gridKey];
             },
             onGridReady: () => {
                 if (this.gridOptions.api && this.columns) {
                     this.gridOptions.api.setDomLayout(`normal`);
                     this.gridOptions.api.setAlwaysShowVerticalScroll(true);
-                    if (this.gridOptions.api.getDisplayedRowCount() === 0 && this.data) {
+                    if (this.data.length > 0) {
                         this.gridOptions.api.setRowData(this.data);
                     }
                 }

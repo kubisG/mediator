@@ -22,7 +22,7 @@ import { Subscription } from "rxjs/internal/Subscription";
     templateUrl: "./data-grid.component.html",
     styleUrls: ["./data-grid.component.less"]
 })
-export class DataGridComponent implements DataGridInterface, OnInit, OnChanges, OnDestroy {
+export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
 
     private componentRef: ComponentRef<DataGridInterface>;
 
@@ -60,18 +60,14 @@ export class DataGridComponent implements DataGridInterface, OnInit, OnChanges, 
     }
 
     @Input() gridComponent: string;
+    @Input() gridKey = "id";
 
     constructor(
         private componentFactoryResolver: ComponentFactoryResolver,
         @Inject(DATA_GRID_COMPONENTS) private dataGridComponent: DataGridComponentsMap,
     ) { }
 
-    public loadComponent() {
-        const component = this.gridComponent ? this.dataGridComponent[this.gridComponent] : this.dataGridComponent.default;
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-        const viewContainerRef = this.raAdHost.viewContainerRef;
-        viewContainerRef.clear();
-        this.componentRef = viewContainerRef.createComponent(componentFactory);
+    private subscribeData() {
         this.dataSub = this.$data.subscribe((data) => {
             this.componentRef.instance.initData = data;
         });
@@ -81,6 +77,16 @@ export class DataGridComponent implements DataGridInterface, OnInit, OnChanges, 
         this.columnsDataSub = this.$columnsData.subscribe((data) => {
             this.componentRef.instance.initColumns = data;
         });
+    }
+
+    public loadComponent() {
+        const component = this.gridComponent ? this.dataGridComponent[this.gridComponent] : this.dataGridComponent.default;
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+        const viewContainerRef = this.raAdHost.viewContainerRef;
+        viewContainerRef.clear();
+        this.componentRef = viewContainerRef.createComponent(componentFactory);
+        this.componentRef.instance.gridKey = this.gridKey;
+        this.subscribeData();
     }
 
     public ngOnDestroy(): void {
