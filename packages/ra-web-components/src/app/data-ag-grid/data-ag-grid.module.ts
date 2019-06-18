@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { MaterialModule } from "@ra/web-material-fe";
 import { DataAgGridComponent } from "./data-ag-grid.component";
+import { AgGridModule } from "ag-grid-angular";
 
 @NgModule({
     imports: [
@@ -12,6 +13,7 @@ import { DataAgGridComponent } from "./data-ag-grid.component";
         FormsModule,
         RouterModule,
         MaterialModule,
+        AgGridModule.withComponents([])
     ],
     providers: [],
     declarations: [
