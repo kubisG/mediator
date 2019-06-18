@@ -21,6 +21,9 @@ import { AgGridModule } from "ag-grid-angular";
     ],
     exports: [
         DataAgGridComponent,
+    ],
+    entryComponents: [
+        DataAgGridComponent,
     ]
 })
 export class DataAgGridModule {

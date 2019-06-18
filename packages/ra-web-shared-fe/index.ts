@@ -31,3 +31,4 @@ export { OrderAllocated } from "./src/app/shared/enums/order-allocated.enum";
 export { OrderPackage } from "./src/app/shared/enums/order-package.enum";
 export { SpecType } from "./src/app/shared/enums/spec-type.enum";
 export { InputDialogComponent } from "./src/app/shared/input-dialog/input-dialog.component";
+export { AdDirective } from "./src/app/shared/directives/ad.directive";

@@ -1,5 +1,9 @@
-import { EventEmitter } from "@angular/core";
+import { ChangeDetectorRef } from "@angular/core";
 
 export interface DataGridInterface {
-    inicialized: boolean;
+
+    initData: any[];
+    update: any[];
+    initColumns: any[];
+
 }
