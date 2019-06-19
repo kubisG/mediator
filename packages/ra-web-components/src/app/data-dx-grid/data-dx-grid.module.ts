@@ -5,7 +5,6 @@ import { RouterModule } from "@angular/router";
 import { MaterialModule } from "@ra/web-material-fe";
 import { DataDxGridComponent } from "./data-dx-grid.component";
 import { DxDataGridModule } from "devextreme-angular";
-import { DataDxGridService } from "./data-dx-grid.service";
 
 @NgModule({
     imports: [
@@ -16,9 +15,7 @@ import { DataDxGridService } from "./data-dx-grid.service";
         MaterialModule,
         DxDataGridModule,
     ],
-    providers: [
-        DataDxGridService,
-    ],
+    providers: [],
     declarations: [
         DataDxGridComponent,
     ],

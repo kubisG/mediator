@@ -1,8 +1,7 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, EventEmitter, Output, ViewChild } from "@angular/core";
+import { Component, Input, OnInit, EventEmitter, Output, ViewChild } from "@angular/core";
 import DataSource from "devextreme/data/data_source";
 import ArrayStore from "devextreme/data/array_store";
 import { DxDataGridComponent } from "devextreme-angular";
-import { DataDxGridService } from "./data-dx-grid.service";
 
 @Component({
     selector: "ra-data-dx-grid",
@@ -46,9 +45,7 @@ export class DataDxGridComponent implements OnInit {
 
     @Output() rowClick: EventEmitter<any> = new EventEmitter();
 
-    constructor(
-        public dataDxGridService: DataDxGridService
-    ) { }
+    constructor() { }
 
     public setIdKey(key: string, initData?: any[]) {
         this._key = key;

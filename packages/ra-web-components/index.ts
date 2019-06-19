@@ -21,3 +21,5 @@ export { LayoutModule } from "./src/app/layout/layout.module";
 export { LayoutComponent } from "./src/app/layout/layout.component";
 export { LayoutStateStorage } from "./src/app/layout/layout-state-storage.interface";
 export { LayoutMenuItemsService } from "./src/app/layout/layout-menu-items.service";
+export { DataAgGridModule } from "./src/app/data-ag-grid/data-ag-grid.module";
+export { DataAgGridComponent } from "./src/app/data-ag-grid/data-ag-grid.component";

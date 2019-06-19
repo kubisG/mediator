@@ -31,5 +31,9 @@ export { OrderAllocated } from "./src/app/shared/enums/order-allocated.enum";
 export { OrderPackage } from "./src/app/shared/enums/order-package.enum";
 export { SpecType } from "./src/app/shared/enums/spec-type.enum";
 export { InputDialogComponent } from "./src/app/shared/input-dialog/input-dialog.component";
+<<<<<<< HEAD
 export { ENVIRONMENT, EnvironmentInterface } from "./src/app/shared/environment/environment.interface";
 export { LoggerService } from "./src/app/shared/logger/logger.service";
+=======
+export { AdDirective } from "./src/app/shared/directives/ad.directive";
+>>>>>>> 27f9e119ab88337c19eb624f88ecf0bd902f0ea6

@@ -19,6 +19,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from "ng-pick-datetime";
 import { ImgButtonComponent } from "./img-button/img-button.component";
 import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.component";
 import { InputDialogComponent } from "./input-dialog/input-dialog.component";
+import { AdDirective } from "./directives/ad.directive";
 
 @NgModule({
     imports: [
@@ -39,6 +40,7 @@ import { InputDialogComponent } from "./input-dialog/input-dialog.component";
         FormatBalancePipe,
         DisableControlDirective,
         DraggableDirective,
+        AdDirective,
         ActionBarComponent,
         DropDownComponent,
         DateRangeComponent,
@@ -61,6 +63,7 @@ import { InputDialogComponent } from "./input-dialog/input-dialog.component";
         FormatBalancePipe,
         DisableControlDirective,
         DraggableDirective,
+        AdDirective,
         ActionBarComponent,
         DropDownComponent,
         DateRangeComponent,
