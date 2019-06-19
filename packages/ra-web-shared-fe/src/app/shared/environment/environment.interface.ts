@@ -1,4 +1,8 @@
-export interface Env {
+import { InjectionToken } from "@angular/core";
+
+export const ENVIRONMENT = new InjectionToken<EnvironmentInterface>("");
+
+export interface EnvironmentInterface {
     production: boolean;
     logging?: {
         provider: number,
