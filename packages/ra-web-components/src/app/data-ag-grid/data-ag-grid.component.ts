@@ -22,7 +22,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     @Input() set update(data: any[]) {
         this.updateData = data ? data : [];
-        this.updateRow();
+        this.updateGrid();
         this.cd.markForCheck();
     }
 
@@ -41,23 +41,79 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         private cd: ChangeDetectorRef,
     ) { }
 
-    public updateRow() {
+    private getRowNodeId() {
+        return (data) => {
+            return data[this.gridKey];
+        };
+    }
+
+    private onGridReady() {
+        return () => {
+            if (this.gridOptions.api && this.columns) {
+                this.gridOptions.api.setDomLayout(`normal`);
+                this.gridOptions.api.setAlwaysShowVerticalScroll(true);
+                if (this.data.length > 0) {
+                    this.gridOptions.api.setRowData(this.data);
+                }
+            }
+        };
+    }
+
+    private isGridInitialized() {
         if (!this.gridOptions || !this.gridOptions.api) {
-            return;
+            return false;
         }
+        return true;
+    }
+
+    private setInitData() {
         if (this.gridOptions.api.getDisplayedRowCount() === 0 && this.data.length > 0) {
             this.gridOptions.api.setRowData(this.data);
+            return true;
+        }
+        return false;
+    }
+
+    private inserRow(insertRow: any, rowNode: RowNode) {
+        if (!rowNode) {
+            this.gridOptions.api.updateRowData({ add: [insertRow] });
+            return true;
+        }
+        return false;
+    }
+
+    private deleteRow(deleteRow: any, rowNode: RowNode) {
+        const keys = Object.keys(deleteRow);
+        if (rowNode && keys.length === 1 && keys[0] === this.gridKey) {
+            this.gridOptions.api.updateRowData({ remove: [deleteRow] });
+            return true;
+        }
+        return false;
+    }
+
+    private updateRow(updateRow: any, rowNode: RowNode) {
+        for (const key of Object.keys(updateRow)) {
+            rowNode.setDataValue(key, updateRow[key]);
+        }
+        return true;
+    }
+
+    public updateGrid() {
+        if (!this.isGridInitialized()) {
+            return;
+        }
+        if (this.setInitData()) {
             return;
         }
         for (const update of this.updateData) {
             const rowNode: RowNode = this.gridOptions.api.getRowNode(update[this.gridKey]);
-            if (!rowNode) {
-                this.gridOptions.api.updateRowData({ add: [update] });
+            if (this.deleteRow(update, rowNode)) {
                 continue;
             }
-            for (const key of Object.keys(update)) {
-                rowNode.setDataValue(key, update[key]);
+            if (this.inserRow(update, rowNode)) {
+                continue;
             }
+            this.updateRow(update, rowNode);
         }
     }
 
@@ -65,18 +121,8 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         this.gridOptions = {
             enableRangeSelection: true,
             columnDefs: this.columns,
-            getRowNodeId: (data) => {
-                return data[this.gridKey];
-            },
-            onGridReady: () => {
-                if (this.gridOptions.api && this.columns) {
-                    this.gridOptions.api.setDomLayout(`normal`);
-                    this.gridOptions.api.setAlwaysShowVerticalScroll(true);
-                    if (this.data.length > 0) {
-                        this.gridOptions.api.setRowData(this.data);
-                    }
-                }
-            },
+            getRowNodeId: this.getRowNodeId(),
+            onGridReady: this.onGridReady(),
             onFirstDataRendered(params) {
                 params.api.sizeColumnsToFit();
             }

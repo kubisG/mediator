@@ -9,6 +9,7 @@ import { DataAgGridModule } from "../data-ag-grid/data-ag-grid.module";
 import { SharedModule } from "@ra/web-shared-fe";
 import { DATA_GRID_COMPONENTS } from "./data-grid-components-map.interface";
 import { DataAgGridComponent } from "../data-ag-grid/data-ag-grid.component";
+import { DataDxGridComponent } from "../data-dx-grid/data-dx-grid.component";
 
 @NgModule({
     imports: [
@@ -26,6 +27,7 @@ import { DataAgGridComponent } from "../data-ag-grid/data-ag-grid.component";
             provide: DATA_GRID_COMPONENTS,
             useValue: {
                 default: DataAgGridComponent,
+                dx: DataDxGridComponent,
             }
         }
     ],

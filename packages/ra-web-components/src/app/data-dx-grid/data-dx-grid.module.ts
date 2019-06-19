@@ -21,6 +21,9 @@ import { DxDataGridModule } from "devextreme-angular";
     ],
     exports: [
         DataDxGridComponent,
+    ],
+    entryComponents: [
+        DataDxGridComponent,
     ]
 })
 export class DataDxGridModule {

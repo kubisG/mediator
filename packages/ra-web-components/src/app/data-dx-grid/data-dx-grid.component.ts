@@ -1,136 +1,112 @@
-import { Component, Input, OnInit, EventEmitter, Output, ViewChild } from "@angular/core";
+import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import DataSource from "devextreme/data/data_source";
 import ArrayStore from "devextreme/data/array_store";
 import { DxDataGridComponent } from "devextreme-angular";
+import { DataGridInterface } from "../data-grid/data-grid-interface";
+import * as _ from "lodash";
 
 @Component({
     selector: "ra-data-dx-grid",
     templateUrl: "./data-dx-grid.component.html",
     styleUrls: ["./data-dx-grid.component.less"],
 })
-export class DataDxGridComponent implements OnInit {
+export class DataDxGridComponent implements DataGridInterface, OnInit {
     @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;
 
-    public inicialized = false;
-    private currentKey = -1;
-    private _inserts: any[];
-    public _columns: any[];
-    public _key: string;
-    public dataSource: DataSource;
-    public arrayStore: ArrayStore;
-
-    public ids: string[] = [];
-
-    @Input() set data(rows: any[]) {
-        this._inserts = rows;
-        this.reloadIdsMap(rows);
-    }
-
-    @Input() set updates(rows: any[]) {
-        this.reloadIdsMap(rows);
-    }
-
-    @Input() set removes(rows: any[]) {
-        this.reloadIdsMap(rows, "D");
-    }
-
-    @Input() set key(key: string) {
-        this._key = key;
-        this.setIdKey(key);
-    }
-
-    @Input() set columns(columns: any[]) {
-        this._columns = columns;
-    }
-
-    @Output() rowClick: EventEmitter<any> = new EventEmitter();
-
-    constructor() { }
-
-    public setIdKey(key: string, initData?: any[]) {
-        this._key = key;
+    @Input() set initData(data: any[]) {
+        this.data = data;
         this.initGrid();
     }
 
-    private initGrid() {
-        this.arrayStore = new ArrayStore({
-            key: this._key,
-            data: this._inserts
-        });
+    @Input() set update(data: any[]) {
+        this.updateData = data;
+        this.updateGrid();
+    }
 
+    @Input() set initColumns(data: any[]) {
+        this.columns = data;
+        this.initGrid();
+    }
+
+    @Input() gridKey: string;
+
+    public data: any[];
+    public updateData: any[];
+    public inicialized: boolean;
+    public columns: any[];
+
+    public arrayStore: ArrayStore;
+    public dataSource: DataSource;
+
+    private ids: any[] = [];
+
+    constructor() { }
+
+    private initGrid() {
+        if (this.inicialized || (!this.data || !this.columns)) {
+            return;
+        }
+        this.ids = _.map(this.data, this.gridKey);
+        this.arrayStore = new ArrayStore({
+            key: this.gridKey,
+            data: this.data
+        });
         this.dataSource = new DataSource({
             store: this.arrayStore,
             reshapeOnPush: true
         });
         this.inicialized = true;
-
     }
 
-    public insert(row: any) {
-        if (this.inicialized) {
+    private deleteRow(row: any) {
+        const keys = Object.keys(row);
+        const idIndex = this.ids.indexOf(row[this.gridKey]);
+        if (idIndex > -1 && keys.length === 1 && keys[0] === this.gridKey) {
+            this.arrayStore.push([{ type: "remove", key: row[this.gridKey] }]);
+            this.ids.splice(idIndex, 1);
+            return true;
+        }
+        return false;
+    }
+
+    private insertRow(row: any) {
+        if (this.ids.indexOf(row[this.gridKey]) === -1) {
             this.arrayStore.push([{ type: "insert", data: row }]);
+            this.ids.push(row[this.gridKey]);
+            return true;
         }
+        return false;
     }
 
-    public update(row: any) {
-        if (this.inicialized) {
-            this.arrayStore.push([{ type: "update", data: row, key: row[this._key] }]);
+    private updateRow(row: any) {
+        if (this.ids.indexOf(row[this.gridKey]) > -1) {
+            this.arrayStore.push([{ type: "update", data: row, key: row[this.gridKey] }]);
+            return true;
         }
+        return false;
     }
 
-    public delete(row: any) {
-        if (this.inicialized) {
-            this.arrayStore.push([{ type: "remove", key: row }]);
-            this.currentKey = null;
+    private updateGrid() {
+        if (!this.inicialized) {
+            this.initGrid();
         }
-    }
-
-    public reloadIdsMap(data: any[], action = "N") {
-        if (!this._key || !data) {
-            return;
-        }
-        for (let i = 0; i < data.length; i++) {
-            const row = data[i];
-            if (action === "D") {
-                const index = this.ids.indexOf(row);
-                if (index !== -1) {
-                    this.ids.splice(index, 1);
-                    this.delete(row);
-                }
-            } else {
-                if (this.ids.indexOf(row[this._key]) === -1) {
-                    this.ids.push(row[this._key]);
-                    this.insert(row);
-                } else {
-                    this.update(row);
-                }
+        for (const update of this.updateData) {
+            if (this.deleteRow(update)) {
+                continue;
             }
+            if (this.insertRow(update)) {
+                continue;
+            }
+            this.updateRow(update);
         }
     }
 
     public onRowClick(e) {
-        if (e.rowType !== "data") { return; }
-        if (this.currentKey > -1) {
-            const prevIndex = this.dataGrid.instance.getRowIndexByKey(this.currentKey);
 
-            (this.dataGrid.instance.getRowElement(prevIndex) as any[])
-                .forEach(el => el.classList.remove("highlightColor"));
-        }
-
-        if (this.currentKey === e.key) {
-            this.currentKey = null;
-        } else {
-            this.currentKey = e.key;
-            e.rowElement.classList.add("highlightColor");
-        }
-
-        this.rowClick.emit(e);
     }
 
     public onRowPrepared(e) {
-        if (this.currentKey === e.key) {
-            e.rowElement.classList.add("highlightColor");
-        }
+
     }
 
     public onRowUpdated(e) {
