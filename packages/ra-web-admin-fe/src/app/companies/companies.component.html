@@ -1,0 +1,51 @@
+<perfect-scrollbar>
+  <mat-card class="detail-card">
+  <mat-card-header color="primary">
+
+    <mat-card-title>
+      <button matTooltip="New order" mat-icon-button (click)="openDialog()">
+        <mat-icon>control_point</mat-icon>
+      </button>
+      {{ 'admin.companies' | translate }}
+    </mat-card-title>
+
+    <span class="fill-remaining-space"></span>
+    <button matTooltip="{{'butt.save.layout' | translate}}" mat-icon-button (click)="saveState()">
+      <mat-icon aria-label="Save">send</mat-icon>
+    </button>
+
+  </mat-card-header>
+
+  <mat-card-content *ngIf="!collapsed">
+    <ra-data-grid [columns]="gridColumns" [data]="gridData" [updates]="updateData" [removes]="removeData"
+    [key]="'id'" (rowClick)="onRowClick($event)">
+</ra-data-grid>
+<!--     
+    <dx-data-grid id="companyContainer" [dataSource]="dataSourceControl.dataSource" [wordWrapEnabled]="true" [showBorders]="true"
+      [allowColumnReordering]="true" [rowAlternationEnabled]="true" (onInitialized)="onInitialized($event)" [repaintChangesOnly]="true">
+      <dxo-column-chooser [enabled]="true" mode="select"> </dxo-column-chooser>
+      <dxo-header-filter [visible]="true"></dxo-header-filter>
+      <dxi-column caption="Actions" width="100" [allowFiltering]="false" [allowSorting]="false" [showInColumnChooser]="false"
+        dataField="id" cellTemplate="actionsCellTemplate"></dxi-column>
+      <dxi-column dataField="companyName" caption="Company Name"></dxi-column>
+      <dxi-column dataField="ClientID" caption="Client ID"></dxi-column>      
+      <dxi-column dataField="street" caption="Street" width="150"></dxi-column>
+      <dxi-column dataField="city" caption="City" width="120"></dxi-column>
+      <dxi-column dataField="state" caption="State" width="80"></dxi-column>
+      <dxi-column dataField="id" caption="Identifier" width="80" [encodeHtml]="false" [calculateCellValue]="idCompany"></dxi-column>
+      <dxo-remote-operations [sorting]="true" [paging]="true" [filtering]="true">
+      </dxo-remote-operations>
+       <dxo-pager [showPageSizeSelector]="false"></dxo-pager>
+
+      <span *dxTemplate="let d of 'actionsCellTemplate'">
+        <button matTooltip="Update company" mat-icon-button (click)="openDialog(d.value)">
+          <mat-icon>loop</mat-icon>
+        </button>
+        <button matTooltip="Delete company" mat-icon-button (click)="openDialog(d.value,'D')">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </span>
+    </dx-data-grid> -->
+  </mat-card-content>
+</mat-card>
+</perfect-scrollbar>

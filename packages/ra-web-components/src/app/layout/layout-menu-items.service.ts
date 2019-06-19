@@ -84,7 +84,8 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
                 for (const component of componentsList) {
                     const componentConfig: DockableConfig = this.dockableService.getComponentConfig(component.component);
                     this.menuItems.push({
-                        label: componentConfig.label ? componentConfig.label : component.componentName,
+                        label: component.state && component.state.label ?
+                            component.state.label : componentConfig.label ? componentConfig.label : component.componentName,
                         icon: componentConfig.icon ? componentConfig.icon : undefined,
                         data: component,
                         single: componentConfig.single ? componentConfig.single : undefined,
@@ -108,7 +109,7 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
     }
 
     public setApp(version, versionLong) {
-        this.appSettings.next({version, versionLong, submenu: this.submenu});
+        this.appSettings.next({ version, versionLong, submenu: this.submenu });
     }
 
     public addLeftMenuItem(item: MenuItem) {

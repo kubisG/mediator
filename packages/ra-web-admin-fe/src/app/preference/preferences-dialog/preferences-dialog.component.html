@@ -1,0 +1,34 @@
+<mat-toolbar raDraggable color="primary">{{ 'admin.preferences' | translate }}</mat-toolbar>
+<div mat-dialog-content>
+    <form class="prefFrom">
+        <mat-form-field>
+            <input type="text" matInput [formControl]="userControl" placeholder="User" [matAutocomplete]="autoUser">
+            <mat-autocomplete #autoUser="matAutocomplete" [displayWith]="displayUserFn">
+                <mat-option *ngFor="let option of filteredUserOptions | async" [value]="option">
+                    {{option.email}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" matInput [formControl]="companyControl" placeholder="Company"
+                [matAutocomplete]="autoCompany">
+            <mat-autocomplete #autoCompany="matAutocomplete" [displayWith]="displayCompanyFn">
+                <mat-option *ngFor="let option of filteredCompanyOptions | async" [value]="option">
+                    {{option.companyName}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field *ngIf="data.userId === undefined && data.companyId === undefined" required>
+            <input name="name" matInput placeholder="Name" [(ngModel)]="data.name">
+        </mat-form-field>
+    </form>
+    <div class="editor-wrapper">
+        <ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="data.value"
+            (onInit)="onInit($event)">
+        </ngx-monaco-editor>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onOkClick()" cdkFocusInitial>Save</button>
+</div>

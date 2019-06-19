@@ -71,7 +71,8 @@ export class LayoutService {
             componentName: component.componentName,
             component: component.component,
             single: item.single,
-            closeable: item.closeable
+            closeable: item.closeable,
+            state: component.state
         });
     }
 

@@ -1,4 +1,3 @@
-export { Env } from "./src/app/core/env.interface";
 export {
     Login,
     Logout,
