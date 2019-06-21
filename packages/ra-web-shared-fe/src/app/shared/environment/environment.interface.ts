@@ -1,6 +1,6 @@
 import { InjectionToken } from "@angular/core";
 
-export const ENVIRONMENT = new InjectionToken<EnvironmentInterface>("");
+export const ENVIRONMENT = new InjectionToken<any>("environmentInterface");
 
 export interface EnvironmentInterface {
     production: boolean;

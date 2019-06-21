@@ -7,27 +7,22 @@ import { BearerToken } from "./interfaces/bearer-token.interface";
 import { SessionStore } from "@ra/web-core-be/sessions/providers/session-store.interface";
 import * as uuid from "uuid/v4";
 import { Logger } from "@ra/web-core-be/logger/providers/logger";
-import { VerifyProviderService } from "./verify-provider.service";
-import { SessionDataProviderService } from "./session-data-provider.service";
-import { SessionData } from "./session-data/session-data.interface";
+import { VerifyService } from "./verify/verify.service";
+import { SessionDataService } from "./session-data/session-data.service";
 
 @Injectable()
 export class AuthService {
 
-    private sessionDataService: SessionData;
-
     constructor(
         private readonly jwtService: JwtService,
         @Inject("sessions") private sessions: SessionStore,
-        private verifyService: VerifyProviderService,
+        private verifyService: VerifyService,
         @Inject("logger") private logger: Logger,
-        private sessionDataProviderService: SessionDataProviderService,
-    ) {
-
-    }
+        private sessionDataService: SessionDataService,
+        @Inject("test") private test: any
+    ) { }
 
     async createToken(auth: AuthDto): Promise<BearerToken> {
-        this.sessionDataService = this.sessionDataProviderService.sessionDataService;
         const entry: any = await this.verifyService.find(auth);
         if (entry === null) {
             return null;
@@ -67,7 +62,6 @@ export class AuthService {
     }
 
     public createDummyToken(...args: any[]): any {
-        this.sessionDataService = this.sessionDataProviderService.sessionDataService;
         return this.sessionDataService.getDummyToken(...args);
     }
 }

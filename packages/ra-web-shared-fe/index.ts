@@ -34,3 +34,5 @@ export { InputDialogComponent } from "./src/app/shared/input-dialog/input-dialog
 export { ENVIRONMENT, EnvironmentInterface } from "./src/app/shared/environment/environment.interface";
 export { LoggerService } from "./src/app/shared/logger/logger.service";
 export { AdDirective } from "./src/app/shared/directives/ad.directive";
+export { RestModule } from "./src/app/rest/rest.module";
+export { RestLayoutService } from "./src/app/rest/rest-layout.service";

@@ -23,3 +23,4 @@ export { LayoutStateStorage } from "./src/app/layout/layout-state-storage.interf
 export { LayoutMenuItemsService } from "./src/app/layout/layout-menu-items.service";
 export { DataAgGridModule } from "./src/app/data-ag-grid/data-ag-grid.module";
 export { DataAgGridComponent } from "./src/app/data-ag-grid/data-ag-grid.component";
+export { RestLayoutStateService, STORE_MODULE } from "./src/app/layout/rest-layout-state.service";

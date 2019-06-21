@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Module, DynamicModule } from "@nestjs/common";
 import { PassportModule } from "@nestjs/passport";
 import { JwtModule } from "@nestjs/jwt";
 
@@ -9,11 +9,13 @@ import { WsAuthGuard } from "./guards/ws-auth.guard";
 import { RolesGuard } from "./guards/roles.guard";
 import { EnvironmentsModule } from "@ra/web-env-be/environments.module";
 import { EnvironmentService } from "@ra/web-env-be/environment.service";
-import { VerifyProviderService } from "./verify-provider.service";
-import { SessionDataProviderService } from "./session-data-provider.service";
+import { SessionDataService } from "./session-data/session-data.service";
+import { VerifyService } from "./verify/verify.service";
+import { DaoModule } from "@ra/web-core-be/dao/dao.module";
 
 @Module({
     imports: [
+        DaoModule,
         CoreModule,
         EnvironmentsModule,
         PassportModule.register({ defaultStrategy: "jwt" }),
@@ -31,16 +33,39 @@ import { SessionDataProviderService } from "./session-data-provider.service";
         JwtStrategy,
         WsAuthGuard,
         RolesGuard,
-        VerifyProviderService,
-        SessionDataProviderService,
+        SessionDataService,
+        VerifyService,
+        {
+            provide: "test",
+            useValue: "AuthModule"
+        }
     ],
     exports: [
         AuthService,
         JwtStrategy,
         WsAuthGuard,
         RolesGuard,
-        VerifyProviderService,
-        SessionDataProviderService,
+        SessionDataService,
+        VerifyService,
     ]
 })
-export class AuthModule { }
+export class AuthModule {
+    static forRoot(
+        sessionData: any,
+        verifyService: any
+    ): DynamicModule {
+        return {
+            module: AuthModule,
+            providers: [
+                {
+                    provide: SessionDataService,
+                    useClass: sessionData,
+                },
+                {
+                    provide: VerifyService,
+                    useClass: verifyService
+                }
+            ]
+        };
+    }
+}
