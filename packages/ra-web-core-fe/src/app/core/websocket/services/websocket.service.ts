@@ -53,6 +53,7 @@ export abstract class WebSocketService {
         if (store && auth) {
             const token = store.snapshot().auth.accessToken;
             this.ioOptions = {
+                pingTimeout: 5000,
                 query: {
                     token
                 }
@@ -82,6 +83,7 @@ export abstract class WebSocketService {
         if (store && auth) {
             const token = store.selectSnapshot(AuthState.getToken);
             this.ioOptions = {
+                pingTimeout: 5000,
                 query: {
                     token
                 }

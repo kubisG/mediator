@@ -15,6 +15,7 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     protected dataSub: Subscription;
     protected clickSub: Subscription;
     protected isBind = true;
+    protected isShown = false;
 
     public elementCid;
     public tab: GoldenLayout.Tab;
@@ -187,12 +188,14 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     }
 
     public glOnShow(): void {
+        this.isShown = true;
         if ((this as any).dockableShow) {
             (this as any).dockableShow();
         }
     }
 
     public glOnHide(): void {
+        this.isShown = false;
         if ((this as any).dockableHide) {
             (this as any).dockableHide();
         }
