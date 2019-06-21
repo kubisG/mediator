@@ -5,7 +5,7 @@ import { ConsoleLogger } from "./providers/console-logger";
 import { VoidLogger } from "./providers/void-logger";
 import { WsLogger } from "./providers/ws-logger";
 import { Store, Actions } from "@ngxs/store";
-import { ENVIRONMENT } from "../environment/environment.interface";
+import { ENVIRONMENT, EnvironmentInterface } from "../environment/environment.interface";
 
 @Injectable({
     providedIn: "root",
@@ -17,7 +17,7 @@ export class LoggerService implements Logger {
     constructor(
         private store: Store,
         private actions: Actions,
-        @Inject(ENVIRONMENT) private environment
+        @Inject(ENVIRONMENT) private environment: EnvironmentInterface,
     ) {
         this.init();
     }

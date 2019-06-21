@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, ModuleWithProviders } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { MaterialModule } from "@ra/web-material-fe";
@@ -8,8 +8,7 @@ import { LayoutComponent } from "./layout.component";
 import { LayoutService } from "./layout.service";
 import { LayoutMenuItemsService } from "./layout-menu-items.service";
 import { GoldenLayoutModule } from "@embedded-enterprises/ng6-golden-layout";
-import { SharedModule } from "@ra/web-shared-fe";
-
+import { SharedModule, RestModule, EnvironmentInterface, ENVIRONMENT } from "@ra/web-shared-fe";
 @NgModule({
     imports: [
         CommonModule,
@@ -20,6 +19,7 @@ import { SharedModule } from "@ra/web-shared-fe";
         DockableModule,
         GoldenLayoutModule,
         SharedModule,
+        RestModule,
     ],
     declarations: [
         LayoutComponent,
@@ -33,4 +33,16 @@ import { SharedModule } from "@ra/web-shared-fe";
         LayoutMenuItemsService,
     ]
 })
-export class LayoutModule { }
+export class LayoutModule {
+    static forRoot(config: EnvironmentInterface): ModuleWithProviders {
+        return {
+            ngModule: LayoutModule,
+            providers: [
+                {
+                    provide: ENVIRONMENT,
+                    useValue: config
+                }
+            ]
+        };
+    }
+}
