@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { GridOptions, RowNode } from "ag-grid-community";
 import { DataGridInterface } from "../data-grid/data-grid-interface";
+import "ag-grid-enterprise";
 
 @Component({
     selector: "ra-data-ag-grid",
@@ -30,7 +31,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         if (!columns) {
             return;
         }
-        this.columns = columns;
+        this.setColumns(columns);
         this.setupGrid();
         this.cd.markForCheck();
     }
@@ -40,6 +41,30 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     constructor(
         private cd: ChangeDetectorRef,
     ) { }
+
+    private setColumns(columns: any[]) {
+        const cls = [];
+        columns.forEach((column) => {
+            if (column.dataField === "A" || column.dataField === "D") {
+                cls.push({
+                    headerName: column.dataField,
+                    field: column.dataField,
+                    enableRowGroup: true,
+                    allowedAggFuncs: ["sum", "min", "max"],
+                    aggFunc: "sum",
+                    enableValue: true,
+                });
+            } else {
+                cls.push({
+                    headerName: column.dataField,
+                    field: column.dataField,
+                    enableRowGroup: true,
+                    enableValue: true,
+                });
+            }
+        });
+        this.columns = cls;
+    }
 
     private getRowNodeId() {
         return (data) => {
