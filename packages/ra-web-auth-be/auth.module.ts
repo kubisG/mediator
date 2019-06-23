@@ -12,6 +12,8 @@ import { EnvironmentService } from "@ra/web-env-be/environment.service";
 import { SessionDataService } from "./session-data/session-data.service";
 import { VerifyService } from "./verify/verify.service";
 import { DaoModule } from "@ra/web-core-be/dao/dao.module";
+import { SessionDataProviderService } from "./session-data-provider.service";
+import { VerifyProviderService } from "./verify-provider.service";
 
 @Module({
     imports: [
@@ -35,6 +37,8 @@ import { DaoModule } from "@ra/web-core-be/dao/dao.module";
         RolesGuard,
         SessionDataService,
         VerifyService,
+        SessionDataProviderService,
+        VerifyProviderService,
         {
             provide: "test",
             useValue: "AuthModule"
@@ -47,6 +51,8 @@ import { DaoModule } from "@ra/web-core-be/dao/dao.module";
         RolesGuard,
         SessionDataService,
         VerifyService,
+        SessionDataProviderService,
+        VerifyProviderService,
     ]
 })
 export class AuthModule {
