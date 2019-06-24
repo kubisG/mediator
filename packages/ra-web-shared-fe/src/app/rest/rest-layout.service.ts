@@ -10,9 +10,7 @@ export class RestLayoutService {
     constructor(
         private http: HttpClient,
         @Inject(ENVIRONMENT) private environment: EnvironmentInterface,
-    ) {
-        console.log(this.environment);
-    }
+    ) {}
 
     public getUsersLayoutPreferences(): Promise<any> {
         return this.http.get(`${this.environment.apiUrl}/users/prefs`)

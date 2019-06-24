@@ -45,23 +45,13 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     private setColumns(columns: any[]) {
         const cls = [];
         columns.forEach((column) => {
-            if (column.dataField === "A" || column.dataField === "D") {
-                cls.push({
-                    headerName: column.dataField,
-                    field: column.dataField,
-                    enableRowGroup: true,
-                    allowedAggFuncs: ["sum", "min", "max"],
-                    aggFunc: "sum",
-                    enableValue: true,
-                });
-            } else {
-                cls.push({
-                    headerName: column.dataField,
-                    field: column.dataField,
-                    enableRowGroup: true,
-                    enableValue: true,
-                });
-            }
+            cls.push({
+                headerName: column.dataField,
+                field: column.dataField,
+                enableRowGroup: true,
+                enableValue: true,
+                allowedAggFuncs: ["sum", "min", "max"],
+            });
         });
         this.columns = cls;
     }
@@ -101,7 +91,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     private inserRow(insertRow: any, rowNode: RowNode) {
         if (!rowNode) {
-            this.gridOptions.api.updateRowData({ add: [insertRow] });
+            this.gridOptions.api.batchUpdateRowData({ add: [insertRow] });
             return true;
         }
         return false;
@@ -110,16 +100,18 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     private deleteRow(deleteRow: any, rowNode: RowNode) {
         const keys = Object.keys(deleteRow);
         if (rowNode && keys.length === 1 && keys[0] === this.gridKey) {
-            this.gridOptions.api.updateRowData({ remove: [deleteRow] });
+            this.gridOptions.api.batchUpdateRowData({ remove: [deleteRow] });
             return true;
         }
         return false;
     }
 
     private updateRow(updateRow: any, rowNode: RowNode) {
+        const data = rowNode.data;
         for (const key of Object.keys(updateRow)) {
-            rowNode.setDataValue(key, updateRow[key]);
+            data[key] = updateRow[key];
         }
+        this.gridOptions.api.batchUpdateRowData({ update: [data] });
         return true;
     }
 
@@ -151,6 +143,9 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
             onFirstDataRendered(params) {
                 params.api.sizeColumnsToFit();
             }
+        };
+        this.gridOptions.onRowGroupOpened = (event) => {
+
         };
     }
 

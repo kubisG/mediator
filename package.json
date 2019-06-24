@@ -15,12 +15,13 @@
     "ra-trader-fe": "lerna run --scope ra-trader-fe build:all",
     "ra-web-bundle-be": "lerna run --scope @ra/web-bundle-be build",
     "ra-web-bundle-fe": "lerna run --scope @ra/web-bundle-fe build",
-    "watch:bundle": "nodemon -e ts --config nodemon.json"
+    "watch:bundle": "tsc nodemon-bundle.ts && node ./nodemon-bundle.js"
   },
   "devDependencies": {
     "lerna": "3.13.3",
     "@lerna/filter-options": "3.13.3",
     "nodemon": "1.19.0",
-    "ts-node": "5.0.1"
+    "ts-node": "5.0.1",
+    "chokidar": "3.0.1"
   }
 }
