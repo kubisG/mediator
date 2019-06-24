@@ -11,13 +11,11 @@ import { EnvironmentsModule } from "@ra/web-env-be/environments.module";
 import { EnvironmentService } from "@ra/web-env-be/environment.service";
 import { SessionDataService } from "./session-data/session-data.service";
 import { VerifyService } from "./verify/verify.service";
-import { DaoModule } from "@ra/web-core-be/dao/dao.module";
-import { SessionDataProviderService } from "./session-data-provider.service";
-import { VerifyProviderService } from "./verify-provider.service";
+// import { DaoModule } from "@ra/web-core-be/dao/dao.module";
 
 @Module({
     imports: [
-        DaoModule,
+        // DaoModule,
         CoreModule,
         EnvironmentsModule,
         PassportModule.register({ defaultStrategy: "jwt" }),
@@ -37,12 +35,10 @@ import { VerifyProviderService } from "./verify-provider.service";
         RolesGuard,
         SessionDataService,
         VerifyService,
-        SessionDataProviderService,
-        VerifyProviderService,
         {
             provide: "test",
             useValue: "AuthModule"
-        }
+        },
     ],
     exports: [
         AuthService,
@@ -51,8 +47,6 @@ import { VerifyProviderService } from "./verify-provider.service";
         RolesGuard,
         SessionDataService,
         VerifyService,
-        SessionDataProviderService,
-        VerifyProviderService,
     ]
 })
 export class AuthModule {
@@ -70,7 +64,7 @@ export class AuthModule {
                 {
                     provide: VerifyService,
                     useClass: verifyService
-                }
+                },
             ]
         };
     }

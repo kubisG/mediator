@@ -22,6 +22,14 @@ export class AuthService {
         @Inject("test") private test: any
     ) { }
 
+    setVerifyService(verify) {
+        this.verifyService = verify;
+    }
+
+    setSessionDataService(sessionData) {
+        this.sessionDataService = sessionData;
+    }    
+
     async createToken(auth: AuthDto): Promise<BearerToken> {
         const entry: any = await this.verifyService.find(auth);
         if (entry === null) {
