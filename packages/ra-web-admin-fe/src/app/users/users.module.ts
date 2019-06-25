@@ -9,16 +9,14 @@ import { RestUsersService } from "../rest/rest-users.service";
 import { RestCompaniesService } from "../rest/rest-companies.service";
 import { TranslateModule } from "@ngx-translate/core";
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarModule, PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
-import { CompaniesComponent } from "./companies.component";
-import { DialogCompanyComponent } from "./dialog-company/dialog-company.component";
+import { UsersComponent } from "./users.component";
+import { DialogUserComponent } from "./dialog-user/dialog-user.component";
+import { DxDataGridModule } from "devextreme-angular";
 import { ENVIRONMENT } from "@ra/web-shared-fe";
-import { environment } from "../../environments/environment";
-
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true
 };
-
 
 @NgModule({
     imports: [
@@ -28,40 +26,38 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         MaterialModule,
         DataGridModule,
         TranslateModule,
+        DxDataGridModule,
         GoldenLayoutModule,
         DockableModule,
         SharedModule,
         PerfectScrollbarModule,
     ],
     declarations: [
-        CompaniesComponent,
-        DialogCompanyComponent
+        UsersComponent,
+        DialogUserComponent
     ],
     exports: [
-        CompaniesComponent,
+        UsersComponent,
     ],
     entryComponents: [
-        DialogCompanyComponent,
-        CompaniesComponent
+        DialogUserComponent,
+        UsersComponent
     ],
     providers: [
         RestCompaniesService,
+        DialogUserComponent,
         RestUsersService,
         LoggerService,
         {
             provide: PERFECT_SCROLLBAR_CONFIG,
             useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
         },
-        {
-            provide: ENVIRONMENT,
-            useValue: environment
-        },
     ]
 })
-export class CompaniesModule {
+export class UsersModule {
     static forRoot(config: EnvironmentInterface): ModuleWithProviders {
         return {
-            ngModule: CompaniesModule,
+            ngModule: UsersModule,
             providers: [
                 {
                     provide: ENVIRONMENT,

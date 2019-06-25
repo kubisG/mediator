@@ -20,6 +20,9 @@ import { ImgButtonComponent } from "./img-button/img-button.component";
 import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.component";
 import { InputDialogComponent } from "./input-dialog/input-dialog.component";
 import { AdDirective } from "./directives/ad.directive";
+import { LoggerService } from "./logger/logger.service";
+import { ENVIRONMENT } from "./environment/environment.interface";
+import { EnvironmentInterface } from "./environment/environment.interface";
 
 @NgModule({
     imports: [
@@ -49,6 +52,7 @@ import { AdDirective } from "./directives/ad.directive";
         InputDialogComponent,
     ],
     providers: [
+        LoggerService,
     ],
     entryComponents: [
         ConfirmDialogComponent,
@@ -77,6 +81,18 @@ export class SharedModule {
             throw new Error(
                 "SharedModule is already loaded. Import it in the AppModule only");
         }
+    }
+
+    static forRoot(config: EnvironmentInterface): ModuleWithProviders {
+        return {
+            ngModule: SharedModule,
+            providers: [
+                {
+                    provide: ENVIRONMENT,
+                    useValue: config
+                }
+            ]
+        };
     }
 }
 

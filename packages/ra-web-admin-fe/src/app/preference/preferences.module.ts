@@ -1,9 +1,9 @@
-import { NgModule } from "@angular/core";
+import { NgModule, ModuleWithProviders } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { MaterialModule } from "@ra/web-material-fe";
 import { GoldenLayoutModule } from "@embedded-enterprises/ng6-golden-layout";
-import { SharedModule } from "@ra/web-shared-fe";
+import { SharedModule, EnvironmentInterface } from "@ra/web-shared-fe";
 import { PreferencesComponent } from "./preferences.component";
 import { RestPreferencesService } from "../rest/rest-preferences.service";
 import { DataGridModule, DockableModule } from "@ra/web-components";
@@ -13,6 +13,8 @@ import { RestCompaniesService } from "../rest/rest-companies.service";
 import { TranslateModule } from "@ngx-translate/core";
 import { MonacoEditorModule } from "ngx-monaco-editor";
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarModule, PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
+import { ENVIRONMENT } from "@ra/web-shared-fe";
+import { environment } from "../../environments/environment";
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -53,6 +55,22 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
             provide: PERFECT_SCROLLBAR_CONFIG,
             useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
         },
+        {
+            provide: ENVIRONMENT,
+            useValue: environment
+        },
     ]
 })
-export class PreferencesModule { }
+export class PreferencesModule {
+    static forRoot(config: EnvironmentInterface): ModuleWithProviders {
+        return {
+            ngModule: PreferencesModule,
+            providers: [
+                {
+                    provide: ENVIRONMENT,
+                    useValue: config
+                }
+            ]
+        };
+    }
+}

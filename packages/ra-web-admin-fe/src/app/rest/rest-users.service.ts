@@ -1,5 +1,5 @@
-import { HttpClient, HttpRequest, HttpHeaders } from "@angular/common/http";
-import { Injectable, InjectionToken, Inject } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable, Inject } from "@angular/core";
 import { EnvironmentInterface, ENVIRONMENT } from "@ra/web-shared-fe";
 
 @Injectable()
@@ -7,7 +7,10 @@ export class RestUsersService {
 
     constructor(
         private http: HttpClient,
-        @Inject(ENVIRONMENT) private environment: EnvironmentInterface) { }
+        @Inject(ENVIRONMENT) private environment: EnvironmentInterface) {
+            console.log(this);
+            console.log(this.environment);
+        }
 
     public getUsers(): Promise<any> {
         return this.http.get(`${this.environment.apiUrl}/users/user`)
@@ -34,6 +37,10 @@ export class RestUsersService {
         const method = user.id ? "PUT" : "POST";
         const url = user.id ? `${this.environment.apiUrl}/users/user/${user.id}` : `${this.environment.apiUrl}/users/user`;
         return this.http.request(method, url, { body: user }).toPromise();
+    }
+
+    public setLogging(userId: number, comapnyId: number, enabled: boolean): Promise<any> {
+        return this.http.get(`${this.environment.apiUrl}/users/logging/${userId}/${comapnyId}/${enabled}`).toPromise();
     }
 
     public saveMail(email: string): Promise<any> {
