@@ -19,6 +19,7 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
 
     public elementCid;
     public tab: GoldenLayout.Tab;
+    public goldenLayout: GoldenLayout;
     private config: DockableConfig;
     private componentsMapService: ComponentsMapService;
     private attachedSubs = [];
@@ -40,11 +41,12 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
         this.componentsMapService = this.injector.get(ComponentsMapService);
         this.elm = this.injector.get(ElementRef);
         this.dockableService = this.injector.get(DockableService);
+        this.goldenLayout = this.injector.get(GoldenLayout);
         this.init();
+        this.dockableService.setLayoutManager(this.goldenLayout);
     }
 
     private init() {
-        console.log("init,", this);
         this.config = Reflect.getMetadata(DOCKABLE_CONFIG, this.constructor);
         this.elementCid = this.componentsMapService.createKey();
         this.elm.nativeElement.setAttribute(COMPONENT_ID, this.elementCid);
@@ -160,10 +162,7 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     }
 
     public initComponents() {
-        console.log("init components,", this);
-
         this.removeFromDOM();
-        console.log("remove components,");
         this.clearSubs();
         if (this.config.tab) {
             this.componentRefTab = this.getComponentRef(this.config.tab.component, "tab");
@@ -181,7 +180,6 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     }
 
     public glOnTab(tab: GoldenLayout.Tab): void {
-        console.log("ron tab,", tab);
 
         if ((this as any).dockableTab) {
             (this as any).dockableTab();
@@ -194,7 +192,6 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     }
 
     public glOnShow(): void {
-        console.log("on show,");
 
         this.isShown = true;
         if ((this as any).dockableShow) {
@@ -203,7 +200,6 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     }
 
     public glOnHide(): void {
-        console.log("on hide,");
         this.isShown = false;
         if ((this as any).dockableHide) {
             (this as any).dockableHide();
@@ -221,7 +217,6 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     }
 
     public ngOnDestroy() {
-        console.log("destroy,", this);
 
         if ((this as any).dockableClose) {
             (this as any).dockableClose();

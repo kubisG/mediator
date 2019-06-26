@@ -9,6 +9,7 @@ import { MenuItem } from "../header/menu-item.interface";
 import { UserInfo } from "../header/user-info.interface";
 import { ButtonItem } from "../header/button-item.interface";
 
+
 @Component({
     selector: "ra-layout",
     templateUrl: "./layout.component.html",
@@ -38,7 +39,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
         @Inject(GoldenLayoutStateStore) private stateStore: LayoutStateStorage,
         private layoutMenuItemsService: LayoutMenuItemsService,
         private layoutService: LayoutService,
-    ) { }
+    ) {
+    }
 
     private layoutReloadSubscribe() {
         this.reloadSub = this.layoutService.layoutReload$.subscribe((reload) => {
@@ -95,5 +97,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
             this.alertSub.unsubscribe();
         }
         this.layoutMenuItemsService.unsubscribeAll();
+        this.layoutService.removeAll();
     }
 }

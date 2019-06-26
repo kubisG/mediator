@@ -29,7 +29,6 @@ export class UsersComponent extends DockableComponent implements OnInit {
 
     public dataSource: any = {};
     public dataStore: any = {};
-    public collapsed: boolean;
     public apps: any[] = [
         { id: 0, label: "Trader&Broker" },
         { id: 1, label: "Trader" },

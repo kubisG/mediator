@@ -7,6 +7,7 @@ import { Subject } from "rxjs/internal/Subject";
 import { Observable } from "rxjs/internal/Observable";
 import { LayoutMenuItemsService } from "./layout-menu-items.service";
 import { DockableService } from "../dockable/dockable.service";
+import { ToasterService } from "angular2-toaster";
 import { MenuItem } from "../header/menu-item.interface";
 
 @Injectable()
@@ -22,6 +23,7 @@ export class LayoutService {
         @Inject(GoldenLayoutStateStore) private stateStore: LayoutStateStorage,
         private dockableService: DockableService,
         private layoutMenuItemsService: LayoutMenuItemsService,
+        private toasterService: ToasterService,
         public dialog: MatDialog,
     ) { }
 
@@ -31,13 +33,21 @@ export class LayoutService {
         });
         dialogRef.afterClosed().subscribe((result) => {
             if (result) {
-                this.layoutMenuItemsService.addLeftMenuItem({
-                    label: result,
-                    data: `savedLayout`
-                });
-                this.loadLayout(result);
+                if (result !== "default") {
+                    this.layoutMenuItemsService.addLeftMenuItem({
+                        label: result,
+                        data: `savedLayout`
+                    });
+                    this.loadLayout(result);
+                } else {
+                    this.cantCreate();
+                }
             }
         });
+    }
+
+    private cantCreate() {
+        this.toasterService.pop("error", "Save error", "Cant create layout with name 'default'.");
     }
 
     private deleteLayout() {
@@ -48,7 +58,9 @@ export class LayoutService {
             if (result) {
                 const layoutName = this.stateStore.getLayoutName();
                 this.stateStore.deleteLayout(layoutName).then((data) => {
-                    this.layoutMenuItemsService.removeFromLeftMenu({ label: layoutName });
+                    if (layoutName !== "default") {
+                        this.layoutMenuItemsService.removeFromLeftMenu({ label: layoutName });
+                    }
                     this.loadLayout("default");
                 });
             }
@@ -62,6 +74,12 @@ export class LayoutService {
         setTimeout((instance) => {
             instance.layoutReload.next(true);
         }, 100, this);
+    }
+
+    private saveLayout() {
+        this.stateStore.saveLayout().then((data) => {
+            this.toasterService.pop("info", "Save", "Layout succesfully saved.");
+        });
     }
 
     private addComponentToLayout(item: any) {
@@ -100,6 +118,10 @@ export class LayoutService {
             this.loadLayout(item.label);
             return;
         }
+        if (item.label === `Save Layout`) {
+            this.saveLayout();
+            return;
+        }
         if (item.label === `Delete Layout`) {
             this.deleteLayout();
             return;
@@ -111,4 +133,7 @@ export class LayoutService {
         this.itemAction.next(item);
     }
 
+    public removeAll() {
+        this.dockableService.removeAll();
+    }
 }

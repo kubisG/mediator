@@ -11,11 +11,13 @@ import { DockableConfig } from "./decorators/dockable-config.interface";
 export class DockableService {
 
     private singleComponentsMap: { [key: string]: DockableComponentConfig } = {};
+    private goldenLayoutManager;
 
     constructor(
         private componentsMapService: ComponentsMapService,
         private goldenLayoutService: GoldenLayoutService,
-    ) { }
+    ) {
+    }
 
     public stackBroadcast(msg: any, el: ElementRef) {
         const compId = el.nativeElement.getAttribute(COMPONENT_ID);
@@ -46,6 +48,12 @@ export class DockableService {
     public removeAll() {
         this.componentsMapService.deleteAll();
         this.singleComponentsMap = {};
+        // if (this.goldenLayoutManager) {
+        //     for (var i = 0; i < this.goldenLayoutManager.openPopouts.length; i++) {
+        //         this.goldenLayoutManager.openPopouts[i].close();
+        //     }
+        // }
+        // this.goldenLayoutManager = null;
     }
 
     public removeComponent(name: string) {
@@ -56,4 +64,7 @@ export class DockableService {
         return Reflect.getMetadata(DOCKABLE_CONFIG, component);
     }
 
+    public setLayoutManager(manager) {
+        this.goldenLayoutManager = manager;
+    }
 }
