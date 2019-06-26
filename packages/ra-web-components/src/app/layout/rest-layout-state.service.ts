@@ -12,6 +12,7 @@ export class RestLayoutStateService implements LayoutStateStorage {
     private activeLayoutSubject: ReplaySubject<string> = new ReplaySubject<string>(1);
     private activeLayoutSubject$: Observable<any> = this.activeLayoutSubject.asObservable();
     private layoutName = "default";
+    private layoutState;
 
     constructor(
         private restLayoutService: RestLayoutService,
@@ -27,7 +28,19 @@ export class RestLayoutStateService implements LayoutStateStorage {
     }
 
     writeState(state: any): void {
-        this.restLayoutService.setLayout(state, `${this.module}-${this.layoutName}`);
+        this.layoutState = state;
+//        this.restLayoutService.setLayout(state, `${this.module}-${this.layoutName}`);
+    }
+
+    saveLayout(): Promise<any>  {
+        if (this.layoutState) {
+            return this.restLayoutService.setLayout(this.layoutState, `${this.module}-${this.layoutName}`).then(
+            (data) => {
+                return data;
+            });
+        } else {
+            return Promise.reject();
+        }
     }
 
     loadState(): Promise<any> {

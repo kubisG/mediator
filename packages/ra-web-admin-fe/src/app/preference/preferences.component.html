@@ -14,8 +14,8 @@
         </mat-card-header>
 
         <mat-card-content *ngIf="!collapsed">
-            <ra-data-grid [columns]="gridColumns" [data]="gridData" [updates]="updateData" [removes]="removeData"
-                [key]="'id'" (rowClick)="onRowClick($event)">
+            <ra-data-grid [initColumns]="gridColumns" [initData]="gridData" [update]="updateData"
+                [gridKey]="'id'" (rowClick)="onRowClick($event)">
             </ra-data-grid>
         </mat-card-content>
     </mat-card>

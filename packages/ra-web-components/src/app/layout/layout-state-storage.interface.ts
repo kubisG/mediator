@@ -17,4 +17,6 @@ export interface LayoutStateStorage extends StateStore {
 
     activeLayout(): Observable<any>;
 
+    saveLayout(): Promise<any>;
+
 }

@@ -28,30 +28,29 @@ export class CompaniesComponent extends DockableComponent implements OnInit {
     private company = {};
 
     gridColumns: any[] = [
-    {
-        caption: "Company Name",
-        dataField: "companyName"
-    },
-    {
-        cation: "Client ID",
-        dataField: "ClientID"
-    },
-    {
-        cation: "Street",
-        dataField: "street"
-    },
-    {
-        caption: "City",
-        dataField: "city"
-    },
-    {
-        caption: "State",
-        dataField: "state"
-    }];
+        {
+            caption: "Company Name",
+            dataField: "companyName"
+        },
+        {
+            cation: "Client ID",
+            dataField: "ClientID"
+        },
+        {
+            cation: "Street",
+            dataField: "street"
+        },
+        {
+            caption: "City",
+            dataField: "city"
+        },
+        {
+            caption: "State",
+            dataField: "state"
+        }];
 
     gridData: any[] = [];
     updateData: any[] = [];
-    removeData: any[] = [];
 
 
     constructor(
@@ -82,10 +81,10 @@ export class CompaniesComponent extends DockableComponent implements OnInit {
                     (data) => {
                         if (result.id) {
                             data.id = result.id;
-                            this.updateData = [ data ];
+                            this.updateData = [data];
                             this.toasterService.pop("info", "Company updated", data.companyName + " successfully updated");
                         } else {
-                            this.updateData = [ data ];
+                            this.updateData = [data];
                             this.toasterService.pop("info", "Company created", data.companyName + " successfully created");
                         }
                     })
@@ -106,7 +105,7 @@ export class CompaniesComponent extends DockableComponent implements OnInit {
             if (result) {
                 this.companiesService.delCompany(id).then(
                     (data) => {
-                        this.removeData = [ data ];
+                        this.updateData = [data];
 
                         // this.dataSourceControl.dataSource.store().byKey(id).then(
                         //     (dataItem) => {
@@ -161,5 +160,5 @@ export class CompaniesComponent extends DockableComponent implements OnInit {
     public onRowClick(evt) {
         console.log(evt);
     }
-        
+
 }

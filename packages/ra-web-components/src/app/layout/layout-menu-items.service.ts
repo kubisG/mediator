@@ -24,6 +24,10 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
             icon: "add",
         },
         {
+            label: "Save Layout",
+            icon: "save"
+        },
+        {
             label: "Delete Layout",
             icon: "delete"
         }

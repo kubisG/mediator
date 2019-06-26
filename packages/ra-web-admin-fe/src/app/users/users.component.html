@@ -1,0 +1,48 @@
+<perfect-scrollbar>
+<mat-card class="detail-card">
+    <mat-card-header color="primary">
+        <mat-card-title>
+            <button matTooltip="New user" mat-icon-button (click)="openDialog()">
+                <mat-icon>control_point</mat-icon>
+            </button>
+
+            {{ 'admin.users' | translate }}
+        </mat-card-title>
+        <span class="fill-remaining-space"></span>
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <dx-data-grid id="userContainer" [dataSource]="dataSource" [wordWrapEnabled]="false" [showBorders]="true"
+            [allowColumnReordering]="true" [rowAlternationEnabled]="true">
+            <dxo-column-chooser [enabled]="true" mode="select">
+                <!-- or "select" -->
+            </dxo-column-chooser>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+            <dxi-column caption="Actions" width="140" [allowFiltering]="false" [allowSorting]="false"
+                [showInColumnChooser]="false" dataField="id" cellTemplate="actionsCellTemplate"></dxi-column>
+            <dxi-column dataField="username" caption="User name"></dxi-column>
+            <dxi-column dataField="email" caption="Email"></dxi-column>
+            <dxi-column dataField="lastName" caption="Last name"></dxi-column>
+            <dxi-column dataField="firstName" caption="First name"></dxi-column>
+            <dxi-column dataField="company.companyName" caption="Company"></dxi-column>
+            <dxi-column dataField="class" caption="User type"></dxi-column>
+            <dxo-pager [showPageSizeSelector]="false"></dxo-pager>
+
+            <span *dxTemplate="let d of 'actionsCellTemplate'">
+                <button matTooltip="Update user" mat-icon-button (click)="openDialog(d.value)">
+                    <mat-icon>loop</mat-icon>
+                </button>
+                <button matTooltip="Delete user" mat-icon-button (click)="openDialog(d.value,'D')">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <button matTooltip="Log user" mat-icon-button (click)="enableLogging(d.data)">
+                    <mat-icon
+                        [ngClass]="{'clicked': prefs[d.data.id+'-'+d.data.company.id] && prefs[d.data.id+'-'+d.data.company.id].logging }">
+                        event_note</mat-icon>
+                </button>
+            </span>
+        </dx-data-grid>
+    </mat-card-content>
+</mat-card>
+</perfect-scrollbar>
