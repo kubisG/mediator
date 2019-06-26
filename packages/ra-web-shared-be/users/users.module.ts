@@ -19,10 +19,6 @@ import { UserAuthVerify } from "./user-auth-verify";
     ],
     providers: [
         UsersService,
-        {
-            provide: "test",
-            useValue: "UsersModule"
-        }
     ],
 })
 export class UsersModule {

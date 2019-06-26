@@ -1,0 +1,21 @@
+<button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>{{ menuIcon ? menuIcon : 'menu' }}</mat-icon>
+</button>
+<mat-menu #menu="matMenu" [overlapTrigger]="false">
+    <mat-accordion displayMode="flat">
+        <mat-expansion-panel class="mat-elevation-z0" *ngFor="let item of menuItems | async">
+            <mat-expansion-panel-header (click)="menuItemClick(item);$event.stopPropagation();">
+                <mat-panel-title>
+                    <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>
+                    <span class="label">{{item.label}}</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <span *ngIf="item.subItems">
+                <button class="sub-item-button" *ngFor="let subItem of item.subItems" mat-menu-item (click)="menuItemClick(subItem)">
+                    <mat-icon *ngIf="subItem.icon">{{subItem.icon}}</mat-icon>
+                    <span>{{subItem.label}}</span>
+                </button>
+            </span>
+        </mat-expansion-panel>
+    </mat-accordion>
+</mat-menu>

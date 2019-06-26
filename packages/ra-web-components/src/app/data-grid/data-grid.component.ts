@@ -16,7 +16,7 @@ import { DATA_GRID_COMPONENTS, DataGridComponentsMap } from "./data-grid-compone
 import { ReplaySubject } from "rxjs/internal/ReplaySubject";
 import { Observable } from "rxjs/internal/Observable";
 import { Subscription } from "rxjs/internal/Subscription";
-
+import { GridColumn } from "./interfaces/grid-column.interface";
 @Component({
     selector: "ra-data-grid",
     templateUrl: "./data-grid.component.html",
@@ -53,7 +53,7 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
         }
     }
 
-    @Input() set initColumns(columns: any[]) {
+    @Input() set initColumns(columns: GridColumn[]) {
         if (columns) {
             this.columnsData.next(columns);
         }
@@ -75,6 +75,7 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
             this.componentRef.instance.update = data;
         });
         this.columnsDataSub = this.$columnsData.subscribe((data) => {
+            this.componentRef.instance.reset();
             this.componentRef.instance.initColumns = data;
         });
     }

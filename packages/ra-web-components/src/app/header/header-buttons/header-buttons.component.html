@@ -1,0 +1,7 @@
+<span *ngFor="let module of buttonItems | async">
+    <button *ngIf="module" mat-icon-button (click)="module.callBack()">
+        <mat-icon *ngIf="module.isTrue">{{ module.icoTrue }}</mat-icon>
+        <mat-icon *ngIf="!module.isTrue" [matBadge]="module.count" matBadgePosition="before" matBadgeColor="accent">
+            {{ module.icoFalse }}</mat-icon>
+    </button>
+</span>

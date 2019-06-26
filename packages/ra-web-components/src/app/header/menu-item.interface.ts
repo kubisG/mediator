@@ -6,4 +6,5 @@ export interface MenuItem {
     divider?: boolean;
     class?: string;
     single?: boolean;
+    subItems?: MenuItem[];
 }

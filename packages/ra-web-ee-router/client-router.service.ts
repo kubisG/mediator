@@ -28,7 +28,7 @@ export class ClientRouterService implements ClientRouter {
         return Object.keys(this.accounts[account]);
     }
 
-    public addClient<T>(clinetId: string, account: string): Observable<T> {
+    public addClientToAccount<T>(clinetId: string, account: string): Observable<T> {
         const clientSubject = this.registerClient<T>(clinetId);
         this.registerAccount(clinetId, account);
         return clientSubject;

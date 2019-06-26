@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } 
 import { GridOptions, RowNode } from "ag-grid-community";
 import { DataGridInterface } from "../data-grid/data-grid-interface";
 import "ag-grid-enterprise";
+import { GridColumn } from "../data-grid/interfaces/grid-column.interface";
 
 @Component({
     selector: "ra-data-ag-grid",
@@ -27,7 +28,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         this.cd.markForCheck();
     }
 
-    @Input() set initColumns(columns: any[]) {
+    @Input() set initColumns(columns: GridColumn[]) {
         if (!columns) {
             return;
         }
@@ -69,6 +70,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                 this.gridOptions.api.setAlwaysShowVerticalScroll(true);
                 if (this.data.length > 0) {
                     this.gridOptions.api.setRowData(this.data);
+                    this.data = [];
                 }
             }
         };
@@ -84,6 +86,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     private setInitData() {
         if (this.gridOptions.api.getDisplayedRowCount() === 0 && this.data.length > 0) {
             this.gridOptions.api.setRowData(this.data);
+            this.data = [];
             return true;
         }
         return false;
@@ -115,6 +118,13 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         return true;
     }
 
+    reset(): void {
+        if (this.gridOptions && this.gridOptions.api) {
+            this.gridOptions.api.setRowData([]);
+            this.gridOptions.api.setColumnDefs([]);
+        }
+    }
+
     public updateGrid() {
         if (!this.isGridInitialized()) {
             return;
@@ -122,7 +132,9 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         if (this.setInitData()) {
             return;
         }
-        for (const update of this.updateData) {
+        const updates = this.updateData;
+        this.updateData = [];
+        for (const update of updates) {
             const rowNode: RowNode = this.gridOptions.api.getRowNode(update[this.gridKey]);
             if (this.deleteRow(update, rowNode)) {
                 continue;
@@ -135,6 +147,12 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     }
 
     public setupGrid() {
+        if (this.gridOptions && this.gridOptions.api) {
+            this.gridOptions.api.setColumnDefs(this.columns);
+            this.gridOptions.getRowNodeId = this.getRowNodeId();
+            this.gridOptions.onGridReady = this.onGridReady();
+            return;
+        }
         this.gridOptions = {
             enableRangeSelection: true,
             columnDefs: this.columns,

@@ -7,4 +7,5 @@ export interface DataGridInterface {
     initColumns: any[];
     gridKey: string;
 
+    reset(): void;
 }

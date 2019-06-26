@@ -5,6 +5,9 @@ import { RouterModule } from "@angular/router";
 import { MaterialModule } from "@ra/web-material-fe";
 import { HeaderComponent } from "./header.component";
 import { AlertMessageComponent } from "./alert-message/alert-message.component";
+import { HeaderButtonMenuComponent } from "./header-button-menu/header-button-menu.component";
+import { HeaderButtonsComponent } from "./header-buttons/header-buttons.component";
+import { HeaderExpansionMenuComponent } from "./header-expansion-menu/header-expansion-menu.component";
 
 @NgModule({
     imports: [
@@ -17,6 +20,9 @@ import { AlertMessageComponent } from "./alert-message/alert-message.component";
     declarations: [
         HeaderComponent,
         AlertMessageComponent,
+        HeaderButtonMenuComponent,
+        HeaderButtonsComponent,
+        HeaderExpansionMenuComponent,
     ],
     exports: [
         HeaderComponent,
