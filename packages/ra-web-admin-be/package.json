@@ -23,6 +23,7 @@
     "@ra/web-env-be": "1.1.0",
     "@types/node": "11.13.8",
     "bcryptjs": "2.4.3",
+    "devextreme-angular": "19.1.4-build-19151-2014",
     "fast-random": "2.0.4",
     "light-mapper": "1.1.6",
     "lodash": "4.17.10",
