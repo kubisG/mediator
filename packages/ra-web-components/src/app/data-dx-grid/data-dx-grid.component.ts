@@ -101,6 +101,10 @@ export class DataDxGridComponent implements DataGridInterface, OnInit {
         }
     }
 
+    reset(): void {
+
+    }
+
     public onRowClick(e) {
 
     }

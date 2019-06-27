@@ -25,6 +25,9 @@ export class HeaderComponent {
     @Input() leftMenuItems: Observable<MenuItem[]>;
     @Input() subTitle: string;
 
+    @Input() expansionMenuLeft;
+    @Input() expansionMenuRight;
+
     @Output() onMenuItemClick: EventEmitter<MenuItem> = new EventEmitter<MenuItem>();
 
     public menuItemClick(item: MenuItem) {

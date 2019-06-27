@@ -14,4 +14,5 @@ export { CoreModule } from "./src/app/core/core.module";
 export { WebSocketService } from "./src/app/core/websocket/services/websocket.service";
 export { WebSocketSetup, WebSocketEvent } from "./src/app/core/websocket/decorators/websocket-service.decorator";
 export { ChannelsMap } from "./src/app/core/channels-map";
+export { ReactiveList } from "./src/app/core/reactive-list";
 export { LayoutEvents } from "./src/app/core/enums/layout-events.enum";

@@ -7,7 +7,6 @@ import { Subject } from "rxjs/internal/Subject";
 import { Observable } from "rxjs/internal/Observable";
 import { LayoutMenuItemsService } from "./layout-menu-items.service";
 import { DockableService } from "../dockable/dockable.service";
-import { ToasterService } from "angular2-toaster";
 import { MenuItem } from "../header/menu-item.interface";
 
 @Injectable()
@@ -19,11 +18,13 @@ export class LayoutService {
     private itemAction: Subject<any> = new Subject<any>();
     public itemAction$: Observable<any> = this.itemAction.asObservable();
 
+    private messages: Subject<any> = new Subject<any>();
+    public messages$: Observable<any> = this.messages.asObservable();
+
     constructor(
         @Inject(GoldenLayoutStateStore) private stateStore: LayoutStateStorage,
         private dockableService: DockableService,
         private layoutMenuItemsService: LayoutMenuItemsService,
-        private toasterService: ToasterService,
         public dialog: MatDialog,
     ) { }
 
@@ -48,7 +49,6 @@ export class LayoutService {
     }
 
     private cantCreate() {
-        this.toasterService.pop("error", "Save error", "Cant create layout with name 'default'.");
     }
 
     private deleteLayout() {
@@ -79,7 +79,6 @@ export class LayoutService {
 
     private saveLayout() {
         this.stateStore.saveLayout().then((data) => {
-            this.toasterService.pop("info", "Save", "Layout succesfully saved.");
         });
     }
 

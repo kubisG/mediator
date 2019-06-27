@@ -15,7 +15,7 @@ import { UserInfo } from "../header/user-info.interface";
 @Injectable()
 export class LayoutMenuItemsService implements LayoutMenuInterface {
 
-    private menuItems: MenuItem[] = [
+    protected menuItems: MenuItem[] = [
     ];
 
     private leftMenuItems: MenuItem[] = [
@@ -36,7 +36,7 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
         }
     ];
 
-    private buttonItems: ButtonItem[] = [
+    protected buttonItems: ButtonItem[] = [
     ];
 
     public headerButtonItems: ReplaySubject<ButtonItem[]> = new ReplaySubject<ButtonItem[]>(1);
@@ -59,7 +59,6 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
 
     public app;
     public submenu;
-
 
     constructor(
         protected dockableService: DockableService,

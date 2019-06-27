@@ -3,7 +3,7 @@ import { Subject } from "rxjs/internal/Subject";
 
 export interface ClientRouter {
 
-    addClient<T>(clinetId: string, account: string): Observable<T>;
+    addClientToAccount<T>(clinetId: string, account: string): Observable<T>;
 
     removeClient(clinetId: string, account?: string): void;
 

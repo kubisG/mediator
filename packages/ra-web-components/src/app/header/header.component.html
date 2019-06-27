@@ -1,23 +1,14 @@
 <mat-toolbar color="primary" class="fixed-header">
     <span *ngIf="logoUrl && logoImg" class="ra-logo"><a href="{{logoUrl}}" target="_blank"><img
                 src="{{logoImg}}"></a></span>
-    <button *ngIf="leftMenuItems" mat-icon-button [matMenuTriggerFor]="leftMenu">
-        <mat-icon>{{ leftMenuLabel ? leftMenuLabel : 'menu' }}</mat-icon>
-    </button>
-    <mat-menu #leftMenu="matMenu" [overlapTrigger]="false">
-        <span *ngFor="let module of leftMenuItems | async">
-            <button *ngIf="module.route && !module.divider" mat-menu-item routerLink="{{module.route}}"
-                (click)="menuItemClick(module)">
-                <mat-icon *ngIf="module.icon">{{module.icon}}</mat-icon>
-                <span>{{module.label}}</span>
-            </button>
-            <button *ngIf="!module.route && !module.divider" mat-menu-item (click)="menuItemClick(module)">
-                <mat-icon *ngIf="module.icon">{{module.icon}}</mat-icon>
-                <span>{{module.label}}</span>
-            </button>
-            <mat-divider *ngIf="module.divider"></mat-divider>
-        </span>
-    </mat-menu>
+    <span *ngIf="!expansionMenuLeft">
+        <ra-header-button-menu *ngIf="leftMenuItems" [menuIcon]="leftMenuLabel" [menuItems]="leftMenuItems"
+            (itemClick)="menuItemClick($event)"></ra-header-button-menu>
+    </span>
+    <span *ngIf="expansionMenuLeft">
+        <ra-header-expansion-menu *ngIf="leftMenuItems" [menuIcon]="leftMenuLabel" [menuItems]="leftMenuItems"
+            (itemClick)="menuItemClick($event)"></ra-header-expansion-menu>
+    </span>
     <span title="{{appVersionLong}}">{{ appLabel }}</span>
     <span *ngIf="appVersionLong && activeModule" class="slash-separator">-</span>
     <span *ngIf="activeModule">{{ activeModule.label }}</span>
@@ -27,32 +18,11 @@
     <span class="fill-remaining-space"></span>
     <span class="header-controls">
         <span class="user-name" *ngIf="user">{{ user.companyName }} - {{ user.firstName }} {{ user.lastName }}</span>
-
-        <span *ngFor="let module of buttonItems | async">
-            <button *ngIf="module" mat-icon-button (click)="module.callBack()">
-                <mat-icon *ngIf="module.isTrue">{{ module.icoTrue }}</mat-icon>
-                <mat-icon *ngIf="!module.isTrue" [matBadge]="module.count" matBadgePosition="before"
-                    matBadgeColor="accent">
-                    {{ module.icoFalse }}</mat-icon>
-            </button>
-        </span>
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>menu</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu" [overlapTrigger]="false">
-            <span *ngFor="let module of menuItems | async" class="{{module.class}}">
-                <button *ngIf="module.route && !module.divider" mat-menu-item routerLink="{{module.route}}"
-                    (click)="menuItemClick(module)">
-                    <mat-icon *ngIf="module.icon">{{module.icon}}</mat-icon>
-                    <span>{{module.label}}</span>
-                </button>
-                <button *ngIf="!module.route && !module.divider" mat-menu-item (click)="menuItemClick(module)">
-                    <mat-icon *ngIf="module.icon">{{module.icon}}</mat-icon>
-                    <span>{{module.label}}</span>
-                </button>
-                <mat-divider *ngIf="module.divider"></mat-divider>
-            </span>
-        </mat-menu>
+        <ra-header-buttons [buttonItems]="buttonItems"></ra-header-buttons>
+        <ra-header-button-menu *ngIf="!expansionMenuRight" [menuItems]="menuItems" (itemClick)="menuItemClick($event)">
+        </ra-header-button-menu>
+        <ra-header-expansion-menu *ngIf="expansionMenuRight" [menuItems]="menuItems"
+            (itemClick)="menuItemClick($event)"></ra-header-expansion-menu>
     </span>
 </mat-toolbar>
 <div class="margin-header"></div>

@@ -28,12 +28,19 @@ export class LayoutComponent implements OnInit, OnDestroy {
     public reload = true;
     public subTitle = "";
     public appLabel: string;
+    public treeItems: boolean;
 
     public reloadSub: Subscription;
     public layoutNameSub: Subscription;
     public appSettSub: Subscription;
     public userSub: Subscription;
     public alertSub: Subscription;
+
+    @Input() logoUrl: string = "https://rapidaddition.com/";
+    @Input() logoImg: string = "assets/img/jira-favicon-scaled_t.png";
+
+    @Input() expansionMenuLeft;
+    @Input() expansionMenuRight;
 
     constructor(
         @Inject(GoldenLayoutStateStore) private stateStore: LayoutStateStorage,
