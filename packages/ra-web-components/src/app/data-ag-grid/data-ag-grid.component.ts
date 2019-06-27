@@ -52,6 +52,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                 enableRowGroup: true,
                 enableValue: true,
                 allowedAggFuncs: ["sum", "min", "max"],
+                pinned: (column.dataField === "Handling Instruction") ? "left" : undefined,
             });
         });
         this.columns = cls;
@@ -72,6 +73,15 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                     this.gridOptions.api.setRowData(this.data);
                     this.data = [];
                 }
+                this.gridOptions.getRowStyle = (params) => {
+                    if (params.data["AckLatencyCount"] > 0 && params.data["AckLatencyCount"] < 10) {
+                        return { background: "#feffb8" };
+                    } else if (params.data["AckLatencyCount"] >= 10) {
+                        return { background: "#ffb8b8" };
+                    } else {
+                        return { background: "#c4ffcf" };
+                    }
+                };
             }
         };
     }
@@ -159,7 +169,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
             getRowNodeId: this.getRowNodeId(),
             onGridReady: this.onGridReady(),
             onFirstDataRendered(params) {
-                params.api.sizeColumnsToFit();
+                // params.api.sizeColumnsToFit();
             }
         };
         this.gridOptions.onRowGroupOpened = (event) => {
