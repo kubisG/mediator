@@ -41,9 +41,13 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
         this.componentsMapService = this.injector.get(ComponentsMapService);
         this.elm = this.injector.get(ElementRef);
         this.dockableService = this.injector.get(DockableService);
-        this.goldenLayout = this.injector.get(GoldenLayout);
+        try {
+            this.goldenLayout = this.injector.get(GoldenLayout);
+            this.dockableService.setLayoutManager(this.goldenLayout);
+        } catch (ex) {
+            console.log(ex);
+        }
         this.init();
-        this.dockableService.setLayoutManager(this.goldenLayout);
     }
 
     private init() {

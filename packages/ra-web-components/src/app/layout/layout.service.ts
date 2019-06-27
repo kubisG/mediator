@@ -38,7 +38,8 @@ export class LayoutService {
                         label: result,
                         data: `savedLayout`
                     });
-                    this.loadLayout(result);
+                    this.stateStore.setLayoutName(result);
+                    this.saveLayout();
                 } else {
                     this.cantCreate();
                 }
@@ -95,6 +96,7 @@ export class LayoutService {
     }
 
     public loadSavedLayoutsNames() {
+        this.layoutMenuItemsService.clearLeftMenuItems();
         this.layoutMenuItemsService.addLeftMenuItem({
             divider: true,
             label: ""
@@ -118,7 +120,7 @@ export class LayoutService {
             this.loadLayout(item.label);
             return;
         }
-        if (item.label === `Save Layout`) {
+        if (item.label === `Update Layout`) {
             this.saveLayout();
             return;
         }
@@ -126,7 +128,7 @@ export class LayoutService {
             this.deleteLayout();
             return;
         }
-        if (item.label === `New Layout`) {
+        if (item.label === `Save new Layout`) {
             this.newLayout();
             return;
         }
