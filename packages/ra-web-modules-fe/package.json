@@ -14,5 +14,7 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
+    "devextreme": "19.1.4-build-19151-2014",
+    "devextreme-angular": "19.1.4-build-19151-2014"
   }
 }

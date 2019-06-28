@@ -18,13 +18,16 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
     protected menuItems: MenuItem[] = [
     ];
 
-    protected leftMenuItems: MenuItem[] = [
+    private leftMenuItems: MenuItem[] = [
+    ];
+
+    private leftMenuItemsDefault: MenuItem[] = [
         {
-            label: "New Layout",
+            label: "Save new Layout",
             icon: "add",
         },
         {
-            label: "Save Layout",
+            label: "Update Layout",
             icon: "save"
         },
         {
@@ -107,6 +110,7 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
             {
                 label: "Logout",
                 icon: "exit_to_app",
+                route: "/"
             });
         this.headerMenuItems.next(this.menuItems);
     }
@@ -115,6 +119,9 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
         this.appSettings.next({ version, versionLong, submenu: this.submenu });
     }
 
+    public clearLeftMenuItems() {
+        this.leftMenuItems = this.leftMenuItemsDefault;
+    }
     public addLeftMenuItem(item: MenuItem) {
         this.leftMenuItems.push(item);
         this.headerLeftMenuItems.next(this.leftMenuItems);
