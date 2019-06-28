@@ -52,7 +52,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                 enableRowGroup: true,
                 enableValue: true,
                 allowedAggFuncs: ["sum", "min", "max"],
-                pinned: (column.dataField === "Handling Instruction") ? "left" : undefined,
+                // pinned: (column.dataField === "Handling Instruction") ? "left" : undefined,
             });
         });
         this.columns = cls;
@@ -64,23 +64,32 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         };
     }
 
+    private setRowData(data: any[]) {
+        const buff: any[] = [];
+        for (const row of data) {
+            if (buff.indexOf(row[this.gridKey]) > -1) {
+                this.gridOptions.api.batchUpdateRowData({ add: [row] });
+                buff.push(row[this.gridKey]);
+            } else {
+                this.gridOptions.api.batchUpdateRowData({ update: [row] });
+            }
+        }
+    }
+
     private onGridReady() {
         return () => {
             if (this.gridOptions.api && this.columns) {
                 this.gridOptions.api.setDomLayout(`normal`);
                 this.gridOptions.api.setAlwaysShowVerticalScroll(true);
                 if (this.data.length > 0) {
-                    this.gridOptions.api.setRowData(this.data);
+                    this.setRowData(this.data);
                     this.data = [];
                 }
                 this.gridOptions.getRowStyle = (params) => {
-                    if (params.data["AckLatencyCount"] > 0 && params.data["AckLatencyCount"] < 10) {
-                        return { background: "#feffb8" };
-                    } else if (params.data["AckLatencyCount"] >= 10) {
-                        return { background: "#ffb8b8" };
-                    } else {
-                        return { background: "#c4ffcf" };
+                    if (params.data && params.data["Messages"] > 50) {
+                        return { background: "#9ec3ff" };
                     }
+                    return { background: "#faffb8" };
                 };
             }
         };
@@ -95,7 +104,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     private setInitData() {
         if (this.gridOptions.api.getDisplayedRowCount() === 0 && this.data.length > 0) {
-            this.gridOptions.api.setRowData(this.data);
+            this.setRowData(this.data);
             this.data = [];
             return true;
         }
