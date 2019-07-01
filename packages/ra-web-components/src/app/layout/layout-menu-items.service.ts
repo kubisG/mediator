@@ -120,7 +120,7 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
     }
 
     public clearLeftMenuItems() {
-        this.leftMenuItems = this.leftMenuItemsDefault;
+        this.leftMenuItems = [...this.leftMenuItemsDefault];
     }
     public addLeftMenuItem(item: MenuItem) {
         this.leftMenuItems.push(item);
