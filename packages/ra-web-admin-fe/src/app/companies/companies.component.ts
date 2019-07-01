@@ -106,6 +106,7 @@ export class CompaniesComponent extends DockableComponent implements OnInit {
                 this.companiesService.delCompany(id).then(
                     (data) => {
                         this.updateData = [data];
+                        this.toasterService.pop("info", "Company deleted", result.companyName + " successfully deleted");
 
                         // this.dataSourceControl.dataSource.store().byKey(id).then(
                         //     (dataItem) => {
@@ -153,6 +154,7 @@ export class CompaniesComponent extends DockableComponent implements OnInit {
 
     ngOnInit(): void {
         this.companiesService.getCompanies().then((data: any) => {
+            console.log( data[0]);
             this.gridData = data[0];
         }).catch(error => { this.logger.error(error); });
     }
