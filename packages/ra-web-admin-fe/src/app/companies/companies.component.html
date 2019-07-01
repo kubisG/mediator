@@ -16,7 +16,7 @@
 
   </mat-card-header>
 
-  <mat-card-content *ngIf="!collapsed">
+  <mat-card-content *ngIf="gridData">
     <ra-data-grid [initColumns]="gridColumns" [initData]="gridData" [update]="updateData" (rowClick)="onRowClick($event)">
 </ra-data-grid>
 <!--     
