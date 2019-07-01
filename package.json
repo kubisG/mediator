@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "clean": "lerna clean",
-    "hoists": "lerna bootstrap --hoist",
+    "hoists": "lerna bootstrap --hoist --force-local --include-filtered-dependencies",
     "nohoists": "lerna bootstrap",
     "init": "npm run clean && npm run hoists",
     "bts": "lerna bootstrap",
