@@ -236,7 +236,9 @@ var GoldenLayoutComponent = /** @class */ (function () {
         this.unloaded = true;
         if (this.isChildWindow) {
             var index = ((this.topWindow)).__apprefs.indexOf(this.appref);
-            ((this.topWindow)).__apprefs.splice(index, 1);
+            if(index>-1) {
+                ((this.topWindow)).__apprefs.splice(index, 1);
+            }
         }
     };
     GoldenLayoutComponent.prototype._createLayout = function (layout) {
