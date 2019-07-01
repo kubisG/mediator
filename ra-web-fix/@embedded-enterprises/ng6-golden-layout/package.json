@@ -1,51 +1,24 @@
 {
-  "_from": "@embedded-enterprises/ng6-golden-layout@0.0.12",
-  "_id": "@embedded-enterprises/ng6-golden-layout@0.0.12",
-  "_inBundle": false,
-  "_integrity": "sha512-WSABbiPZPPf01sRZp7845LMpdVNAiDQnR6/hlIGQOTufK+Zxc8zd9hOR+OwKBIAvl+pcoZ8sphN4ctBIlGy/HQ==",
-  "_location": "/@embedded-enterprises/ng6-golden-layout",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "version",
-    "registry": true,
-    "raw": "@embedded-enterprises/ng6-golden-layout@0.0.12",
-    "name": "@embedded-enterprises/ng6-golden-layout",
-    "escapedName": "@embedded-enterprises%2fng6-golden-layout",
-    "scope": "@embedded-enterprises",
-    "rawSpec": "0.0.12",
-    "saveSpec": null,
-    "fetchSpec": "0.0.12"
-  },
-  "_requiredBy": [
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/@embedded-enterprises/ng6-golden-layout/-/ng6-golden-layout-0.0.12.tgz",
-  "_shasum": "68fe997e1346bb71eb04aa8eb976db789f65b64f",
-  "_spec": "@embedded-enterprises/ng6-golden-layout@0.0.12",
-  "_where": "/home/ladin/rapid/git/ra-web",
+  "name": "@embedded-enterprises/ng6-golden-layout",
+  "version": "0.0.12",
+  "license": "BSD-3-Clause",
   "author": {
     "name": "Martin Koppehel",
     "email": "mkoppehel@embedded.enterprises",
     "url": "https://embedded.enterprises"
   },
-  "bundleDependencies": false,
-  "dependencies": {
-    "tslib": "^1.9.0"
-  },
-  "deprecated": false,
-  "description": "[![Downloads](https://img.shields.io/npm/dm/@embedded-enterprises/ng6-golden-layout.svg)](https://www.npmjs.com/package/@embedded-enterprises/ng6-golden-layout) [![NPM Version](https://img.shields.io/npm/v/@embedded-enterprises/ng6-golden-layout.svg)](https://www.npmjs.com/package/@embedded-enterprises/ng6-golden-layout) [![NPM Size](https://img.shields.io/bundlephobia/min/@embedded-enterprises/ng6-golden-layout.svg)](https://www.npmjs.com/package/@embedded-enterprises/ng6-golden-layout) [![Liberapay](https://img.shields.io/liberapay/receives/embeddedenterprises.svg?logo=liberapay)](https://liberapay.com/EmbeddedEnterprises/donate)",
-  "es2015": "esm2015/embedded-enterprises-ng6-golden-layout.js",
-  "license": "BSD-3-Clause",
-  "main": "bundles/embedded-enterprises-ng6-golden-layout.umd.js",
-  "metadata": "embedded-enterprises-ng6-golden-layout.metadata.json",
-  "module": "esm5/embedded-enterprises-ng6-golden-layout.js",
-  "name": "@embedded-enterprises/ng6-golden-layout",
   "peerDependencies": {
     "@angular/common": "^6.0.0",
     "@angular/core": "^6.0.0",
     "jquery": "^3.3.1",
     "golden-layout": "1.5.7"
   },
+  "main": "bundles/embedded-enterprises-ng6-golden-layout.umd.js",
+  "module": "esm5/embedded-enterprises-ng6-golden-layout.js",
+  "es2015": "esm2015/embedded-enterprises-ng6-golden-layout.js",
   "typings": "embedded-enterprises-ng6-golden-layout.d.ts",
-  "version": "0.0.12"
+  "metadata": "embedded-enterprises-ng6-golden-layout.metadata.json",
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
 }

@@ -240,7 +240,6 @@ var GoldenLayoutComponent = /** @class */ (function () {
     }
     GoldenLayoutComponent.prototype.ngOnInit = function () {
         var _this = this;
-        console.log("radyk");
         if (core.isDevMode())
             console.log("Init@" + (this.isChildWindow ? 'child' : 'root') + "!");
         var anyWin = (this.topWindow);

@@ -26,7 +26,6 @@
         "core-js": "2.5.4",
         "devextreme": "19.1.4-build-19151-2014",
         "devextreme-angular": "19.1.4-build-19151-2014",
-        "golden-layout": "1.5.9",
         "rxjs": "6.5.1",
         "socket.io-client": "2.0.4",
         "tslib": "1.9.0",
