@@ -45,7 +45,6 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
             this.goldenLayout = this.injector.get(GoldenLayout);
             this.dockableService.setLayoutManager(this.goldenLayout);
         } catch (ex) {
-            console.log(ex);
         }
         this.init();
     }
@@ -89,6 +88,7 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     }
 
     private clearComponents() {
+
         if (this.componentRefTab) {
             this.applicationRef.detachView(this.componentRefTab.hostView);
             this.componentRefTab.destroy();

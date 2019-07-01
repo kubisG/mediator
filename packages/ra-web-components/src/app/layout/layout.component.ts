@@ -47,6 +47,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
         private layoutMenuItemsService: LayoutMenuItemsService,
         private layoutService: LayoutService,
     ) {
+
     }
 
     private layoutReloadSubscribe() {

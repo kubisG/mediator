@@ -48,12 +48,14 @@ export class DockableService {
     public removeAll() {
         this.componentsMapService.deleteAll();
         this.singleComponentsMap = {};
-        // if (this.goldenLayoutManager) {
-        //     for (var i = 0; i < this.goldenLayoutManager.openPopouts.length; i++) {
-        //         this.goldenLayoutManager.openPopouts[i].close();
-        //     }
-        // }
-        // this.goldenLayoutManager = null;
+        if (this.goldenLayoutManager) {
+            if (this.goldenLayoutManager.openPopouts.length > 0) {
+                for (var i = 0; i < this.goldenLayoutManager.openPopouts.length; i++) {
+                    this.goldenLayoutManager.openPopouts[i].close();
+                }
+            }
+        }
+        this.goldenLayoutManager = null;
     }
 
     public removeComponent(name: string) {

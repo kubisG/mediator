@@ -56,7 +56,8 @@ export function deepCloning(obj: any) {
 
 export function logMessage(message: any) {
     return `${(message.RaID ? message.RaID : "")}, createDate: ${message.createDate}, msgType: ${message.msgType},`
-        + `Symbol: ${message.Symbol}, SenderCompID: ${message.SenderCompID}, TargetCompID: ${message.TargetCompID}`;
+        + `Symbol: ${message.Symbol}, SenderCompID: ${message.SenderCompID}, TargetCompID: ${message.TargetCompID}` +
+        `,SpecType: ${message.specType}`;
 }
 
 export async function prepareFilter(filter: any, sortCol: string, sortDefault: string, sortDir: string, table: string) {
