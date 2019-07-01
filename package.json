@@ -4,7 +4,7 @@
   "scripts": {
     "clean": "lerna clean",
     "hoists": "lerna bootstrap --hoist",
-    "nohoists": "lerna bootstrap --scope ra-trader-fe --scope ra-web-test-fe",
+    "nohoists": "lerna bootstrap",
     "init": "npm run clean && npm run hoists",
     "bts": "lerna bootstrap",
     "bootstrap": "npm run clean && lerna bootstrap",
