@@ -74,6 +74,7 @@ function getTargetModuleDeps(targetName) {
     fs.readdir(path.resolve("packages"), function (err, files) {
         for (var _i = 0, files_2 = files; _i < files_2.length; _i++) {
             var file = files_2[_i];
+            console.log("file", file);
             if (fs.lstatSync(path.resolve("packages", file)).isDirectory()) {
                 try {
                     var packageJsonRaw = fs.readFileSync(path.resolve("packages", file, "package.json"));
@@ -85,6 +86,7 @@ function getTargetModuleDeps(targetName) {
                     }
                 }
                 catch (ex) {
+                    console.log(ex);
                 }
             }
         }

@@ -25,21 +25,25 @@ export class UsersService {
     }
 
     async getLayoutConfig(token: string, name: string) {
+        console.log(token, name);
         const userData: UserData = await this.authService.getUserData<UserData>(token);
         return await this.preferenceRepository.getLayoutConfig(userData.userId, userData.compId, name);
     }
 
     async setLayoutConfig(token: string, config: any, name: string) {
+        console.log(token, config, name);
         const userData: UserData = await this.authService.getUserData<UserData>(token);
         return await this.preferenceRepository.setLayoutConfig(userData.userId, userData.compId, config, name);
     }
 
     async deleteLayoutConfig(token: string, name: string) {
+        console.log(token, name);
         const userData: UserData = await this.authService.getUserData<UserData>(token);
         return await this.preferenceRepository.deleteLayoutConfig(userData.userId, userData.compId, name);
     }
 
     async getLayoutsName(token: string) {
+        console.log(token);
         const userData: UserData = await this.authService.getUserData<UserData>(token);
         return await this.preferenceRepository.getLayoutsName(userData.userId, userData.compId);
     }

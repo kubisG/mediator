@@ -76,6 +76,7 @@ function attachNodemon(deps: string[]) {
 function getTargetModuleDeps(targetName: string) {
     fs.readdir(path.resolve("packages"), (err, files) => {
         for (const file of files) {
+            console.log("file", file);
             if (fs.lstatSync(path.resolve("packages", file)).isDirectory()) {
                 try {
                     let packageJsonRaw = fs.readFileSync(path.resolve("packages", file, "package.json"));
@@ -86,7 +87,7 @@ function getTargetModuleDeps(targetName: string) {
                         attachNodemon(paths);
                     }
                 } catch (ex) {
-
+                    console.log(ex);
                 }
             }
         }
