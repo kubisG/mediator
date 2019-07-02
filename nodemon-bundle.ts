@@ -3,7 +3,6 @@ import * as fs from "fs";
 import * as path from "path";
 import * as child_process from "child_process";
 
-let running = false;
 let changes = [];
 
 function getJSON(file: string) {

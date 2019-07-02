@@ -4,7 +4,6 @@ var chokidar = require("chokidar");
 var fs = require("fs");
 var path = require("path");
 var child_process = require("child_process");
-var running = false;
 var changes = [];
 function getJSON(file) {
     var packageJsonRaw = fs.readFileSync(path.resolve("packages", file, "package.json"));
