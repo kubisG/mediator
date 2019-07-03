@@ -31,7 +31,7 @@ export class LayoutService {
 
     private newLayout() {
         const dialogRef = this.dialog.open(InputDialogComponent, {
-            data: { text: "", ok: "Save" }
+            data: { text: "", ok: "Save", header: "Save layout" }
         });
         dialogRef.afterClosed().subscribe((result) => {
             if (result) {
