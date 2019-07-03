@@ -12,7 +12,7 @@
     <span title="{{appVersionLong}}">{{ appLabel }}</span>
     <span *ngIf="appVersionLong && activeModule" class="slash-separator">-</span>
     <span *ngIf="activeModule">{{ activeModule.label }}</span>
-    <span *ngIf="subTitle">{{ subTitle }}</span>
+    <span *ngIf="subTitle" class="subTitle">({{ subTitle }})</span>
     <span class="fill-remaining-space"></span>
     <ra-header-alert-message *ngIf="alertMessage" [message]="alertMessage"></ra-header-alert-message>
     <span class="fill-remaining-space"></span>
