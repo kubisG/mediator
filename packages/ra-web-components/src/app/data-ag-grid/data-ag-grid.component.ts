@@ -3,7 +3,9 @@ import { GridOptions, RowNode } from "ag-grid-community";
 import { DataGridInterface } from "../data-grid/data-grid-interface";
 import "ag-grid-enterprise";
 import { GridColumn } from "../data-grid/interfaces/grid-column.interface";
-
+import { HeaderColumnComponent } from "./header-column/header-column.component";
+import { HeaderComp, IHeaderParams } from "ag-grid-community/dist/lib/headerRendering/header/headerComp";
+import * as _ from "lodash";
 @Component({
     selector: "ra-data-ag-grid",
     templateUrl: "./data-ag-grid.component.html",
@@ -17,6 +19,8 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
             return 123;
         },
     };
+
+    public frameworkComponents = { agColumnHeader: HeaderColumnComponent };
 
     public gridOptions: GridOptions;
     public data: any[] = [];
@@ -45,9 +49,53 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     @Input() gridKey: string;
 
+    static exists(value: any, allowEmptyString: boolean = false): boolean {
+        return value != null && (value !== '' || allowEmptyString);
+    }
+
+    static firstExistingValue<A>(...values: A[]): A | null {
+        for (let i = 0; i < values.length; i++) {
+            const value: A = values[i];
+            if (DataAgGridComponent.exists(value)) {
+                return value;
+            }
+        }
+
+        return null;
+    }
+
     constructor(
         private cd: ChangeDetectorRef,
-    ) { }
+    ) {
+        this.overrideHeaderCompInit();
+    }
+
+    private overrideHeaderCompInit() {
+        HeaderComp.prototype.init = function (params: IHeaderParams) {
+            const instance = (this as any);
+            let template: string = DataAgGridComponent.firstExistingValue(
+                params.template,
+                (HeaderComp as any).TEMPLATE
+            );
+
+            // take account of any newlines & whitespace before/after the actual template
+            template = template && template.trim ? template.trim() : template;
+
+            instance.setTemplate(template);
+            instance.params = params;
+
+            instance.setupTap();
+            instance.setupIcons(params.column);
+            instance.setupMenu();
+            instance.setupSort();
+            instance.setupFilterIcon();
+            let name = params.displayName;
+            if (params.displayName.indexOf("(") > -1) {
+                name = params.displayName.substring((params.displayName.indexOf("(") + 1), params.displayName.length - 1);
+            }
+            instance.setupText(name);
+        };
+    }
 
     private setColumns(columns: any[]) {
         const cls = [];
@@ -57,9 +105,12 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                 field: column.dataField,
                 enableRowGroup: column.enableRowGroup,
                 rowGroup: column.rowGroup,
+                hide: column.enableRowGroup && column.rowGroup,
                 enableValue: true,
                 allowedAggFuncs: column.aggFunc ? ["avg", "sum", "min", "max", "average"] : undefined,
                 aggFunc: column.aggFunc,
+                sortable: true,
+                resizable: true
             });
         });
         this.columns = cls;

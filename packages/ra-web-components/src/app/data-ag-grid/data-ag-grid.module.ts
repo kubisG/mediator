@@ -5,6 +5,7 @@ import { RouterModule } from "@angular/router";
 import { MaterialModule } from "@ra/web-material-fe";
 import { DataAgGridComponent } from "./data-ag-grid.component";
 import { AgGridModule } from "ag-grid-angular";
+import { HeaderColumnComponent } from "./header-column/header-column.component";
 
 @NgModule({
     imports: [
@@ -13,11 +14,12 @@ import { AgGridModule } from "ag-grid-angular";
         FormsModule,
         RouterModule,
         MaterialModule,
-        AgGridModule.withComponents([])
+        AgGridModule.withComponents([HeaderColumnComponent])
     ],
     providers: [],
     declarations: [
         DataAgGridComponent,
+        HeaderColumnComponent,
     ],
     exports: [
         DataAgGridComponent,
