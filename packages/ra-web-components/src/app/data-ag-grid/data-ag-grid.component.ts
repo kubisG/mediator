@@ -62,7 +62,6 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                 return value;
             }
         }
-
         return null;
     }
 
