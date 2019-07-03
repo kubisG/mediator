@@ -15,7 +15,7 @@ import { VerifyService } from "./verify/verify.service";
 
 @Module({
     imports: [
-    //        DaoModule,
+   //        DaoModule,
         CoreModule,
         EnvironmentsModule,
         PassportModule.register({ defaultStrategy: "jwt" }),
