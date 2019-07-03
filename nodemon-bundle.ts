@@ -3,7 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as child_process from "child_process";
 
-let running = false;
+let changes = [];
 
 function getJSON(file: string) {
     let packageJsonRaw = fs.readFileSync(path.resolve("packages", file, "package.json"));
@@ -44,32 +44,37 @@ function getDepsFolders(deps: string[]) {
     return paths;
 }
 
+function runBundleFn() {
+    if (changes.length === 0) {
+        setTimeout(() => {
+            runBundleFn();
+        }, 500);
+        return;
+    }
+    const path = changes[0];
+    changes.shift();
+    const splited = path.split("\\");
+    const json = getJSON(`${splited[1]}`);
+    console.log("CHANGED: ", path);
+    const spawn = child_process.spawn;
+    const proc = child_process.exec(`npm run bundle -- --scope ${json.name}`, function (err, stdout, stderr) {
+        console.log(err);
+        console.log(stdout);
+        console.log(stderr);
+        runBundleFn();
+    });
+    proc.stdout.on('data', function (data) {
+        console.log(data);
+    });
+}
+
 function attachNodemon(deps: string[]) {
     const watcher = chokidar.watch(deps, {
         persistent: true
     });
-    const log = console.log.bind(console);
-    let proc;
     watcher
         .on("change", (path) => {
-            if (running) {
-                return;
-            }
-            running = true;
-            const splited = path.split("\\");
-            const json = getJSON(`${splited[1]}`);
-            console.log("CHANGED: ", path);
-            const spawn = child_process.spawn;
-            proc = child_process.exec(`npm run bundle -- --scope ${json.name}`, function (err, stdout, stderr) {
-                console.log(err);
-                console.log(stdout);
-                console.log(stderr);
-                running = false;
-            });
-
-            proc.stdout.on('data', function (data) {
-                console.log(data);
-            });
+            changes.push(path);
         });
 }
 
@@ -86,7 +91,7 @@ function getTargetModuleDeps(targetName: string) {
                         attachNodemon(paths);
                     }
                 } catch (ex) {
-
+                    console.log(ex);
                 }
             }
         }
@@ -95,4 +100,5 @@ function getTargetModuleDeps(targetName: string) {
 
 const args = process.argv;
 const target = args[args.length - 1];
+runBundleFn();
 getTargetModuleDeps(target);

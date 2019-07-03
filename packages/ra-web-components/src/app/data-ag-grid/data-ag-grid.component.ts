@@ -12,6 +12,12 @@ import { GridColumn } from "../data-grid/interfaces/grid-column.interface";
 })
 export class DataAgGridComponent implements DataGridInterface, OnInit {
 
+    public aggFuncs = {
+        average: (values) => {
+            return 123;
+        },
+    };
+
     public gridOptions: GridOptions;
     public data: any[] = [];
     public updateData: any[] = [];
@@ -49,10 +55,11 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
             cls.push({
                 headerName: column.dataField,
                 field: column.dataField,
-                enableRowGroup: true,
+                enableRowGroup: column.enableRowGroup,
+                rowGroup: column.rowGroup,
                 enableValue: true,
-                allowedAggFuncs: ["sum", "min", "max"],
-                // pinned: (column.dataField === "Handling Instruction") ? "left" : undefined,
+                allowedAggFuncs: column.aggFunc ? ["avg", "sum", "min", "max", "average"] : undefined,
+                aggFunc: column.aggFunc,
             });
         });
         this.columns = cls;

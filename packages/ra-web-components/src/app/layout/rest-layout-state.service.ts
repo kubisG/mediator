@@ -29,15 +29,11 @@ export class RestLayoutStateService implements LayoutStateStorage {
 
     writeState(state: any): void {
         this.layoutState = state;
-//        this.restLayoutService.setLayout(state, `${this.module}-${this.layoutName}`);
     }
 
-    saveLayout(): Promise<any>  {
+    saveLayout(): Promise<any> {
         if (this.layoutState) {
-            return this.restLayoutService.setLayout(this.layoutState, `${this.module}-${this.layoutName}`).then(
-            (data) => {
-                return data;
-            });
+            return this.restLayoutService.setLayout(this.layoutState, `${this.module}-${this.layoutName}`);
         } else {
             return Promise.reject();
         }
