@@ -49,6 +49,8 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     @Input() gridKey: string;
 
+    static funcs: string[] = ["avg", "sum", "min", "max", "average"];
+
     static exists(value: any, allowEmptyString: boolean = false): boolean {
         return value != null && (value !== '' || allowEmptyString);
     }
@@ -62,6 +64,16 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         }
 
         return null;
+    }
+
+    static getHeaderName(name: string) {
+        if (name.indexOf("(") > -1) {
+            const splited = name.split("(");
+            if (DataAgGridComponent.funcs.indexOf(splited[0]) > -1) {
+                return name.substring(name.indexOf("(") + 1, name.length - 1);
+            }
+        }
+        return name;
     }
 
     constructor(
@@ -89,11 +101,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
             instance.setupMenu();
             instance.setupSort();
             instance.setupFilterIcon();
-            let name = params.displayName;
-            if (params.displayName.indexOf("(") > -1) {
-                name = params.displayName.substring((params.displayName.indexOf("(") + 1), params.displayName.length - 1);
-            }
-            instance.setupText(name);
+            instance.setupText(DataAgGridComponent.getHeaderName(params.displayName));
         };
     }
 
@@ -107,7 +115,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                 rowGroup: column.rowGroup,
                 hide: column.enableRowGroup && column.rowGroup,
                 enableValue: true,
-                allowedAggFuncs: column.aggFunc ? ["avg", "sum", "min", "max", "average"] : undefined,
+                allowedAggFuncs: column.aggFunc ? DataAgGridComponent.funcs : undefined,
                 aggFunc: column.aggFunc,
                 sortable: true,
                 resizable: true
