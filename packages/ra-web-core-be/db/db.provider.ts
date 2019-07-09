@@ -14,13 +14,10 @@ export function dataseProviders(entities: any[]) {
                 let driver: Driver;
                 if (connectionManager.has("default")) {
                     connection = connectionManager.get("default");
-                    try {
-                        driver = connection.driver;
-                        await connection.connect();
-                        await connection.close();
-                    } catch (ex) {
-                        console.log(ex);
-                    } finally { }
+                    return () => {
+                        logger.silly(`RETURN DB CONNECTION`);
+                        return connectionManager.get("default");
+                    };
                 }
                 connection = await createConnection({
                     type: env.db.type,

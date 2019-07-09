@@ -7,7 +7,7 @@ import { LayoutService } from "./layout.service";
 @Module({
     imports: [
         AuthModule,
-        DaoModule,
+        // DaoModule,
     ],
     controllers: [
         LayoutController,

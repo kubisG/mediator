@@ -11,14 +11,14 @@ import { dataseProviders } from "../db/db.provider";
     ],
     controllers: [
     ],
-    providers: [
-        ...dataseProviders(entities),
-        ...repositoriesProvider,
-    ],
-    exports: [
-        ...dataseProviders(entities),
-        ...repositoriesProvider,
-    ]
+    // providers: [
+    //     ...dataseProviders(entities),
+    //     ...repositoriesProvider,
+    // ],
+    // exports: [
+    //     ...dataseProviders(entities),
+    //     ...repositoriesProvider,
+    // ]
 })
 export class DaoModule {
 

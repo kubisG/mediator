@@ -9,10 +9,10 @@ import { RaAppDirectoryIntent } from "./entities/ra-app-directory-intent";
 @Module({
     imports: [
         AuthModule,
-        DaoModule.forRoot([
-            RaAppDirectory,
-            RaAppDirectoryIntent,
-        ]),
+        // DaoModule.forRoot([
+        //     RaAppDirectory,
+        //     RaAppDirectoryIntent,
+        // ]),
     ],
     controllers: [
         AppDirectoryController,

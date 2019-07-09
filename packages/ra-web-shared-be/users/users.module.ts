@@ -12,7 +12,7 @@ import { UserAuthVerify } from "./user-auth-verify";
             UserSessionData,
             UserAuthVerify
         ),
-        DaoModule,
+        // DaoModule,
     ],
     controllers: [
         UsersController,

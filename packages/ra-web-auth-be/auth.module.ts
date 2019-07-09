@@ -11,7 +11,7 @@ import { EnvironmentsModule } from "@ra/web-env-be/environments.module";
 import { EnvironmentService } from "@ra/web-env-be/environment.service";
 import { SessionDataService } from "./session-data/session-data.service";
 import { VerifyService } from "./verify/verify.service";
-// import { DaoModule } from "@ra/web-core-be/dao/dao.module";
+import { DaoModule } from "@ra/web-core-be/dao/dao.module";
 
 @Module({
     imports: [
