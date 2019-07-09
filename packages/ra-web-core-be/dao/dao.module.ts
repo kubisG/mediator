@@ -1,10 +1,10 @@
-import { Module, DynamicModule } from "@nestjs/common";
+import { Module, DynamicModule, Global } from "@nestjs/common";
 import { repositoriesProvider } from "./repository.provider";
 import { entities } from "./entities";
 import { CoreModule } from "../core.module";
 import { dataseProviders } from "../db/db.provider";
-import { AEntity } from "../db/a-entity";
 
+@Global()
 @Module({
     imports: [
         CoreModule,
@@ -48,4 +48,20 @@ export class DaoModule {
             ]
         };
     }
+
+
+    static forOMS(customEntities: any[], providers: any[]): DynamicModule {
+        return {
+            module: DaoModule,
+            providers: [
+                ...dataseProviders(customEntities),
+                ...providers,
+            ],
+            exports: [
+                ...dataseProviders(customEntities),
+                ...providers,
+            ]
+        };
+    }
+
 }
