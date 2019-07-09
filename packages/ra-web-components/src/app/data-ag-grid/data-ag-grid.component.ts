@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
-import { GridOptions, RowNode } from "ag-grid-community";
+import { GridOptions, RowNode, RowNodeTransaction } from "ag-grid-community";
 import { DataGridInterface } from "../data-grid/data-grid-interface";
 import "ag-grid-enterprise";
 import { GridColumn } from "../data-grid/interfaces/grid-column.interface";
@@ -14,11 +14,11 @@ import * as _ from "lodash";
 })
 export class DataAgGridComponent implements DataGridInterface, OnInit {
 
-    public aggFuncs = {
-        average: (values) => {
-            return 123;
-        },
-    };
+    static funcs: string[] = ["avg", "sum", "min", "max", "average"];
+
+    private init = true;
+
+    public aggFuncs = {};
 
     public frameworkComponents = { agColumnHeader: HeaderColumnComponent };
 
@@ -29,13 +29,20 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     @Input() set initData(data: any[]) {
         this.data = data ? data : [];
+        this.setInitData();
         this.cd.markForCheck();
     }
 
     @Input() set update(data: any[]) {
-        this.updateData = data ? data : [];
-        this.updateGrid();
-        this.cd.markForCheck();
+        if (this.init === true) {
+            this.data = data ? data : [];
+            this.init = false;
+            this.setInitData();
+        } else {
+            this.updateData = data ? data : [];
+            this.updateGrid();
+            this.cd.markForCheck();
+        }
     }
 
     @Input() set initColumns(columns: GridColumn[]) {
@@ -49,7 +56,12 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     @Input() gridKey: string;
 
-    static funcs: string[] = ["avg", "sum", "min", "max", "average"];
+
+    constructor(
+        private cd: ChangeDetectorRef,
+    ) {
+        this.overrideHeaderCompInit();
+    }
 
     static exists(value: any, allowEmptyString: boolean = false): boolean {
         return value != null && (value !== '' || allowEmptyString);
@@ -75,12 +87,6 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         return name;
     }
 
-    constructor(
-        private cd: ChangeDetectorRef,
-    ) {
-        this.overrideHeaderCompInit();
-    }
-
     private overrideHeaderCompInit() {
         HeaderComp.prototype.init = function (params: IHeaderParams) {
             const instance = (this as any);
@@ -88,13 +94,10 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                 params.template,
                 (HeaderComp as any).TEMPLATE
             );
-
             // take account of any newlines & whitespace before/after the actual template
             template = template && template.trim ? template.trim() : template;
-
             instance.setTemplate(template);
             instance.params = params;
-
             instance.setupTap();
             instance.setupIcons(params.column);
             instance.setupMenu();
@@ -117,7 +120,8 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                 allowedAggFuncs: column.aggFunc ? DataAgGridComponent.funcs : undefined,
                 aggFunc: column.aggFunc,
                 sortable: true,
-                resizable: true
+                resizable: true,
+                filter: true,
             });
         });
         this.columns = cls;
@@ -129,25 +133,13 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         };
     }
 
-    private setRowData(data: any[]) {
-        const buff: any[] = [];
-        for (const row of data) {
-            if (buff.indexOf(row[this.gridKey]) > -1) {
-                this.gridOptions.api.batchUpdateRowData({ add: [row] });
-                buff.push(row[this.gridKey]);
-            } else {
-                this.gridOptions.api.batchUpdateRowData({ update: [row] });
-            }
-        }
-    }
-
     private onGridReady() {
         return () => {
             if (this.gridOptions.api && this.columns) {
                 this.gridOptions.api.setDomLayout(`normal`);
                 this.gridOptions.api.setAlwaysShowVerticalScroll(true);
                 if (this.data.length > 0) {
-                    this.setRowData(this.data);
+                    this.gridOptions.api.setRowData(this.data);
                     this.data = [];
                 }
                 this.gridOptions.getRowStyle = (params) => {
@@ -169,7 +161,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     private setInitData() {
         if (this.gridOptions.api.getDisplayedRowCount() === 0 && this.data.length > 0) {
-            this.setRowData(this.data);
+            this.gridOptions.api.setRowData(this.data);
             this.data = [];
             return true;
         }
@@ -202,11 +194,15 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         return true;
     }
 
-    reset(): void {
+    public reset(): void {
         if (this.gridOptions && this.gridOptions.api) {
             this.gridOptions.api.setRowData([]);
             this.gridOptions.api.setColumnDefs([]);
         }
+    }
+
+    public groupRowAggNodes(nodes) {
+        // console.log(nodes);
     }
 
     public updateGrid() {
@@ -239,12 +235,12 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         }
         this.gridOptions = {
             enableRangeSelection: true,
+            enableSorting: true,
+            enableFilter: true,
             columnDefs: this.columns,
             getRowNodeId: this.getRowNodeId(),
             onGridReady: this.onGridReady(),
-            onFirstDataRendered(params) {
-                // params.api.sizeColumnsToFit();
-            }
+            onFirstDataRendered(params) { }
         };
         this.gridOptions.onRowGroupOpened = (event) => {
 
