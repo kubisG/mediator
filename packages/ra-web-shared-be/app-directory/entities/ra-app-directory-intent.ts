@@ -29,18 +29,12 @@ export class RaAppDirectoryIntent extends AEntity {
     @Column({ nullable: true })
     displayName: string;
 
-    @Mapping({
-        requirement: MappingRequirement.OPTIONAL,
-        transformation: (value) => JSON.stringify(value)
-    })
-    @Column({ nullable: true })
-    contexts: string;
+    @Mapping(MappingRequirement.OPTIONAL)
+    @Column({ type: "jsonb", nullable: true })
+    contexts: any;
 
-    @Mapping({
-        requirement: MappingRequirement.OPTIONAL,
-        transformation: (value) => JSON.stringify(value)
-    })
-    @Column({ nullable: true })
-    customConfig: string;
+    @Mapping(MappingRequirement.OPTIONAL)
+    @Column({ type: "jsonb", nullable: true })
+    customConfig: any;
 
 }

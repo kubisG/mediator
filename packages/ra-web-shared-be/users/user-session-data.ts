@@ -21,6 +21,7 @@ export class UserSessionData implements SessionData {
             userId: entry.id,
             compId: entry.company.id,
             nickName: entry.username,
+            role: entry.class
         }
     }
 

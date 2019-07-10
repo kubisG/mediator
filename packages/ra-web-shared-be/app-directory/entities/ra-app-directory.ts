@@ -1,9 +1,10 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Index } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Index, OneToOne, JoinColumn, Unique } from "typeorm";
 import { Mapping, MappingRequirement } from "light-mapper";
 import { AEntity } from "@ra/web-core-be/db/a-entity";
 import { RaAppDirectoryIntent } from "./ra-app-directory-intent";
-
+import { RaAppDirectoryType } from "./ra-app-directory-type";
 @Entity()
+@Unique(["appId"])
 export class RaAppDirectory extends AEntity {
 
     constructor(id?: number) {
@@ -18,7 +19,10 @@ export class RaAppDirectory extends AEntity {
     public id: number;
 
     @OneToMany(() => RaAppDirectoryIntent, (raAppDirectoryIntent) => raAppDirectoryIntent.app)
-    public intents: RaAppDirectoryIntent;
+    public intents: RaAppDirectoryIntent[];
+
+    @OneToOne(type => RaAppDirectoryType, raAppDirectoryType => raAppDirectoryType.app)
+    manifestDef: RaAppDirectoryType;
 
     @Mapping(MappingRequirement.REQUIRED)
     @Column()
@@ -52,12 +56,9 @@ export class RaAppDirectory extends AEntity {
     @Column({ nullable: true })
     description: string;
 
-    @Mapping({
-        requirement: MappingRequirement.OPTIONAL,
-        transformation: (value) => JSON.stringify(value)
-    })
-    @Column({ nullable: true })
-    images: string;
+    @Mapping(MappingRequirement.OPTIONAL)
+    @Column({ type: "jsonb", nullable: true })
+    images: any;
 
     @Mapping(MappingRequirement.OPTIONAL)
     @Column({ nullable: true })
@@ -71,18 +72,12 @@ export class RaAppDirectory extends AEntity {
     @Column({ nullable: true })
     publisher: string;
 
-    @Mapping({
-        requirement: MappingRequirement.OPTIONAL,
-        transformation: (value) => JSON.stringify(value)
-    })
-    @Column({ nullable: true })
-    icons: string;
+    @Mapping(MappingRequirement.OPTIONAL)
+    @Column({ type: "jsonb", nullable: true })
+    icons: any;
 
-    @Mapping({
-        requirement: MappingRequirement.OPTIONAL,
-        transformation: (value) => JSON.stringify(value)
-    })
-    @Column({ nullable: true })
-    customConfig: string;
+    @Mapping(MappingRequirement.OPTIONAL)
+    @Column({ type: "jsonb", nullable: true })
+    customConfig: any;
 
 }
