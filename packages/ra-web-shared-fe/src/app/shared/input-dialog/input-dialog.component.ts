@@ -17,12 +17,6 @@ export class InputDialogComponent {
     ) { }
 
 
-    ngOnInit() {
-    }
-
-    ngOnDestroy() {
-    }
-
     onNoClick(): void {
         this.dialogRef.close();
     }

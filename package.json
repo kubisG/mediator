@@ -16,7 +16,7 @@
     "ra-web-bundle-be": "lerna run --scope @ra/web-bundle-be build",
     "ra-web-bundle-fe": "lerna run --scope @ra/web-bundle-fe build",
     "watch:bundle": "rm ./nodemon-bundle.js && tsc nodemon-bundle.ts && node ./nodemon-bundle.js"
-  },
+   },
   "devDependencies": {
     "lerna": "3.13.3",
     "@lerna/filter-options": "3.13.3",

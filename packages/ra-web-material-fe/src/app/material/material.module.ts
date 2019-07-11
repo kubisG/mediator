@@ -110,9 +110,9 @@ import {
 })
 export class MaterialModule {
     constructor(@Optional() @SkipSelf() parentModule: MaterialModule) {
-        if (parentModule) {
-            throw new Error(
-                "MaterialModule is already loaded. Import it in the AppModule only");
-        }
+        // if (parentModule) {
+        //     throw new Error(
+        //         "MaterialModule is already loaded. Import it in the AppModule only");
+        // }
     }
 }

@@ -23,6 +23,7 @@ import { AdDirective } from "./directives/ad.directive";
 import { LoggerService } from "./logger/logger.service";
 import { ENVIRONMENT } from "./environment/environment.interface";
 import { EnvironmentInterface } from "./environment/environment.interface";
+import { RaPressKDirective } from "./directives/press-key.directive";
 
 @NgModule({
     imports: [
@@ -43,6 +44,7 @@ import { EnvironmentInterface } from "./environment/environment.interface";
         FormatBalancePipe,
         DisableControlDirective,
         DraggableDirective,
+        RaPressKDirective,
         AdDirective,
         ActionBarComponent,
         DropDownComponent,
@@ -67,6 +69,7 @@ import { EnvironmentInterface } from "./environment/environment.interface";
         FormatBalancePipe,
         DisableControlDirective,
         DraggableDirective,
+        RaPressKDirective,
         AdDirective,
         ActionBarComponent,
         DropDownComponent,
