@@ -4,6 +4,8 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { MaterialModule } from "@ra/web-material-fe";
 import { RaWebAgentService } from "./ra-web-agent.service";
+import { AppHostComponent } from "./app-host/app-host.component";
+import { DockableModule } from "../dockable/dockable.module";
 
 @NgModule({
     imports: [
@@ -12,15 +14,16 @@ import { RaWebAgentService } from "./ra-web-agent.service";
         FormsModule,
         RouterModule,
         MaterialModule,
+        DockableModule,
     ],
     providers: [
         RaWebAgentService,
     ],
     declarations: [
-
+        AppHostComponent,
     ],
     exports: [
-
+        AppHostComponent,
     ]
 })
 export class RaWebAgentModule {
