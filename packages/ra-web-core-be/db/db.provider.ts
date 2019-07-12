@@ -35,7 +35,7 @@ export function dataseProviders(entities: any[]) {
                     logger: "advanced-console"
                 } as PostgresConnectionOptions);
                 if (driver) {
-                    await driver.connect()
+                    await driver.connect();
                 }
                 return () => {
                     logger.silly(`RETURN DB CONNECTION`);
@@ -44,5 +44,5 @@ export function dataseProviders(entities: any[]) {
             },
             inject: [EnvironmentService, "logger"],
         },
-    ]
+    ];
 }

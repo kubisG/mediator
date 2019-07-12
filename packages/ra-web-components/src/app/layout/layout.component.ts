@@ -27,11 +27,13 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     public reload = true;
     public subTitle = "";
+    public defaultLayout = "";
     public appLabel: string;
     public treeItems: boolean;
 
     public reloadSub: Subscription;
     public layoutNameSub: Subscription;
+    public defaultNameSub: Subscription;
     public appSettSub: Subscription;
     public userSub: Subscription;
     public alertSub: Subscription;
@@ -62,6 +64,12 @@ export class LayoutComponent implements OnInit, OnDestroy {
         });
     }
 
+    private layoutDefaultSubscribe() {
+        this.defaultNameSub = this.stateStore.defaultLayout().subscribe((name) => {
+            this.defaultLayout = name;
+        });
+    }
+
     public onMenuItemClick(item: MenuItem): void {
         this.layoutService.doMenuItemAction(item);
     }
@@ -85,6 +93,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.layoutService.loadSavedLayoutsNames();
         this.layoutReloadSubscribe();
         this.layoutNameSubscribe();
+        this.layoutDefaultSubscribe();
     }
 
     public ngOnDestroy(): void {
@@ -94,10 +103,12 @@ export class LayoutComponent implements OnInit, OnDestroy {
         if (this.layoutNameSub) {
             this.layoutNameSub.unsubscribe();
         }
+        if (this.defaultNameSub) {
+            this.defaultNameSub.unsubscribe();
+        }
         if (this.appSettSub) {
             this.appSettSub.unsubscribe();
         }
-
         if (this.userSub) {
             this.userSub.unsubscribe();
         }

@@ -27,6 +27,10 @@ export class LayoutMenuItemsService implements LayoutMenuInterface {
             icon: "add",
         },
         {
+            label: "Set as default Layout",
+            icon: "star_border",
+        },
+        {
             label: "Update Layout",
             icon: "save"
         },
