@@ -25,6 +25,7 @@
         "@ra/web-core-fe": "^1.1.0",
         "@ra/web-material-fe": "^1.1.0",
         "@ra/web-shared-fe": "^1.1.0",
+        "@ra/web-shared": "^1.1.0",
         "ag-grid-angular": "21.0.1",
         "ag-grid-community": "21.0.1",
         "ag-grid-enterprise": "21.0.1",

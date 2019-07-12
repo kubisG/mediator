@@ -1,0 +1,1 @@
+{"folders":[{"path":"..\\packages\\ra-web-bundle-be"},{"path":"..\\packages\\ra-web-auth-be"},{"path":"..\\packages\\ra-web-core-be"},{"path":"..\\packages\\ra-web-ee-router"},{"path":"..\\packages\\ra-web-env-be"},{"path":"..\\packages\\ra-web-monitor-be"},{"path":"..\\packages\\ra-web-queue"}],"settings":{"files.exclude":{"**/*.d.ts":true,"**/*.js":true,"**/*.js.map":true}}}

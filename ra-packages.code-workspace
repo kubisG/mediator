@@ -55,6 +55,9 @@
 			"path": "packages\\ra-web-shared-be"
 		},
 		{
+			"path": "packages\\ra-web-shared"
+		},
+		{
 			"path": "packages\\ra-web-forms-fe"
 		},
 		{
