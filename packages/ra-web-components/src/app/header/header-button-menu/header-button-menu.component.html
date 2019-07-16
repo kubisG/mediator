@@ -6,11 +6,11 @@
         <button *ngIf="module.route && !module.divider" mat-menu-item routerLink="{{module.route}}"
             (click)="menuItemClick(module)">
             <mat-icon *ngIf="module.icon">{{module.icon}}</mat-icon>
-            <span>{{module.label}}</span>
+            <span [ngClass]="{'default-layout': module.label === defaultButton}">{{module.label}} {{module.label === defaultButton ? '*' : ''}}</span>
         </button>
         <button *ngIf="!module.route && !module.divider" mat-menu-item (click)="menuItemClick(module)">
             <mat-icon *ngIf="module.icon">{{module.icon}}</mat-icon>
-            <span>{{module.label}}</span>
+            <span [ngClass]="{'default-layout': module.label === defaultButton}">{{module.label}} {{module.label === defaultButton ? '*' : ''}}</span>
         </button>
         <mat-divider *ngIf="module.divider"></mat-divider>
     </span>

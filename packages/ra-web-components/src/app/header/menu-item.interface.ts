@@ -7,4 +7,5 @@ export interface MenuItem {
     class?: string;
     single?: boolean;
     subItems?: MenuItem[];
+    default?: boolean;
 }

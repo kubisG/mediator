@@ -11,6 +11,7 @@ export class HeaderButtonMenuComponent {
 
     @Input() menuIcon: string;
     @Input() menuItems: Observable<MenuItem[]>;
+    @Input() defaultButton: string;
 
     @Output() itemClick: EventEmitter<MenuItem> = new EventEmitter<MenuItem>();
 

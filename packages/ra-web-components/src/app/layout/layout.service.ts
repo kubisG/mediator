@@ -30,7 +30,7 @@ export class LayoutService {
 
     private newLayout() {
         const dialogRef = this.dialog.open(InputDialogComponent, {
-            data: { text: "", ok: "Save" }
+            data: { text: "", ok: "Save", header: "Save layout" }
         });
         dialogRef.afterClosed().subscribe((result) => {
             if (result) {
@@ -82,7 +82,16 @@ export class LayoutService {
         });
     }
 
+<<<<<<< HEAD
     public addComponentToLayout(item: any) {
+=======
+    private setDefaultLayout() {
+        this.stateStore.setDefaultLayout().then((data) => {
+        });
+    }
+
+    private addComponentToLayout(item: any) {
+>>>>>>> 217645da2bfbe31e843b57e8da2f9b101b339303
         const component = item.data;
         this.dockableService.addComponent({
             label: component.componentName,
@@ -101,11 +110,21 @@ export class LayoutService {
             label: ""
         });
         this.stateStore.getLayoutsName().then((data) => {
-            data.forEach((name) => {
-                this.layoutMenuItemsService.addLeftMenuItem({
-                    label: name,
-                    data: `savedLayout`
-                });
+            data.forEach((layout) => {
+
+                if (typeof layout === "string") {
+                    this.layoutMenuItemsService.addLeftMenuItem({
+                        label: layout,
+                        data: `savedLayout`,
+                        default: false
+                    });
+                } else {
+                    this.layoutMenuItemsService.addLeftMenuItem({
+                        label: (layout as any).name,
+                        data: `savedLayout`,
+                        default: (layout as any).default
+                    });
+                }
             });
         });
     }
@@ -117,6 +136,10 @@ export class LayoutService {
         }
         if (item.data && item.data === `savedLayout`) {
             this.loadLayout(item.label);
+            return;
+        }
+        if (item.label === `Set as default Layout`) {
+            this.setDefaultLayout();
             return;
         }
         if (item.label === `Update Layout`) {

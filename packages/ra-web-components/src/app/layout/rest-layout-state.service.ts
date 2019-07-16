@@ -11,7 +11,10 @@ export class RestLayoutStateService implements LayoutStateStorage {
 
     private activeLayoutSubject: ReplaySubject<string> = new ReplaySubject<string>(1);
     private activeLayoutSubject$: Observable<any> = this.activeLayoutSubject.asObservable();
+    private defaultLayoutSubject: ReplaySubject<string> = new ReplaySubject<string>(1);
+    private defaultLayoutSubject$: Observable<any> = this.defaultLayoutSubject.asObservable();
     private layoutName = "default";
+    private defaultLayoutName = "default";
     private layoutState;
 
     constructor(
@@ -65,7 +68,7 @@ export class RestLayoutStateService implements LayoutStateStorage {
                 } catch (ex) {
                     continue;
                 }
-                if (splited.length === 2 && splited[0] === this.module) {
+                if (splited.length > 1 && splited[0] === this.module) {
                     moduleLayouts.push(splited[1]);
                 }
             }
@@ -78,6 +81,20 @@ export class RestLayoutStateService implements LayoutStateStorage {
 
     activeLayout(): Observable<any> {
         return this.activeLayoutSubject$;
+    }
+
+    defaultLayout(): Observable<any> {
+        return this.defaultLayoutSubject$;
+    }
+
+    getDefaultLayout(): Promise<any> {
+        return Promise.resolve(this.defaultLayoutName);
+    }
+
+    setDefaultLayout(): Promise<any> {
+        this.defaultLayoutName = this.layoutName;
+        this.defaultLayoutSubject.next(this.layoutName);
+        return Promise.resolve(this.defaultLayoutName);
     }
 
 }
