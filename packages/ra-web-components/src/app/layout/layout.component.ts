@@ -42,6 +42,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
     @Input() expansionMenuLeft;
     @Input() expansionMenuRight;
 
+    @Input() layoutOn: boolean = true;
+
     constructor(
         @Inject(GoldenLayoutStateStore) private stateStore: LayoutStateStorage,
         private layoutMenuItemsService: LayoutMenuItemsService,

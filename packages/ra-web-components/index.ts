@@ -28,3 +28,9 @@ export { GridColumn } from "./src/app/data-grid/interfaces/grid-column.interface
 export { LayoutMenuInterface } from "./src/app/layout/layout-menu-interface";
 export { ButtonItem } from "./src/app/header/button-item.interface";
 export { LayoutRightsConfig } from "./src/app/layout/decorators/layout-rights-config.interface";
+export { RaWebAgentModule } from "./src/app/ra-web-agent/ra-web-agent.module";
+export { AppHostComponent } from "./src/app/ra-web-agent/app-host/app-host.component";
+export { RestAppDirectoryService } from "./src/app/ra-web-agent/rest-app-directory.service";
+export { FDC3Module } from "./src/app/fdc3/fdc3.module";
+export { FDC3Service } from "./src/app/fdc3/fdc3.service";
+export { RaWebAgentService } from "./src/app/ra-web-agent/ra-web-agent.service";

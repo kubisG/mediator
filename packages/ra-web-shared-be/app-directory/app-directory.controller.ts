@@ -31,19 +31,19 @@ export class AppDirectoryController {
         return this.appDirectoryService.createManifest(token, manifest, appId, type);
     }
 
-    @UseGuards(AuthGuard())
+    // @UseGuards(AuthGuard())
     @Get("/:appId")
     public async getAppDef(@Bearer() token: string, @Param("appId") appId: string): Promise<AppDirectoryItemDto> {
         return this.appDirectoryService.getAppDef(token, appId);
     }
 
-    @UseGuards(AuthGuard())
+    // @UseGuards(AuthGuard())
     @Get("/search")
     public async searchApps(@Bearer() token: string, @Query() query: any): Promise<AppDirectoryDto> {
         return this.appDirectoryService.searchApps(token, query);
     }
 
-    @UseGuards(AuthGuard())
+    // @UseGuards(AuthGuard())
     @Get("/manifest/:appId")
     public async getManifets(@Bearer() token: string, @Param("appId") appId: string): Promise<any> {
         return this.appDirectoryService.getManifest(token, appId);
