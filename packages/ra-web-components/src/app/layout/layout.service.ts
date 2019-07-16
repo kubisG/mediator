@@ -82,16 +82,12 @@ export class LayoutService {
         });
     }
 
-<<<<<<< HEAD
-    public addComponentToLayout(item: any) {
-=======
     private setDefaultLayout() {
         this.stateStore.setDefaultLayout().then((data) => {
         });
     }
 
     private addComponentToLayout(item: any) {
->>>>>>> 217645da2bfbe31e843b57e8da2f9b101b339303
         const component = item.data;
         this.dockableService.addComponent({
             label: component.componentName,
