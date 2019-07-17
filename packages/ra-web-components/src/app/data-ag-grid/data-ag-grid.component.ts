@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from "@angular/core";
 import { GridOptions, RowNode, RowNodeTransaction } from "ag-grid-community";
 import { DataGridInterface } from "../data-grid/data-grid-interface";
 import "ag-grid-enterprise";
@@ -6,6 +6,8 @@ import { GridColumn } from "../data-grid/interfaces/grid-column.interface";
 import { HeaderColumnComponent } from "./header-column/header-column.component";
 import { HeaderComp, IHeaderParams } from "ag-grid-community/dist/lib/headerRendering/header/headerComp";
 import * as _ from "lodash";
+import { Side } from "@ra/web-shared-fe";
+
 @Component({
     selector: "ra-data-ag-grid",
     templateUrl: "./data-ag-grid.component.html",
@@ -26,6 +28,19 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     public data: any[] = [];
     public updateData: any[] = [];
     public columns: any[];
+    public rowColors = {};
+    public rowActions = [];
+    public gridState;
+
+    @Output() initialized: EventEmitter<any> = new EventEmitter();
+    @Output() selected: EventEmitter<any> = new EventEmitter();
+    @Output() rowSelected: EventEmitter<any> = new EventEmitter();
+    @Output() buttonClick: EventEmitter<any> = new EventEmitter();
+
+
+    @Input() set colors(data) {
+        this.rowColors = data;
+    }
 
     @Input() set initData(data: any[]) {
         this.data = data ? data : [];
@@ -60,11 +75,12 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     constructor(
         private cd: ChangeDetectorRef,
     ) {
+        console.log("const", this, Symbol());
         this.overrideHeaderCompInit();
     }
 
     static exists(value: any, allowEmptyString: boolean = false): boolean {
-        return value != null && (value !== '' || allowEmptyString);
+        return value != null && (value !== "" || allowEmptyString);
     }
 
     static firstExistingValue<A>(...values: A[]): A | null {
@@ -107,11 +123,15 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         };
     }
 
-    private setColumns(columns: any[]) {
+    private setColumns(columns: GridColumn[]) {
         const cls = [];
         columns.forEach((column) => {
+            if (column.dataField === "Actions") {
+                console.log("skipping", column);
+                return;
+            }
             cls.push({
-                headerName: column.dataField,
+                headerName: column.caption ? column.caption : column.dataField,
                 field: column.dataField,
                 enableRowGroup: column.enableRowGroup,
                 rowGroup: column.rowGroup,
@@ -119,9 +139,21 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                 enableValue: true,
                 allowedAggFuncs: column.aggFunc ? DataAgGridComponent.funcs : undefined,
                 aggFunc: column.aggFunc,
-                sortable: true,
-                resizable: true,
-                filter: true,
+                sortable: (column.allowSorting || column.allowSorting === undefined) ? true : false,
+                resizable: (column.allowResizing || column.allowResizing === undefined) ? true : false,
+                filter: (column.allowHeaderFiltering || column.allowHeaderFiltering === undefined) ? true : false,
+                editable: (column.allowEditing || column.allowEditing === undefined) ? true : false,
+                type: column.type,
+                width: column.width,
+                pinned: column.pinned,
+                lockPosition: column.lockPosition,
+                lockVisible: column.lockVisible,
+                lockPinned: column.lockPinned,
+                valueFormatter: column.valueFormatter,
+                cellRendererFramework: column.cellRendererFramework,
+                comparator: column.comparator,
+                headerCheckboxSelection: column.headerCheckboxSelection,
+                checkboxSelection: column.checkboxSelection,
             });
         });
         this.columns = cls;
@@ -142,17 +174,29 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                     this.gridOptions.api.setRowData(this.data);
                     this.data = [];
                 }
+                if (this.gridState) {
+                    console.log("gridState after init", this.gridState );
+                    this.setState(this.gridState);
+                }
                 this.gridOptions.getRowStyle = (params) => {
-                    if (params.data && params.data["Messages"] > 50) {
-                        return { background: "#9ec3ff" };
+                    let txtColor = "#f5475b";
+                    if (params.data && params.data.Side === Side.Buy) {
+                        txtColor = "#19B5FE";
                     }
-                    return { background: "#faffb8" };
+                    if (this.rowColors && params.data && this.rowColors[params.data.OrdStatus]) {
+                        return { background: this.rowColors[params.data.OrdStatus], color: txtColor };
+                    } else {
+                        return { color: txtColor };
+                    }
                 };
             }
+            console.log("grid ready", this);
+            this.initialized.emit(true);
         };
     }
 
     private isGridInitialized() {
+        console.log(this.gridOptions);
         if (!this.gridOptions || !this.gridOptions.api) {
             return false;
         }
@@ -160,9 +204,11 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     }
 
     private setInitData() {
+        console.log("setInitData", this);
         if (this.gridOptions.api.getDisplayedRowCount() === 0 && this.data.length > 0) {
             this.gridOptions.api.setRowData(this.data);
             this.data = [];
+            this.init = false;
             return true;
         }
         return false;
@@ -170,7 +216,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     private inserRow(insertRow: any, rowNode: RowNode) {
         if (!rowNode) {
-            this.gridOptions.api.batchUpdateRowData({ add: [insertRow] });
+            this.gridOptions.api.updateRowData({ add: [insertRow] });
             return true;
         }
         return false;
@@ -179,7 +225,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     private deleteRow(deleteRow: any, rowNode: RowNode) {
         const keys = Object.keys(deleteRow);
         if (rowNode && keys.length === 1 && keys[0] === this.gridKey) {
-            this.gridOptions.api.batchUpdateRowData({ remove: [deleteRow] });
+            this.gridOptions.api.updateRowData({ remove: [deleteRow] });
             return true;
         }
         return false;
@@ -191,7 +237,28 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
             data[key] = updateRow[key];
         }
         this.gridOptions.api.batchUpdateRowData({ update: [data] });
+        if (this.gridOptions.enableCellChangeFlash) {
+            this.gridOptions.api.flashCells({
+                rowNodes: [rowNode]
+            });
+            this.gridOptions.api.refreshCells({
+                 rowNodes: [rowNode],
+                 columns: ["ProgressBar"],
+                 force: true
+            });
+        }
         return true;
+    }
+
+    public onSelectionChanged() {
+        const selectedRows = this.gridOptions.api.getSelectedRows();
+        this.selected.next(selectedRows);
+    }
+
+    public onRowSelected(event) {
+        if (event.node.selected) {
+            this.rowSelected.next(event.node);
+        }
     }
 
     public reset(): void {
@@ -206,12 +273,14 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     }
 
     public updateGrid() {
+        console.log("updategrid", this);
         if (!this.isGridInitialized()) {
             return;
         }
         if (this.setInitData()) {
             return;
         }
+
         const updates = this.updateData;
         this.updateData = [];
         for (const update of updates) {
@@ -228,19 +297,38 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     public setupGrid() {
         if (this.gridOptions && this.gridOptions.api) {
-            this.gridOptions.api.setColumnDefs(this.columns);
-            this.gridOptions.getRowNodeId = this.getRowNodeId();
-            this.gridOptions.onGridReady = this.onGridReady();
+
+            if (this.data && this.data.length > 0) {
+                console.log("seting data after init");
+                this.setData(this.data);
+            }
+            if (this.gridState) {
+                console.log("seting grid after init");
+                this.setState(this.gridState);
+            }
             return;
         }
+        console.log("setup", this);
+
         this.gridOptions = {
             enableRangeSelection: true,
             enableSorting: true,
             enableFilter: true,
+            enableCellChangeFlash: true,
             columnDefs: this.columns,
             getRowNodeId: this.getRowNodeId(),
             onGridReady: this.onGridReady(),
-            onFirstDataRendered(params) { }
+            rowSelection: "multiple",
+            onFirstDataRendered(params) { },
+            //    frameworkComponents: this.frameworkComponents,
+            columnTypes: {
+                dateColumn: {
+                    filter: "agDateColumnFilter", suppressMenu: true
+                }
+            },
+            context: {
+                componentParent: this
+            }
         };
         this.gridOptions.onRowGroupOpened = (event) => {
 
@@ -248,7 +336,101 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     }
 
     public ngOnInit(): void {
-
+        console.log("OnINIT", this);
     }
 
+    public getState(): any {
+        if (this.gridOptions) {
+            const tableOptions = {
+                colState: this.gridOptions.columnApi.getColumnState(),
+                colGroupState: this.gridOptions.columnApi.getColumnGroupState(),
+                sortState: this.gridOptions.api.getSortModel(),
+                filterState: this.gridOptions.api.getFilterModel(),
+            };
+            console.log("getState", tableOptions);
+            return tableOptions;
+        } else {
+            return null;
+        }
+    }
+
+    public setState(state: any): Promise<any> {
+        this.gridState = state;
+        console.log("setstate", state);
+        this.gridOptions.columnApi.setColumnState(this.gridState.colState);
+        this.gridOptions.columnApi.setColumnGroupState(this.gridState.colGroupState);
+        this.gridOptions.api.setSortModel(this.gridState.sortState);
+        this.gridOptions.api.setFilterModel(this.gridState.filterState);
+        return Promise.resolve();
+    }
+
+    public setColOption(id, option, value) {
+        for (let i = 0; i < this.columns.length; i++) {
+            if (this.columns[i].field === id) {
+                this.columns[i][option] = value;
+                break;
+            }
+        }
+    }
+
+    public setData(data: any[]) {
+        console.log("settingdata", data);
+        this.data = data;
+        this.gridOptions.api.setRowData(this.data);
+        this.gridOptions.api.redrawRows();
+        this.init = false;
+        this.cd.markForCheck();
+    }
+
+    public refresh() {
+        console.log("refresh", this);
+
+        // this.gridOptions.api.redrawRows();
+        this.cd.markForCheck();
+    }
+
+    private createIcon(ico) {
+        return "<img border='0' width='15' height='10' src='assets/img/" + ico + ".svg'/>";
+    }
+
+    public getContextMenuItems(params) {
+        const that = params.context.componentParent;
+        const menu = [];
+        if (params.node) {
+            for (let i = 0; i < that.rowActions.length; i++) {
+                const css = that.rowActions[i].color && that.rowActions[i].color(params.node) ? "font-red" : "";
+                const disable = (that.rowActions[i].display && !that.rowActions[i].display(params.node)) ||
+                    !that.rowActions[i].visible(params.node);
+
+                menu.push(
+                    {
+                        name: that.rowActions[i].label,
+                        action: () => {
+                            console.log(that.rowActions[i]);
+                            console.log(params.node);
+                            that.buttonClick.emit({ action: that.rowActions[i], data: params.node });
+                        },
+                        icon: that.createIcon(that.rowActions[i].icon),
+                        cssClasses: [css],
+                        disabled: disable
+                    },
+                );
+            }
+        }
+
+        const result = [
+            {
+                name: "Actions",
+                subMenu: menu
+            },
+            "separator",
+            "copy",
+            "copyWithHeaders",
+            "paste",
+            "separator",
+            "resetColumns",
+            "export",
+        ];
+        return result;
+    }
 }

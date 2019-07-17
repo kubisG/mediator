@@ -1,5 +1,5 @@
 <div *ngIf="dataSource && inicialized" class="ra-data-grid">
-    <dx-data-grid [repaintChangesOnly]="true" [dataSource]="dataSource" [columns]="_columns"
+    <dx-data-grid [repaintChangesOnly]="true" [dataSource]="dataSource" [columns]="columns"
         (onRowPrepared)="onRowPrepared($event)" [allowColumnResizing]="true" [showBorders]="true"
         [columnAutoWidth]="true" [allowColumnReordering]="true" (onRowClick)="onRowClick($event)"
         (onRowUpdated)="onRowUpdated($event)" (onRowInserted)="onRowInserted($event)" [showRowLines]="true"

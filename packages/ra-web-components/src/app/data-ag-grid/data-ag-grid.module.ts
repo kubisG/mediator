@@ -14,7 +14,7 @@ import { HeaderColumnComponent } from "./header-column/header-column.component";
         FormsModule,
         RouterModule,
         MaterialModule,
-        AgGridModule.withComponents([HeaderColumnComponent])
+        AgGridModule.forRoot([HeaderColumnComponent]),
     ],
     providers: [],
     declarations: [
