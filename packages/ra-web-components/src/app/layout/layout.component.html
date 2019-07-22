@@ -4,6 +4,5 @@
     [buttonItems]="buttonItems" [logoImg]="logoImg" [logoUrl]="logoUrl" [expansionMenuLeft]="expansionMenuLeft"
     [expansionMenuRight]="expansionMenuRight" [defaultLayout]="defaultLayout"></ra-header>
 <div class="ra-layout">
-    <golden-layout-root *ngIf="reload"></golden-layout-root>
-      <!-- && defaultLayout && defaultLayout !== ''  -->
+    <golden-layout-root *ngIf="reload && defaultLayout && defaultLayout !== '' "></golden-layout-root>
 </div>

@@ -6,6 +6,9 @@ import { MaterialModule } from "@ra/web-material-fe";
 import { DataAgGridComponent } from "./data-ag-grid.component";
 import { AgGridModule } from "ag-grid-angular";
 import { HeaderColumnComponent } from "./header-column/header-column.component";
+import { SelectEditorComponent } from "./select-editor/select-editor.component";
+import { CheckEditorComponent } from "./check-editor/check-editor.component";
+import { NgxMaskModule } from "ngx-mask";
 
 @NgModule({
     imports: [
@@ -14,12 +17,15 @@ import { HeaderColumnComponent } from "./header-column/header-column.component";
         FormsModule,
         RouterModule,
         MaterialModule,
-        AgGridModule.forRoot([HeaderColumnComponent]),
+        NgxMaskModule,
+        AgGridModule.forRoot([HeaderColumnComponent, SelectEditorComponent, CheckEditorComponent ]),
     ],
     providers: [],
     declarations: [
         DataAgGridComponent,
         HeaderColumnComponent,
+        SelectEditorComponent,
+        CheckEditorComponent,
     ],
     exports: [
         DataAgGridComponent,

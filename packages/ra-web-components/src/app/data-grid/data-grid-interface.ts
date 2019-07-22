@@ -7,6 +7,7 @@ export interface DataGridInterface {
     initColumns: any[];
     colors: any[];
     rowActions: any[];
+    gridEditable: any[];
     gridKey: string;
     initialized: EventEmitter<any>;
     selected: EventEmitter<any>;
@@ -19,5 +20,6 @@ export interface DataGridInterface {
     setState(state: any): Promise<any>;
     setColOption(id, option, value);
     setData(data: any[]);
+    setFilter(data);
     refresh();
 }

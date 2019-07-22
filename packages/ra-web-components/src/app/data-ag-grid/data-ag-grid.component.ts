@@ -7,6 +7,8 @@ import { HeaderColumnComponent } from "./header-column/header-column.component";
 import { HeaderComp, IHeaderParams } from "ag-grid-community/dist/lib/headerRendering/header/headerComp";
 import * as _ from "lodash";
 import { Side } from "@ra/web-shared-fe";
+import { SelectEditorComponent } from "./select-editor/select-editor.component";
+import { CheckEditorComponent } from "./check-editor/check-editor.component";
 
 @Component({
     selector: "ra-data-ag-grid",
@@ -19,6 +21,11 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     static funcs: string[] = ["avg", "sum", "min", "max", "average"];
 
     private init = true;
+    private filtered = false;
+    private filter = {
+        column: null,
+        value: null
+    };
 
     public aggFuncs = {};
 
@@ -31,6 +38,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     public rowColors = {};
     public rowActions = [];
     public gridState;
+    public editable;
 
     @Output() initialized: EventEmitter<any> = new EventEmitter();
     @Output() selected: EventEmitter<any> = new EventEmitter();
@@ -61,6 +69,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     }
 
     @Input() set initColumns(columns: GridColumn[]) {
+        console.log(columns);
         if (!columns) {
             return;
         }
@@ -71,11 +80,13 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     @Input() gridKey: string;
 
+    @Input() set gridEditable(data: any) {
+        this.editable = data;
+    }
 
     constructor(
         private cd: ChangeDetectorRef,
     ) {
-        console.log("const", this, Symbol());
         this.overrideHeaderCompInit();
     }
 
@@ -126,8 +137,8 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     private setColumns(columns: GridColumn[]) {
         const cls = [];
         columns.forEach((column) => {
+            // actions are in context menu
             if (column.dataField === "Actions") {
-                console.log("skipping", column);
                 return;
             }
             cls.push({
@@ -142,7 +153,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                 sortable: (column.allowSorting || column.allowSorting === undefined) ? true : false,
                 resizable: (column.allowResizing || column.allowResizing === undefined) ? true : false,
                 filter: (column.allowHeaderFiltering || column.allowHeaderFiltering === undefined) ? true : false,
-                editable: (column.allowEditing || column.allowEditing === undefined) ? true : false,
+                editable: column.allowEditing ? true : false,
                 type: column.type,
                 width: column.width,
                 pinned: column.pinned,
@@ -150,10 +161,15 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                 lockVisible: column.lockVisible,
                 lockPinned: column.lockPinned,
                 valueFormatter: column.valueFormatter,
+                cellEditorFramework: column.cellEditor === "select" ? SelectEditorComponent :
+                    (column.cellEditor === "checkdata" ? CheckEditorComponent : null),
+                cellEditorParams: column.cellEditorParams,
+                valueParser: column.valueParser,
                 cellRendererFramework: column.cellRendererFramework,
                 comparator: column.comparator,
                 headerCheckboxSelection: column.headerCheckboxSelection,
                 checkboxSelection: column.checkboxSelection,
+                cellClass: column.cellClass,
             });
         });
         this.columns = cls;
@@ -175,28 +191,14 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                     this.data = [];
                 }
                 if (this.gridState) {
-                    console.log("gridState after init", this.gridState );
                     this.setState(this.gridState);
                 }
-                this.gridOptions.getRowStyle = (params) => {
-                    let txtColor = "#f5475b";
-                    if (params.data && params.data.Side === Side.Buy) {
-                        txtColor = "#19B5FE";
-                    }
-                    if (this.rowColors && params.data && this.rowColors[params.data.OrdStatus]) {
-                        return { background: this.rowColors[params.data.OrdStatus], color: txtColor };
-                    } else {
-                        return { color: txtColor };
-                    }
-                };
             }
-            console.log("grid ready", this);
             this.initialized.emit(true);
         };
     }
 
     private isGridInitialized() {
-        console.log(this.gridOptions);
         if (!this.gridOptions || !this.gridOptions.api) {
             return false;
         }
@@ -204,7 +206,6 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     }
 
     private setInitData() {
-        console.log("setInitData", this);
         if (this.gridOptions.api.getDisplayedRowCount() === 0 && this.data.length > 0) {
             this.gridOptions.api.setRowData(this.data);
             this.data = [];
@@ -241,13 +242,18 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
             this.gridOptions.api.flashCells({
                 rowNodes: [rowNode]
             });
-            this.gridOptions.api.refreshCells({
-                 rowNodes: [rowNode],
-                 columns: ["ProgressBar"],
-                 force: true
-            });
         }
+        this.gridOptions.api.refreshCells({
+            rowNodes: [rowNode],
+            columns: ["ProgressBar"],
+            force: true
+        });
         return true;
+    }
+
+    public onSave(evt) {
+        console.log("saving", evt);
+        console.log("grid data", this.gridOptions);
     }
 
     public onSelectionChanged() {
@@ -268,12 +274,39 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         }
     }
 
+    private isFiltered() {
+        return this.filtered;
+    }
+
+    private checkFilter(node): boolean {
+        console.log(this.filter);
+        if (this.filter.column) {
+            return node.data[this.filter.column] === this.filter.value;
+        } else {
+            return true;
+        }
+    }
+
+    public setFilter(data) {
+        if (data.length > 0) {
+            if (data[0][1] === "=") {
+                this.filter.column = data[0][0];
+                this.filter.value = data[0][2];
+                this.filtered = true;
+                this.gridOptions.api.onFilterChanged();
+                return;
+            }
+        }
+        this.filtered = false;
+        this.filter.column = null;
+        this.filter.value = null;
+    }
+
     public groupRowAggNodes(nodes) {
         // console.log(nodes);
     }
 
     public updateGrid() {
-        console.log("updategrid", this);
         if (!this.isGridInitialized()) {
             return;
         }
@@ -297,7 +330,11 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     public setupGrid() {
         if (this.gridOptions && this.gridOptions.api) {
-
+            this.gridOptions.api.setColumnDefs(this.columns);
+            this.gridOptions.getRowNodeId = this.getRowNodeId();
+            this.gridOptions.onGridReady = this.onGridReady();
+            this.gridOptions.isExternalFilterPresent = () => this.isFiltered()
+            this.gridOptions.doesExternalFilterPass = (param) => this.checkFilter(param);
             if (this.data && this.data.length > 0) {
                 console.log("seting data after init");
                 this.setData(this.data);
@@ -314,7 +351,9 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
             enableRangeSelection: true,
             enableSorting: true,
             enableFilter: true,
-            enableCellChangeFlash: true,
+            enableCellChangeFlash: false,
+            isExternalFilterPresent: () => this.isFiltered(),
+            doesExternalFilterPass: (param) => this.checkFilter(param),
             columnDefs: this.columns,
             getRowNodeId: this.getRowNodeId(),
             onGridReady: this.onGridReady(),
@@ -324,6 +363,17 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
             columnTypes: {
                 dateColumn: {
                     filter: "agDateColumnFilter", suppressMenu: true
+                }
+            },
+            getRowStyle: (params) => {
+                let txtColor = "#f5475b";
+                if (params.data && params.data.Side === Side.Buy) {
+                    txtColor = "#19B5FE";
+                }
+                if (this.rowColors && params.data && this.rowColors[params.data.OrdStatus]) {
+                    return { background: this.rowColors[params.data.OrdStatus], color: txtColor };
+                } else {
+                    return { background: "transparent", color: txtColor };
                 }
             },
             context: {
@@ -376,8 +426,10 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     public setData(data: any[]) {
         console.log("settingdata", data);
         this.data = data;
-        this.gridOptions.api.setRowData(this.data);
-        this.gridOptions.api.redrawRows();
+        if ((this.gridOptions) && (this.gridOptions.api)) {
+            this.gridOptions.api.setRowData(this.data);
+            this.gridOptions.api.redrawRows();
+        }
         this.init = false;
         this.cd.markForCheck();
     }
@@ -396,25 +448,38 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     public getContextMenuItems(params) {
         const that = params.context.componentParent;
         const menu = [];
+        const status = [];
         if (params.node) {
             for (let i = 0; i < that.rowActions.length; i++) {
-                const css = that.rowActions[i].color && that.rowActions[i].color(params.node) ? "font-red" : "";
-                const disable = (that.rowActions[i].display && !that.rowActions[i].display(params.node)) ||
-                    !that.rowActions[i].visible(params.node);
+                let css = that.rowActions[i].color && that.rowActions[i].color(params.node) ? "font-red" : "";
+                const disable = !that.rowActions[i].visible(params.node);
 
-                menu.push(
-                    {
-                        name: that.rowActions[i].label,
-                        action: () => {
-                            console.log(that.rowActions[i]);
-                            console.log(params.node);
-                            that.buttonClick.emit({ action: that.rowActions[i], data: params.node });
+                if (that.rowActions[i].display === undefined) {
+                    menu.push(
+                        {
+                            name: that.rowActions[i].label,
+                            action: () => {
+                                that.buttonClick.emit({ action: that.rowActions[i], data: params.node });
+                            },
+                            icon: that.createIcon(that.rowActions[i].icon),
+                            cssClasses: [css],
+                            disabled: disable
                         },
-                        icon: that.createIcon(that.rowActions[i].icon),
-                        cssClasses: [css],
-                        disabled: disable
-                    },
-                );
+                    );
+
+                } else {
+                    if (that.rowActions[i].display(params.node) === true) {
+                        css = css + (that.rowActions[i].display(params.node) === true ? " font-cursive" : "");
+                        status.push(
+                            {
+                                name: that.rowActions[i].label,
+                                icon: that.createIcon(that.rowActions[i].icon),
+                                cssClasses: [css],
+                                disabled: disable
+                            },
+                        );
+                    }
+                }
             }
         }
 
@@ -423,6 +488,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                 name: "Actions",
                 subMenu: menu
             },
+            ...status,
             "separator",
             "copy",
             "copyWithHeaders",

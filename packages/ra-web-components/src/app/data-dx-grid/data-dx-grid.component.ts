@@ -15,6 +15,7 @@ export class DataDxGridComponent implements DataGridInterface, OnInit {
 
     public rowColors = {};
     public rowActions = [];
+    public editable = false;
 
     @Output() initialized: EventEmitter<any> = new EventEmitter();
     @Output() selected: EventEmitter<any> = new EventEmitter();
@@ -41,6 +42,10 @@ export class DataDxGridComponent implements DataGridInterface, OnInit {
     }
 
     @Input() gridKey: string;
+
+    @Input() set gridEditable(data: any) {
+        this.editable = data;
+    }
 
     public data: any[];
     public updateData: any[];
@@ -116,6 +121,10 @@ export class DataDxGridComponent implements DataGridInterface, OnInit {
 
     reset(): void {
 
+    }
+
+    public setFilter(data) {
+        this.dataGrid.instance.filter(data);
     }
 
     public getState(): any {

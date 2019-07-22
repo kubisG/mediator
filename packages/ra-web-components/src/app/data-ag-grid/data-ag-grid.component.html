@@ -1,7 +1,15 @@
+
+<div class="gridsize">
+<div *ngIf="editable" class="col-md-12 buttons">
+
+    <button (click)="onSave($event)">Save</button>
+</div>
+
 <ag-grid-angular *ngIf="gridOptions" class="ag-theme-dark grid-ag" [gridOptions]="gridOptions"
-    [rowGroupPanelShow]="'always'" [groupIncludeFooter]="false" [sideBar]="false" [colResizeDefault]="'shift'"
+    [rowGroupPanelShow]="'always'" [groupIncludeFooter]="false" [sideBar]="false"
     [aggFuncs]="aggFuncs" [groupSuppressBlankHeader]="true" [groupIncludeTotalFooter]="false" [groupRowAggNodes]="groupRowAggNodes"
     (selectionChanged)="onSelectionChanged($event)" (rowSelected)="onRowSelected($event)"
     [getContextMenuItems]="getContextMenuItems">
 </ag-grid-angular>
 <!-- [frameworkComponents]="frameworkComponents" [groupRemoveSingleChildren]="true" [groupRemoveLowestSingleChildren]="true" -->
+</div>

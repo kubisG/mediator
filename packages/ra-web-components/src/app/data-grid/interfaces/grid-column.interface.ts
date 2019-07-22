@@ -22,4 +22,9 @@ export interface GridColumn {
     cellRendererFramework?: any;
     headerCheckboxSelection?: boolean;
     checkboxSelection?: boolean;
+    cellEditor?: string;
+    cellClass?: string;
+    cellEditorParams?: any;
+    valueParser?: any;
+
 }

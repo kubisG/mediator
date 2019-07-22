@@ -40,15 +40,18 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
     private columnsData: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
     private $columnsData: Observable<any[]> = this.columnsData.asObservable();
 
-
     private rowActions: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
     private $rowActions: Observable<any[]> = this.rowActions.asObservable();
+
+    private gridEditable: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+    private $gridEditable: Observable<any[]> = this.gridEditable.asObservable();
 
     private dataSub: Subscription;
     private updateDataSub: Subscription;
     private columnsDataSub: Subscription;
     private colorsSub: Subscription;
     private actionSub: Subscription;
+    private editableSub: Subscription;    
 
     private initSub: Subscription;
     private selSub: Subscription;
@@ -63,13 +66,13 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
     @Output() buttonClick: EventEmitter<any> = new EventEmitter();
 
     @Input() set initData(data: any[]) {
-        if (data.length > 0) {
+        if (data && data.length > 0) {
             this.data.next(data);
         }
     }
 
     @Input() set update(data: any[]) {
-        if (data.length > 0) {
+        if (data && data.length > 0) {
             this.updateData.next(data);
         }
     }
@@ -81,17 +84,24 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     @Input() set initColumns(columns: GridColumn[]) {
+        console.log(columns);
         if (columns) {
             this.columnsData.next(columns);
         }
     }
 
     @Input() set actions(data: any[]) {
-        console.log("actions", data);
         if (data) {
             this.rowActions.next(data);
         }
     }
+
+    @Input() set editable(data: any[]) {
+        if (data) {
+            this.gridEditable.next(data);
+        }
+    }
+
 
     @Input() gridComponent: string;
     @Input() gridKey = "id";
@@ -117,6 +127,9 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
         });
         this.actionSub = this.$rowActions.subscribe((data) => {
             this.componentRef.instance.rowActions = data;
+        });
+        this.editableSub = this.$gridEditable.subscribe((data) => {
+            this.componentRef.instance.gridEditable = data;
         });
     }
 
@@ -153,7 +166,16 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
         this.subscribeData();
     }
 
-    public state(data): any {
+    public loadState(): any {
+        return this.state();
+    }
+
+    public saveState(data): any {
+        return this.state(data);
+    }
+
+
+    public state(data?): any {
         if (data) {
             return this.componentRef.instance.setState(data);
         } else {
@@ -163,6 +185,12 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
 
     public pageSize(size) {
         console.log("TODO pagesize", size);
+        return null;
+    }
+
+    public filter(data) {
+        this.componentRef.instance.setFilter(data);
+        console.log("TODO filter", data);
         return null;
     }
 
@@ -218,7 +246,9 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
         if (this.actionSub) {
             this.actionSub.unsubscribe();
         }
-
+        if (this.editableSub) {
+            this.editableSub.unsubscribe();
+        }
     }
 
     public ngOnInit() {
