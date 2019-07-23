@@ -41,7 +41,7 @@
         "@angular/language-service": "7.2.14",
         "@ngxs/devtools-plugin": "3.2.0",
         "@ngxs/logger-plugin": "3.2.0",
-        "@types/node": "11.13.8",
+        "@types/node": "9.6.49",
         "codelyzer": "4.2.1",
         "jasmine-core": "2.99.1",
         "jasmine-spec-reporter": "4.2.1",

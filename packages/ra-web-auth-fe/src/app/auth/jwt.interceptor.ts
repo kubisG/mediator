@@ -7,7 +7,7 @@ import { catchError } from "rxjs/operators";
 import { throwError } from "rxjs/internal/observable/throwError";
 import { EMPTY } from "rxjs/internal/observable/empty";
 import { Observable } from "rxjs/internal/Observable";
-import { AuthState } from "@ra/web-core-fe";
+import { LoginFailed } from "@ra/web-core-fe";
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -20,6 +20,7 @@ export class JwtInterceptor implements HttpInterceptor {
     private handleAuthError(err: HttpErrorResponse): Observable<any> {
         if (err.status === 401 || err.status === 403) {
             this.router.navigateByUrl(`/`);
+            this.store.dispatch(new LoginFailed(err));
             return EMPTY;
         }
         return throwError(err);

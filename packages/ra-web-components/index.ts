@@ -37,3 +37,6 @@ export { RestAppDirectoryService } from "./src/app/ra-web-agent/rest-app-directo
 export { FDC3Module } from "./src/app/fdc3/fdc3.module";
 export { FDC3Service } from "./src/app/fdc3/fdc3.service";
 export { RaWebAgentService } from "./src/app/ra-web-agent/ra-web-agent.service";
+export { Context } from "./src/app/ra-web-agent/interfaces/context.interface";
+export { FDC3ComponentService } from "./src/app/fdc3/fdc3-component-service";
+export { FDC3Config } from "./src/app/fdc3/fdc3-config.interface";

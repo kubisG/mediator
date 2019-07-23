@@ -6,20 +6,27 @@ import { FDC3Component, FDC3_COMPONENTS } from "./fdc3.component";
 import { FDC3Config } from "./fdc3-config.interface";
 import { FDC3Service } from "./fdc3.service";
 import { FDC3ProvidersFactoryService } from "./providers/fdc3-providers-factory.service";
+import { LayoutModule } from "../layout/layout.module";
+import { FDC3HeaderComponent } from "./fdc3-header/fdc3-header.component";
+import { MaterialModule } from "@ra/web-material-fe";
 
 @NgModule({
     imports: [
         CommonModule,
         SharedModule,
+        LayoutModule,
+        MaterialModule,
         RouterModule.forChild([
             { path: ":appId", component: FDC3Component }
         ])
     ],
     declarations: [
         FDC3Component,
+        FDC3HeaderComponent,
     ],
     exports: [
         FDC3Component,
+        FDC3HeaderComponent,
     ],
     entryComponents: [],
     providers: [

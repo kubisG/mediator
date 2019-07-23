@@ -25,4 +25,6 @@ export interface LayoutStateStorage extends StateStore {
 
     setDefaultLayout(): Promise<any>;
 
+    getState(): Promise<any>;
+
 }

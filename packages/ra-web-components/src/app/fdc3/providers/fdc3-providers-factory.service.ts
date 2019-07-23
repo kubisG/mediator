@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { FDC3Provider } from "./fdc3-provider.interface";
 import { OpenFin } from "./openfin";
+import { Context } from "../../ra-web-agent/interfaces/context.interface";
 
 @Injectable()
 export class FDC3ProvidersFactoryService implements FDC3Provider {
@@ -23,8 +24,44 @@ export class FDC3ProvidersFactoryService implements FDC3Provider {
         return this.provider.hide();
     }
 
-    open(options: any): Promise<any> {
-        return this.provider.open(options);
+    open(url: string, name: string, accessToken: string, initData?: any): Promise<any> {
+        return this.provider.open(url, name, accessToken, initData);
+    }
+
+    addListener(event: string, handler: (event) => void, win?: any) {
+        return this.provider.addListener(event, handler, win);
+    }
+
+    closeApp() {
+        return this.provider.closeApp();
+    }
+
+    broadcast(context: Context) {
+        return this.provider.broadcast(context);
+    }
+
+    addContextListener(handler: (context: Context) => void) {
+        return this.provider.addContextListener(handler);
+    }
+
+    setAsRoot() {
+        return this.provider.setAsRoot();
+    }
+
+    getCustomData() {
+        return this.provider.getCustomData();
+    }
+
+    findWindow(opts: any): Promise<any> {
+        return this.provider.findWindow(opts);
+    }
+
+    getWorkSpaceConfig(): Promise<any> {
+        return this.provider.getWorkSpaceConfig();
+    }
+
+    restoreWorkSpace(workSpace: any, token?: string): Promise<any> {
+        return this.provider.restoreWorkSpace(workSpace, token);
     }
 
 }

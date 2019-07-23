@@ -9,6 +9,7 @@ import { ComponentsMapService } from "./components-map.service";
 import { COMPONENT_ID } from "./constants";
 import { Subscription } from "rxjs/internal/Subscription";
 import { DockableService } from "./dockable.service";
+import { FDC3ComponentService } from "../fdc3/fdc3-component-service";
 
 export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, GlOnClose, OnDestroy {
 
@@ -33,6 +34,8 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     protected elm: ElementRef;
     protected dockableService: DockableService;
     protected componentState: any;
+
+    protected fDC3ComponentService: FDC3ComponentService;
 
     constructor(
         protected componentFactoryResolver: ComponentFactoryResolver,
@@ -167,7 +170,12 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
         return this.tabEmitter;
     }
 
+    public setFDC3ComponentService(fDC3ComponentService: FDC3ComponentService) {
+        this.fDC3ComponentService = fDC3ComponentService;
+    }
+
     public setComponentState(componentState: any) {
+        console.log("componentState: ", componentState);
         this.componentState = componentState;
     }
 
