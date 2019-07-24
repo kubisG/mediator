@@ -64,4 +64,8 @@ export class FDC3ProvidersFactoryService implements FDC3Provider {
         return this.provider.restoreWorkSpace(workSpace, token);
     }
 
+    sendNotification(id: string, title: string, msg: string, icon?: string) {
+        return this.provider.sendNotification(id, msg, title, icon)
+    }
+
 }

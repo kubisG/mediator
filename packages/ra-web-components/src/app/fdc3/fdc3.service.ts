@@ -87,4 +87,8 @@ export class FDC3Service {
         return this.fDC3ProvidersFactoryService.restoreWorkSpace(workSpace, token);
     }
 
+    sendNotification(id: string, title: string, msg: string, icon?: string) {
+        return this.fDC3ProvidersFactoryService.sendNotification(id, title, msg, icon);
+    }
+
 }

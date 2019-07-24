@@ -24,4 +24,6 @@ export interface FDC3Provider {
 
     restoreWorkSpace(workSpace: any, token?: string): Promise<any>;
 
+    sendNotification(id: string, title: string, msg: string, icon?: string);
+
 }

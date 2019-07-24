@@ -2,6 +2,7 @@ import { FDC3Provider } from "./fdc3-provider.interface";
 import { Context } from "../../ra-web-agent/interfaces/context.interface";
 import { workspaces } from 'openfin-layouts';
 import { Workspace } from 'openfin-layouts/dist/client/workspaces';
+import { create } from 'openfin-notifications';
 import * as _ from "lodash";
 export class OpenFin implements FDC3Provider {
 
@@ -108,6 +109,14 @@ export class OpenFin implements FDC3Provider {
                     const result = await wrapedForJoin.joinGroup(wraped);
                 }
             }
+        });
+    }
+
+    sendNotification(id: string, title: string, msg: string, icon?: string) {
+        create({
+            body: msg,
+            title,
+            icon,
         });
     }
 

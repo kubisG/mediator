@@ -78,7 +78,7 @@ export class FDC3Component implements OnInit, OnDestroy {
 
     @HostListener("window:message", ["$event"])
     public onMessage(message: MessageEvent) {
-        console.log("message", message);
+
     }
 
     @HostListener('window:beforeunload', ['$event'])
