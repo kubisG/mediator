@@ -20,6 +20,13 @@ export interface DataGridInterface {
     setState(state: any): Promise<any>;
     setColOption(id, option, value);
     setData(data: any[]);
+    getData(): any[];
     setFilter(data);
     refresh();
+    beginCustomLoading(info);
+    endCustomLoading();
+    saveEditData(): Promise<any>;
+    checkRows(data);
+    addEmptyRow(id): any;
+    removeRow(data): any;
 }

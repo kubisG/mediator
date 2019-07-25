@@ -13,10 +13,11 @@ export interface GridColumn {
     lockPinned?: boolean;
     valueFormatter?: any;
     cellRender?: any;
+    sort?: string;
     allowSorting?: boolean;
     allowResizing?: boolean;
     allowHeaderFiltering?: boolean;
-    allowEditing?: boolean;
+    allowEditing?: any;
     width?: number;
     comparator?: any;
     cellRendererFramework?: any;
@@ -24,7 +25,8 @@ export interface GridColumn {
     checkboxSelection?: boolean;
     cellEditor?: string;
     cellClass?: string;
+    cellStyle?: any;
     cellEditorParams?: any;
     valueParser?: any;
-
+    raValidators?: any;
 }

@@ -24,16 +24,19 @@ export class SelectEditorComponent implements ICellEditorAngularComp, OnDestroy,
     }
 
     agInit(params: any) {
+        console.log(params);
         this.params = params;
-        this.values = params.values;
-        const val = this.values.filter( x => x[params.valueExpr] === params.value );
-        if (val) {
-            this.selected = val[0];
+        this.values = params.raLookup.dataSource;
+        if (this.values) {
+            const val = this.values.filter( x => x[params.raLookup.valueExpr] === params.value );
+            if (val) {
+                this.selected = val[0];
+            }
         }
     }
 
     public getValue(): any {
-        return this.selected ? this.selected[this.params.valueExpr] : null;
+        return this.selected ? this.selected[this.params.raLookup.valueExpr] : null;
     }
 
     isPopup(): boolean {

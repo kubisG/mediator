@@ -1,5 +1,5 @@
 <div class="ag-cell-edit-input">
     <select #container class="ag-cell-edit-input" [(ngModel)]="selected">
-        <option *ngFor="let val of values" [ngValue]="val">{{ val[params.displayExpr] }}</option>
+        <option *ngFor="let val of values" [ngValue]="val">{{ val[params.raLookup.displayExpr] }}</option>
     </select>
 </div>

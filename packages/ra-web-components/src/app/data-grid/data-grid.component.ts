@@ -51,7 +51,7 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
     private columnsDataSub: Subscription;
     private colorsSub: Subscription;
     private actionSub: Subscription;
-    private editableSub: Subscription;    
+    private editableSub: Subscription;
 
     private initSub: Subscription;
     private selSub: Subscription;
@@ -174,6 +174,14 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
         return this.state(data);
     }
 
+    public beginCustomLoading(info) {
+        this.componentRef.instance.beginCustomLoading(info);
+    }
+
+    public endCustomLoading() {
+        this.componentRef.instance.endCustomLoading();
+    }
+
 
     public state(data?): any {
         if (data) {
@@ -187,6 +195,11 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
         console.log("TODO pagesize", size);
         return null;
     }
+
+    public saveEditData(): Promise<any> {
+        return this.componentRef.instance.saveEditData();
+    }
+
 
     public filter(data) {
         this.componentRef.instance.setFilter(data);
@@ -202,6 +215,10 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
         this.componentRef.instance.setData(data);
     }
 
+    public getData(): any[] {
+        return this.componentRef.instance.getData();
+    }
+
     public refresh(): Promise<any> {
         return Promise.resolve(this.componentRef.instance.refresh());
     }
@@ -214,8 +231,20 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
         this.updateData.next([data]);
     }
 
+    public addEmptyRow(id): any {
+        return this.componentRef.instance.addEmptyRow(id);
+    }
+
+    public removeRow(data): any {
+        return this.componentRef.instance.removeRow(data);
+    }
+
     public getRowActions() {
         return this.rowActions;
+    }
+
+    public checkRows(data?) {
+        this.componentRef.instance.checkRows(data);
     }
 
     public ngOnDestroy(): void {

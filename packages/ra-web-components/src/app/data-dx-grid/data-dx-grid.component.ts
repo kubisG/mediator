@@ -143,8 +143,39 @@ export class DataDxGridComponent implements DataGridInterface, OnInit {
         this.data = data;
     }
 
+    public getData(): any[] {
+        return this.dataSource.store()._array;
+    }
+
+    public saveEditData(): Promise<any> {
+        return this.dataGrid.instance.saveEditData();
+    }
+
+    public beginCustomLoading(info) {
+        this.dataGrid.instance.beginCustomLoading(info);
+    }
+
+    public endCustomLoading() {
+        this.dataGrid.instance.endCustomLoading();
+    }
+
+
     public refresh() {
         this.dataGrid.instance.refresh();
+    }
+
+    public checkRows(data) {
+        console.log("dummy checkrows", data);
+    }
+
+    public addEmptyRow(id): any {
+        console.log("dummy addEmptyRow", id);
+        return null;
+    }
+
+    public removeRow(data): any {
+        console.log("dummy removeRow");
+        return null;
     }
 
     public onRowClick(e) {
