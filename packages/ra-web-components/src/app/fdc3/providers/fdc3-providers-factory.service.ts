@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { FDC3Provider } from "./fdc3-provider.interface";
 import { OpenFin } from "./openfin";
 import { Context } from "../../ra-web-agent/interfaces/context.interface";
+import { RapidFDC3 } from "./rapid-fdc3";
 
 @Injectable()
 export class FDC3ProvidersFactoryService implements FDC3Provider {
@@ -13,10 +14,10 @@ export class FDC3ProvidersFactoryService implements FDC3Provider {
     }
 
     private init() {
-        if ((window as any).fin) {
+        if ((window as any)[`fin`]) {
             this.provider = new OpenFin();
         } else {
-            this.provider = new OpenFin();
+            this.provider = new RapidFDC3();
         }
     }
 

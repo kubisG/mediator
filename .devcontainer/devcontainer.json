@@ -1,7 +1,7 @@
 {
-    "name": "DebianNode",
-    "dockerFile": "Dockerfile",
-    "appPort": [3000,4200],
+    "name": "bundle",
+    "dockerFile": "../Dockerfile",
+    "appPort": [3000],
     "extensions": [],
     "runArgs": [],
     "settings": {}

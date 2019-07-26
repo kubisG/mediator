@@ -1,6 +1,9 @@
 {
 	"folders": [
 		{
+			"path": "packages\\ra-web-admin-fe"
+		},
+		{
 			"path": "packages\\ra-web-admin-be"
 		},
 		{

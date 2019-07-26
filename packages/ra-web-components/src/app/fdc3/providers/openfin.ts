@@ -2,12 +2,12 @@ import { FDC3Provider } from "./fdc3-provider.interface";
 import { Context } from "../../ra-web-agent/interfaces/context.interface";
 import { workspaces } from 'openfin-layouts';
 import { Workspace } from 'openfin-layouts/dist/client/workspaces';
-import { create } from 'openfin-notifications';
+// import { create } from 'openfin-notifications';
 import * as _ from "lodash";
 export class OpenFin implements FDC3Provider {
 
     private handlers: ((context: Context) => void)[] = [];
-    private fin = (window as any).fin;
+    private fin = (window as any)[`fin`] ? (window as any)[`fin`] : {};
 
     constructor() {
         this.init();
@@ -113,11 +113,11 @@ export class OpenFin implements FDC3Provider {
     }
 
     sendNotification(id: string, title: string, msg: string, icon?: string) {
-        create({
-            body: msg,
-            title,
-            icon,
-        });
+        // create({
+        //     body: msg,
+        //     title,
+        //     icon,
+        // });
     }
 
 }
