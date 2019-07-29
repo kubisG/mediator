@@ -230,12 +230,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     }
 
     private setInitData() {
-<<<<<<< HEAD
-        if (this.gridOptions.api.getDisplayedRowCount() === 0 && this.data.length > 0) {
-            console.log("data set 2");
-=======
         if (this.gridOptions && this.gridOptions.api && this.gridOptions.api.getDisplayedRowCount() === 0 && this.data.length > 0) {
->>>>>>> 5e9cd9ad56955774bff5afa70987629df566c3ff
             this.gridOptions.api.setRowData(this.data);
             this.data = [];
             this.init = false;
