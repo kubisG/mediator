@@ -79,6 +79,15 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         this.cd.markForCheck();
     }
 
+    @Input() set sumColumns(columns: GridColumn[]) {
+        console.log(columns);
+        if (!columns) {
+            return;
+        }
+        this.setSumColumns(columns);
+        this.cd.markForCheck();
+    }
+
     @Input() gridKey: string;
 
     @Input() set gridEditable(data: any) {
@@ -138,10 +147,6 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     private setColumns(columns: GridColumn[]) {
         const cls = [];
         columns.forEach((column) => {
-            // actions are in context menu
-            if (column.dataField === "Actions") {
-                return;
-            }
             if (column.raValidators) {
                 this.gridValidators[column.dataField] = column.raValidators;
             }
@@ -170,6 +175,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                     (column.cellEditor === "number" ? NumberEditorComponent : null),
                 cellEditorParams: column.cellEditorParams,
                 valueParser: column.valueParser,
+                valueGetter: column.valueGetter,
                 cellRendererFramework: column.cellRendererFramework,
                 comparator: column.comparator,
                 headerCheckboxSelection: column.headerCheckboxSelection,
@@ -179,12 +185,17 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                     if ((typeof column.allowEditing === "function") && (!column.allowEditing(item))) {
                         return {};
                     } else {
-                        return { color: "black", backgroundColor: "#ff9800 !important" };
+                        return { color: "white", backgroundColor: "rgba(255,152,0,0.5) !important" };
                     }
-                }) : null),
+                }) : (column.type && column.type.length > 0
+                    && column.type.indexOf("numericColumn") > -1 ? { "text-align": "right" } : null)),
             });
         });
         this.columns = cls;
+    }
+
+    private setSumColumns(columns) {
+        console.log(columns);
     }
 
     private getRowNodeId() {
@@ -295,7 +306,6 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     }
 
     private checkFilter(node): boolean {
-        console.log(this.filter);
         if (this.filter.column) {
             return node.data[this.filter.column] === this.filter.value;
         } else {
@@ -303,8 +313,8 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         }
     }
 
-    public setFilter(data) {
-        if (data.length > 0) {
+    public setFilter(data?) {
+        if (data && data.length > 0) {
             if (data[0][1] === "=") {
                 this.filter.column = data[0][0];
                 this.filter.value = data[0][2];
@@ -423,7 +433,6 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                 sortState: this.gridOptions.api.getSortModel(),
                 filterState: this.gridOptions.api.getFilterModel(),
             };
-            console.log("getState", tableOptions);
             return tableOptions;
         } else {
             return null;
@@ -432,7 +441,6 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     public setState(state: any): Promise<any> {
         this.gridState = state;
-        console.log("setstate", state);
         if (this.gridState.colState) {
             this.gridOptions.columnApi.setColumnState(this.gridState.colState);
             this.gridOptions.columnApi.setColumnGroupState(this.gridState.colGroupState);
@@ -493,10 +501,12 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     }
 
     public beginCustomLoading(info) {
+        console.log("show overlay", info);
         this.gridOptions.api.showLoadingOverlay();
     }
 
     public endCustomLoading() {
+        console.log("hide overlay", this);
         this.gridOptions.api.hideOverlay();
     }
 
@@ -513,6 +523,14 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
             this.gridOptions.api.redrawRows();
         }
         this.init = false;
+        this.cd.markForCheck();
+    }
+
+    public setSumData(data) {
+        if ((this.gridOptions) && (this.gridOptions.api)) {
+            data["raType"] = "sumRow";
+            this.gridOptions.api.setPinnedBottomRowData([data]);
+        }
         this.cd.markForCheck();
     }
 

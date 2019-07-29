@@ -41,6 +41,10 @@ export class DataDxGridComponent implements DataGridInterface, OnInit {
         this.initGrid();
     }
 
+    @Input() set sumColumns(data: any[]) {
+        this.sumCols = data;
+    }
+
     @Input() gridKey: string;
 
     @Input() set gridEditable(data: any) {
@@ -51,6 +55,7 @@ export class DataDxGridComponent implements DataGridInterface, OnInit {
     public updateData: any[];
     public inicialized: boolean;
     public columns: any[];
+    public sumCols: any[];
     public frameworkComponents = {};
 
     public arrayStore: ArrayStore;
@@ -123,8 +128,12 @@ export class DataDxGridComponent implements DataGridInterface, OnInit {
 
     }
 
-    public setFilter(data) {
-        this.dataGrid.instance.filter(data);
+    public setFilter(data?) {
+        if (data) {
+             this.dataGrid.instance.filter(data);
+        } else {
+            this.dataGrid.instance.clearFilter();
+        }
     }
 
     public getState(): any {
@@ -141,6 +150,10 @@ export class DataDxGridComponent implements DataGridInterface, OnInit {
 
     public setData(data: any[]) {
         this.data = data;
+    }
+
+    public setSumData(data) {
+        console.log("dx sumdata done by columns settings");
     }
 
     public getData(): any[] {

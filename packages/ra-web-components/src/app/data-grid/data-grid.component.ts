@@ -40,6 +40,9 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
     private columnsData: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
     private $columnsData: Observable<any[]> = this.columnsData.asObservable();
 
+    private sumData: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
+    private $sumData: Observable<any[]> = this.sumData.asObservable();
+
     private rowActions: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
     private $rowActions: Observable<any[]> = this.rowActions.asObservable();
 
@@ -49,6 +52,7 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
     private dataSub: Subscription;
     private updateDataSub: Subscription;
     private columnsDataSub: Subscription;
+    private sumDataSub: Subscription;
     private colorsSub: Subscription;
     private actionSub: Subscription;
     private editableSub: Subscription;
@@ -90,6 +94,13 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
         }
     }
 
+    @Input() set initSumColumns(columns: GridColumn[]) {
+        console.log(columns);
+        if (columns) {
+            this.sumData.next(columns);
+        }
+    }
+
     @Input() set actions(data: any[]) {
         if (data) {
             this.rowActions.next(data);
@@ -122,6 +133,11 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
             this.componentRef.instance.reset();
             this.componentRef.instance.initColumns = data;
         });
+        this.sumDataSub = this.$sumData.subscribe((data) => {
+            this.componentRef.instance.reset();
+            this.componentRef.instance.sumColumns = data;
+        });
+
         this.colorsSub = this.$colors.subscribe((data) => {
             this.componentRef.instance.colors = data;
         });
@@ -200,11 +216,17 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
         return this.componentRef.instance.saveEditData();
     }
 
+    public setSumData(data) {
+        this.componentRef.instance.setSumData(data);
+    }
+
 
     public filter(data) {
         this.componentRef.instance.setFilter(data);
-        console.log("TODO filter", data);
-        return null;
+    }
+
+    public clearFilter() {
+        this.componentRef.instance.setFilter();
     }
 
     public columnOption(id: number | string, optionName: string, optionValue: any) {
@@ -256,6 +278,9 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
         }
         if (this.columnsDataSub) {
             this.columnsDataSub.unsubscribe();
+        }
+        if (this.sumDataSub) {
+            this.sumDataSub.unsubscribe();
         }
         if (this.colorsSub) {
             this.colorsSub.unsubscribe();

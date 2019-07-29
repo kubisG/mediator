@@ -5,6 +5,7 @@ export interface DataGridInterface {
     initData: any[];
     update: any[];
     initColumns: any[];
+    sumColumns: any[];
     colors: any[];
     rowActions: any[];
     gridEditable: any[];
@@ -20,8 +21,9 @@ export interface DataGridInterface {
     setState(state: any): Promise<any>;
     setColOption(id, option, value);
     setData(data: any[]);
+    setSumData(data);
     getData(): any[];
-    setFilter(data);
+    setFilter(data?);
     refresh();
     beginCustomLoading(info);
     endCustomLoading();

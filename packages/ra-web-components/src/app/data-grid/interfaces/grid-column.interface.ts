@@ -12,6 +12,7 @@ export interface GridColumn {
     lockVisible?: boolean;
     lockPinned?: boolean;
     valueFormatter?: any;
+    valueGetter?: any;
     cellRender?: any;
     sort?: string;
     allowSorting?: boolean;
