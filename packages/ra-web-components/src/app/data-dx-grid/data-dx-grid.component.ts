@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, OnInit, ViewChild, Output, EventEmitter } from "@angular/core";
 import DataSource from "devextreme/data/data_source";
 import ArrayStore from "devextreme/data/array_store";
 import { DxDataGridComponent } from "devextreme-angular";
@@ -12,6 +12,19 @@ import * as _ from "lodash";
 })
 export class DataDxGridComponent implements DataGridInterface, OnInit {
     @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;
+
+    public rowColors = {};
+    public rowActions = [];
+    public editable = false;
+
+    @Output() initialized: EventEmitter<any> = new EventEmitter();
+    @Output() selected: EventEmitter<any> = new EventEmitter();
+    @Output() rowSelected: EventEmitter<any> = new EventEmitter();
+    @Output() buttonClick: EventEmitter<any> = new EventEmitter(); // not implemented
+
+    @Input() set colors(data) {
+        this.rowColors = data;
+    }
 
     @Input() set initData(data: any[]) {
         this.data = data;
@@ -28,12 +41,22 @@ export class DataDxGridComponent implements DataGridInterface, OnInit {
         this.initGrid();
     }
 
+    @Input() set sumColumns(data: any[]) {
+        this.sumCols = data;
+    }
+
     @Input() gridKey: string;
+
+    @Input() set gridEditable(data: any) {
+        this.editable = data;
+    }
 
     public data: any[];
     public updateData: any[];
     public inicialized: boolean;
     public columns: any[];
+    public sumCols: any[];
+    public frameworkComponents = {};
 
     public arrayStore: ArrayStore;
     public dataSource: DataSource;
@@ -105,12 +128,79 @@ export class DataDxGridComponent implements DataGridInterface, OnInit {
 
     }
 
-    public onRowClick(e) {
-
+    public setFilter(data?) {
+        if (data) {
+             this.dataGrid.instance.filter(data);
+        } else {
+            this.dataGrid.instance.clearFilter();
+        }
     }
 
-    public onRowPrepared(e) {
+    public getState(): any {
+        return this.dataGrid.instance.state();
+    }
 
+    public setState(state: any): Promise<any> {
+        return Promise.resolve(this.dataGrid.instance.state(JSON.parse(state)));
+    }
+
+    public setColOption(id, option, value) {
+        this.dataGrid.instance.columnOption(id, option, value);
+    }
+
+    public setData(data: any[]) {
+        this.data = data;
+    }
+
+    public setSumData(data) {
+        console.log("dx sumdata done by columns settings");
+    }
+
+    public getData(): any[] {
+        return this.dataSource.store()._array;
+    }
+
+    public saveEditData(): Promise<any> {
+        return this.dataGrid.instance.saveEditData();
+    }
+
+    public beginCustomLoading(info) {
+        this.dataGrid.instance.beginCustomLoading(info);
+    }
+
+    public endCustomLoading() {
+        this.dataGrid.instance.endCustomLoading();
+    }
+
+
+    public refresh() {
+        this.dataGrid.instance.refresh();
+    }
+
+    public checkRows(data) {
+        console.log("dummy checkrows", data);
+    }
+
+    public addEmptyRow(id): any {
+        console.log("dummy addEmptyRow", id);
+        return null;
+    }
+
+    public removeRow(data): any {
+        console.log("dummy removeRow");
+        return null;
+    }
+
+    public onRowClick(e) {
+        this.rowSelected.next(e);
+    }
+
+    public onRowPrepared(item) {
+        if (item.data) {
+            if (this.rowColors) {
+                item.rowElement.style.backgroundColor = this.rowColors[item.data.OrdStatus];
+            }
+        }
     }
 
     public onRowUpdated(e) {

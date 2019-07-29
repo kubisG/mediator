@@ -9,9 +9,11 @@ import { IAfterGuiAttachedParams, IHeaderGroupParams } from "ag-grid-community";
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderColumnComponent implements IHeaderGroupAngularComp {
+    public params;
 
     agInit(params: IHeaderGroupParams): void {
         console.log(params);
+        this.params = params;
     }
 
     afterGuiAttached?(params?: IAfterGuiAttachedParams): void {
