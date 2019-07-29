@@ -47,9 +47,7 @@ node("centos7"){
                         sh "npm --prefix packages/"+params.REPO_NAME+"/ run generate -- -c "+params.COMPONENTS
                         sh "rm -rf node_modules"
                     }
-                    sh "npm install"
                     sh "cp packages/"+params.REPO_NAME+"/Dockerfile ./Dockerfile"
-                    sh "cat Dockerfile"
                     pushDocker(params.DOCKER_REGISTRY, params.IMG_NAME, params.GIT_COMMIT, params.BRANCH_NAME, params.DOCKER_BUILD_ARGS)
                 }
             }
