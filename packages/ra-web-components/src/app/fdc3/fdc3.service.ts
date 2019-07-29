@@ -10,6 +10,8 @@ export class FDC3Service {
 
     private root = false;
 
+    public injections: any[] = [];
+
     constructor(
         private store: Store,
         private fDC3ProvidersFactoryService: FDC3ProvidersFactoryService,

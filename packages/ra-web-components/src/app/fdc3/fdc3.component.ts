@@ -42,7 +42,7 @@ export class FDC3Component implements OnInit, OnDestroy {
     ) { }
 
     private initComponent(appId: string, fdcComponentService: FDC3ComponentService, customData: any) {
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.fdc3Components[appId].component);
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(fdcComponentService.component);
         const viewContainerRef = this.raAdHost.viewContainerRef;
         viewContainerRef.clear();
         this.componentRef = viewContainerRef.createComponent(componentFactory);
@@ -55,8 +55,8 @@ export class FDC3Component implements OnInit, OnDestroy {
     }
 
 
-    public loadComponent(appId: string, data: any, token: any) {
-        const fdcComponentService: FDC3ComponentService = this.fdc3Components[appId];
+    public loadComponent(appId: string, data: any, token: any, service: FDC3ComponentService) {
+        const fdcComponentService: FDC3ComponentService = service;
         fdcComponentService.fDC3Service = this.fDC3Service;
         fdcComponentService.layoutService = this.layoutService;
         fdcComponentService.router = this.router;
@@ -72,7 +72,9 @@ export class FDC3Component implements OnInit, OnDestroy {
         this.sub = this.route.params.subscribe((params) => {
             const data = this.route.snapshot.queryParams["data"] ? JSON.parse(decodeURIComponent(this.route.snapshot.queryParams["data"])) : {};
             const token = this.route.snapshot.queryParams["token"] ? decodeURIComponent(this.route.snapshot.queryParams["token"]) : "";
-            this.loadComponent(params["appId"], data, token);
+            const service = new this.fdc3Components[params["appId"]]();
+            service.setInjections(this.fDC3Service.injections);
+            this.loadComponent(params["appId"], data, token, service);
         });
     }
 

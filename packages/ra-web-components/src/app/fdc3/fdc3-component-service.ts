@@ -18,6 +18,12 @@ export abstract class FDC3ComponentService {
 
     public abstract start(): Promise<any>;
 
+    public setInjections(items: any[]) {
+        for (const item of items) {
+            this.setInjection(item);
+        }
+    }
+
     public setInjection(item: any) {
         const name = item.constructor.name === "Function" ? item.name : item.constructor.name;
         this.injections[name] = item;

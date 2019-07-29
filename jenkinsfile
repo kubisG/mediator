@@ -22,7 +22,7 @@ node("centos7"){
                 checkout([
                     $class: 'GitSCM',
                     branches: [
-                        [name: '*/master']
+                        [name: '*/'+params.BRANCH_NAME]
                     ],
                     doGenerateSubmoduleConfigurations: false,
                     extensions: [
