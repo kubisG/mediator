@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "clean": "lerna clean",
-    "hoists": "lerna bootstrap --hoist --force-local --include-filtered-dependencies",
+    "hoists": "lerna bootstrap --hoist --force-local --include-filtered-dependencies --loglevel verbose",
     "nohoists": "lerna bootstrap",
     "init": "npm run clean && npm run hoists",
     "bts": "lerna bootstrap",
@@ -21,6 +21,7 @@
   "devDependencies": {
     "lerna": "3.13.3",
     "@lerna/filter-options": "3.13.3",
+    "@lerna/global-options": "3.13.0",
     "nodemon": "1.19.0",
     "ts-node": "5.0.1",
     "chokidar": "3.0.1"

@@ -1,5 +1,4 @@
 import { Injectable, Type } from "@angular/core";
-import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { Observable } from "rxjs/internal/Observable";
 import { MenuItem } from "../header/menu-item.interface";
 import { DockableService } from "../dockable/dockable.service";

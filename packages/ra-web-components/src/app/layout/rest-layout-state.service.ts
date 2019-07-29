@@ -51,6 +51,10 @@ export class RestLayoutStateService implements LayoutStateStorage {
         });
     }
 
+    getState(): Promise<any> {
+        return this.restLayoutService.getLayout(`${this.module}-${this.layoutName}`);
+    }
+
     deleteLayout(layoutName: string): Promise<any> {
         return this.restLayoutService.deleteLayout(`${this.module}-${layoutName}`).then(
             (data) => {

@@ -16,7 +16,14 @@ export abstract class BaseMessageRouter<T, R> implements MessageRouter {
         public queue: Queue,
         public clientRouter: ClientRouter,
         protected logger: Logger,
-    ) { }
+        protected inMiddlewares?: MessageMiddleware[],
+        protected outMiddlewares?: MessageMiddleware[],
+    ) {
+        this.inMiddlewares = this.inMiddlewares ? this.inMiddlewares : [];
+        this.outMiddlewares = this.outMiddlewares ? this.outMiddlewares : [];
+        this.middlewareRunnerIn.setMiddlewares(this.inMiddlewares);
+        this.middlewareRunnerOut.setMiddlewares(this.outMiddlewares);
+    }
 
     protected abstract routeMessage(msg: T);
 

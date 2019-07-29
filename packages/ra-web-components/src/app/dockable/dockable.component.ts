@@ -1,6 +1,6 @@
 import { Reflect } from "core-js";
 import { ComponentFactoryResolver, Injector, Type, ApplicationRef, OnDestroy, ComponentRef, EventEmitter, ElementRef } from "@angular/core";
-import { GlOnTab, GlOnShow, GlOnHide, GlOnClose } from "@embedded-enterprises/ng6-golden-layout";
+import { GlOnTab, GlOnShow, GlOnHide, GlOnClose, GoldenLayoutComponentState } from "@embedded-enterprises/ng6-golden-layout";
 import * as GoldenLayout from "golden-layout";
 import * as $ from "jquery";
 import { DOCKABLE_CONFIG } from "./decorators/dockable.decorators";
@@ -9,6 +9,7 @@ import { ComponentsMapService } from "./components-map.service";
 import { COMPONENT_ID } from "./constants";
 import { Subscription } from "rxjs/internal/Subscription";
 import { DockableService } from "./dockable.service";
+import { FDC3ComponentService } from "../fdc3/fdc3-component-service";
 
 export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, GlOnClose, OnDestroy {
 
@@ -32,6 +33,9 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     public componentEmitter: EventEmitter<any> = new EventEmitter();
     protected elm: ElementRef;
     protected dockableService: DockableService;
+    protected componentState: any;
+
+    protected fDC3ComponentService: FDC3ComponentService;
 
     constructor(
         protected componentFactoryResolver: ComponentFactoryResolver,
@@ -44,6 +48,7 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
         try {
             this.goldenLayout = this.injector.get(GoldenLayout);
             this.dockableService.setLayoutManager(this.goldenLayout);
+            this.componentState = this.injector.get(GoldenLayoutComponentState);
         } catch (ex) {
         }
         this.init();
@@ -163,6 +168,15 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
 
     protected getTabResult(): EventEmitter<any> {
         return this.tabEmitter;
+    }
+
+    public setFDC3ComponentService(fDC3ComponentService: FDC3ComponentService) {
+        this.fDC3ComponentService = fDC3ComponentService;
+    }
+
+    public setComponentState(componentState: any) {
+        console.log("componentState: ", componentState);
+        this.componentState = componentState;
     }
 
     public initComponents() {

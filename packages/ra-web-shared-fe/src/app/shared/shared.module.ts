@@ -79,13 +79,6 @@ import { RaPressKDirective } from "./directives/press-key.directive";
 })
 
 export class SharedModule {
-    constructor(@Optional() @SkipSelf() parentModule: SharedModule) {
-        if (parentModule) {
-            throw new Error(
-                "SharedModule is already loaded. Import it in the AppModule only");
-        }
-    }
-
     static forRoot(config: EnvironmentInterface): ModuleWithProviders {
         return {
             ngModule: SharedModule,

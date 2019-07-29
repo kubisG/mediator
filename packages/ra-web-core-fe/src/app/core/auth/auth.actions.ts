@@ -27,7 +27,8 @@ export class LoginRedirect {
 
 export class LoginSuccess {
     static type = "[Auth] LoginSuccess";
-    constructor(public user: any) { }
+    constructor(public user: any) {
+    }
 }
 
 export class LoginFailed {

@@ -8,6 +8,7 @@ properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKe
                         stringParam(description: 'Repo name', name: 'REPO_NAME'),
                         stringParam(description: 'image name', name: 'IMG_NAME'),
                         stringParam(defaultValue: '', description: 'Components', name: 'COMPONENTS'),
+                        stringParam(defaultValue: '', description: 'Docker build args', name: 'DOCKER_BUILD_ARGS'),
                         ])
         ])
 node("centos7"){
@@ -46,10 +47,8 @@ node("centos7"){
                         sh "npm --prefix packages/"+params.REPO_NAME+"/ run generate -- -c "+params.COMPONENTS
                         sh "rm -rf node_modules"
                     }
-                    sh "npm install"
                     sh "cp packages/"+params.REPO_NAME+"/Dockerfile ./Dockerfile"
-                    sh "cat Dockerfile"
-                    pushDocker(params.DOCKER_REGISTRY, params.IMG_NAME, params.GIT_COMMIT, params.BRANCH_NAME)
+                    pushDocker(params.DOCKER_REGISTRY, params.IMG_NAME, params.GIT_COMMIT, params.BRANCH_NAME, params.DOCKER_BUILD_ARGS)
                 }
             }
             stage('Log'){
@@ -72,15 +71,15 @@ node("centos7"){
     }
 }
 
-void pushDocker(String registry, String imgName, String shortHash, String branch) {
+void pushDocker(String registry, String imgName, String shortHash, String branch, String buildArgs) {
     sh "echo `aws ecr get-login --no-include-email --region eu-west-1` | sudo sh"
 
     sh "sudo docker system prune -f"
 
-    sh "sudo docker build . -t "+registry+"/"+imgName+":"+shortHash+"-"+branch
+    sh "sudo docker build "+buildArgs+" . -t "+registry+"/"+imgName+":"+shortHash+"-"+branch
     sh "sudo docker push "+registry+"/"+imgName+":"+shortHash+"-"+branch
 
-    sh "sudo docker build . -t "+registry+"/"+imgName+":latest-"+branch
+    sh "sudo docker build "+buildArgs+" . -t "+registry+"/"+imgName+":latest-"+branch
     sh "sudo docker push "+registry+"/"+imgName+":latest-"+branch
 }
 

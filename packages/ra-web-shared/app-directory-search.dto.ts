@@ -5,41 +5,41 @@ export class AppDirectorySearchDto {
 
     @ApiModelProperty()
     @Mapping(MappingRequirement.OPTIONAL)
-    appId: string;
+    appId?: string;
 
     @ApiModelProperty()
     @Mapping(MappingRequirement.OPTIONAL)
-    name: string;
+    name?: string;
 
     @ApiModelProperty()
     @Mapping(MappingRequirement.OPTIONAL)
-    manifest: any;
+    manifest?: any;
 
     @ApiModelProperty()
     @Mapping(MappingRequirement.OPTIONAL)
-    version: string;
+    version?: string;
 
     @ApiModelProperty()
     @Mapping(MappingRequirement.OPTIONAL)
-    title: string;
+    title?: string;
 
     @ApiModelProperty()
     @Mapping(MappingRequirement.OPTIONAL)
-    tooltip: string;
+    tooltip?: string;
 
     @ApiModelProperty()
     @Mapping(MappingRequirement.OPTIONAL)
-    description: string;
+    description?: string;
 
     @ApiModelProperty()
     @Mapping(MappingRequirement.OPTIONAL)
-    intent_name: string;
+    intent_name?: string;
 
     @ApiModelProperty()
     @Mapping(MappingRequirement.OPTIONAL)
-    intent_displayName: string;
+    intent_displayName?: string;
 
     @ApiModelProperty()
     @Mapping(MappingRequirement.OPTIONAL)
-    intent_context: string;
+    intent_context?: string;
 }

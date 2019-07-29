@@ -3,6 +3,6 @@
     [alertMessage]="alertMessage" [appVersion]="appVersion" [appVersionLong]="appVersionLong" [user]="user"
     [buttonItems]="buttonItems" [logoImg]="logoImg" [logoUrl]="logoUrl" [expansionMenuLeft]="expansionMenuLeft"
     [expansionMenuRight]="expansionMenuRight" [defaultLayout]="defaultLayout"></ra-header>
-<div class="ra-layout">
-    <golden-layout-root *ngIf="reload && defaultLayout && defaultLayout !== '' "></golden-layout-root>
+<div class="ra-layout" *ngIf="layoutOn">
+    <golden-layout-root *ngIf="reload"></golden-layout-root>
 </div>

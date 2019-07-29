@@ -108,11 +108,4 @@ import {
         { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
     ],
 })
-export class MaterialModule {
-    constructor(@Optional() @SkipSelf() parentModule: MaterialModule) {
-        // if (parentModule) {
-        //     throw new Error(
-        //         "MaterialModule is already loaded. Import it in the AppModule only");
-        // }
-    }
-}
+export class MaterialModule { }

@@ -26,8 +26,7 @@ export class LayoutService {
         private dockableService: DockableService,
         private layoutMenuItemsService: LayoutMenuItemsService,
         public dialog: MatDialog,
-    ) {
-    }
+    ) { }
 
     private newLayout() {
         const dialogRef = this.dialog.open(InputDialogComponent, {
