@@ -18,19 +18,27 @@ export class RestLayoutService {
     }
 
     public getLayout(name: string) {
-        return this.http.get(`${this.environment.apiUrl}/users/layout/${name}`).toPromise();
+        return this.http.get(`${this.environment.apiUrl}/layout/layout/${name}`).toPromise();
     }
 
     public setLayout(config: any, name: string) {
-        return this.http.post(`${this.environment.apiUrl}/users/layout/${name}`, config).toPromise();
+        return this.http.post(`${this.environment.apiUrl}/layout/layout/${name}`, config).toPromise();
     }
 
     public deleteLayout(name: string) {
-        return this.http.delete(`${this.environment.apiUrl}/users/layout/${name}`).toPromise();
+        return this.http.delete(`${this.environment.apiUrl}/layout/layout/${name}`).toPromise();
     }
 
     public getLayoutsName(): Promise<string[]> {
-        return this.http.get<string[]>(`${this.environment.apiUrl}/users/layout`).toPromise();
+        return this.http.get<string[]>(`${this.environment.apiUrl}/layout/layout`).toPromise();
+    }
+
+    public getDefaultLayout(modul: string) {
+        return this.http.get(`${this.environment.apiUrl}/layout/layout-default/${modul}`).toPromise();
+    }
+
+    public setDefaultLayout(modul: string, name: string) {
+        return this.http.post(`${this.environment.apiUrl}/layout/layout-default/${modul}`, { name }).toPromise();
     }
 
 }

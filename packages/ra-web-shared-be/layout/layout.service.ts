@@ -31,4 +31,23 @@ export class LayoutService {
         return await this.raPreferences.getLayoutsName(userData.userId, userData.compId);
     }
 
+    async getLayoutDefault(token: string, modul: string) {
+        const userData: UserData = await this.authService.getUserData<UserData>(token);
+        return await this.raPreferences.findOne({
+            userId: userData.userId,
+            companyId: userData.compId,
+            name: `default_layout_${modul}`
+        });
+    }
+
+    async setLayoutDefault(token: string, modul: string, name: any) {
+        const userData: UserData = await this.authService.getUserData<UserData>(token);
+        return await this.raPreferences.save({
+            name: `default_layout_${modul}`,
+            value: name,
+            userId: userData.userId,
+            companyId: userData.compId,
+        });
+    }
+
 }

@@ -34,4 +34,18 @@ export class LayoutController {
         return await this.layoutService.getLayoutsName(auth);
     }
 
+    @Get("layout-default/:modul")
+    @UseGuards(AuthGuard())
+    async getLayoutDefault(@Bearer() auth: string, @Param("modul") modul: string): Promise<any> {
+        return await this.layoutService.getLayoutDefault(auth, modul);
+    }
+    
+    @Post("layout-default/:modul")
+    @UseGuards(AuthGuard())
+    async setLayoutDefault(@Bearer() auth: string, @Body() data: any, @Param("modul") modul: string): Promise<any> {
+        return await this.layoutService.setLayoutDefault(auth, modul, data.name);
+    }
+    
+    
+
 }

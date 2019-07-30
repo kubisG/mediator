@@ -1,4 +1,4 @@
-import { EntityRepository, Repository } from "typeorm";
+import { EntityRepository, Repository, In, Like } from "typeorm";
 import { RaPreference } from "../../db/entity/ra-preference";
 
 @EntityRepository(RaPreference)
@@ -23,10 +23,11 @@ export class PreferenceRepository extends Repository<RaPreference> {
     }
 
     public async getLayoutsName(userId: number, companyId: number) {
-        const configs: RaPreference[] = await this.find({
-            userId,
-            companyId,
-        });
+        const configs: RaPreference[] = await this.find( {where: {
+            userId: In([userId , 0] ),
+            companyId: In([companyId, 0] ),
+            name: Like("layout_%")
+        }, order: { userId: "ASC", name: "ASC" }});        
         const configNames: string[] = [];
         for (let i = 0; i < configs.length; i++) {
             if (configs[i].name.indexOf(`layout_`) > -1) {
