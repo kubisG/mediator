@@ -13,17 +13,30 @@ export class RestLayoutStateService implements LayoutStateStorage {
     private activeLayoutSubject$: Observable<any> = this.activeLayoutSubject.asObservable();
     private defaultLayoutSubject: ReplaySubject<string> = new ReplaySubject<string>(1);
     private defaultLayoutSubject$: Observable<any> = this.defaultLayoutSubject.asObservable();
-    private layoutName = "default";
-    private defaultLayoutName = "default";
+    private layoutName;
+    private defaultLayoutName;
     private layoutState;
 
     constructor(
         private restLayoutService: RestLayoutService,
         @Inject(STORE_MODULE) private module: string,
-    ) { }
+    ) { 
+        this.getDefaultLayout().then((data) => {
+            if (data) {
+                this.layoutName = data;
+                this.defaultLayoutName = data;
+            } else {
+                this.layoutName = "default";
+                this.defaultLayoutName = "default";
+            }
+            this.activeLayoutSubject.next(this.layoutName);
+            this.defaultLayoutSubject.next(this.defaultLayoutName);
+        });
+    }
 
     setLayoutName(name: string) {
         this.layoutName = name;
+        this.activeLayoutSubject.next(name);
     }
 
     getLayoutName() {
