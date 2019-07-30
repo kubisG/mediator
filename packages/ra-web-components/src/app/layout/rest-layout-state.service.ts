@@ -62,13 +62,34 @@ export class RestLayoutStateService implements LayoutStateStorage {
             });
     }
 
+    getDefaultLayout(): Promise<any> {
+        return this.restLayoutService.getDefaultLayout(this.module).then((data) => {
+            console.log(data);
+            if (!data) {
+                return this.defaultLayoutName;
+            }
+            return (data as any).value;
+        });
+    }
+
+    setDefaultLayout(): Promise<any> {
+        this.defaultLayoutName = this.layoutName;
+        this.defaultLayoutSubject.next(this.layoutName);
+        return this.restLayoutService.setDefaultLayout(this.module, this.layoutName).then((data) => {
+            if (!data) {
+                throw Error();
+            }
+            return data;
+        });
+    }
+
     getLayoutsName(): Promise<string[]> {
         return this.restLayoutService.getLayoutsName().then((data) => {
             const moduleLayouts = [];
             for (const layout of data) {
                 let splited = [];
                 try {
-                    splited = layout.split("-");
+                    splited = layout.split(/\-(.+)/);
                 } catch (ex) {
                     continue;
                 }
@@ -90,15 +111,4 @@ export class RestLayoutStateService implements LayoutStateStorage {
     defaultLayout(): Observable<any> {
         return this.defaultLayoutSubject$;
     }
-
-    getDefaultLayout(): Promise<any> {
-        return Promise.resolve(this.defaultLayoutName);
-    }
-
-    setDefaultLayout(): Promise<any> {
-        this.defaultLayoutName = this.layoutName;
-        this.defaultLayoutSubject.next(this.layoutName);
-        return Promise.resolve(this.defaultLayoutName);
-    }
-
 }

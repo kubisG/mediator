@@ -1,6 +1,6 @@
 
 <div class="gridsize">
-<ag-grid-angular *ngIf="gridOptions" class="ag-theme-dark grid-ag" [gridOptions]="gridOptions"
+<ag-grid-angular *ngIf="gridOptions" class="{{ theme }} grid-ag" [gridOptions]="gridOptions"
     [rowGroupPanelShow]="'always'" [groupIncludeFooter]="false" [sideBar]="false"
     [aggFuncs]="aggFuncs" [groupSuppressBlankHeader]="true" [groupIncludeTotalFooter]="false" [groupRowAggNodes]="groupRowAggNodes"
     (selectionChanged)="onSelectionChanged($event)" (rowSelected)="onRowSelected($event)"

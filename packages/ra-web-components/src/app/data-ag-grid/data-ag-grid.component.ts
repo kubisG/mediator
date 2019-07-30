@@ -20,6 +20,8 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     static funcs: string[] = ["avg", "sum", "min", "max", "average"];
 
+    @Input() theme = "ag-theme-dark";
+
     private gridValidators: any[] = [];
     private init = true;
     private filtered = false;
