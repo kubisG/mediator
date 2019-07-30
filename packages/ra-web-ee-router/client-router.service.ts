@@ -1,8 +1,8 @@
-import { ClientsMap } from "./clients-map.interface";
 import { Subject } from "rxjs/internal/Subject";
 import { Observable } from "rxjs/internal/Observable";
-import { AccountsMap } from "./accounts-map.interface";
-import { ClientRouter } from "./client-router.interface";
+import { ClientRouter } from "./interfaces/client-router.interface";
+import { ClientsMap } from "./interfaces/clients-map.interface";
+import { AccountsMap } from "./interfaces/accounts-map.interface";
 
 export class ClientRouterService implements ClientRouter {
 

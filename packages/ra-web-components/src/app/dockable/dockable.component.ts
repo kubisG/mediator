@@ -175,7 +175,6 @@ export abstract class DockableComponent implements GlOnTab, GlOnShow, GlOnHide, 
     }
 
     public setComponentState(componentState: any) {
-        console.log("componentState: ", componentState);
         this.componentState = componentState;
     }
 

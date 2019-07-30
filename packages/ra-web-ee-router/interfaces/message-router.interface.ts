@@ -1,4 +1,4 @@
-import { ClientRouter } from "./client-router.interface";
+import { ClientRouter } from "../client-router.interface";
 
 export interface MessageRouter {
 
