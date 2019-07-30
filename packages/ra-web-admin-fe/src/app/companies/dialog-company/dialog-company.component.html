@@ -4,7 +4,7 @@
     <input name="companyName" matInput required placeholder="Company name" [(ngModel)]="data.companyName" #companyName="ngModel">
   </mat-form-field>
   <mat-form-field>
-    <input name="ClientID" matInput required placeholder="Client ID" [(ngModel)]="data.ClientID" #ClientID="ngModel">
+    <input name="ClientID" matInput placeholder="Client ID" [(ngModel)]="data.ClientID" #ClientID="ngModel">
   </mat-form-field>
   <mat-form-field>
     <input name="street" matInput placeholder="Street" [(ngModel)]="data.street" #street="ngModel">
@@ -18,19 +18,10 @@
   <mat-form-field>
     <input name="state" matInput placeholder="State" [(ngModel)]="data.state" #state="ngModel">
   </mat-form-field>
-  <mat-form-field>
-    <input name="partyRole" matInput placeholder="partyRole" [(ngModel)]="data.partyRole" #state="ngModel">
-  </mat-form-field>
-  <mat-form-field>
-    <input name="partyID" matInput placeholder="partyID" [(ngModel)]="data.partyID" #state="ngModel">
-  </mat-form-field>
-  <mat-form-field>
-    <input name="partyIDSource" matInput placeholder="partyIDSource" [(ngModel)]="data.partyIDSource" #state="ngModel">
-  </mat-form-field>      
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button (click)="onNoClick()">Cancel</button>
   <span class="fill-remaining-space"></span>
-  <button [disabled]="companyName.invalid || ClientID.invalid" mat-raised-button [mat-dialog-close]="data"
+  <button [disabled]="companyName.invalid" mat-raised-button [mat-dialog-close]="data"
     cdkFocusInitial>Ok</button>
 </div>

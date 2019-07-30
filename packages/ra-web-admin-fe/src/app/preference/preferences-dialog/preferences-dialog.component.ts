@@ -15,6 +15,7 @@ export class PreferencesDialogComponent implements OnInit {
     public editorOptions = {
         language: "json",
         automaticLayout: true,
+        theme: "vs-dark",
         minimap: {
             enabled: false
         }
@@ -34,6 +35,7 @@ export class PreferencesDialogComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public dialogData: any,
     ) {
         this.data = this.dialogData.data;
+        console.log("data,", this.data);
         this.users = this.dialogData.users;
         this.companies = this.dialogData.companies;
     }

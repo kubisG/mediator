@@ -9,35 +9,10 @@ export class RestCompaniesService {
         private http: HttpClient,
         @Inject(ENVIRONMENT) private environment: EnvironmentInterface) { }
 
-    /**
-     * TODO : move paramter manipulation outside rest service
-     * @param skip
-     * @param take
-     * @param sort
-     * @param filter
-     */
-    private createParams(skip?: string, take?: string, sort?: any[], filter?: any) {
-        const params = {};
-        if (skip) {
-            params["skip"] = skip;
-        }
-        if (take) {
-            params["take"] = take;
-        }
-        if (sort) {
-            params["sort"] = sort[0].selector;
-            params["sortDir"] = sort[0].desc ? "DESC" : "ASC";
-        }
-        if (filter) {
-            params["filter"] = JSON.stringify(filter);
-        }
-        return params;
-    }
 
-    public getCompanies(skip?: string, take?: string, sort?: any[], filter?: any): Promise<any> {
+    public getCompanies(): Promise<any> {
         return this.http.get(`${this.environment.apiUrl}/companies`,
-            { params: this.createParams(skip, take, sort, filter) ,
-             headers: new HttpHeaders().set("X-enable-cache", "true") })
+            { headers: new HttpHeaders().set("X-enable-cache", "true") })
             .toPromise();
     }
 

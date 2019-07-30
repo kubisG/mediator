@@ -4,7 +4,6 @@ import { MatDialog } from "@angular/material";
 import { DialogCompanyComponent } from "./dialog-company/dialog-company.component";
 import { RestCompaniesService } from "../rest/rest-companies.service";
 import { ToasterService, Toast } from "angular2-toaster";
-import { DxDataGridComponent } from "devextreme-angular/ui/data-grid";
 import { ConfirmDialogComponent, LoggerService } from "@ra/web-shared-fe";
 import { Dockable, LayoutRights, DockableComponent } from "@ra/web-components";
 
@@ -14,7 +13,7 @@ import { Dockable, LayoutRights, DockableComponent } from "@ra/web-components";
 @Dockable({
     label: "Companies",
     icon: "list_alt",
-    single: true
+    single: false
 })
 @Component({
     selector: "ra-companies",
@@ -22,36 +21,29 @@ import { Dockable, LayoutRights, DockableComponent } from "@ra/web-components";
     styleUrls: ["./companies.component.less"]
 })
 export class CompaniesComponent extends DockableComponent implements OnInit {
-    @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;
     private companySub;
+    private dataGrid;
 
     private company = {};
+    collapsed: boolean;
+    public columns;
 
-    gridColumns: any[] = [
+    public actions = [
         {
-            caption: "Company Name",
-            dataField: "companyName"
+            label: "Update",
+            icon: "loop",
+            visible: (data) => {
+                return true;
+            },
         },
         {
-            cation: "Client ID",
-            dataField: "ClientID"
+            label: "Delete",
+            icon: "delete",
+            visible: (data) => {
+                return true;
+            }
         },
-        {
-            cation: "Street",
-            dataField: "street"
-        },
-        {
-            caption: "City",
-            dataField: "city"
-        },
-        {
-            caption: "State",
-            dataField: "state"
-        }];
-
-    gridData: any[] = [];
-    updateData: any[] = [];
-
+    ];
 
     constructor(
         private companiesService: RestCompaniesService,
@@ -63,6 +55,58 @@ export class CompaniesComponent extends DockableComponent implements OnInit {
         protected applicationRef: ApplicationRef,
     ) {
         super(componentFactoryResolver, injector, applicationRef);
+        const that = this;
+        this.columns = [
+            { caption: "Company Name", dataField: "companyName" },
+            { caption: "Client ID", dataField: "ClientID" },
+            { caption: "Street", dataField: "street" },
+            { caption: "City", dataField: "city" },
+            { caption: "State", dataField: "state" },
+        ];
+    }
+
+    public rowActionClick(e) {
+        switch (e.action.label) {
+            case "Update": {
+                this.openDialog(e.data.id);
+                break;
+            }
+            case "Delete": {
+                this.openDialog(e.data.id, "D");
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
+
+    /**
+     * Loading last saved table state
+     * @param ev Grid component
+     */
+    onInitialized(e) {
+        this.dataGrid = e.compoment ? e.component : e;
+        this.loadState(e);
+        this.initData();
+    }
+
+
+    /**
+     * Saving last table state
+     */
+    saveState() {
+        // TBD
+        // this.hitlistSettingsService.saveState("company", this.dataGrid);
+    }
+
+    /**
+     * Loading last saved table state
+     * @param ev Grid component
+     */
+    loadState(ev) {
+        // TBD
+        // this.hitlistSettingsService.loadState("company", ev.component ? ev.component : this.dataGrid);
     }
 
     /**
@@ -77,14 +121,15 @@ export class CompaniesComponent extends DockableComponent implements OnInit {
 
         this.companySub = dialogRef.afterClosed().subscribe(result => {
             if (result) {
+                console.log(result);
                 this.companiesService.saveCompany(result).then(
                     (data) => {
                         if (result.id) {
                             data.id = result.id;
-                            this.updateData = [data];
+                            this.dataGrid.updateRow(data);
                             this.toasterService.pop("info", "Company updated", data.companyName + " successfully updated");
                         } else {
-                            this.updateData = [data];
+                            this.dataGrid.insertRow(data);
                             this.toasterService.pop("info", "Company created", data.companyName + " successfully created");
                         }
                     })
@@ -105,19 +150,8 @@ export class CompaniesComponent extends DockableComponent implements OnInit {
             if (result) {
                 this.companiesService.delCompany(id).then(
                     (data) => {
-                        this.updateData = [data];
-                        this.toasterService.pop("info", "Company deleted", result.companyName + " successfully deleted");
-
-                        // this.dataSourceControl.dataSource.store().byKey(id).then(
-                        //     (dataItem) => {
-                        //         const removeRes = dataItem;
-                        //         this.dataSourceControl.remove(id);
-                        //         this.toasterService.pop("info", "Company deleted", removeRes.companyName + " successfully deleted");
-                        //     },
-                        //     (error) => {
-                        //         this.logger.error(error);
-                        //     }
-                        // );
+                        this.dataGrid.updateRow({ id });
+                        this.toasterService.pop("info", "Company deleted", "Successfully deleted");
                     })
                     .catch((error) => {
                         this.logger.error(error);
@@ -152,15 +186,14 @@ export class CompaniesComponent extends DockableComponent implements OnInit {
 
     }
 
-    ngOnInit(): void {
+    initData() {
         this.companiesService.getCompanies().then((data: any) => {
-            console.log( data[0]);
-            this.gridData = data[0];
+            this.dataGrid.setData(data[0]);
         }).catch(error => { this.logger.error(error); });
     }
 
-    public onRowClick(evt) {
-        console.log(evt);
+    ngOnInit(): void {
+
     }
 
 }

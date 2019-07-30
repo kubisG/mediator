@@ -1,12 +1,9 @@
 import { Component, OnInit, ViewChild, ComponentFactoryResolver, Injector, ApplicationRef } from "@angular/core";
 import { MatDialog } from "@angular/material";
 
-import DataSource from "devextreme/data/data_source";
-import ArrayStore from "devextreme/data/array_store";
 
 import { DialogUserComponent } from "./dialog-user/dialog-user.component";
 import { RestUsersService } from "../rest/rest-users.service";
-import { DxDataGridComponent } from "devextreme-angular/ui/data-grid";
 import { ConfirmDialogComponent, LoggerService } from "@ra/web-shared-fe";
 import { Dockable, LayoutRights, DockableComponent } from "@ra/web-components";
 import { ToasterService } from "angular2-toaster";
@@ -25,20 +22,41 @@ import { ToasterService } from "angular2-toaster";
     styleUrls: ["./users.component.less"]
 })
 export class UsersComponent extends DockableComponent implements OnInit {
-    @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;
 
-    public dataSource: any = {};
-    public dataStore: any = {};
-    public apps: any[] = [
-        { id: 0, label: "Trader&Broker" },
-        { id: 1, label: "Trader" },
-        { id: 2, label: "Broker" }
-    ];
-
-    private dataArray: any = [{}];
     private userSub;
     private user = {};
     private prefs = {};
+
+    private dataGrid;
+    public columns;
+
+    public actions = [
+        {
+            label: "Update",
+            icon: "loop",
+            visible: (data) => {
+                return true;
+            },
+        },
+        {
+            label: "Delete",
+            icon: "delete",
+            visible: (data) => {
+                return true;
+            }
+        },
+        {
+            label: "Log user",
+            icon: "event_note",
+            visible: (data) => {
+                return true;
+            },
+            color: (d) => {
+                return this.prefs[d.data.id + "-" + d.data.company.id]
+                    && this.prefs[d.data.id + "-" + d.data.company.id].logging;
+            }
+        },
+    ];
 
     constructor(
         private usersService: RestUsersService,
@@ -50,22 +68,69 @@ export class UsersComponent extends DockableComponent implements OnInit {
         protected applicationRef: ApplicationRef,
     ) {
         super(componentFactoryResolver, injector, applicationRef);
+        const that = this;
+        this.columns = [
+            { caption: "User name", dataField: "username" },
+            { caption: "Email", dataField: "email" },
+            { caption: "Last name", dataField: "lastName" },
+            { caption: "Company", dataField: "company.companyName" },
+            { caption: "User type", dataField: "class" },
 
+        ];
+    }
+
+    public rowActionClick(e) {
+        switch (e.action.label) {
+            case "Update": {
+                this.openDialog(e.data.id);
+                break;
+            }
+            case "Delete": {
+                this.openDialog(e.data.id, "D");
+                break;
+            }
+            case "Log user": {
+                this.enableLogging(e.data.data);
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
+
+    public onInitialized(e) {
+        this.dataGrid = e.compoment ? e.component : e;
+        this.loadState(e);
+        this.loadData();
+    }
+
+    /**
+     * Saving last table state
+     */
+    saveState() {
+        // TBD
+        // this.hitlistSettingsService.saveState("user", this.dataGrid);
+    }
+
+    /**
+     * Loading last saved table state
+     * @param ev Grid component
+     */
+    loadState(ev) {
+        // TBD
+        // this.hitlistSettingsService.loadState("user", ev.component ? ev.component : this.dataGrid);
     }
 
     ngOnInit() {
         this.usersService.getUsersLayoutPreferences().then((data) => {
             this.prefs = data;
         });
+    }
+
+    loadData() {
         this.usersService.getUsers().then((data: any) => {
-            this.dataArray = data[0];
-            this.dataStore = new ArrayStore({
-                key: "id",
-                data: this.dataArray
-            });
-            this.dataSource = new DataSource({
-                store: this.dataStore,
-            });
+            this.dataGrid.setData(data[0]);
         }).catch(error => { this.logger.error(error); });
     }
 
@@ -85,13 +150,11 @@ export class UsersComponent extends DockableComponent implements OnInit {
                 ).then(
                     (data) => {
                         if (result.id) {
-                            this.dataSource.store().update(result.id, data).then((a) => {
-                                this.dataSource.reload();
+                            this.dataGrid.updateRow(data).then((a) => {
                                 this.toasterService.pop("info", "User updated", data.username + " successfully updated");
                             });
                         } else {
-                            this.dataSource.store().insert(data).then((a) => {
-                                this.dataSource.reload();
+                            this.dataGrid.insertRow(data).then((a) => {
                                 this.toasterService.pop("info", "User created", data.username + " successfully created");
                             });
                         }
@@ -113,21 +176,14 @@ export class UsersComponent extends DockableComponent implements OnInit {
             if (result) {
                 this.usersService.delUser(id).then(
                     (data) => {
-                        this.dataSource.store().byKey(id).then(
-                            (dataItem) => {
-                                const removeRes = dataItem;
-                                this.dataSource.store().remove(id).then((a) => {
-                                    this.toasterService.pop("info", "User deleted", removeRes.username + " successfully deleted");
-                                    this.dataSource.reload();
-                                });
-                            },
-                            (error) => { this.logger.error(error); }
-                        );
-                    })
-                    .catch((error) => {
-                        this.logger.error(error);
-                        this.toasterService.pop("error", "Database error", error.error.message);
-                    });
+                        this.dataGrid.updateRow({ id }).then((a) => {
+                            this.toasterService.pop("info", "User deleted", "Successfully deleted");
+                        });
+                    }
+                ).catch((error) => {
+                    this.logger.error(error);
+                    this.toasterService.pop("error", "Database error", error.error.message);
+                });
 
             }
         });
@@ -154,7 +210,7 @@ export class UsersComponent extends DockableComponent implements OnInit {
                     this.user = {};
                 });
         } else {
-            this.user = { id: null, company: {}, currentBalance: {}, openBalance: {} };
+            this.user = { id: null, company: {} };
             this.openUser();
         }
 
