@@ -16,3 +16,5 @@ export { WebSocketSetup, WebSocketEvent } from "./src/app/core/websocket/decorat
 export { ChannelsMap } from "./src/app/core/channels-map";
 export { ReactiveList } from "./src/app/core/reactive-list";
 export { LayoutEvents } from "./src/app/core/enums/layout-events.enum";
+export { SubscriptionManager } from "./src/app/core/subscription-manager";
+export { SubscriptionManagerCollection } from "./src/app/core/subscription-manager-collection";
