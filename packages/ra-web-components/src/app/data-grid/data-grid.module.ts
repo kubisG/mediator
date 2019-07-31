@@ -10,12 +10,14 @@ import { SharedModule } from "@ra/web-shared-fe";
 import { DATA_GRID_COMPONENTS } from "./data-grid-components-map.interface";
 import { DataAgGridComponent } from "../data-ag-grid/data-ag-grid.component";
 import { DataDxGridComponent } from "../data-dx-grid/data-dx-grid.component";
+import { CoreModule } from "@ra/web-core-fe";
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
         FormsModule,
+        CoreModule,
         RouterModule,
         MaterialModule,
         SharedModule,

@@ -1,0 +1,22 @@
+<div class="backend-filter">
+    <select class="operators-list" (change)="onChange($event.target.value)">
+        <option *ngFor="let operator of operators" [value]="operator.name" [selected]="selected.name === operator.name">
+            {{operator.name}}
+        </option>
+    </select>
+    <div [ngSwitch]="selected.name">
+        <ra-start-with [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[0].name"></ra-start-with>
+        <ra-end-with [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[1].name"></ra-end-with>
+        <ra-contains [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[2].name"></ra-contains>
+        <ra-in [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[3].name"></ra-in>
+        <ra-not [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[4].name"></ra-not>
+        <ra-between [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[5].name"></ra-between>
+        <ra-equal [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[6].name"></ra-equal>
+        <ra-greater [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[7].name"></ra-greater>
+        <ra-greater-or-equal [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[8].name"></ra-greater-or-equal>
+        <ra-less [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[9].name"></ra-less>
+        <ra-less-or-equal [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[10].name"></ra-less-or-equal>
+        <ra-not-equal [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[11].name"></ra-not-equal>
+        <div *ngSwitchDefault>Choose operator</div>
+    </div>
+</div>

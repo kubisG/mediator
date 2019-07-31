@@ -1,5 +1,5 @@
 export interface GridColumn {
-
+    backendFilter: boolean;
     dataField: string;
     caption?: string;
     enableRowGroup?: boolean;

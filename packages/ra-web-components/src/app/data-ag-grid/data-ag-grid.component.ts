@@ -9,6 +9,7 @@ import * as _ from "lodash";
 import { Side } from "@ra/web-shared-fe";
 import { SelectEditorComponent } from "./select-editor/select-editor.component";
 import { NumberEditorComponent } from "./number-editor/number-editor.component";
+import { BackendFilterComponent } from "./backend-filter/backend-filter.component";
 
 @Component({
     selector: "ra-data-ag-grid",
@@ -32,7 +33,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     public aggFuncs = {};
 
-    public frameworkComponents = { agColumnHeader: HeaderColumnComponent };
+    public frameworkComponents = { backendFilter: BackendFilterComponent };
 
     public gridOptions: GridOptions;
     public data: any[] = [];
@@ -146,9 +147,17 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         };
     }
 
+    private initFilter(column: any) {
+        if (column.backendFilter === true) {
+            return "backendFilter";
+        }
+        return (column.allowHeaderFiltering || column.allowHeaderFiltering === undefined) ? true : false
+    }
+
     private setColumns(columns: GridColumn[]) {
         const cls = [];
         columns.forEach((column) => {
+            column.backendFilter = true;
             if (column.raValidators) {
                 this.gridValidators[column.dataField] = column.raValidators;
             }
@@ -164,7 +173,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                 sort: column.sort,
                 sortable: (column.allowSorting || column.allowSorting === undefined) ? true : false,
                 resizable: (column.allowResizing || column.allowResizing === undefined) ? true : false,
-                filter: (column.allowHeaderFiltering || column.allowHeaderFiltering === undefined) ? true : false,
+                filter: this.initFilter(column),
                 editable: column.allowEditing,
                 type: column.type,
                 width: column.width,
@@ -179,6 +188,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                 valueParser: column.valueParser,
                 valueGetter: column.valueGetter,
                 cellRendererFramework: column.cellRendererFramework,
+
                 comparator: column.comparator,
                 headerCheckboxSelection: column.headerCheckboxSelection,
                 checkboxSelection: column.checkboxSelection,
@@ -388,7 +398,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
             onGridReady: this.onGridReady(),
             rowSelection: "multiple",
             onFirstDataRendered(params) { },
-            //    frameworkComponents: this.frameworkComponents,
+            frameworkComponents: this.frameworkComponents,
             columnTypes: {
                 dateColumn: {
                     filter: "agDateColumnFilter", suppressMenu: true
