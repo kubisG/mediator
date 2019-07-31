@@ -1,14 +1,16 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, Injector, ApplicationRef } from "@angular/core";
+import { Component, OnInit, Inject, ComponentFactoryResolver, Injector, ApplicationRef, LOCALE_ID } from "@angular/core";
 import { RestPreferencesService } from "../rest/rest-preferences.service";
-import { DxDataGridComponent } from "devextreme-angular/ui/data-grid";
-import { ToasterService, Toast } from "angular2-toaster";
-import { RestCompaniesService } from "../rest/rest-companies.service";
-import { RestUsersService } from "../rest/rest-users.service";
 import { MatDialog } from "@angular/material";
 import { PreferencesDialogComponent } from "./preferences-dialog/preferences-dialog.component";
+import { NotifyListService } from "@ra/web-components/src/app/notify/notify-list.service";
 import { Observable } from "rxjs/internal/Observable";
 import { ConfirmDialogComponent } from "@ra/web-shared-fe";
 import { Dockable, LayoutRights, DockableComponent } from "@ra/web-components";
+import { hitlistFormatValue } from "@ra/web-shared-fe/src/app/shared/utils";
+import { ToasterService, Toast } from "angular2-toaster";
+import { RestCompaniesService } from "../rest/rest-companies.service";
+import { RestUsersService } from "../rest/rest-users.service";
+
 
 @LayoutRights({
     roles: ["ADMIN"]
@@ -16,7 +18,7 @@ import { Dockable, LayoutRights, DockableComponent } from "@ra/web-components";
 @Dockable({
     label: "Preferences",
     icon: "playlist_add_check",
-    single: true
+    single: false
 })
 @Component({
     selector: "ra-preferences",
@@ -24,38 +26,36 @@ import { Dockable, LayoutRights, DockableComponent } from "@ra/web-components";
     styleUrls: ["preferences.component.less"]
 })
 export class PreferencesComponent extends DockableComponent implements OnInit {
-    @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;
 
     collapsed: boolean;
-    companies: any[];
-    users: any[];
-    gridColumns: any[] = [
-    {
-        caption: "Company",
-        dataField: "companyId"
-    },
-    {
-        cation: "Created",
-        dataField: "createDate"
-    },
-    {
-        cation: "Name",
-        dataField: "name"
-    },
-    {
-        caption: "User",
-        dataField: "userId"
-    },
-    {
-        caption: "Value",
-        dataField: "value"
-    }];
-    gridData: any[] = [];
-    updateData: any[] = [];
-    removeData: any[] = [];
+    companies: any[] = [];
+    users: any[] = [];
 
+
+    private dataGrid;
+    public columns;
+    public hitlistFormat = hitlistFormatValue;
+
+
+    public actions = [
+        {
+            label: "Update",
+            icon: "loop",
+            visible: (data) => {
+                return true;
+            },
+        },
+        {
+            label: "Delete",
+            icon: "delete",
+            visible: (data) => {
+                return true;
+            }
+        }
+    ];
 
     constructor(
+        @Inject(LOCALE_ID) private locale: string,
         private restPreferencesService: RestPreferencesService,
         private restCompaniesService: RestCompaniesService,
         private restUsersService: RestUsersService,
@@ -66,28 +66,72 @@ export class PreferencesComponent extends DockableComponent implements OnInit {
         protected applicationRef: ApplicationRef,
     ) {
         super(componentFactoryResolver, injector, applicationRef);
-        console.log("constructor", this);
+        const that = this;
+        this.restCompaniesService.getCompanies().then((data) => {
+            console.log("comp", data);
+            this.companies = data[0];
+            this.companies.push({ id: 0, companyName: "APP" });
+        });
+        this.restUsersService.getUsers().then((data) => {
+            this.users = data[0];
+            this.users.push({ id: 0, username: "APP", email: "APP" });
+        });
+        this.columns = [
+            {
+                caption: "Company", dataField: "companyId", valueFormatter: (data) => {
+                    return that.hitlistFormat(data,
+                        {
+                            dataField: "companyId", dataType: "lookup",
+                            lookup: { dataSource: that.companies, valueExpr: "id", displayExpr: "companyName" }
+                        }
+                    );
+                }
+            },
+            {
+                caption: "Created", dataField: "createDate", valueFormatter: (data) =>  {
+                    return that.hitlistFormat(data,
+                        { locale: that.locale, dataField: "createDate", dataType: "date", format: "y/MM/dd" }
+                    );
+                }
+            },
+            { caption: "Name", dataField: "name" },
+            {
+                caption: "User", dataField: "userId", valueFormatter: (data) =>  {
+                    return that.hitlistFormat(data,
+                        {
+                            dataField: "userId", dataType: "lookup",
+                            lookup: { dataSource: that.users, valueExpr: "id", displayExpr: "email" }
+                        }
+                    );
+                }
+            },
+            {
+                caption: "value", dataField: "value"
+            },
+        ];
     }
 
 
-    private reloadData() {
-        this.restPreferencesService.getAllPrefs().then((data) => {
-            this.gridData = data;
-        });
+    public rowActionClick(e) {
+        console.log("row click", e);
+        switch (e.action.label) {
+            case "Update": {
+                this.editPreference(e.data.data);
+                break;
+            }
+            case "Delete": {
+                this.deletePreference(e.data.data);
+                break;
+            }
+            default: {
+                break;
+            }
+        }
     }
 
     private loadData() {
-        Promise.all([
-            this.restCompaniesService.getCompanies().then((data) => {
-                this.companies = data[0];
-                this.companies.push({ id: 0, companyName: "APP" });
-            }),
-            this.restUsersService.getUsers().then((data) => {
-                this.users = data[0];
-                this.users.push({ id: 0, username: "APP", email: "APP" });
-            })
-        ]).then(() => {
-            this.reloadData();
+        this.restPreferencesService.getAllPrefs().then((data) => {
+            this.dataGrid.setData(data);
         });
     }
 
@@ -104,6 +148,26 @@ export class PreferencesComponent extends DockableComponent implements OnInit {
         return dialogRef.afterClosed();
     }
 
+    saveState() {
+        // TBD
+        // this.hitlistSettingsService.saveState("admin-prefs", this.dataGrid);
+    }
+
+    /**
+     * Loading last saved table state
+     * @param ev Grid component
+     */
+    loadState(ev) {
+        // TBD
+        // this.hitlistSettingsService.loadState("admin-prefs", ev.component ? ev.component : this.dataGrid);
+    }
+
+    public onInitialized(e) {
+        this.dataGrid = e.compoment ? e.component : e;
+        this.loadState(e);
+        this.loadData();
+    }
+
     public newPreference() {
         this.editPreference({
             value: ""
@@ -111,11 +175,12 @@ export class PreferencesComponent extends DockableComponent implements OnInit {
     }
 
     public editPreference(data: any) {
+        console.log(data);
         this.preferenceDialog(data).subscribe((result) => {
             if (result) {
                 this.restPreferencesService.savePref(result).then(() => {
                     this.toasterService.pop("info", "Preference", "successfully saved");
-                    this.reloadData();
+                    this.loadData();
                 }).catch((err) => {
                     this.toasterService.pop("error", "Preference", "not saved");
                 });
@@ -131,7 +196,7 @@ export class PreferencesComponent extends DockableComponent implements OnInit {
             if (result) {
                 this.restPreferencesService.deletePref(data.name, data.userId, data.companyId).then(() => {
                     this.toasterService.pop("info", "Preference", "successfully deleted");
-                    this.reloadData();
+                    this.loadData();
                 }).catch((err) => {
                     this.toasterService.pop("error", "Preference", "not deleted");
                 });
@@ -152,10 +217,6 @@ export class PreferencesComponent extends DockableComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.loadData();
     }
 
-    public onRowClick(evt) {
-        console.log(evt);
-    }
 }
