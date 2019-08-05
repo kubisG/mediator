@@ -5,18 +5,35 @@
         </option>
     </select>
     <div [ngSwitch]="selected.name">
-        <ra-start-with [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[0].name"></ra-start-with>
-        <ra-end-with [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[1].name"></ra-end-with>
-        <ra-contains [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[2].name"></ra-contains>
-        <ra-in [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[3].name"></ra-in>
-        <ra-not [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[4].name"></ra-not>
-        <ra-between [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[5].name"></ra-between>
-        <ra-equal [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[6].name"></ra-equal>
-        <ra-greater [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[7].name"></ra-greater>
-        <ra-greater-or-equal [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[8].name"></ra-greater-or-equal>
-        <ra-less [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[9].name"></ra-less>
-        <ra-less-or-equal [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[10].name"></ra-less-or-equal>
-        <ra-not-equal [column]="columnName" [output]="onOutput($event)" *ngSwitchCase="operators[11].name"></ra-not-equal>
+        <ra-function-operator [params]="params" [column]="columnName" [type]="operators[0].type"
+            (output)="onOutput($event)" *ngSwitchCase="operators[0].name">
+        </ra-function-operator>
+        <ra-function-operator [params]="params" [column]="columnName" [type]="operators[1].type"
+            (output)="onOutput($event)" *ngSwitchCase="operators[1].name">
+        </ra-function-operator>
+        <ra-function-operator [params]="params" [column]="columnName" [type]="operators[2].type"
+            (output)="onOutput($event)" *ngSwitchCase="operators[2].name">
+        </ra-function-operator>
+        <ra-in [params]="params" [column]="columnName" (output)="onOutput($event)" *ngSwitchCase="operators[3].name">
+        </ra-in>
+        <ra-unary-operator [params]="params" [column]="columnName" [type]="operators[4].type"
+            (output)="onOutput($event)" *ngSwitchCase="operators[4].name">
+        </ra-unary-operator>
+        <ra-between [params]="params" [column]="columnName" (output)="onOutput($event)"
+            *ngSwitchCase="operators[5].name">
+        </ra-between>
+        <ra-binary-operator [params]="params" [column]="columnName" [type]="operators[6].type"
+            (output)="onOutput($event)" *ngSwitchCase="operators[6].name"></ra-binary-operator>
+        <ra-binary-operator [params]="params" [column]="columnName" [type]="operators[7].type"
+            (output)="onOutput($event)" *ngSwitchCase="operators[7].name"></ra-binary-operator>
+        <ra-binary-operator [params]="params" [column]="columnName" [type]="operators[8].type"
+            (output)="onOutput($event)" *ngSwitchCase="operators[8].name"></ra-binary-operator>
+        <ra-binary-operator [params]="params" [column]="columnName" [type]="operators[9].type"
+            (output)="onOutput($event)" *ngSwitchCase="operators[9].name"></ra-binary-operator>
+        <ra-binary-operator [params]="params" [column]="columnName" [type]="operators[10].type"
+            (output)="onOutput($event)" *ngSwitchCase="operators[10].name"></ra-binary-operator>
+        <ra-binary-operator [params]="params" [column]="columnName" [type]="operators[11].type"
+            (output)="onOutput($event)" *ngSwitchCase="operators[11].name"></ra-binary-operator>
         <div *ngSwitchDefault>Choose operator</div>
     </div>
 </div>

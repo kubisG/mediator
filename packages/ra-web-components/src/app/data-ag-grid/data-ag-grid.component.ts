@@ -1,15 +1,20 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from "@angular/core";
-import { GridOptions, RowNode, RowNodeTransaction } from "ag-grid-community";
+import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter, OnDestroy } from "@angular/core";
+import { GridOptions, RowNode } from "ag-grid-community";
 import { DataGridInterface } from "../data-grid/data-grid-interface";
 import "ag-grid-enterprise";
 import { GridColumn } from "../data-grid/interfaces/grid-column.interface";
-import { HeaderColumnComponent } from "./header-column/header-column.component";
 import { HeaderComp, IHeaderParams } from "ag-grid-community/dist/lib/headerRendering/header/headerComp";
 import * as _ from "lodash";
 import { Side } from "@ra/web-shared-fe";
 import { SelectEditorComponent } from "./select-editor/select-editor.component";
 import { NumberEditorComponent } from "./number-editor/number-editor.component";
 import { BackendFilterComponent } from "./backend-filter/backend-filter.component";
+import { Operator } from "../store-querying/operators/operator.interface";
+import { SubscriptionManager, SubscriptionManagerCollection } from "@ra/web-core-fe";
+import { ClearOperator } from "../store-querying/operators/clear-operator";
+import { GroupOperator } from "../store-querying/operators/group-operator";
+import { GroupOperatorType } from "../store-querying/operators/group-operator-type.enum";
+import { QueryBuilderService } from "../store-querying/query-builder.service";
 
 @Component({
     selector: "ra-data-ag-grid",
@@ -17,12 +22,13 @@ import { BackendFilterComponent } from "./backend-filter/backend-filter.componen
     styleUrls: ["./data-ag-grid.component.less"],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DataAgGridComponent implements DataGridInterface, OnInit {
+export class DataAgGridComponent implements DataGridInterface, OnInit, OnDestroy {
 
     static funcs: string[] = ["avg", "sum", "min", "max", "average"];
 
     @Input() theme = "ag-theme-dark";
 
+    private subscriptions: SubscriptionManagerCollection;
     private gridValidators: any[] = [];
     private init = true;
     private filtered = false;
@@ -43,11 +49,13 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     public rowActions = [];
     public gridState;
     public editable;
+    public backEndFilters: { [key: string]: Operator } = {};
 
     @Output() initialized: EventEmitter<any> = new EventEmitter();
     @Output() selected: EventEmitter<any> = new EventEmitter();
     @Output() rowSelected: EventEmitter<any> = new EventEmitter();
     @Output() buttonClick: EventEmitter<any> = new EventEmitter();
+    @Output() backEndFilterOut: EventEmitter<Operator> = new EventEmitter<Operator>();
 
 
     @Input() set colors(data) {
@@ -99,7 +107,10 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     constructor(
         private cd: ChangeDetectorRef,
+        private subscriptionManager: SubscriptionManager,
+        private queryBuilderService: QueryBuilderService,
     ) {
+        this.subscriptions = this.subscriptionManager.createCollection(this);
         this.overrideHeaderCompInit();
     }
 
@@ -219,6 +230,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     private onGridReady() {
         return () => {
             if (this.gridOptions.api && this.columns) {
+                this.subscribeBackendFilterData();
                 this.gridOptions.api.setDomLayout(`normal`);
                 this.gridOptions.api.setAlwaysShowVerticalScroll(true);
                 if (this.data.length > 0) {
@@ -321,6 +333,31 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
             return node.data[this.filter.column] === this.filter.value;
         } else {
             return true;
+        }
+    }
+
+    private groupBackendFilters() {
+        const group = new GroupOperator();
+        group.operatorType = GroupOperatorType.And;
+        for (const filter of Object.keys(this.backEndFilters)) {
+            group.operands.push(this.backEndFilters[filter]);
+        }
+        return group;
+    }
+
+    private subscribeBackendFilterData() {
+        for (const column of this.columns) {
+            const agGridFilter = this.gridOptions.api.getFilterInstance(column.headerName);
+            const ng2FilterInstance = agGridFilter.getFrameworkComponentInstance();
+            this.subscriptions.add = ng2FilterInstance.outOperator.subscribe((out: { column: string, operator: Operator }) => {
+                if (out.operator instanceof ClearOperator) {
+                    delete this.backEndFilters[out.column];
+                } else {
+                    this.backEndFilters[out.column] = out.operator;
+                    const group = this.groupBackendFilters();
+                    this.backEndFilterOut.emit(group);
+                }
+            });
         }
     }
 
@@ -434,6 +471,11 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     }
 
     public ngOnInit(): void {
+
+    }
+
+    public ngOnDestroy(): void {
+        this.subscriptions.unsubscribe();
     }
 
     public getState(): any {

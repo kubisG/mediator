@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, EventEmitter } from "@angular/core";
+import { Operator } from "../store-querying/operators/operator.interface";
 
 export interface DataGridInterface {
 
@@ -14,6 +15,7 @@ export interface DataGridInterface {
     selected: EventEmitter<any>;
     rowSelected: EventEmitter<any>;
     buttonClick: EventEmitter<any>;
+    backEndFilterOut: EventEmitter<Operator>;
 
     reset(): void;
 

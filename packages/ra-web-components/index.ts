@@ -40,3 +40,6 @@ export { RaWebAgentService } from "./src/app/ra-web-agent/ra-web-agent.service";
 export { Context } from "./src/app/ra-web-agent/interfaces/context.interface";
 export { FDC3ComponentService } from "./src/app/fdc3/fdc3-component-service";
 export { FDC3Config } from "./src/app/fdc3/fdc3-config.interface";
+export { StoreQueriyngModule } from "./src/app/store-querying/store-querying.module";
+export { QueryBuilderService } from "./src/app/store-querying/query-builder.service";
+export { Operator } from "./src/app/store-querying/operators/operator.interface";

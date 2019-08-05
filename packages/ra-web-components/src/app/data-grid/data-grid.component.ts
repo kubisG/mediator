@@ -19,6 +19,7 @@ import { ReplaySubject } from "rxjs/internal/ReplaySubject";
 import { Observable } from "rxjs/internal/Observable";
 import { GridColumn } from "./interfaces/grid-column.interface";
 import { SubscriptionManager, SubscriptionManagerCollection } from "@ra/web-core-fe";
+import { Operator } from "../store-querying/operators/operator.interface";
 @Component({
     selector: "ra-data-grid",
     templateUrl: "./data-grid.component.html",
@@ -56,6 +57,7 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
     @Output() selected: EventEmitter<any> = new EventEmitter();
     @Output() rowSelected: EventEmitter<any> = new EventEmitter();
     @Output() buttonClick: EventEmitter<any> = new EventEmitter();
+    @Output() backEndFilterOut: EventEmitter<Operator> = new EventEmitter<Operator>();
 
     @Input() set initData(data: any[]) {
         if (data && data.length > 0) {
@@ -166,6 +168,11 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
         this.subscriptions.add = this.componentRef.instance.buttonClick.subscribe((data) => {
             if (data) {
                 this.buttonClick.emit(data);
+            }
+        });
+        this.subscriptions.add = this.componentRef.instance.backEndFilterOut.subscribe((operator: Operator) => {
+            if (operator) {
+                this.backEndFilterOut.emit(operator);
             }
         });
 

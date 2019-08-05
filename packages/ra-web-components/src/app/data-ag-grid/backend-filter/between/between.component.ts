@@ -1,15 +1,28 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { FunctionOperator } from "../../../store-querying/operators/function-operator";
-import { OperatorComponent } from "../operator-component.interface";
+import { OperatorComponent } from "../operator.component";
+import { BetweenOperator } from "../../../store-querying/operators/between-operator";
+import { OperandProperty } from "../../../store-querying/operators/operand-property";
+import { OperandValue } from "../../../store-querying/operators/operand-value";
 
 @Component({
     selector: "ra-between",
     templateUrl: "./between.component.html",
     styleUrls: ["./between.component.less"]
 })
-export class BetweenComponent implements OperatorComponent<FunctionOperator> {
+export class BetweenComponent extends OperatorComponent<BetweenOperator, void> {
 
-    @Input() column: string;
-    @Output() output: EventEmitter<FunctionOperator> = new EventEmitter<FunctionOperator>();
+    operator = new BetweenOperator();
+
+    set valueFrom(value: string) {
+        this.operator.testExpression = new OperandProperty(this.column);
+        this.operator.beginExpression = new OperandValue(value);
+        this.output.emit(this.operator);
+    }
+
+    set valueTo(value: string) {
+        this.operator.testExpression = new OperandProperty(this.column);
+        this.operator.endExpression = new OperandValue(value);
+        this.output.emit(this.operator);
+    }
 
 }
