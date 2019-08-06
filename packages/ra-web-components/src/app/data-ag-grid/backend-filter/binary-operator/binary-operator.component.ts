@@ -17,6 +17,7 @@ export class BinaryOperatorComponent extends OperatorComponent<BinaryOperator, B
     set value(value: string) {
         this.operator.operatorType = this.type;
         this.operator.operands = [new OperandProperty(this.column), new OperandValue(value)];
+        console.log("this.operator", this.operator);
         this.output.emit(this.operator);
     }
 

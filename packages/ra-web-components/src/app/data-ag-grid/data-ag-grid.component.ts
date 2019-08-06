@@ -15,7 +15,7 @@ import { ClearOperator } from "../store-querying/operators/clear-operator";
 import { GroupOperator } from "../store-querying/operators/group-operator";
 import { GroupOperatorType } from "../store-querying/operators/group-operator-type.enum";
 import { QueryBuilderService } from "../store-querying/query-builder.service";
-
+import { Observable } from "rxjs/internal/Observable";
 @Component({
     selector: "ra-data-ag-grid",
     templateUrl: "./data-ag-grid.component.html",
@@ -98,6 +98,8 @@ export class DataAgGridComponent implements DataGridInterface, OnInit, OnDestroy
         this.setSumColumns(columns);
         this.cd.markForCheck();
     }
+
+    @Input() clear: Observable<void>;
 
     @Input() gridKey: string;
 
@@ -251,6 +253,11 @@ export class DataAgGridComponent implements DataGridInterface, OnInit, OnDestroy
             return false;
         }
         return true;
+    }
+
+    private clearGrid() {
+        this.gridOptions.api.setRowData(this.data);
+        this.init = false;
     }
 
     private setInitData() {
@@ -471,7 +478,11 @@ export class DataAgGridComponent implements DataGridInterface, OnInit, OnDestroy
     }
 
     public ngOnInit(): void {
-
+        if (this.clear) {
+            this.subscriptions.add = this.clear.subscribe(() => {
+                this.clearGrid();
+            });
+        }
     }
 
     public ngOnDestroy(): void {

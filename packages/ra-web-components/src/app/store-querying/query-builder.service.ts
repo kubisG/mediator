@@ -22,7 +22,7 @@ export class QueryBuilderService {
             const operand = operator.operands[i];
             result += this.build(operand);
             if (i !== operator.operands.length - 1) {
-                result += operator.operatorType === GroupOperatorType.And ? " && " : " || ";
+                result += operator.operatorType === GroupOperatorType.And ? "&&" : "||";
             }
         }
         return result;
@@ -46,6 +46,9 @@ export class QueryBuilderService {
     }
 
     private buildInOperator(operator: InOperator) {
+        if (operator.operands.length === 1) {
+            return `${this.build(operator.leftOperand)}='${this.build(operator.operands[0])}'`;
+        }
         let result = `${this.build(operator.leftOperand)}=(`;
         for (let i = 0; i < operator.operands.length; i++) {
             const operandBuild = this.build(operator.operands[i]);
@@ -59,7 +62,7 @@ export class QueryBuilderService {
     }
 
     private buildOperandValue(operator: OperandValue) {
-        return `'${operator.value}'`;
+        return `${operator.value}`;
     }
 
     private buildUnaryOperator(operator: UnaryOperator) {
@@ -77,28 +80,28 @@ export class QueryBuilderService {
         const beginExpression = this.build(operator.beginExpression);
         const testExpression = this.build(operator.testExpression);
         const endExpression = this.build(operator.endExpression);
-        return `${testExpression}>${beginExpression} && ${testExpression}<${endExpression}`;
+        return `${testExpression}>${beginExpression}&&${testExpression}<${endExpression}`;
     }
 
     private buildBinaryOperator(operator: BinaryOperator) {
         switch (operator.operatorType) {
             case BinaryOperatorType.Equal: {
-                return `${this.build(operator.leftOperand)}=${this.build(operator.rightOperand)}`;
+                return `${this.build(operator.operands[0])}=${this.build(operator.operands[1])}`;
             }
             case BinaryOperatorType.Greater: {
-                return `${this.build(operator.leftOperand)}>${this.build(operator.rightOperand)}`;
+                return `${this.build(operator.operands[0])}>${this.build(operator.operands[1])}`;
             }
             case BinaryOperatorType.GreaterOrEqual: {
-                return `${this.build(operator.leftOperand)}>=${this.build(operator.rightOperand)}`;
+                return `${this.build(operator.operands[0])}>=${this.build(operator.operands[1])}`;
             }
             case BinaryOperatorType.Less: {
-                return `${this.build(operator.leftOperand)}<${this.build(operator.rightOperand)}`;
+                return `${this.build(operator.operands[0])}<${this.build(operator.operands[1])}`;
             }
             case BinaryOperatorType.LessOrEqual: {
-                return `${this.build(operator.leftOperand)}<=${this.build(operator.rightOperand)}`;
+                return `${this.build(operator.operands[0])}<=${this.build(operator.operands[1])}`;
             }
             case BinaryOperatorType.NotEqual: {
-                return `${this.build(operator.leftOperand)}!=${this.build(operator.rightOperand)}`;
+                return `${this.build(operator.operands[0])}!=${this.build(operator.operands[1])}`;
             }
         }
         return "";

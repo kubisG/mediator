@@ -29,6 +29,7 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
 
     private componentRef: ComponentRef<DataGridInterface>;
     private subscriptions: SubscriptionManagerCollection;
+    private _clear: Observable<void>;
 
     private colors: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
     private $colors: Observable<any[]> = this.colors.asObservable();
@@ -58,6 +59,10 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
     @Output() rowSelected: EventEmitter<any> = new EventEmitter();
     @Output() buttonClick: EventEmitter<any> = new EventEmitter();
     @Output() backEndFilterOut: EventEmitter<Operator> = new EventEmitter<Operator>();
+
+    @Input() set clear(clear: Observable<void>) {
+        this._clear = clear;
+    }
 
     @Input() set initData(data: any[]) {
         if (data && data.length > 0) {
@@ -149,6 +154,7 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
         viewContainerRef.clear();
         this.componentRef = viewContainerRef.createComponent(componentFactory);
         this.componentRef.instance.gridKey = this.gridKey;
+        this.componentRef.instance.clear = this._clear;
 
         this.subscriptions.add = this.componentRef.instance.initialized.subscribe((data) => {
             if (data) {

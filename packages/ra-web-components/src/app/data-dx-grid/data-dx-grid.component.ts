@@ -5,6 +5,7 @@ import { DxDataGridComponent } from "devextreme-angular";
 import { DataGridInterface } from "../data-grid/data-grid-interface";
 import * as _ from "lodash";
 import { Operator } from "../store-querying/operators/operator.interface";
+import { Observable } from "rxjs/internal/Observable";
 
 @Component({
     selector: "ra-data-dx-grid",
@@ -12,6 +13,8 @@ import { Operator } from "../store-querying/operators/operator.interface";
     styleUrls: ["./data-dx-grid.component.less"],
 })
 export class DataDxGridComponent implements DataGridInterface, OnInit {
+    clear: Observable<void>;
+
     @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;
 
     public rowColors = {};
@@ -132,7 +135,7 @@ export class DataDxGridComponent implements DataGridInterface, OnInit {
 
     public setFilter(data?) {
         if (data) {
-             this.dataGrid.instance.filter(data);
+            this.dataGrid.instance.filter(data);
         } else {
             this.dataGrid.instance.clearFilter();
         }
