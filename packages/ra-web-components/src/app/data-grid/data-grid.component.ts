@@ -17,8 +17,9 @@ import { DataGridInterface } from "./data-grid-interface";
 import { DATA_GRID_COMPONENTS, DataGridComponentsMap } from "./data-grid-components-map.interface";
 import { ReplaySubject } from "rxjs/internal/ReplaySubject";
 import { Observable } from "rxjs/internal/Observable";
-import { Subscription } from "rxjs/internal/Subscription";
 import { GridColumn } from "./interfaces/grid-column.interface";
+import { SubscriptionManager, SubscriptionManagerCollection } from "@ra/web-core-fe";
+import { Operator } from "../store-querying/operators/operator.interface";
 @Component({
     selector: "ra-data-grid",
     templateUrl: "./data-grid.component.html",
@@ -27,6 +28,8 @@ import { GridColumn } from "./interfaces/grid-column.interface";
 export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
 
     private componentRef: ComponentRef<DataGridInterface>;
+    private subscriptions: SubscriptionManagerCollection;
+    private _clear: Observable<void>;
 
     private colors: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
     private $colors: Observable<any[]> = this.colors.asObservable();
@@ -53,27 +56,17 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
     private $showRowGroup: Observable<string> = this.showRowGroup.asObservable();
 
 
-    private dataSub: Subscription;
-    private updateDataSub: Subscription;
-    private columnsDataSub: Subscription;
-    private sumDataSub: Subscription;
-    private colorsSub: Subscription;
-    private actionSub: Subscription;
-    private editableSub: Subscription;
-    private showRowGroupSub: Subscription;
-
-
-    private initSub: Subscription;
-    private selSub: Subscription;
-    private rowSelSub: Subscription;
-    private buttClickSub: Subscription;
-
     @ViewChild(AdDirective) raAdHost: AdDirective;
 
     @Output() initialized: EventEmitter<any> = new EventEmitter();
     @Output() selected: EventEmitter<any> = new EventEmitter();
     @Output() rowSelected: EventEmitter<any> = new EventEmitter();
     @Output() buttonClick: EventEmitter<any> = new EventEmitter();
+    @Output() backEndFilterOut: EventEmitter<Operator> = new EventEmitter<Operator>();
+
+    @Input() set clear(clear: Observable<void>) {
+        this._clear = clear;
+    }
 
     @Input() set initData(data: any[]) {
         if (data && data.length > 0) {
@@ -131,36 +124,39 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
     @Input() gridKey = "id";
 
     constructor(
+        private subscriptionManager: SubscriptionManager,
         private componentFactoryResolver: ComponentFactoryResolver,
         @Inject(DATA_GRID_COMPONENTS) private dataGridComponent: DataGridComponentsMap,
-    ) { }
+    ) {
+        this.subscriptions = this.subscriptionManager.createCollection(this);
+    }
 
     private subscribeData() {
-        this.dataSub = this.$data.subscribe((data) => {
+        this.subscriptions.add = this.$data.subscribe((data) => {
             this.componentRef.instance.initData = data;
         });
-        this.updateDataSub = this.$updateData.subscribe((data) => {
+        this.subscriptions.add = this.$updateData.subscribe((data) => {
             this.componentRef.instance.update = data;
         });
-        this.columnsDataSub = this.$columnsData.subscribe((data) => {
+        this.subscriptions.add = this.$columnsData.subscribe((data) => {
             this.componentRef.instance.reset();
             this.componentRef.instance.initColumns = data;
         });
-        this.sumDataSub = this.$sumData.subscribe((data) => {
+        this.subscriptions.add = this.$sumData.subscribe((data) => {
             this.componentRef.instance.reset();
             this.componentRef.instance.sumColumns = data;
         });
 
-        this.colorsSub = this.$colors.subscribe((data) => {
+        this.subscriptions.add = this.$colors.subscribe((data) => {
             this.componentRef.instance.colors = data;
         });
-        this.actionSub = this.$rowActions.subscribe((data) => {
+        this.subscriptions.add = this.$rowActions.subscribe((data) => {
             this.componentRef.instance.rowActions = data;
         });
-        this.editableSub = this.$gridEditable.subscribe((data) => {
+        this.subscriptions.add = this.$gridEditable.subscribe((data) => {
             this.componentRef.instance.gridEditable = data;
         });
-        this.showRowGroupSub = this.$showRowGroup.subscribe((data) => {
+        this.subscriptions.add = this.$showRowGroup.subscribe((data) => {
             this.componentRef.instance.showRowGroup = data;
         });
     }
@@ -172,25 +168,31 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
         viewContainerRef.clear();
         this.componentRef = viewContainerRef.createComponent(componentFactory);
         this.componentRef.instance.gridKey = this.gridKey;
+        this.componentRef.instance.clear = this._clear;
 
-        this.initSub = this.componentRef.instance.initialized.subscribe((data) => {
+        this.subscriptions.add = this.componentRef.instance.initialized.subscribe((data) => {
             if (data) {
                 this.initialized.emit(this);
             }
         });
-        this.selSub = this.componentRef.instance.selected.subscribe((data) => {
+        this.subscriptions.add = this.componentRef.instance.selected.subscribe((data) => {
             if (data) {
                 this.selected.emit(data);
             }
         });
-        this.rowSelSub = this.componentRef.instance.rowSelected.subscribe((data) => {
+        this.subscriptions.add = this.componentRef.instance.rowSelected.subscribe((data) => {
             if (data) {
                 this.rowSelected.emit(data);
             }
         });
-        this.buttClickSub = this.componentRef.instance.buttonClick.subscribe((data) => {
+        this.subscriptions.add = this.componentRef.instance.buttonClick.subscribe((data) => {
             if (data) {
                 this.buttonClick.emit(data);
+            }
+        });
+        this.subscriptions.add = this.componentRef.instance.backEndFilterOut.subscribe((operator: Operator) => {
+            if (operator) {
+                this.backEndFilterOut.emit(operator);
             }
         });
 
@@ -286,42 +288,7 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        if (this.dataSub) {
-            this.dataSub.unsubscribe();
-        }
-        if (this.updateDataSub) {
-            this.updateDataSub.unsubscribe();
-        }
-        if (this.columnsDataSub) {
-            this.columnsDataSub.unsubscribe();
-        }
-        if (this.sumDataSub) {
-            this.sumDataSub.unsubscribe();
-        }
-        if (this.colorsSub) {
-            this.colorsSub.unsubscribe();
-        }
-        if (this.initSub) {
-            this.initSub.unsubscribe();
-        }
-        if (this.selSub) {
-            this.selSub.unsubscribe();
-        }
-        if (this.rowSelSub) {
-            this.rowSelSub.unsubscribe();
-        }
-        if (this.buttClickSub) {
-            this.buttClickSub.unsubscribe();
-        }
-        if (this.actionSub) {
-            this.actionSub.unsubscribe();
-        }
-        if (this.editableSub) {
-            this.editableSub.unsubscribe();
-        }
-        if (this.showRowGroupSub) {
-            this.showRowGroupSub.unsubscribe();
-        }
+        this.subscriptions.unsubscribe();
     }
 
     public ngOnInit() {

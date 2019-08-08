@@ -1,28 +1,35 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from "@angular/core";
-import { GridOptions, RowNode, RowNodeTransaction } from "ag-grid-community";
+import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter, OnDestroy } from "@angular/core";
+import { GridOptions, RowNode } from "ag-grid-community";
 import { DataGridInterface } from "../data-grid/data-grid-interface";
 import "ag-grid-enterprise";
 import { GridColumn } from "../data-grid/interfaces/grid-column.interface";
-import { HeaderColumnComponent } from "./header-column/header-column.component";
 import { HeaderComp, IHeaderParams } from "ag-grid-community/dist/lib/headerRendering/header/headerComp";
 import * as _ from "lodash";
 import { Side } from "@ra/web-shared-fe";
 import { SelectEditorComponent } from "./select-editor/select-editor.component";
 import { NumberEditorComponent } from "./number-editor/number-editor.component";
-
+import { BackendFilterComponent } from "./backend-filter/backend-filter.component";
+import { Operator } from "../store-querying/operators/operator.interface";
+import { SubscriptionManager, SubscriptionManagerCollection } from "@ra/web-core-fe";
+import { ClearOperator } from "../store-querying/operators/clear-operator";
+import { GroupOperator } from "../store-querying/operators/group-operator";
+import { GroupOperatorType } from "../store-querying/operators/group-operator-type.enum";
+import { QueryBuilderService } from "../store-querying/query-builder.service";
+import { Observable } from "rxjs/internal/Observable";
 @Component({
     selector: "ra-data-ag-grid",
     templateUrl: "./data-ag-grid.component.html",
     styleUrls: ["./data-ag-grid.component.less"],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DataAgGridComponent implements DataGridInterface, OnInit {
+export class DataAgGridComponent implements DataGridInterface, OnInit, OnDestroy {
 
     static funcs: string[] = ["avg", "sum", "min", "max", "average"];
 
     @Input() theme = "ag-theme-dark";
     @Input() showRowGroup = "always";
 
+    private subscriptions: SubscriptionManagerCollection;
     private gridValidators: any[] = [];
     private init = true;
     private filtered = false;
@@ -33,7 +40,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     public aggFuncs = {};
 
-    public frameworkComponents = { agColumnHeader: HeaderColumnComponent };
+    public frameworkComponents = { backendFilter: BackendFilterComponent };
 
     public gridOptions: GridOptions;
     public data: any[] = [];
@@ -43,11 +50,13 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     public rowActions = [];
     public gridState;
     public editable;
+    public backEndFilters: { [key: string]: Operator } = {};
 
     @Output() initialized: EventEmitter<any> = new EventEmitter();
     @Output() selected: EventEmitter<any> = new EventEmitter();
     @Output() rowSelected: EventEmitter<any> = new EventEmitter();
     @Output() buttonClick: EventEmitter<any> = new EventEmitter();
+    @Output() backEndFilterOut: EventEmitter<Operator> = new EventEmitter<Operator>();
 
 
     @Input() set colors(data) {
@@ -91,6 +100,8 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         this.cd.markForCheck();
     }
 
+    @Input() clear: Observable<void>;
+
     @Input() gridKey: string;
 
     @Input() set gridEditable(data: any) {
@@ -99,7 +110,10 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     constructor(
         private cd: ChangeDetectorRef,
+        private subscriptionManager: SubscriptionManager,
+        private queryBuilderService: QueryBuilderService,
     ) {
+        this.subscriptions = this.subscriptionManager.createCollection(this);
         this.overrideHeaderCompInit();
     }
 
@@ -147,9 +161,17 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         };
     }
 
+    private initFilter(column: any) {
+        if (column.backendFilter === true) {
+            return "backendFilter";
+        }
+        return (column.allowHeaderFiltering || column.allowHeaderFiltering === undefined) ? true : false
+    }
+
     private setColumns(columns: GridColumn[]) {
         const cls = [];
         columns.forEach((column) => {
+            column.backendFilter = true;
             if (column.raValidators) {
                 this.gridValidators[column.dataField] = column.raValidators;
             }
@@ -165,7 +187,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                 sort: column.sort,
                 sortable: (column.allowSorting || column.allowSorting === undefined) ? true : false,
                 resizable: (column.allowResizing || column.allowResizing === undefined) ? true : false,
-                filter: (column.allowHeaderFiltering || column.allowHeaderFiltering === undefined) ? true : false,
+                filter: this.initFilter(column),
                 editable: column.allowEditing,
                 type: column.type,
                 width: column.width,
@@ -180,6 +202,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
                 valueParser: column.valueParser,
                 valueGetter: column.valueGetter,
                 cellRendererFramework: column.cellRendererFramework,
+
                 comparator: column.comparator,
                 headerCheckboxSelection: column.headerCheckboxSelection,
                 checkboxSelection: column.checkboxSelection,
@@ -210,6 +233,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     private onGridReady() {
         return () => {
             if (this.gridOptions.api && this.columns) {
+                this.subscribeBackendFilterData();
                 this.gridOptions.api.setDomLayout(`normal`);
                 this.gridOptions.api.setAlwaysShowVerticalScroll(true);
                 if (this.data.length > 0) {
@@ -230,6 +254,11 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
             return false;
         }
         return true;
+    }
+
+    private clearGrid() {
+        this.gridOptions.api.setRowData(this.data);
+        this.init = false;
     }
 
     private setInitData() {
@@ -314,6 +343,31 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         }
     }
 
+    private groupBackendFilters() {
+        const group = new GroupOperator();
+        group.operatorType = GroupOperatorType.And;
+        for (const filter of Object.keys(this.backEndFilters)) {
+            group.operands.push(this.backEndFilters[filter]);
+        }
+        return group;
+    }
+
+    private subscribeBackendFilterData() {
+        for (const column of this.columns) {
+            const agGridFilter = this.gridOptions.api.getFilterInstance(column.headerName);
+            const ng2FilterInstance = agGridFilter.getFrameworkComponentInstance();
+            this.subscriptions.add = ng2FilterInstance.outOperator.subscribe((out: { column: string, operator: Operator }) => {
+                if (out.operator instanceof ClearOperator) {
+                    delete this.backEndFilters[out.column];
+                } else {
+                    this.backEndFilters[out.column] = out.operator;
+                    const group = this.groupBackendFilters();
+                    this.backEndFilterOut.emit(group);
+                }
+            });
+        }
+    }
+
     public setFilter(data?) {
         if (data && data.length > 0) {
             if (data[0][1] === "=") {
@@ -380,7 +434,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
             onGridReady: this.onGridReady(),
             rowSelection: "multiple",
             onFirstDataRendered(params) { },
-            //    frameworkComponents: this.frameworkComponents,
+            frameworkComponents: this.frameworkComponents,
             columnTypes: {
                 dateColumn: {
                     filter: "agDateColumnFilter", suppressMenu: true
@@ -416,6 +470,15 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     }
 
     public ngOnInit(): void {
+        if (this.clear) {
+            this.subscriptions.add = this.clear.subscribe(() => {
+                this.clearGrid();
+            });
+        }
+    }
+
+    public ngOnDestroy(): void {
+        this.subscriptions.unsubscribe();
     }
 
     public getState(): any {

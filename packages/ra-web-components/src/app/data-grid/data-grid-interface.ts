@@ -1,4 +1,6 @@
 import { ChangeDetectorRef, EventEmitter } from "@angular/core";
+import { Operator } from "../store-querying/operators/operator.interface";
+import { Observable } from "rxjs/internal/Observable";
 
 export interface DataGridInterface {
 
@@ -10,11 +12,13 @@ export interface DataGridInterface {
     rowActions: any[];
     gridEditable: any[];
     gridKey: string;
+    clear: Observable<void>;
     initialized: EventEmitter<any>;
     selected: EventEmitter<any>;
     rowSelected: EventEmitter<any>;
     buttonClick: EventEmitter<any>;
     showRowGroup: string;
+    backEndFilterOut: EventEmitter<Operator>;
 
     reset(): void;
 

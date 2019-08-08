@@ -4,6 +4,8 @@ import ArrayStore from "devextreme/data/array_store";
 import { DxDataGridComponent } from "devextreme-angular";
 import { DataGridInterface } from "../data-grid/data-grid-interface";
 import * as _ from "lodash";
+import { Operator } from "../store-querying/operators/operator.interface";
+import { Observable } from "rxjs/internal/Observable";
 
 @Component({
     selector: "ra-data-dx-grid",
@@ -11,6 +13,8 @@ import * as _ from "lodash";
     styleUrls: ["./data-dx-grid.component.less"],
 })
 export class DataDxGridComponent implements DataGridInterface, OnInit {
+    clear: Observable<void>;
+
     @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;
 
     public rowColors = {};
@@ -21,6 +25,7 @@ export class DataDxGridComponent implements DataGridInterface, OnInit {
     @Output() selected: EventEmitter<any> = new EventEmitter();
     @Output() rowSelected: EventEmitter<any> = new EventEmitter();
     @Output() buttonClick: EventEmitter<any> = new EventEmitter(); // not implemented
+    @Output() backEndFilterOut: EventEmitter<Operator> = new EventEmitter<Operator>();
 
     @Input() showRowGroup;
 
@@ -132,7 +137,7 @@ export class DataDxGridComponent implements DataGridInterface, OnInit {
 
     public setFilter(data?) {
         if (data) {
-             this.dataGrid.instance.filter(data);
+            this.dataGrid.instance.filter(data);
         } else {
             this.dataGrid.instance.clearFilter();
         }

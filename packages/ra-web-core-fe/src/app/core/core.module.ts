@@ -1,4 +1,5 @@
 import { NgModule, ModuleWithProviders } from "@angular/core";
+import { SubscriptionManager } from "./subscription-manager";
 
 @NgModule({
     imports: [
@@ -7,6 +8,8 @@ import { NgModule, ModuleWithProviders } from "@angular/core";
     ],
     exports: [
     ],
-    providers: []
+    providers: [
+        SubscriptionManager,
+    ]
 })
 export class CoreModule { }
