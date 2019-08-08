@@ -13,6 +13,7 @@ export interface BearerToken {
     compQueue: string;
     compQueueTrader: string;
     compQueueBroker: string;
+    userId?: number;
     app: number;
     appPrefs: any;
     ClientID: string;

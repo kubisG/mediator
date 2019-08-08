@@ -107,7 +107,6 @@ export class PreferencesDialogComponent implements OnInit {
         }
         try {
             const pref = { ...this.data };
-            JSON.parse(pref.value);
             pref.newUserId = this.userControl.value.id;
             pref.newCompanyId = this.companyControl.value.id;
             this.dialogRef.close(pref);

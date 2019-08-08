@@ -5,21 +5,19 @@
                 <mat-icon>control_point</mat-icon>
             </button>
 
-            {{ 'admin.users' | translate }}
+            Users
         </mat-card-title>
         <span class="fill-remaining-space"></span>
         <button matTooltip="{{'butt.save.layout' | translate}}" mat-icon-button (click)="saveState()">
             <mat-icon aria-label="Save">send</mat-icon>
         </button>
-        <button mat-icon-button (click)="collapsed=!collapsed">
-            <mat-icon *ngIf="!collapsed" mat-tooltip="Collapse">keyboard_arrow_down</mat-icon>
-            <mat-icon *ngIf="collapsed" mat-tooltip="Uncollapse">keyboard_arrow_right</mat-icon>
-        </button>
     </mat-card-header>
 
-    <mat-card-content *ngIf="!collapsed && columns">
-        <ra-data-grid id="gridContainer" [initColumns]="columns" (initialized)="onInitialized($event)" [gridKey]="'id'"
+    <mat-card-content *ngIf="columns">
+            <div class="grid-wrapper">
+        <ra-data-grid id="gridContainer" [initColumns]="columns" (initialized)="onInitialized($event)" [gridKey]="'id'" [rowGroup]="'never'"
             [actions]="actions" (buttonClick)="rowActionClick($event)">
         </ra-data-grid>
+        </div>
     </mat-card-content>
 </mat-card>

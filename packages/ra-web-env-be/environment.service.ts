@@ -33,6 +33,10 @@ export class EnvironmentService {
         return this.conf.get("app.port");
     }
 
+    get appVersion() {
+        return this.conf.get("app.version");
+    }
+
     get worker() {
         return {
             resending: this.conf.get("worker.resending") ? this.conf.get("worker.resending") : 60

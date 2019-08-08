@@ -18,8 +18,8 @@
                 </mat-option>
             </mat-autocomplete>
         </mat-form-field>
-        <mat-form-field *ngIf="data.userId === undefined && data.companyId === undefined" required>
-            <input name="name" matInput placeholder="Name" [(ngModel)]="data.name">
+        <mat-form-field required>
+            <input [disabled]="!(data.userId === undefined && data.companyId === undefined)" name="name" matInput placeholder="Name" [(ngModel)]="data.name">
         </mat-form-field>
     </form>
     <div class="editor-wrapper">

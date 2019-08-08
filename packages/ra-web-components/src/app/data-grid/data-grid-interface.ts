@@ -14,6 +14,7 @@ export interface DataGridInterface {
     selected: EventEmitter<any>;
     rowSelected: EventEmitter<any>;
     buttonClick: EventEmitter<any>;
+    showRowGroup: string;
 
     reset(): void;
 

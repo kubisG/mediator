@@ -150,13 +150,11 @@ export class UsersComponent extends DockableComponent implements OnInit {
                 ).then(
                     (data) => {
                         if (result.id) {
-                            this.dataGrid.updateRow(data).then((a) => {
-                                this.toasterService.pop("info", "User updated", data.username + " successfully updated");
-                            });
+                            this.dataGrid.updateRow(data);
+                            this.toasterService.pop("info", "User updated", data.username + " successfully updated");
                         } else {
-                            this.dataGrid.insertRow(data).then((a) => {
-                                this.toasterService.pop("info", "User created", data.username + " successfully created");
-                            });
+                            this.dataGrid.insertRow(data);
+                            this.toasterService.pop("info", "User created", data.username + " successfully created");
                         }
                     })
                     .catch((error) => {
@@ -176,9 +174,8 @@ export class UsersComponent extends DockableComponent implements OnInit {
             if (result) {
                 this.usersService.delUser(id).then(
                     (data) => {
-                        this.dataGrid.updateRow({ id }).then((a) => {
-                            this.toasterService.pop("info", "User deleted", "Successfully deleted");
-                        });
+                        this.dataGrid.updateRow({ id });
+                        this.toasterService.pop("info", "User deleted", "Successfully deleted");
                     }
                 ).catch((error) => {
                     this.logger.error(error);

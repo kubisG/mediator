@@ -21,6 +21,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
     static funcs: string[] = ["avg", "sum", "min", "max", "average"];
 
     @Input() theme = "ag-theme-dark";
+    @Input() showRowGroup = "always";
 
     private gridValidators: any[] = [];
     private init = true;
@@ -251,7 +252,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     getData() {
         const rowData = [];
-        this.gridOptions.api.forEachNode((node) => { console.log("getdata", node); rowData.push(node.data); });
+        this.gridOptions.api.forEachNode((node) => { rowData.push(node.data); });
         return rowData;
     }
 
@@ -296,7 +297,6 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
 
     public reset(): void {
         if (this.gridOptions && this.gridOptions.api) {
-            console.log("data set 3");
             // this.gridOptions.api.setRowData([]);
             this.gridOptions.api.setColumnDefs([]);
         }
@@ -363,17 +363,9 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
             this.gridOptions.isExternalFilterPresent = () => this.isFiltered();
             this.gridOptions.stopEditingWhenGridLosesFocus = true;
             this.gridOptions.doesExternalFilterPass = (param) => this.checkFilter(param);
-            if (this.data && this.data.length > 0) {
-                //  this.gridOptions.api.setRowData(this.data);
-                console.log("seting data after init");
-            }
-            if (this.gridState) {
-                console.log("seting grid after init");
-                this.setState(this.gridState);
-            }
+
             return;
         }
-        console.log("setup", this);
 
         this.gridOptions = {
             enableRangeSelection: true,
@@ -522,6 +514,7 @@ export class DataAgGridComponent implements DataGridInterface, OnInit {
         if ((this.gridOptions) && (this.gridOptions.api)) {
             this.gridOptions.api.setRowData(this.data);
             this.gridOptions.api.redrawRows();
+            this.data = [];
         }
         this.init = false;
         this.cd.markForCheck();

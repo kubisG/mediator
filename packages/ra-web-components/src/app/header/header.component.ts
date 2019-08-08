@@ -39,6 +39,7 @@ export class HeaderComponent {
     @Input() leftMenuItems: Observable<MenuItem[]>;
     @Input() subTitle: string;
     @Input() defaultLayout: string;
+    @Input() fontResize: boolean;
 
     @Input() expansionMenuLeft;
     @Input() expansionMenuRight;

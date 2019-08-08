@@ -14,7 +14,7 @@
     <span *ngIf="activeModule">{{ activeModule.label }}</span>
     <span *ngIf="subTitle" class="subTitle">({{ subTitle }})</span>
 
-    <button mat-icon-button (click)="setZoom()" matTooltip="Size {{ (zoom * 100) | number:'1.0-0' }}%">
+    <button *ngIf="fontResize" mat-icon-button (click)="setZoom()" matTooltip="Size {{ (zoom * 100) | number:'1.0-0' }}%">
         <mat-icon >text_rotate_vertical</mat-icon>
     </button>
     <span class="fill-remaining-space"></span>

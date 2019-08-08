@@ -25,7 +25,6 @@ export class CompaniesComponent extends DockableComponent implements OnInit {
     private dataGrid;
 
     private company = {};
-    collapsed: boolean;
     public columns;
 
     public actions = [

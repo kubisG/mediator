@@ -49,6 +49,10 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
     private gridEditable: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
     private $gridEditable: Observable<any[]> = this.gridEditable.asObservable();
 
+    private showRowGroup: ReplaySubject<string> = new ReplaySubject<string>(1);
+    private $showRowGroup: Observable<string> = this.showRowGroup.asObservable();
+
+
     private dataSub: Subscription;
     private updateDataSub: Subscription;
     private columnsDataSub: Subscription;
@@ -56,6 +60,8 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
     private colorsSub: Subscription;
     private actionSub: Subscription;
     private editableSub: Subscription;
+    private showRowGroupSub: Subscription;
+
 
     private initSub: Subscription;
     private selSub: Subscription;
@@ -113,6 +119,13 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
         }
     }
 
+    @Input() set rowGroup(data) {
+        if (data) {
+            this.showRowGroup.next(data);
+        }
+    }
+
+
 
     @Input() gridComponent: string;
     @Input() gridKey = "id";
@@ -146,6 +159,9 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
         });
         this.editableSub = this.$gridEditable.subscribe((data) => {
             this.componentRef.instance.gridEditable = data;
+        });
+        this.showRowGroupSub = this.$showRowGroup.subscribe((data) => {
+            this.componentRef.instance.showRowGroup = data;
         });
     }
 
@@ -302,6 +318,9 @@ export class DataGridComponent implements OnInit, OnChanges, OnDestroy {
         }
         if (this.editableSub) {
             this.editableSub.unsubscribe();
+        }
+        if (this.showRowGroupSub) {
+            this.showRowGroupSub.unsubscribe();
         }
     }
 

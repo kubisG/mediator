@@ -27,7 +27,6 @@ import { RestUsersService } from "../rest/rest-users.service";
 })
 export class PreferencesComponent extends DockableComponent implements OnInit {
 
-    collapsed: boolean;
     companies: any[] = [];
     users: any[] = [];
 
@@ -137,8 +136,8 @@ export class PreferencesComponent extends DockableComponent implements OnInit {
 
     private preferenceDialog(data: any): Observable<any> {
         const dialogRef = this.dialog.open(PreferencesDialogComponent, {
-            width: "95%",
-            height: "680px",
+            width: "95vw",
+            height: "85vh",
             data: {
                 data,
                 users: this.users,
@@ -206,14 +205,6 @@ export class PreferencesComponent extends DockableComponent implements OnInit {
 
     public deletePreference(data: any) {
         this.confirmDelete(data);
-    }
-
-    public reloadMessageFilter() {
-        this.restPreferencesService.reloadMessageFilter().then((data) => {
-            this.toasterService.pop("info", "Message filter", "reloaded");
-        }).catch((err) => {
-            this.toasterService.pop("error", "Message filter", err);
-        });
     }
 
     public ngOnInit(): void {

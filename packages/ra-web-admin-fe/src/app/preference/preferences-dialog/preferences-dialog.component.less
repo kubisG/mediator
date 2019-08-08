@@ -1,20 +1,22 @@
 .mat-dialog-content {
-    height: 540px;
+    height: 100%;
+    max-height: 90%;
 }
 
 .editor-wrapper {
-    height: 460px;
+    height: calc(100% - 85px);
 }
 
-.my-code-editor {
-    height: 450px;
-    .editorContainer {
-        height: 440px;
-    }
-}
 
 .prefFrom {
     mat-form-field {
         margin-right: 15px;
     }
 }
+
+.my-code-editor {
+     height: 100% !important;
+    .editor-container {
+      height: calc(100% - 40px);
+    }
+  }

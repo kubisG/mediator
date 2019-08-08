@@ -22,6 +22,8 @@ export class DataDxGridComponent implements DataGridInterface, OnInit {
     @Output() rowSelected: EventEmitter<any> = new EventEmitter();
     @Output() buttonClick: EventEmitter<any> = new EventEmitter(); // not implemented
 
+    @Input() showRowGroup;
+
     @Input() set colors(data) {
         this.rowColors = data;
     }

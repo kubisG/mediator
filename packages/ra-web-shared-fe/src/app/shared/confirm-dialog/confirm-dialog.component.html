@@ -10,7 +10,7 @@
 </div>
 <div mat-dialog-actions>
     <button mat-button *ngIf="!data.type || data.type === 0"
-        (click)="onNoClick()">{{'butt.cancel' | translate}}</button>
+        (click)="onNoClick()">Cancel</button>
         <span class="fill-remaining-space"></span>
-    <button mat-button (click)="onOkClick()" cdkFocusInitial>{{'butt.confirm' | translate}}</button>
+    <button mat-button (click)="onOkClick()" cdkFocusInitial>Confirm</button>
 </div>
