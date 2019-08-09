@@ -34,9 +34,6 @@
 			"path": "packages\\ra-web-forms-be"
 		},
 		{
-			"path": "packages\\ra-web-components"
-		},
-		{
 			"path": "packages\\ra-web-ee-router"
 		},
 		{
