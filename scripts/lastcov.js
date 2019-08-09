@@ -11,19 +11,24 @@ function writeCoverage(cov) {
 }
 function start() {
     var lastCoverage;
+    var newCoverage;
     try {
         lastCoverage = readJsonFile(pwd + "/coverage.json");
+        newCoverage = readJsonFile(pwd + "/coverage/coverage-summary.json").total;
     }
     catch (ex) {
     }
-    var newCoverage = readJsonFile(pwd + "/coverage/coverage-summary.json").total;
+    if (!newCoverage) {
+        logger_1.Logger.silly("Missing coverage report!!!");
+        return;
+    }
     if (!lastCoverage) {
         writeCoverage(newCoverage);
     }
     else {
         logger_1.Logger.warn("Result = New coverage " + newCoverage.lines.pct + "%, Last coverage " + lastCoverage.lines.pct + "%");
         if (newCoverage.lines.pct < lastCoverage.lines.pct) {
-            logger_1.Logger.error("Need more tests!!!");
+            logger_1.Logger.error("Need more test!!!");
             process.exit(1);
         }
         else {

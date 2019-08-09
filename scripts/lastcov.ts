@@ -13,12 +13,17 @@ function writeCoverage(cov: any) {
 
 function start() {
     let lastCoverage;
+    let newCoverage;
     try {
         lastCoverage = readJsonFile(`${pwd}/coverage.json`);
+        newCoverage = readJsonFile(`${pwd}/coverage/coverage-summary.json`).total;
     } catch (ex) {
 
     }
-    const newCoverage = readJsonFile(`${pwd}/coverage/coverage-summary.json`).total;
+    if (!newCoverage) {
+        Logger.silly(`Missing coverage report!!!`);
+        return;
+    }
     if (!lastCoverage) {
         writeCoverage(newCoverage);
     } else {
