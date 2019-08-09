@@ -1,1 +1,0 @@
-export const layoutConfig = {"content":[{"type":"stack","isClosable":false,"content":[]}]};

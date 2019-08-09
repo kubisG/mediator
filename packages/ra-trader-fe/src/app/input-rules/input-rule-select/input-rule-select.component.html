@@ -1,9 +1,0 @@
-<mat-form-field>
-    <mat-select [formControl]="formControl" (blur)="onTouched()" placeholder="{{placeholder}}" [multiple]="multiple"
-        [required]="required">
-        <mat-option *ngIf="emptyValue"></mat-option>
-        <mat-option *ngFor="let values of items" [value]="values.value" [matTooltip]="values.label">
-            {{values.name}}
-        </mat-option>
-    </mat-select>
-</mat-form-field>

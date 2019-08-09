@@ -1,7 +1,0 @@
-<span class="actions">
-    <span *ngFor="let item of items">
-        <button *ngIf="item.visible" mat-icon-button [matTooltip]="item.toolTip" (click)="itemClick.emit(item)">
-            <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon><span>{{item.label}}</span>
-        </button>
-    </span>
-</span>

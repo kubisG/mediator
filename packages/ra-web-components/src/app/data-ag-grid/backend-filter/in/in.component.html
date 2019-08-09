@@ -1,7 +1,0 @@
-<!-- <mat-form-field class="full-width">
-    <input matInput placeholder="Value" [(ngModel)]="value">
-    <mat-hint>Comma separated values</mat-hint>
-</mat-form-field> -->
-<div *ngFor="let value of distinctValues">
-    <mat-checkbox (click)="checkboxClick(value)">{{value}}</mat-checkbox>
-</div>

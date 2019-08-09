@@ -1,2 +1,0 @@
-BookingType,Side,Symbol,SecurityID,SecurityIDSource,OrderQty,OrdType,Price,TimeInForce,StopPx,HandlInst,Currency,ExDestination,TargetCompID,Currency,ExpireDate,OnBehalfOfSubID,Account,TradeDate,OrderCapacity,CommType,DeliverToSubID,Commission,Text,HandlInst
-RegularBooking,Sell,HSBA,HSBA,ISINNumber,40,Market,20,Day,50,,,AUTEX2,brker_3,GBp,,,,,,,,,Sell HSBA,ManualOrder
