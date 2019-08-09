@@ -1,0 +1,10 @@
+<!-- <dx-load-panel container="#container{{myid}}" [width]="500" [height]="200" [visible]="isLoadPanelVisible">
+    <dxo-position my="center" at="center" of="#showGrid{{myid}}">
+    </dxo-position>
+</dx-load-panel> -->
+
+<div id="showGrid{{myid}}" class="allGrid">
+    <ra-data-grid id="gridContainer" [initColumns]="columns" [initSumColumns]="sumColumns" (initialized)="onInitialized($event)"
+    (selected)="onSelected($event)" (rowSelected)="onRowClick($event)" [setColors]="rowColors" [gridKey]="key"
+    [actions]="actions" (buttonClick)="buttonClick($event)"></ra-data-grid>
+</div>

@@ -1,0 +1,66 @@
+
+<mat-card class="detail-card">
+    <mat-card-header color="primary">
+        <mat-card-title>
+            <button matTooltip="New user" mat-icon-button (click)="openDialog()">
+                <mat-icon>control_point</mat-icon>
+            </button>
+
+            {{ 'admin.users' | translate }}
+        </mat-card-title>
+        <span class="fill-remaining-space"></span>
+        <button matTooltip="{{'butt.save.layout' | translate}}" mat-icon-button (click)="saveState()">
+            <mat-icon aria-label="Save">send</mat-icon>
+        </button>
+        <button mat-icon-button (click)="collapsed=!collapsed">
+            <mat-icon *ngIf="!collapsed" mat-tooltip="Collapse">keyboard_arrow_down</mat-icon>
+            <mat-icon *ngIf="collapsed" mat-tooltip="Uncollapse">keyboard_arrow_right</mat-icon>
+        </button>
+    </mat-card-header>
+
+    <mat-card-content *ngIf="!collapsed && columns">
+            <ra-data-grid id="gridContainer" [initColumns]="columns" (initialized)="onInitialized($event)"
+             [gridKey]="'id'" [actions]="actions"
+              (buttonClick)="rowActionClick($event)">
+            </ra-data-grid>
+<!--             
+        <dx-data-grid id="companyContainer" [dataSource]="dataSource" [wordWrapEnabled]="false" [showBorders]="true"
+            [allowColumnReordering]="true" [rowAlternationEnabled]="true" (onInitialized)="loadState($event)">
+            <dxo-column-chooser [enabled]="true" mode="select">
+            </dxo-column-chooser>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+            <dxi-column caption="Actions" width="140" [allowFiltering]="false" [allowSorting]="false"
+                [showInColumnChooser]="false" dataField="id" cellTemplate="actionsCellTemplate"></dxi-column>
+            <dxi-column dataField="username" caption="User name"></dxi-column>
+            <dxi-column dataField="email" caption="Email"></dxi-column>
+            <dxi-column dataField="lastName" caption="Last name"></dxi-column>
+            <dxi-column dataField="firstName" caption="First name"></dxi-column>
+            <dxi-column dataField="company.companyName" caption="Company"></dxi-column>
+            <dxi-column dataField="openBalance" caption="Opening balance" [customizeText]="formatBalance"></dxi-column>
+            <dxi-column dataField="currentBalance" caption="Current balance" [customizeText]="formatBalance">
+            </dxi-column>
+            <dxi-column dataField="class" caption="User type"></dxi-column>
+            <dxi-column dataField="app" caption="Application">
+                <dxo-lookup [dataSource]="apps" valueExpr="id" displayExpr="label">
+                </dxo-lookup>
+            </dxi-column>
+            <dxo-remote-operations [sorting]="true" [paging]="true" [filtering]="true">
+            </dxo-remote-operations>
+            <dxo-pager [showPageSizeSelector]="false"></dxo-pager>
+
+            <span *dxTemplate="let d of 'actionsCellTemplate'">
+                <button matTooltip="Update user" mat-icon-button (click)="openDialog(d.value)">
+                    <mat-icon>loop</mat-icon>
+                </button>
+                <button matTooltip="Delete user" mat-icon-button (click)="openDialog(d.value,'D')">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <button matTooltip="Log user" mat-icon-button (click)="enableLogging(d.data)">
+                    <mat-icon
+                        [ngClass]="{'clicked': prefs[d.data.id+'-'+d.data.company.id] && prefs[d.data.id+'-'+d.data.company.id].logging }">
+                        event_note</mat-icon>
+                </button>
+            </span>
+        </dx-data-grid> -->
+    </mat-card-content>
+</mat-card>

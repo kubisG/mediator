@@ -1,0 +1,9 @@
+<div class="store-list">
+    <mat-form-field>
+        <mat-select [(value)]="selected" [compareWith]="compareWith" (selectionChange)="selectionChange($event)">
+            <mat-option *ngFor="let store of  stores | async" [value]="store">
+                {{store.label}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>

@@ -1,0 +1,91 @@
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.mat-toolbar {
+    margin-bottom: 20px;
+}
+
+::ng-deep .mat-checkbox-label {
+    font-size: small;
+}
+
+form {
+    padding: 3pt;
+}
+
+.font-blue ::ng-deep .mat-form-field-label {
+    color: #19B5FE;
+}
+
+.font-red ::ng-deep .mat-form-field-label {
+    color: #f5475b;
+}
+
+:host-context(.green-orange) .font-blue ::ng-deep .mat-form-field-label,
+:host-context(.pink-bluegrey) .font-blue ::ng-deep .mat-form-field-label,
+:host-context(.purple-green) .font-blue ::ng-deep .mat-form-field-label {
+    color:#19B5FE;
+}
+
+:host-context(.green-orange) .font-red ::ng-deep .mat-form-field-label,
+:host-context(.pink-bluegrey) .font-red ::ng-deep .mat-form-field-label,
+:host-context(.purple-green) .font-red ::ng-deep .mat-form-field-label {
+    color: #f5475b;
+}
+
+.back-blue {
+    background-color: blue;
+    color: white;
+}
+
+.back-red {
+    background-color: red;
+    color: white;
+}
+
+.spinner-holder {
+    width: 170px;
+    height: 170px;
+    margin: auto;
+}
+
+.button-separator {
+    width: 5px;
+}
+
+.order-detail {
+    h4 {
+        font-size: 12pt;
+        margin-bottom: 4pt;
+    }
+    .order-items {
+        margin-top: 6pt;
+        margin-bottom: 6pt;
+        div {
+            font-size: 10pt;
+        }
+    }
+}
+
+.main-content {
+    width: 98%;
+}
+
+.name {
+    font-weight: bold;
+    float: left;
+    min-width: 150px;
+}
+.val {
+    word-wrap: none;
+    display: table-cell;
+}
+.replace {
+    color: red;
+    font-weight: bolder;
+}

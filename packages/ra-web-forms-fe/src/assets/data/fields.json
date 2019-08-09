@@ -1,0 +1,204 @@
+[
+  {
+    "fieldGroupClassName": "display-flex",
+    "fieldGroup": [
+      {
+        "className": "flex-1",
+        "key": "Name",
+        "type": "input",
+        "templateOptions": {
+          "label": "Name",
+          "placeholder": "Rule name",
+          "required": true
+        }
+      },
+      {
+        "className": "flex-2",        
+        "key": "Status",
+        "type": "select",
+        "templateOptions": {
+          "label": "Status",
+          "options": [
+            {
+              "label": "On",
+              "value": "on"
+            },
+            {
+              "label": "Off",
+              "value": "off"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "template": "<hr /><div><strong>Alerts settings:</strong></div>"
+  },
+  {
+    "key": "Alert",
+    "type": "input",
+    "templateOptions": {
+      "label": "Alert",
+      "placeholder": "Alert message",
+      "required": true
+    }
+  },
+  {
+    "key": "AggUnits",
+    "type": "input",
+    "templateOptions": {
+      "label": "Agg Units",
+      "placeholder": "Agg Units",
+      "required": true
+    }
+  },
+  {
+    "key": "Accounts",
+    "type": "select",
+    "templateOptions": {
+      "label": "Accounts",
+      "multiple": true,
+      "options": [
+        {
+          "label": "Account1",
+          "value": "Account1"
+        },
+        {
+          "label": "Account2",
+          "value": "Account2"
+        },
+        {
+          "label": "Account3",
+          "value": "Account3"
+        },
+        {
+          "label": "Account4",
+          "value": "Account4"
+        }
+      ]
+    }
+  },
+  {
+    "key": "Email alerts",
+    "type": "select",
+    "templateOptions": {
+      "label": "Email alerts",
+      "options": [
+        {
+          "label": "On",
+          "value": "on"
+        },
+        {
+          "label": "Off",
+          "value": "off"
+        }
+      ]
+    }
+  },
+  {
+    "key": "Email",
+    "type": "input",
+    "templateOptions": {
+      "label": "Email",
+      "placeholder": "Email Adresses",
+      "required": false
+    }
+  },
+  {
+    "template": "<hr /><div><strong>Rules settings:</strong></div>"
+  },  
+  {
+    "key": "RuleSegments",
+    "type": "select",
+    "templateOptions": {
+      "label": "Rule Segments",
+      "multiple": true,
+      "options": [
+        {
+          "label": "Block by position",
+          "value": "block1"
+        },
+        {
+          "label": "Block by absolute position size",
+          "value": "block2"
+        },
+        {
+          "label": "Block by position quantity concentration",
+          "value": "block3"
+        },
+        {
+          "label": "Allow order for some symbols only",
+          "value": "allow1"
+        }
+      ]
+    }
+  },
+  {
+    "key": "Position",
+    "type": "input",
+    "templateOptions": {
+      "label": "Position",
+      "placeholder": "Postions",
+      "required": false
+    },
+    "hideExpression": "!model.RuleSegments || model.RuleSegments.indexOf('block1') === -1"
+  },
+  {
+    "key": "PositionSize",
+    "type": "input",
+    "templateOptions": {
+      "label": "Position size",
+      "placeholder": "Absolute size",
+      "required": false
+    },
+    "hideExpression": "!model.RuleSegments || model.RuleSegments.indexOf('block2') === -1"
+  },
+  {
+    "key": "AllowSymbols",
+    "type": "repeat",
+    "templateOptions": {
+      "label": "Allow Symbol",
+      "placeholder": "Allow Symbol",
+      "addText": "Add next",
+      "required": false
+    },
+    "hideExpression": "!formState.mainModel.RuleSegments || formState.mainModel.RuleSegments.indexOf('allow1') === -1",
+    "fieldArray": {
+      "fieldGroup": [
+        {
+          "className": "col-sm-4",
+          "type": "input",
+          "key": "ASymbol",
+          "templateOptions": {
+            "label": "Symbol",
+            "required": true
+          }
+        }
+      ]
+    }
+  },
+  {
+    "type": "select",
+    "key": "BlockBroker",
+    "hideExpression": "!model.RuleSegments || model.RuleSegments.indexOf('block3') === -1",
+    "templateOptions": {
+      "label": "Broker",
+      "multiple": true,
+      "options": [
+        {
+          "label": "Broker 1",
+          "value": "BROKER1"
+        },
+        {
+          "label": "Broker 2",
+          "value": "BROKER2"
+        },
+        {
+          "label": "Broker 3",
+          "value": "BROKER3"
+        }
+      ]
+    }
+  }
+]

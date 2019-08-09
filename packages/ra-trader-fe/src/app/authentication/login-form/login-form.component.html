@@ -1,0 +1,43 @@
+<div class="login-wrapper">
+    <div class="login-page">
+        <div class="login-spacer"></div>
+        <div class="login-container">
+            <div id="login-fab" class="mdl-color--accent mdl-color-text--white">
+                <i id="lock-icon" class="material-icons">lock</i>
+            </div>
+            <h2 class="card-heading" title="{{appVersionLong}}">
+                RA Order Manager {{appVersion}}
+            </h2>
+            <form class="login-form" #loginForm="ngForm">
+                <mat-form-field>
+                    <input type="email" required matInput placeholder="Username" [formControl]="emailField" name="userName"
+                        tabindex=1>
+                    <button mat-button *ngIf="emailField.value.length > 0" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="this.emailField.setValue('')" tabindex=5 type="button">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    <mat-error *ngIf="emailField.invalid && emailField.hasError('required')">{{
+                        'login.form.email.required.error' | translate }}</mat-error>
+                    <mat-error *ngIf="emailField.invalid && emailField.hasError('email')">{{
+                        'login.form.email.format.error' | translate }}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input type="password" required matInput placeholder="Password" [formControl]="passwordField" name="password"
+                        tabindex=2>
+                    <mat-error *ngIf="passwordField.invalid && passwordField.hasError('required')">{{
+                        'login.form.password.required.error' | translate }}</mat-error>
+                </mat-form-field>
+            </form>
+            <div class="buttons">
+                <div class="login">
+                    <button [disabled]="emailField.invalid || passwordField.invalid" mat-raised-button
+                        (focus)="true" (click)="login($event)" tabindex=3>Login</button>
+                </div>
+                <div class="register">
+                    <span class="fill-remaining-space"></span>
+                    <button mat-button (click)="forgot($event)" tabindex=4>Forgot Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

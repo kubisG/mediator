@@ -1,0 +1,81 @@
+<mat-toolbar raDraggable color="primary">{{ 'dialog.inputRules.title' | translate }}</mat-toolbar>
+<div mat-dialog-content>
+    <div>
+        <mat-form-field>
+            <mat-select name="companyId" placeholder="Company" [(ngModel)]="company" #companyId="ngModel">
+                <mat-option [value]="0">
+                    ALL
+                </mat-option>
+                <mat-option *ngFor="let company of companies" [value]="company.id">
+                    {{company.companyName}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <ul class="list-group">
+        <ng-template #recursiveList let-tree>
+            <li class="list-group-item" *ngFor="let rule of tree">
+                <div>
+                    <span *ngIf="rule.state === 'S'">{{rule.item.label}} - {{rule.item.name}} :
+                        {{rule.item.value}}</span>
+                    <span *ngIf="rule.state === 'N' || rule.state === 'N1'">
+                        <mat-form-field>
+                            <mat-select name="label" placeholder="Label" required [(ngModel)]="rule.item.label"
+                                [disabled]="false">
+                                <mat-option *ngFor="let typ of allTypes" [value]="typ">
+                                    {{typ}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                            <mat-form-field *ngIf="chooseExisting && rule.item.label">                                
+                                <mat-select name="existingVal" placeholder="choose existing {{rule.item.label}}" required
+                                    [disabled]="false" (selectionChange)="changeVal($event, rule)" [compareWith]="compareObjects"
+                                    [(ngModel)]="existingVal">
+                                    <mat-option *ngFor="let val of lists[rule.item.label]" [value]="val">
+                                        {{val.name}} ({{val.value}})
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field *ngIf="!chooseExisting">
+                                <input name="name" type="text" matInput placeholder="name" [(ngModel)]="rule.item.name">
+                            </mat-form-field>
+                            <mat-form-field *ngIf="!chooseExisting">
+                                <input name="value" type="text" matInput placeholder="value"
+                                    [(ngModel)]="rule.item.value">
+                            </mat-form-field>
+                    </span>
+                    <button *ngIf="rule.state !== 'N' && rule.state !== 'N1'" matTooltip="Add child" mat-icon-button
+                        (click)="addChild(rule)">
+                        <mat-icon>add_circle_outline</mat-icon>
+                    </button>
+                    <button *ngIf="rule.state !== 'N' && rule.state !== 'N1'" matTooltip="Edit Item" mat-icon-button
+                        (click)="editItem(rule)">
+                        <mat-icon>create</mat-icon>
+                    </button>
+                    <button *ngIf="rule.state === 'N' || rule.state === 'N1'" matTooltip="Switch choose" mat-icon-button
+                        (click)="chooseExisting=!chooseExisting">
+                        <mat-icon>swap_horiz</mat-icon>
+                    </button>                    
+                    <button *ngIf="rule.state === 'N' || rule.state === 'N1'" matTooltip="Save" mat-icon-button
+                        (click)="saveItem(rule)">
+                        <mat-icon>save</mat-icon>
+                    </button>
+                    <button *ngIf="rule.childs.length === 0" matTooltip="Delete" mat-icon-button
+                        (click)="deleteItem(rule)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+                <ul class="list-group" *ngIf="rule.childs.length > 0">
+                    <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: rule.childs }"></ng-container>
+                </ul>
+            </li>
+        </ng-template>
+        <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: tree }"></ng-container>
+    </ul>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button (click)="onOkClick()" cdkFocusInitial>Save</button>
+</div>

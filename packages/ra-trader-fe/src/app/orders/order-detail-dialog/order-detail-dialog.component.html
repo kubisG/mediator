@@ -1,0 +1,143 @@
+<perfect-scrollbar>
+    <mat-card class="detail-card">
+        <mat-card-header color="primary">
+            <span class="title">Detail</span>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="order-detail" *ngIf="data">
+                <div class="main-content">
+                    <div class="row order-items">
+                        <div class="col-lg-4">
+                            <div class="name">Symbol:</div>
+                            <div class="val"> {{data.Symbol || 'None'}}</div>
+                            <div class="name">Side:</div>
+                            <div class="val"> {{data.Side || 'None'}}</div>
+                            <div class="name">Quantity:</div>
+                            <div class="val"> {{data.OrderQty || 'None'}}<span
+                                    *ngIf="replaceMessage && replaceMessage.OrderQty!==data.OrderQty" class="replace"> /
+                                    {{ replaceMessage.OrderQty || 'None' }}</span></div>
+                            <div class="name">Leaves quantity:</div>
+                            <div class="val"> {{data.LeavesQty || 'None'}}</div>
+                            <div class="name">Security:</div>
+                            <div class="val">{{data.SecurityID || 'None'}}</div>
+                            <div class="name">Security ID Source:</div>
+                            <div class="val"> {{data.SecurityIDSource || 'None'}}</div>
+                            <div class="name">Price:</div>
+                            <div class="val"> {{data.Price ? (data.Price | number : '1.4-4') : 'None'}}<span
+                                    *ngIf="replaceMessage && replaceMessage.Price!==data.Price" class="replace"> /
+                                    {{ replaceMessage.Price ? (replaceMessage.Price | number : '1.4-4') : 'None' }}</span>
+                            </div>
+                            <div class="name">Type:</div>
+                            <div class="val"> {{data.OrdType || 'None'}}<span
+                                    *ngIf="replaceMessage && replaceMessage.OrdType!==data.OrdType" class="replace"> /
+                                    {{ replaceMessage.OrdType || 'None' }}</span></div>
+                            <div class="name">Time in force:</div>
+                            <div class="val"> {{data.TimeInForce || 'None'}}<span
+                                *ngIf="replaceMessage && replaceMessage.TimeInForce!==data.TimeInForce"
+                                class="replace"> /
+                                {{data.TimeInForce || 'None'}}</span></div>
+                            <div class="name">Expire Date:</div>
+                            <div class="val"> {{(data.ExpireDate | date:'yyyy-MM-dd') || 'None'}}<span
+                                    *ngIf="replaceMessage && replaceMessage.ExpireDate!==data.ExpireDate"
+                                    class="replace"> /
+                                    {{ (replaceMessage.ExpireDate | date:'yyyy-MM-dd') || 'None' }}</span></div>
+                        </div>
+                        <div class="col-lg-4">
+                            <h4>{{'order.detail.label.accountSummary'|translate}}</h4>
+                            <div class="name">On behalf of sub ID:</div>
+                            <div class="val"> {{data.OnBehalfOfSubID || 'None'}}</div>
+                            <div class="name">Sender Sub ID:</div>
+                            <div class="val"> {{data.SenderSubID || 'None'}}</div>
+                            <div class="name">Desk ID:</div>
+                            <div class="val"> {{data.DeskID || 'None'}}</div>
+                            <div class="name">Order ID:</div>
+                            <div class="val"> {{data.OrderID || 'None'}}</div>
+                            <div class="name">Client order ID:</div>
+                            <div class="val"> {{data.ClOrdID || 'None'}}</div>
+                            <div class="name">Client:</div>
+                            <div class="val"> {{data.ClientID || 'None'}}</div>
+                            <div class="name">Account:</div>
+                            <div class="val"> {{data.Account || 'None'}}<span
+                                    *ngIf="replaceMessage && replaceMessage.Account!==data.Account" class="replace"> /
+                                    {{ replaceMessage.Account || 'None' }}</span></div>
+                            <div class="name">Location ID:</div>
+                            <div class="val"> {{data.LocationID || 'None'}}</div>
+                            <div class="name">LocateReqd:</div>
+                            <div class="val"> {{data.LocateReqd ? 'Yes' : 'No'}}</div>
+                        </div>
+                        <div class="col-lg-4">
+                            <h4>{{'order.detail.label.otherDetails' | translate}}</h4>
+                            <div class="name">Security Exch.:</div>
+                            <div class="val"> {{data.SecurityExchange || 'None'}}</div>
+                            <div class="name">Exch. Destination:</div>
+                            <div class="val"> {{data.ExDestination || 'None'}}</div>
+                            <div class="name">Ex. Instructions:</div>
+                            <div class="val"> {{data.ExecInst || 'None'}}<span
+                                *ngIf="replaceMessage && replaceMessage.ExecInst!==data.ExecInst" class="replace"> /
+                                {{ replaceMessage.ExecInst || 'None' }}</span></div>                            
+                            <div class="name">Order capacity:</div>
+                            <div class="val"> {{data.OrderCapacity || 'None'}}</div>
+                            <div class="name">Stop px.:</div>
+                            <div class="val"> {{data.StopPx ? (data.StopPx | number : '1.4-4') : 'None'}}<span
+                                    *ngIf="replaceMessage && replaceMessage.StopPx!==data.StopPx" class="replace"> /
+                                    {{ replaceMessage.StopPx ? (replaceMessage.StopPx | number : '1.4-4') :'None' }}</span>
+                            </div>
+                            <div class="name">Settlement Date:</div>
+                            <div class="val"> {{(data.SettlDate | date:'yyyy-MM-dd') || 'None'}}</div>
+                        </div>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="row order-items">
+                        <div class="col-lg-4">
+                            <h4>{{'order.detail.label.additionalInstructions'|translate}}</h4>
+                            <div class="name">Instruction:</div>
+                            <div class="val"> {{data.HandlInst || 'None'}}</div>
+                            <div class="name">Notes:</div>
+                            <div class="val"> {{data.Text || 'None'}}<span
+                                    *ngIf="replaceMessage && replaceMessage.Text!==data.Text" class="replace"> /
+                                    {{ replaceMessage.Text || 'None' }}</span></div>
+                        </div>
+                        <div class="col-lg-4">
+                            <h4>{{'order.detail.label.fillSummary'|translate}}</h4>
+                            <div class="name">OrdStatus:</div>
+                            <div class="val"> {{data.OrdStatus || 'None'}}</div>
+                            <div class="name">Already filled:</div>
+                            <div class="val"> {{data.CumQty || 'None'}}</div>
+                            <div class="name">Average Px:</div>
+                            <div class="val"> {{data.AvgPx ? (data.AvgPx | number : '1.4-4') : 'None'}}</div>
+                            <div class="name">Last Px:</div>
+                            <div class="val"> {{data.LastPx ? (data.LastPx | number : '1.4-4') : 'None'}}</div>
+                            <div class="name">Last Market:</div>
+                            <div class="val"> {{data.LastMkt || 'None'}}</div>
+                            <div class="name">Execution ID:</div>
+                            <div class="val"> {{data.ExecID || 'None'}}</div>
+                            <div class="name">Last capacity / liquidity:</div>
+                            <div class="val"> {{data.LastCapacity || 'None'}} / {{data.LastLiquidityInd || 'None'}}
+                            </div>
+                            <div class="name">Reject reason:</div>
+                            <div class="val"> {{data.OrdRejReason || data.CxlRejReason || 'None'}}</div>
+                            <div class="name">Execution type:</div>
+                            <div class="val"> {{data.ExecType || 'None'}}</div>
+                            <div class="name">Commission Type:</div>
+                            <div class="val"> {{data.CommType || 'None'}}<span
+                                *ngIf="replaceMessage && replaceMessage.CommType!==data.CommType" class="replace"> /
+                                {{ replaceMessage.CommType || 'None' }}</span></div>
+                            <div class="name">Commission:</div>
+                            <div class="val"> {{data.Commission || 'None'}}<span
+                                *ngIf="replaceMessage && replaceMessage.Commission!==data.Commission" class="replace"> /
+                                {{ replaceMessage.Commission || 'None' }}</span></div>                            
+                            <div class="name">Execution ID:</div>
+                            <div class="val"> {{data.ExecID || 'None'}}</div>
+                        </div>
+                        <div class="col-lg-4"></div>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</perfect-scrollbar>
+<div mat-dialog-actions *ngIf="dialogRef">
+    <button mat-button (click)="onNoClick()">{{'butt.cancel' | translate}}</button>
+    <span class="fill-remaining-space"></span>
+
+</div>    

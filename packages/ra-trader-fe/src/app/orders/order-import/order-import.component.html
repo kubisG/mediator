@@ -1,0 +1,33 @@
+<mat-card class="import-grid">
+    <mat-card-header color="primary">
+        <mat-card-title>
+            <span class="actions">
+                <button matTooltip="{{'blotter.import.action.send'|translate}}" mat-icon-button (click)="send()">
+                    <mat-icon>fast_forward</mat-icon>
+                </button>
+                <button matTooltip="{{'blotter.import.action.cancel'|translate}}" mat-icon-button (click)="cancel()">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+                <button *ngIf="isSelected" matTooltip="{{'blotter.import.action.sendSelected'|translate}}"
+                    mat-icon-button (click)="sendSelected()">
+                    <mat-icon>playlist_play</mat-icon>
+                </button>
+                <button *ngIf="isSelected" matTooltip="{{'blotter.import.action.removeSelected'|translate}}"
+                    mat-icon-button (click)="removeSelected()">
+                    <mat-icon>remove_circle_outline</mat-icon>
+                </button>
+            </span>
+        </mat-card-title>
+        <span class="fill-remaining-space"></span>
+        <span class="title">{{'blotter.import.label' | translate}}</span>
+        <span class="fill-remaining-space"></span>
+        <ra-dropdown [items]="gridMenuItems" (itemClick)="gridMenuItemClick($event)"></ra-dropdown>
+    </mat-card-header>
+    <mat-card-content>
+        <input type="file" style="display: none" #file (change)="importCsv($event.target.files)" accept=".csv">
+        <ra-order-grid *ngIf="inicialiazed" [key]="'rowId'" [gridStateKey]="'import'" [columns]="orderColumns" [rowColors]="rowColors"
+            [rowEvent]="false" [editable]="true" [height]="300" (rowUpdated)="updated($event)"
+            (rowClick)="rowClickEvent($event)" (rowPrepared)="onRowPrepared($event)"  (rowCheck)="rowCheck($event)"
+            (initialized)="onGridInitialized($event)"></ra-order-grid>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,24 @@
+<mat-card class="detail-card">
+    <mat-card-header color="primary">
+        <mat-card-title>
+            <ra-action-bar [items]="actionItems" (itemClick)="actionItemClick($event)"></ra-action-bar>
+        </mat-card-title>
+        <span class="fill-remaining-space"></span>
+        <ra-date-range (dateChange)="onDateChage($event)" [dataLoaded]="dataLoaded" [loadedRange]="dateFilter">
+        </ra-date-range>
+        <button matTooltip="{{'butt.user.all.alloc' | translate}}" mat-icon-button (click)="changeShowAllMsg();">
+            <mat-icon [ngClass]="{'clicked': showAllMsg}" aria-label="All allocations">all_inclusive</mat-icon>
+        </button>
+        <button matTooltip="{{'butt.user.reload' | translate}}" mat-icon-button (click)="loadOrders(null,null,false)">
+            <mat-icon aria-label="Reload">replay</mat-icon>
+        </button>
+        <button matTooltip="{{'butt.save.layout' | translate}}" mat-icon-button (click)="saveState()">
+            <mat-icon aria-label="Save">send</mat-icon>
+        </button>
+    </mat-card-header>
+    <mat-card-content>
+        <ra-order-grid [key]="'RaID'" [gridStateKey]="'allocations'" [columns]="orderColumns" [rowColors]="rowColors"
+            (rowClick)="rowClickEvent($event)" (rowPrepared)="onRowPrepared($event)"
+            (initialized)="onGridInitialized($event)" (rowPushed)="rowPushed($event)"></ra-order-grid>
+    </mat-card-content>
+</mat-card>

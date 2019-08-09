@@ -1,0 +1,104 @@
+<mat-toolbar raDraggable [ngClass]="{'back-blue': ioiForm.controls['Side'].value === 'Buy', 'back-red': ioiForm.controls['Side'].value !== 'Buy' }">{{
+    'ioi.detail' | translate }}</mat-toolbar>
+<div [ngClass]="{'font-blue': ioiForm.controls['Side'].value === 'Buy', 'font-red': ioiForm.controls['Side'].value !== 'Buy' }">
+    <div mat-dialog-content>
+        <div *ngIf="!inicialized">
+            <div class="spinner-holder">
+                <mat-spinner color="warn"></mat-spinner>
+            </div>
+        </div>
+
+        <form *ngIf="inicialized" [formGroup]="ioiForm">
+
+
+            <div class="row">
+                <div class="col-md-4">
+                    <ra-input-rule-select formControlName="SecurityDesc" [selector]="[['Symbol',ioiForm.controls['Symbol'].value],'SecurityDesc']"
+                        [disabledInput]="data.action === 'R'" [inputRules]="inputRules" [placeholder]="'Stock Name'"></ra-input-rule-select>
+                </div>
+
+                <div class="col-md-2">
+                    <ra-input-rule-select formControlName="Symbol" [selector]="['Symbol']" [inputRules]="inputRules"
+                        [required]="true" [disabledInput]="data.action === 'R'" [placeholder]="'Symbol'"></ra-input-rule-select>
+                </div>
+
+                <div class="col-md-2">
+                    <ra-input-rule-select formControlName="SecurityID" [selector]="[['Symbol',ioiForm.controls['Symbol'].value],'SecurityID']"
+                        [disabledInput]="data.action === 'R'" [inputRules]="inputRules" [placeholder]="'Security ID'"></ra-input-rule-select>
+                </div>
+                <div class="col-md-4">
+                    <ra-input-rule-select formControlName="SecurityIDSource" [selector]="[['Symbol',ioiForm.controls['Symbol'].value],'SecurityIDSource']"
+                        [disabledInput]="data.action === 'R'" [inputRules]="inputRules" [placeholder]="'Security ID Source'"></ra-input-rule-select>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-2">
+                    <ra-input-rule-select formControlName="Side" [selector]="['Side']" [inputRules]="inputRules"
+                        [enabledValues]="enabledVals" [required]="true" [disabledInput]="data.action === 'R'"
+                        [placeholder]="'Side'"></ra-input-rule-select>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <input formControlName="IOIQty" name="IOIQty" matInput type="text" placeholder="Quantity" mask="comma_separator.0">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <input formControlName="Price" name="Price" matInput type="text" placeholder="Price" mask="comma_separator.4">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <ra-input-rule-select formControlName="Currency" [selector]="['Currency']" [inputRules]="inputRules"
+                        [disabledInput]="data.action === 'R'" [placeholder]="'Currency'"></ra-input-rule-select>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <input formControlName="ValidUntilTime" name="ValidUntilTime" matInput readonly [matDatepicker]="ValidUntilTime"
+                            placeholder="Valid Until Time">
+                        <mat-datepicker-toggle matSuffix [for]="ValidUntilTime"></mat-datepicker-toggle>
+                        <mat-datepicker #ValidUntilTime></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field>
+                        <mat-label>Stipulations</mat-label>
+                        <textarea matInput formControlName="Text" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                            cdkAutosizeMinRows="3" cdkAutosizeMaxRows="10"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-select formControlName="TargetCompID" name="TargetCompID" placeholder="Broker" [multiple]="true"
+                            (selectionChange)="changeParty($event)">
+                            <mat-option *ngFor="let party of parties" [value]="party.DeliveryToCompID">
+                                {{party.CounterParty}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <!-- <mat-form-field>
+                        <input name="ConfirmTo" formControlName="ConfirmTo" matInput placeholder="ConfirmTo">
+                    </mat-form-field> -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">{{'butt.close' | translate}}</button>
+    <span class="fill-remaining-space"></span>
+    <button *ngIf="saveButton" mat-button [disabled]="!isFormValid" [mat-dialog-close]="ioiForm.value">{{'butt.send'
+        | translate}}</button>
+
+</div>

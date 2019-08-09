@@ -5,7 +5,8 @@
     "clean": "lerna clean",
     "hoists": "lerna bootstrap --hoist --force-local --include-filtered-dependencies --loglevel verbose",
     "nohoists": "lerna bootstrap",
-    "init": "npm run clean && npm run hoists",
+    "init": "npm run init-hooks && npm run clean && npm run hoists",
+    "init-hooks": "sh ./scripts/init-hooks",
     "bts": "lerna bootstrap",
     "bootstrap": "npm run clean && lerna bootstrap",
     "reinit": "npm run hoists",
@@ -16,7 +17,9 @@
     "ra-web-bundle-be": "lerna run --scope @ra/web-bundle-be build",
     "ra-web-bundle-fe": "lerna run --scope @ra/web-bundle-fe build",
     "watch:bundle": "tsc ./scripts/nodemon-bundle.ts && node ./scripts/nodemon-bundle.js",
-    "workspaces": "tsc ./scripts/generate-workspaces.ts && node ./scripts/generate-workspaces.js"
+    "workspaces": "tsc ./scripts/generate-workspaces.ts && node ./scripts/generate-workspaces.js",
+    "lastcov:build": "tsc ./scripts/lastcov.ts",
+    "lastcov": "node ./scripts/lastcov.js"
   },
   "devDependencies": {
     "lerna": "3.13.3",

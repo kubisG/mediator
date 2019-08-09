@@ -1,0 +1,101 @@
+<mat-card class="detail-card">
+  <mat-card-header color="primary">
+    <mat-card-title>
+      <button matTooltip="{{'butt.save' | translate}}" mat-icon-button (click)="saveCompany()">
+        <mat-icon aria-label="Save">save_alt</mat-icon>
+      </button>
+
+      {{ 'setting.company.info' | translate }}
+    </mat-card-title>
+    <span class="fill-remaining-space"></span>
+    <button mat-icon-button (click)="collapsed=!collapsed">
+      <mat-icon *ngIf="!collapsed" mat-tooltip="Collapse">keyboard_arrow_down</mat-icon>
+      <mat-icon *ngIf="collapsed" mat-tooltip="Uncollapse">keyboard_arrow_right</mat-icon>
+    </button>
+  </mat-card-header>
+
+  <mat-card-content *ngIf="!collapsed && data">
+    <div class="settings-container">
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <input name="companyName" matInput required disabled placeholder="Company name" [(ngModel)]="data.companyName"
+              #companyName="ngModel">
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <input name="ClientID" matInput required disabled placeholder="Client ID" [(ngModel)]="data.ClientID"
+              #ClientID="ngModel">
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <input name="street" matInput placeholder="Street" [(ngModel)]="data.street" #street="ngModel">
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <input name="numInStreet" matInput placeholder="Number in street" [(ngModel)]="data.numInStreet"
+              #numInStreet="ngModel">
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <input name="city" matInput placeholder="City" [(ngModel)]="data.city" #city="ngModel">
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <input name="state" matInput placeholder="State" [(ngModel)]="data.state" #state="ngModel">
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <input name="partyRole" matInput placeholder="partyRole" [(ngModel)]="data.partyRole" #state="ngModel">
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <input name="partyID" matInput placeholder="partyID" [(ngModel)]="data.partyID" #state="ngModel">
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <input name="partyIDSource" matInput placeholder="partyIDSource" [(ngModel)]="data.partyIDSource" #state="ngModel">
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

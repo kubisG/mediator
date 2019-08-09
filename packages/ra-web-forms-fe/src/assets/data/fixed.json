@@ -1,0 +1,102 @@
+[
+  {
+    "template": "<div><strong>Basic settings:</strong></div>"
+  },
+  {
+    "fieldGroupClassName": "display-flex",
+    "fieldGroup": [
+      {
+        "className": "flex-2",
+        "key": "name",
+        "type": "input",
+        "templateOptions": {
+          "label": "Rule name",
+          "placeholder": "Rule name",
+          "required": true
+        }
+      },
+      {
+        "className": "flex-1",        
+        "key": "status",
+        "type": "select",
+        "templateOptions": {
+          "label": "Status",
+          "options": [
+            {
+              "label": "On",
+              "value": "on"
+            },
+            {
+              "label": "Off",
+              "value": "off"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "key": "accounts",
+    "type": "select",
+    "templateOptions": {
+      "label": "Accounts",
+      "multiple": true,
+      "options": [
+        {
+          "label": "Account1",
+          "value": "Account1"
+        },
+        {
+          "label": "Account2",
+          "value": "Account2"
+        },
+        {
+          "label": "Account3",
+          "value": "Account3"
+        },
+        {
+          "label": "Account4",
+          "value": "Account4"
+        }
+      ]
+    }
+  },  
+  
+  {
+    "key": "alertMessage",
+    "type": "input",
+    "templateOptions": {
+      "label": "Alert",
+      "placeholder": "Alert message",
+      "required": true
+    }
+  },  
+  {
+    "fieldGroupClassName": "display-flex",
+    "fieldGroup": [
+      {
+        "className": "flex-1",
+        "key": "emailAlert",
+        "type": "input",
+        "templateOptions": {
+          "label": "Email Alert",
+          "placeholder": "Email alert text",
+          "required": true
+        }
+      },
+      {
+        "className": "flex-1",        
+        "key": "emailAddress",
+        "type": "input",
+        "templateOptions": {
+          "label": "Email Address",
+          "placeholder": "Email address",
+          "required": true
+        }
+      }
+    ]
+  },
+  {
+    "template": "<hr><div><strong>Rule options:</strong></div>"
+  }  
+]

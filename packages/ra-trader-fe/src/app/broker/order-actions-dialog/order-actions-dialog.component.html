@@ -1,0 +1,18 @@
+<mat-toolbar raDraggable class="back-blue">
+    <span *ngIf="selectedOrder">
+        {{selectedOrder.Placed | date: 'y-MM-dd HH:mm:ss.S'}} {{selectedOrder.Symbol}}
+        {{selectedOrder.OrderQty}}@{{selectedOrder.Price || 0}} ({{selectedOrder.RaID}})
+    </span>
+</mat-toolbar>
+<div>
+    <div mat-dialog-content>
+        <div class="row">
+            <div class="col-md-12">
+                <ra-broker-fill-report *ngIf="type === 0" [order]="selectedOrder" (action)="dialogRef.close()">
+                </ra-broker-fill-report>
+                <ra-broker-commission-details *ngIf="type === 1" [order]="selectedOrder" (action)="dialogRef.close()">
+                </ra-broker-commission-details>
+            </div>
+        </div>
+    </div>
+</div>

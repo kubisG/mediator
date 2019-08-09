@@ -1,0 +1,18 @@
+<h1>{{ data.formName }}</h1>
+<div mat-dialog-content>
+    <form *ngIf="!showJson" [formGroup]="form">
+        <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>
+    </form>
+    <div *ngIf="showJson" class="editor-wrapper">
+        <ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="monacoContent"
+            (onInit)="onInit($event)">
+        </ngx-monaco-editor>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+    <span class="fill-remaining-space"></span>
+    <button mat-raised-button [disabled]="!form.valid" (click)="sendData()">Send</button>
+    <button *ngIf="!showJson" mat-raised-button (click)="showJSON()">Show JSON</button>
+    <button *ngIf="showJson" mat-raised-button (click)="showJSON()">Show Form</button>
+</div>

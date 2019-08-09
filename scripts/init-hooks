@@ -1,0 +1,9 @@
+#!/bin/sh
+
+for i in ./.git/modules/packages/* # iterate over all files in current dir
+do
+    if [ -d "$i" ] # if it's a directory
+    then
+        cp -f ./scripts/hooks/pre-push "$i"/hooks # copy water.txt into it
+    fi
+done

@@ -1,0 +1,21 @@
+    <mat-card class="detail-card">
+        <mat-card-header color="primary">
+            <mat-card-title>
+                <button class="mat-icon-button" matTooltip="New specification" mat-icon-button (click)="newSpec()">
+                    <mat-icon>control_point</mat-icon>
+                </button>
+                Forms settings
+            </mat-card-title>
+            <span class="fill-remaining-space"></span>
+            <button matTooltip="Reload" mat-icon-button (click)="loadData()">
+                <mat-icon aria-label="Reload">cached</mat-icon>
+            </button>
+        </mat-card-header>
+        <mat-card-content *ngIf="columns && companies">
+            <div class="grid-wrapper">
+        <ra-data-grid id="gridContainer" [initColumns]="columns" (initialized)="onInitialized($event)" [gridKey]="'id'" [rowGroup]="'never'"
+            [actions]="actions" (buttonClick)="rowActionClick($event)">
+        </ra-data-grid>
+    </div>
+        </mat-card-content>
+    </mat-card>

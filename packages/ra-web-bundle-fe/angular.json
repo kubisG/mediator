@@ -1,0 +1,873 @@
+{
+    "$schema": "../../node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "../../packages",
+    "projects": {
+        "ra-web-bundle-fe": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "less"
+                }
+            },
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "ra",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/ra-web-bundle-fe",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.app.json",
+                        "aot": false,
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                            "src/styles.less"
+                        ],
+                        "scripts": []
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "extractCss": true,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "ra-web-bundle-fe:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "ra-web-bundle-fe:build:production"
+                        }
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "ra-web-bundle-fe:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "src/test.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.spec.json",
+                        "karmaConfig": "karma.conf.js",
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                            "src/styles.less"
+                        ],
+                        "scripts": []
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "tsconfig.app.json",
+                            "tsconfig.spec.json",
+                            "e2e/tsconfig.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                },
+                "e2e": {
+                    "builder": "@angular-devkit/build-angular:protractor",
+                    "options": {
+                        "protractorConfig": "e2e/protractor.conf.js",
+                        "devServerTarget": "ra-web-bundle-fe:serve"
+                    },
+                    "configurations": {
+                        "production": {
+                            "devServerTarget": "ra-web-bundle-fe:serve:production"
+                        }
+                    }
+                }
+            }
+        },
+        "ra-web-admin-fe": {
+            "projectType": "library",
+            "root": "projects/ra-web-admin-fe",
+            "sourceRoot": "projects/ra-web-admin-fe/src",
+            "prefix": "ra",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-ng-packagr:build",
+                    "options": {
+                        "tsConfig": "projects/ra-web-admin-fe/tsconfig.lib.json",
+                        "project": "projects/ra-web-admin-fe/ng-package.json"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/ra-web-admin-fe/src/test.ts",
+                        "tsConfig": "projects/ra-web-admin-fe/tsconfig.spec.json",
+                        "karmaConfig": "projects/ra-web-admin-fe/karma.conf.js"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/ra-web-admin-fe/tsconfig.lib.json",
+                            "projects/ra-web-admin-fe/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                }
+            }
+        },
+        "ra-trader-fe": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "less"
+                }
+            },
+            "root": "projects/ra-trader-fe",
+            "sourceRoot": "projects/ra-trader-fe/src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/ra-trader-fe",
+                        "index": "projects/ra-trader-fe/src/index.html",
+                        "main": "projects/ra-trader-fe/src/main.ts",
+                        "polyfills": "projects/ra-trader-fe/src/polyfills.ts",
+                        "tsConfig": "projects/ra-trader-fe/tsconfig.app.json",
+                        "aot": false,
+                        "assets": [
+                            "projects/ra-trader-fe/src/favicon.ico",
+                            "projects/ra-trader-fe/src/assets"
+                        ],
+                        "styles": [
+                            "projects/ra-trader-fe/src/styles.less"
+                        ],
+                        "scripts": []
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "projects/ra-trader-fe/src/environments/environment.ts",
+                                    "with": "projects/ra-trader-fe/src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "extractCss": true,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "ra-trader-fe:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "ra-trader-fe:build:production"
+                        }
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "ra-trader-fe:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/ra-trader-fe/src/test.ts",
+                        "polyfills": "projects/ra-trader-fe/src/polyfills.ts",
+                        "tsConfig": "projects/ra-trader-fe/tsconfig.spec.json",
+                        "karmaConfig": "projects/ra-trader-fe/karma.conf.js",
+                        "assets": [
+                            "projects/ra-trader-fe/src/favicon.ico",
+                            "projects/ra-trader-fe/src/assets"
+                        ],
+                        "styles": [
+                            "projects/ra-trader-fe/src/styles.less"
+                        ],
+                        "scripts": []
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/ra-trader-fe/tsconfig.app.json",
+                            "projects/ra-trader-fe/tsconfig.spec.json",
+                            "projects/ra-trader-fe/e2e/tsconfig.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                },
+                "e2e": {
+                    "builder": "@angular-devkit/build-angular:protractor",
+                    "options": {
+                        "protractorConfig": "projects/ra-trader-fe/e2e/protractor.conf.js",
+                        "devServerTarget": "ra-trader-fe:serve"
+                    },
+                    "configurations": {
+                        "production": {
+                            "devServerTarget": "ra-trader-fe:serve:production"
+                        }
+                    }
+                }
+            }
+        },
+        "ra-web-auth-fe": {
+            "projectType": "library",
+            "root": "projects/ra-web-auth-fe",
+            "sourceRoot": "projects/ra-web-auth-fe/src",
+            "prefix": "ra",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-ng-packagr:build",
+                    "options": {
+                        "tsConfig": "projects/ra-web-auth-fe/tsconfig.lib.json",
+                        "project": "projects/ra-web-auth-fe/ng-package.json"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/ra-web-auth-fe/src/test.ts",
+                        "tsConfig": "projects/ra-web-auth-fe/tsconfig.spec.json",
+                        "karmaConfig": "projects/ra-web-auth-fe/karma.conf.js"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/ra-web-auth-fe/tsconfig.lib.json",
+                            "projects/ra-web-auth-fe/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                }
+            }
+        },
+        "ra-web-core-fe": {
+            "projectType": "library",
+            "root": "projects/ra-web-core-fe",
+            "sourceRoot": "projects/ra-web-core-fe/src",
+            "prefix": "ra",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-ng-packagr:build",
+                    "options": {
+                        "tsConfig": "projects/ra-web-core-fe/tsconfig.lib.json",
+                        "project": "projects/ra-web-core-fe/ng-package.json"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/ra-web-core-fe/src/test.ts",
+                        "tsConfig": "projects/ra-web-core-fe/tsconfig.spec.json",
+                        "karmaConfig": "projects/ra-web-core-fe/karma.conf.js"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/ra-web-core-fe/tsconfig.lib.json",
+                            "projects/ra-web-core-fe/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                }
+            }
+        },
+        "ra-web-env-fe": {
+            "projectType": "library",
+            "root": "projects/ra-web-env-fe",
+            "sourceRoot": "projects/ra-web-env-fe/src",
+            "prefix": "ra",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-ng-packagr:build",
+                    "options": {
+                        "tsConfig": "projects/ra-web-env-fe/tsconfig.lib.json",
+                        "project": "projects/ra-web-env-fe/ng-package.json"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/ra-web-env-fe/src/test.ts",
+                        "tsConfig": "projects/ra-web-env-fe/tsconfig.spec.json",
+                        "karmaConfig": "projects/ra-web-env-fe/karma.conf.js"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/ra-web-env-fe/tsconfig.lib.json",
+                            "projects/ra-web-env-fe/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                }
+            }
+        },
+        "ra-web-material-fe": {
+            "projectType": "library",
+            "root": "projects/ra-web-material-fe",
+            "sourceRoot": "projects/ra-web-material-fe/src",
+            "prefix": "ra",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-ng-packagr:build",
+                    "options": {
+                        "tsConfig": "projects/ra-web-material-fe/tsconfig.lib.json",
+                        "project": "projects/ra-web-material-fe/ng-package.json"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/ra-web-material-fe/src/test.ts",
+                        "tsConfig": "projects/ra-web-material-fe/tsconfig.spec.json",
+                        "karmaConfig": "projects/ra-web-material-fe/karma.conf.js"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/ra-web-material-fe/tsconfig.lib.json",
+                            "projects/ra-web-material-fe/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                }
+            }
+        },
+        "ra-web-modules-fe": {
+            "projectType": "library",
+            "root": "projects/ra-web-modules-fe",
+            "sourceRoot": "projects/ra-web-modules-fe/src",
+            "prefix": "ra",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-ng-packagr:build",
+                    "options": {
+                        "tsConfig": "projects/ra-web-modules-fe/tsconfig.lib.json",
+                        "project": "projects/ra-web-modules-fe/ng-package.json"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/ra-web-modules-fe/src/test.ts",
+                        "tsConfig": "projects/ra-web-modules-fe/tsconfig.spec.json",
+                        "karmaConfig": "projects/ra-web-modules-fe/karma.conf.js"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/ra-web-modules-fe/tsconfig.lib.json",
+                            "projects/ra-web-modules-fe/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                }
+            }
+        },
+        "ra-web-monitor-fe": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "less"
+                }
+            },
+            "root": "projects/ra-web-monitor-fe",
+            "sourceRoot": "projects/ra-web-monitor-fe/src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/ra-web-monitor-fe",
+                        "index": "projects/ra-web-monitor-fe/src/index.html",
+                        "main": "projects/ra-web-monitor-fe/src/main.ts",
+                        "polyfills": "projects/ra-web-monitor-fe/src/polyfills.ts",
+                        "tsConfig": "projects/ra-web-monitor-fe/tsconfig.app.json",
+                        "aot": false,
+                        "assets": [
+                            "projects/ra-web-monitor-fe/src/favicon.ico",
+                            "projects/ra-web-monitor-fe/src/assets"
+                        ],
+                        "styles": [
+                            "projects/ra-web-monitor-fe/src/styles.less"
+                        ],
+                        "scripts": []
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "projects/ra-web-monitor-fe/src/environments/environment.ts",
+                                    "with": "projects/ra-web-monitor-fe/src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "extractCss": true,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "ra-web-monitor-fe:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "ra-web-monitor-fe:build:production"
+                        }
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "ra-web-monitor-fe:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/ra-web-monitor-fe/src/test.ts",
+                        "polyfills": "projects/ra-web-monitor-fe/src/polyfills.ts",
+                        "tsConfig": "projects/ra-web-monitor-fe/tsconfig.spec.json",
+                        "karmaConfig": "projects/ra-web-monitor-fe/karma.conf.js",
+                        "assets": [
+                            "projects/ra-web-monitor-fe/src/favicon.ico",
+                            "projects/ra-web-monitor-fe/src/assets"
+                        ],
+                        "styles": [
+                            "projects/ra-web-monitor-fe/src/styles.less"
+                        ],
+                        "scripts": []
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/ra-web-monitor-fe/tsconfig.app.json",
+                            "projects/ra-web-monitor-fe/tsconfig.spec.json",
+                            "projects/ra-web-monitor-fe/e2e/tsconfig.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                },
+                "e2e": {
+                    "builder": "@angular-devkit/build-angular:protractor",
+                    "options": {
+                        "protractorConfig": "projects/ra-web-monitor-fe/e2e/protractor.conf.js",
+                        "devServerTarget": "ra-web-monitor-fe:serve"
+                    },
+                    "configurations": {
+                        "production": {
+                            "devServerTarget": "ra-web-monitor-fe:serve:production"
+                        }
+                    }
+                }
+            }
+        },
+        "ra-web-platform-fe": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "less"
+                }
+            },
+            "root": "projects/ra-web-platform-fe",
+            "sourceRoot": "projects/ra-web-platform-fe/src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/ra-web-platform-fe",
+                        "index": "projects/ra-web-platform-fe/src/index.html",
+                        "main": "projects/ra-web-platform-fe/src/main.ts",
+                        "polyfills": "projects/ra-web-platform-fe/src/polyfills.ts",
+                        "tsConfig": "projects/ra-web-platform-fe/tsconfig.app.json",
+                        "aot": false,
+                        "assets": [
+                            "projects/ra-web-platform-fe/src/favicon.ico",
+                            "projects/ra-web-platform-fe/src/assets"
+                        ],
+                        "styles": [
+                            "projects/ra-web-platform-fe/src/styles.less"
+                        ],
+                        "scripts": []
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "projects/ra-web-platform-fe/src/environments/environment.ts",
+                                    "with": "projects/ra-web-platform-fe/src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "extractCss": true,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "ra-web-platform-fe:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "ra-web-platform-fe:build:production"
+                        }
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "ra-web-platform-fe:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/ra-web-platform-fe/src/test.ts",
+                        "polyfills": "projects/ra-web-platform-fe/src/polyfills.ts",
+                        "tsConfig": "projects/ra-web-platform-fe/tsconfig.spec.json",
+                        "karmaConfig": "projects/ra-web-platform-fe/karma.conf.js",
+                        "assets": [
+                            "projects/ra-web-platform-fe/src/favicon.ico",
+                            "projects/ra-web-platform-fe/src/assets"
+                        ],
+                        "styles": [
+                            "projects/ra-web-platform-fe/src/styles.less"
+                        ],
+                        "scripts": []
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/ra-web-platform-fe/tsconfig.app.json",
+                            "projects/ra-web-platform-fe/tsconfig.spec.json",
+                            "projects/ra-web-platform-fe/e2e/tsconfig.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                },
+                "e2e": {
+                    "builder": "@angular-devkit/build-angular:protractor",
+                    "options": {
+                        "protractorConfig": "projects/ra-web-platform-fe/e2e/protractor.conf.js",
+                        "devServerTarget": "ra-web-platform-fe:serve"
+                    },
+                    "configurations": {
+                        "production": {
+                            "devServerTarget": "ra-web-platform-fe:serve:production"
+                        }
+                    }
+                }
+            }
+        },
+        "ra-web-shared-fe": {
+            "projectType": "library",
+            "root": "projects/ra-web-shared-fe",
+            "sourceRoot": "projects/ra-web-shared-fe/src",
+            "prefix": "ra",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-ng-packagr:build",
+                    "options": {
+                        "tsConfig": "projects/ra-web-shared-fe/tsconfig.lib.json",
+                        "project": "projects/ra-web-shared-fe/ng-package.json"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/ra-web-shared-fe/src/test.ts",
+                        "tsConfig": "projects/ra-web-shared-fe/tsconfig.spec.json",
+                        "karmaConfig": "projects/ra-web-shared-fe/karma.conf.js"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/ra-web-shared-fe/tsconfig.lib.json",
+                            "projects/ra-web-shared-fe/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                }
+            }
+        },
+        "ra-web-forms-fe": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "less"
+                }
+            },
+            "root": "projects/ra-web-forms-fe",
+            "sourceRoot": "projects/ra-web-forms-fe/src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/ra-web-forms-fe",
+                        "index": "projects/ra-web-forms-fe/src/index.html",
+                        "main": "projects/ra-web-forms-fe/src/main.ts",
+                        "polyfills": "projects/ra-web-forms-fe/src/polyfills.ts",
+                        "tsConfig": "projects/ra-web-forms-fe/tsconfig.app.json",
+                        "aot": false,
+                        "assets": [
+                            "projects/ra-web-forms-fe/src/favicon.ico",
+                            "projects/ra-web-forms-fe/src/assets"
+                        ],
+                        "styles": [
+                            "projects/ra-web-forms-fe/src/styles.less"
+                        ],
+                        "scripts": []
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "projects/ra-web-forms-fe/src/environments/environment.ts",
+                                    "with": "projects/ra-web-forms-fe/src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "extractCss": true,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "ra-web-forms-fe:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "ra-web-forms-fe:build:production"
+                        }
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "ra-web-forms-fe:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/ra-web-forms-fe/src/test.ts",
+                        "polyfills": "projects/ra-web-forms-fe/src/polyfills.ts",
+                        "tsConfig": "projects/ra-web-forms-fe/tsconfig.spec.json",
+                        "karmaConfig": "projects/ra-web-forms-fe/karma.conf.js",
+                        "assets": [
+                            "projects/ra-web-forms-fe/src/favicon.ico",
+                            "projects/ra-web-forms-fe/src/assets"
+                        ],
+                        "styles": [
+                            "projects/ra-web-forms-fe/src/styles.less"
+                        ],
+                        "scripts": []
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/ra-web-forms-fe/tsconfig.app.json",
+                            "projects/ra-web-forms-fe/tsconfig.spec.json",
+                            "projects/ra-web-forms-fe/e2e/tsconfig.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                },
+                "e2e": {
+                    "builder": "@angular-devkit/build-angular:protractor",
+                    "options": {
+                        "protractorConfig": "projects/ra-web-forms-fe/e2e/protractor.conf.js",
+                        "devServerTarget": "ra-web-forms-fe:serve"
+                    },
+                    "configurations": {
+                        "production": {
+                            "devServerTarget": "ra-web-forms-fe:serve:production"
+                        }
+                    }
+                }
+            }
+        },
+        "ra-web-components": {
+            "projectType": "library",
+            "root": "projects/ra-web-components",
+            "sourceRoot": "projects/ra-web-components/src",
+            "prefix": "ra",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-ng-packagr:build",
+                    "options": {
+                        "tsConfig": "projects/ra-web-components/tsconfig.lib.json",
+                        "project": "projects/ra-web-components/ng-package.json"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "projects/ra-web-components/src/test.ts",
+                        "tsConfig": "projects/ra-web-components/tsconfig.spec.json",
+                        "karmaConfig": "projects/ra-web-components/karma.conf.js"
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-devkit/build-angular:tslint",
+                    "options": {
+                        "tsConfig": [
+                            "projects/ra-web-components/tsconfig.lib.json",
+                            "projects/ra-web-components/tsconfig.spec.json"
+                        ],
+                        "exclude": [
+                            "**/node_modules/**"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    "defaultProject": "ra-web-bundle-fe"
+}

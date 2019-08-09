@@ -1,0 +1,7 @@
+<div class="data-grid">
+    <div class="grid-wrapper">
+        <ra-data-grid [clear]="$clear" [initData]="snapshot" [update]="updates" [initColumns]="columns"
+            (backEndFilterOut)="onBackendFilter($event)">
+        </ra-data-grid>
+    </div>
+</div>

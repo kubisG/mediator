@@ -1,0 +1,17 @@
+<mat-card class="detail-card">
+    <mat-card-header color="primary">
+        <mat-card-title>
+            <ra-action-bar [items]="actionItems" (itemClick)="actionItemClick($event)"></ra-action-bar>
+            Allocations
+        </mat-card-title>
+        <span class="fill-remaining-space"></span>
+        <ra-date-range (dateChange)="onDateChage($event)" [dataLoaded]="dataLoaded" [loadedRange]="dateFilter">
+        </ra-date-range>
+        <ra-dropdown [items]="gridMenuItems" (itemClick)="gridMenuItemClick($event)"></ra-dropdown>
+    </mat-card-header>
+    <mat-card-content>
+        <ra-order-grid [key]="'id'" [gridStateKey]="'brokeralloc'" [columns]="allocColumns" [rowColors]="rowColors"
+            (rowClick)="rowClickEvent($event)" (rowPrepared)="onRowPrepared($event)"
+            (initialized)="onGridInitialized($event)" (rowPushed)="rowPushed($event)"></ra-order-grid>
+    </mat-card-content>
+</mat-card>

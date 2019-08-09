@@ -1,0 +1,192 @@
+<perfect-scrollbar>
+<mat-card class="detail-card">
+    <mat-card-header color="primary">
+        <mat-card-title>
+            <button matTooltip="{{'butt.save' | translate}}" mat-icon-button (click)="saveData()">
+                <mat-icon aria-label="Save">save_alt</mat-icon>
+            </button>
+
+            {{ 'setting.page.info' | translate }}
+        </mat-card-title>
+        <span class="fill-remaining-space"></span>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="settings-container" *ngIf="onSettInit">
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input matInput placeholder="{{'sett.username' | translate}}" [(ngModel)]="user.username"
+                            [disabled]="true">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input matInput placeholder="{{'sett.email' | translate}}" [(ngModel)]="user.email" [disabled]="true">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+            <!--div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <input matInput placeholder="{{'sett.last.login' | translate}}" [value]="user.lastLogin | date:'yyyy-MM-dd HH:mm:ss'"
+              [disabled]="true">
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field>
+            <input matInput placeholder="{{'sett.last.action' | translate}}" [value]="sett.user.lastAction | date:'yyyy-MM-dd HH:mm:ss'"
+              [disabled]="true">
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+        </div>
+      </div -->
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input matInput placeholder="{{'sett.first.name' | translate}}" [(ngModel)]="user.firstName">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input matInput placeholder="{{'sett.last.name' | translate}}" [(ngModel)]="user.lastName">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input matInput placeholder="{{'sett.desk.phone' | translate}}" [(ngModel)]="user.deskPhone">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <input matInput placeholder="{{'sett.mobile' | translate}}" [(ngModel)]="user.mobile">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <mat-select placeholder="Number of rows" [(value)]="prefs.rows">
+                            <mat-option value="5">5</mat-option>
+                            <mat-option value="10">10</mat-option>
+                            <mat-option value="15">15</mat-option>
+                            <mat-option value="30">30</mat-option>
+                            <mat-option value="50">50</mat-option>
+                            <mat-option value="100">100</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-form-field>
+                        <mat-select placeholder="Currency" [compareWith]="compareObjects" [(ngModel)]="prefs.currency">
+                            <mat-option *ngFor="let curr of lists['Currency']" [value]="curr">{{curr.name}} -
+                                {{curr.value}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <button mat-raised-button (click)="settCurrency(prefs.currency)">Rates</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3">
+                    <mat-checkbox [(ngModel)]="prefs.gtcGtd">Include GTC/GTD in default blotter</mat-checkbox>
+                </div>
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+
+            <!--     <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3">
+                    <mat-checkbox [(ngModel)]="prefs.showMeOnly">Show only my orders</mat-checkbox>
+                </div>
+                <div class="col-md-3">
+                    <mat-checkbox [(ngModel)]="sett.pref.notify">Notifications</mat-checkbox>
+                </div
+                <div class="col-md-3">
+                </div>
+            </div>-->
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3">
+                    Row colors for messages
+                </div>
+                <div class="col-md-3">
+                    <span class="new-row" *ngFor="let status of lists['OrdStatus']">
+                        <input (colorPickerCancel)="clearColor(status.value)" [cpCancelButton]="true" [(colorPicker)]="prefs.rowColors[status.value]" [style.background]="prefs.rowColors[status.value]" />
+                        {{status.name}}
+                    </span>
+                    <br>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3">
+                    Layout theme
+                </div>
+                <div class="col-md-3">
+                    <!-- <span class="new-row">
+                        <button mat-raised-button style="color: white; background: rgb(63, 81, 181) none repeat scroll 0% 0%;"
+                            (click)="onSetTheme('indigo-pink')">&#9632;</button>
+                    </span>
+                    <span class="new-row">
+                        <button mat-raised-button style="color: white; background: rgb(103, 58, 183)  none repeat scroll 0% 0%;"
+                            (click)="onSetTheme('deeppurple-amber')">&#9632;</button>
+                    </span>
+                    <span class="new-row">
+                        <button mat-raised-button style="color: white; background: rgb(255, 87, 34) none repeat scroll 0% 0%;"
+                            (click)="onSetTheme('deeporange-brown')">&#9632;</button>
+                    </span>                     -->
+                    <span class="new-row">
+                        <button mat-raised-button style="color: black; background: rgb(233, 30, 99) none repeat scroll 0% 0%;"
+                            (click)="onSetTheme('pink-bluegrey')">&#9632;</button>
+                    </span>
+                    <span class="new-row">
+                        <button mat-raised-button style="color: black; background: rgb(156, 39, 176) none repeat scroll 0% 0%;"
+                            (click)="onSetTheme('purple-green')">&#9632;</button>
+                    </span>
+                    <span class="new-row">
+                        <button mat-raised-button style="color: black; background: rgb(255, 87, 34) none repeat scroll 0% 0%;"
+                            (click)="onSetTheme('green-orange')">&#9632;</button>
+                    </span>
+
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+</perfect-scrollbar>

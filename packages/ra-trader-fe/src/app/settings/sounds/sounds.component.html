@@ -1,0 +1,36 @@
+<perfect-scrollbar>
+<mat-card class="detail-card">
+    <mat-card-header color="primary">
+        <mat-card-title>
+            <button matTooltip="{{'butt.save' | translate}}" mat-icon-button (click)="saveSounds()">
+                <mat-icon aria-label="Save">save_alt</mat-icon>
+            </button>
+            {{ 'setting.sounds.label' | translate }}
+        </mat-card-title>
+        <span class="fill-remaining-space"></span>
+        <button mat-icon-button (click)="collapsed=!collapsed">
+            <mat-icon *ngIf="!collapsed" mat-tooltip="Collapse">keyboard_arrow_down</mat-icon>
+            <mat-icon *ngIf="collapsed" mat-tooltip="Uncollapse">keyboard_arrow_right</mat-icon>
+        </button>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-list>
+            <mat-list-item *ngFor="let mysound of appSounds | keyvalue">
+                <mat-icon mat-list-icon>volume_up</mat-icon>
+                <span class="sound-label">{{ mysound.key }}</span>
+                <button class="sound-play" mat-icon-button color="warn" (click)="playSound(mysound.value)">
+                    <mat-icon>play_arrow</mat-icon>
+                </button>
+                <mat-form-field>
+                    <mat-select [(value)]="appSounds[mysound.key]" [compareWith]="selectComparator">
+                        <mat-option [value]="empty">none</mat-option>
+                        <mat-option *ngFor="let sound of soundsList" [value]="sound" placeholder="sounds">
+                            {{sound.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>
+</perfect-scrollbar>

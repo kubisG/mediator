@@ -1,0 +1,49 @@
+<!-- Orders store -->
+<mat-card class="detail-card">
+    <mat-card-header color="primary">
+        <mat-card-title>
+            <ra-action-bar [items]="actionItems" (itemClick)="actionItemClick($event)"></ra-action-bar>
+            <!-- {{ 'order.store.info' | translate }} -->
+            <!-- <ra-balance-info [balance]="balance" [currency]="prefs.currency.name"></ra-balance-info> -->
+        </mat-card-title>
+        <span class="fill-remaining-space"></span>
+        <ra-date-range (dateChange)="onDateChage($event)" [dataLoaded]="dataLoaded" [loadedRange]="dateFilter">
+        </ra-date-range>
+        <ra-dropdown [items]="gridMenuItems" (itemClick)="gridMenuItemClick($event)"></ra-dropdown>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="col-md-12">
+            <button *ngIf="msgCount['RegularBooking'] > 0" mat-raised-button
+                [color]="bookingType === 'RegularBooking' ? 'accent':'primary'"
+                matTooltip="{{'butt.RegularBooking' | translate}}" (click)="setHitlist('RegularBooking')"
+                [matBadge]="msgCount['RegularBooking']" matBadgePosition="before" matBadgeColor="warn">
+                {{'butt.RegularBooking' | translate}}
+            </button>
+            <button *ngIf="msgCount['RegularBooking'] === 0" mat-raised-button
+                [color]="bookingType === 'RegularBooking' ? 'accent':'primary'"
+                matTooltip="{{'butt.RegularBooking' | translate}}" (click)="setHitlist('RegularBooking')">
+                {{'butt.RegularBooking' | translate}}
+            </button>
+
+            <button *ngIf="msgCount['CFD'] > 0" mat-raised-button [color]="bookingType === 'CFD' ? 'accent':'primary'"
+                matTooltip="{{'butt.cfd' | translate}}" (click)="setHitlist('CFD')" [matBadge]="msgCount['CFD']"
+                matBadgePosition="before" matBadgeColor="warn">
+                {{'butt.cfd' | translate}}
+            </button>
+            <button *ngIf="msgCount['CFD'] === 0" mat-raised-button [color]="bookingType === 'CFD' ? 'accent':'primary'"
+                matTooltip="{{'butt.cfd' | translate}}" (click)="setHitlist('CFD')">
+                {{'butt.cfd' | translate}}
+            </button>
+        </div>
+        <!-- <ra-order-grid [key]="'RaID'" [gridStateKey]="'order'" [columns]="orderColumns" [rowColors]="rowColors"
+            (rowClick)="rowClickEvent($event)" (rowPrepared)="onRowPrepared($event)"
+            (initialized)="onGridInitialized($event)" (rowPushed)="rowPushed($event)" [rowActions]="rowActions"
+            (actionClick)="rowActionClick($event)"></ra-order-grid> -->
+        <ra-order-grid [key]="'RaID'" [gridStateKey]="'order'" [columns]="orderColumns" [rowColors]="rowColors"
+            (rowClick)="rowClickEvent($event)" (rowPrepared)="onRowPrepared($event)"
+            (initialized)="onGridInitialized($event)" (rowPushed)="rowPushed($event)"
+            (rowAccept)="rowAcceptClick($event)" (rowReject)="rowRejectClick($event)" (rowCheck)="rowCheck($event)"
+            [rowActions]="rowActions" (actionClick)="rowActionClick($event)" (changedRow)="changedRow($event)">
+        </ra-order-grid>
+    </mat-card-content>
+</mat-card>

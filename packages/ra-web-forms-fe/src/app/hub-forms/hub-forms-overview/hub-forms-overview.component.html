@@ -1,0 +1,7 @@
+<div class="data-grid">
+    <div class="grid-wrapper" *ngIf="gridColumns">
+        <ra-data-grid id="formsGrid" [initColumns]="gridColumns" [actions]="actions" (buttonClick)="rowActionClick($event)" (initialized)="onInitialized($event)" [gridKey]="'id'"
+        (rowSelected)="onRowClick($event)"></ra-data-grid>
+    </div>
+</div>
+

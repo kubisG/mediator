@@ -1,0 +1,66 @@
+<dx-load-panel
+    container="#container{{myid}}"
+    [width]="500"
+    [height]="200"
+    [visible]="isLoadPanelVisible">
+    <dxo-position
+        my="center"
+        at="center"
+        of="#showGrid{{myid}}">
+    </dxo-position>
+</dx-load-panel>
+
+<div id="showGrid{{myid}}" [style.height.px]="height">
+<dx-data-grid id="gridContainer" [columns]="columns" (onInitialized)="onInitialized($event)"
+    [dataSource]="sourceControl.dataSource" [wordWrapEnabled]="false" [allowColumnResizing]="true" [showBorders]="true"
+    [height]="height" [columnAutoWidth]="true" [allowColumnReordering]="true" (onRowClick)="onRowClick($event)"
+    (onRowUpdated)="onRowUpdated($event)" (onRowInserted)="onRowInserted($event)" [showRowLines]="false"
+    (onRowPrepared)="onRowPrepared($event)" (onContentReady)="onContentReady($event)" [columnResizingMode]="'widget'">
+    <!-- if we configuring columns by this way grids behaving better(rendering issues) then json config -->
+    <dxi-column *ngFor="let cls of columns" [dataField]="cls.dataField" [cellTemplate]="cls.templateCell"
+        [showInColumnChooser]="cls.showInColumnChooser" [allowEditing]="cls.allowEditing"
+        [allowExporting]="cls.allowExporting" [allowFixing]="cls.allowFixing" [allowGrouping]="cls.allowGrouping"
+        [allowHeaderFiltering]="cls.allowHeaderFiltering" [allowHiding]="cls.allowHiding"
+        [allowReordering]="cls.allowReordering" [allowResizing]="cls.allowResizing" [caption]="cls.caption"
+        [allowSorting]="cls.allowSorting" [fixed]="cls.fixed" [fixedPosition]="cls.fixedPosition"
+        [cellTemplate]="cls.cellTemplate" [trueText]="cls.trueText" [falseText]="cls.falseText"
+        [headerCellTemplate]="cls.headerCellTemplate" [width]="cls.width" [dataType]="cls.dataType"
+        [format]="cls.format" [format]="cls.format" [lookup]="cls.lookup" [cssClass]="cls.cssClass"
+        [calculateDisplayValue]="cls.calculateDisplayValue"></dxi-column>
+    <!-- TODO : 18.2.3 problem -->
+    <!-- [repaintChangesOnly]="true" (onContentReady)="contentReady($event)" -->
+    <dxo-export [enabled]="true" fileName="Blotter"></dxo-export>
+    <dxo-column-chooser [enabled]="true" mode="select"> </dxo-column-chooser>
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-load-panel [enabled]="false"></dxo-load-panel>
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+    <!-- <dxo-scrolling mode="virtual"></dxo-scrolling> -->
+    <!-- <dxo-scrolling mode="virtual" rowRenderingMode="virtual" columnRenderingMode="virtual"></dxo-scrolling> -->
+    <dxo-editing *ngIf="editable" mode="batch" [allowUpdating]="true"></dxo-editing>
+    <!-- TODO : 18.2.3 problem -->
+    <!-- <dxo-column-fixing [enabled]="false"></dxo-column-fixing> -->
+    <dxo-search-panel [visible]="true" [highlightCaseSensitive]="false"></dxo-search-panel>
+    <dxo-grouping [autoExpandAll]="true" [contextMenuEnabled]="true"></dxo-grouping>
+    <dxo-pager [showPageSizeSelector]="false"></dxo-pager>
+
+    <div *dxTemplate="let info of 'checkboxHeader'">
+        <ra-row-select [data]="info" (rowCheck)="rowCheckAllEvent($event)" (rowUnCheck)="rowUnCheckAllEvent($event)">
+        </ra-row-select>
+    </div>
+
+    <div *dxTemplate="let data of 'actions'">
+        <ra-row-actions [data]="data" [actions]="actions" (accept)="rowAcceptClick($event)"
+            (reject)="rowRejectClick($event)" (buttonClick)="buttonClick($event)"></ra-row-actions>
+    </div>
+
+    <div *dxTemplate="let data of 'checkbox'">
+        <ra-row-select [data]="data" [unCheckAll]="unCheckAll" [checkAll]="checkAll" (rowCheck)="rowCheckEvent($event)"
+            (rowUnCheck)="rowUnCheckEvent($event)"></ra-row-select>
+    </div>
+
+    <div *dxTemplate="let data of 'graph'">
+        <ra-row-graph [data]="data" [inicialized]="inicialized"></ra-row-graph>
+    </div>
+
+</dx-data-grid>
+</div>

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# npm --prefix "$PWD" run prepush
+npm --prefix "$PWD" run test:cov
+npm --prefix ../../ run lastcov -- "$PWD"

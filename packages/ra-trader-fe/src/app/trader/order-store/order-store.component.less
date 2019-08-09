@@ -1,0 +1,43 @@
+table {
+    width: 100%;
+}
+
+.detail-container {
+    min-height: 85vh;
+    padding-top: 10px;
+    .detail-card {
+        .openBalance {
+            margin-left: 15pt;
+        }
+        .currentBalance {
+            margin-left: 15pt;
+        }
+        .actions {
+            width: 160px;
+            display: inline-block;
+            margin-right: 15pt;
+        }
+        .clicked {
+            color: red;
+        }
+        margin-left: 15pt;
+        margin-right: 15pt;
+    }
+}
+
+::ng-deep .notsended {
+    background-color: #e0e2e5;
+    text-decoration: line-through !important;
+    ::ng-deep td {
+        background-color: #e0e2e5;
+        text-decoration: line-through !important;
+    }
+}
+
+.row-store {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 10px;
+}

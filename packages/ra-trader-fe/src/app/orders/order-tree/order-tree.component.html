@@ -1,0 +1,19 @@
+<perfect-scrollbar>
+  <mat-card class="detail-card">
+    <mat-card-header color="primary">
+      <span class="title">{{'order.tree' | translate }}</span>
+      <span class="fill-remaining-space"></span>
+
+      <button matTooltip="{{'butt.user.reload' | translate}}" mat-icon-button (click)="setOrderTree()">
+        <mat-icon aria-label="Reload">replay</mat-icon>
+      </button>
+
+    </mat-card-header>
+
+    <mat-card-content>
+      <ra-order-tree-view *ngIf="orderTree" [actions]="actions" [lists]="lists" [first]="'true'" [clicked]="clickedItem"
+        [treeData]="orderTree" (clickEvent)="onDetailClick($event)" (actionClick)="actionClickEvent($event)">
+      </ra-order-tree-view>
+    </mat-card-content>
+  </mat-card>
+</perfect-scrollbar>

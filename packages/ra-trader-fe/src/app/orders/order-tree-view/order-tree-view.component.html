@@ -1,0 +1,19 @@
+<ul class="orderTreeView">
+    <ng-template #recursiveList let-tree="tree" let-items="items">
+        <li [ngClass]="{'highlightColor': clicked == node.item, 'firstOrder': i == 0 && first == 'true', 'red' : node.item.ExecTransType == 'Cancel', 'canceled': node.item.Canceled == 'Y', 'nosended': node.item.sended == 1 }"
+            *ngFor="let node of tree; index as i">
+            <span (click)="onClick(node.item, (i + items))">
+                <ra-tree-row [data]="node.item" [lists]="lists"></ra-tree-row>
+            </span>
+            <ra-img-button *ngFor="let act of actions" [data]="node.item" [action]="act" (buttonClick)="click($event, i)"></ra-img-button>
+            <ul class="orderTreeView">
+                <ng-container *ngTemplateOutlet="recursiveList; context:{ tree: node.childs, items: tree.length  }">
+                </ng-container>
+            </ul>
+        </li>
+        <!-- <li *ngFor="let child of tree">
+
+        </li> -->
+    </ng-template>
+    <ng-container *ngTemplateOutlet="recursiveList; context:{ tree: _treeData, items: 0 }"></ng-container>
+</ul>

@@ -1,0 +1,44 @@
+<mat-card class="detail-card">
+    <mat-card-header>
+        <span class="title">{{'dialog.sleuth' | translate }}</span>
+        <span class="fill-remaining-space"></span>
+        <button matTooltip="{{'butt.save.layout' | translate}}" mat-icon-button (click)="saveState()">
+            <mat-icon aria-label="Save">send</mat-icon>
+        </button>
+    </mat-card-header>
+    <mat-card-content>
+
+        <ra-data-grid *ngIf="columns" id="sleuth" [initColumns]="columns" (initialized)="onInitialized($event)"
+            [gridKey]="'RaID'">
+        </ra-data-grid>
+
+        <!-- <dx-data-grid id="sleuth" [dataSource]="dataSourceControl.dataSource" [wordWrapEnabled]="false"
+                    [showBorders]="true" [allowColumnResizing]="true" [allowColumnReordering]="true"
+                    [rowAlternationEnabled]="false" (onInitialized)="onInitialized($event)"
+                    (onRowPrepared)="onRowPrepared($event)">
+                    <dxo-header-filter [visible]="true"></dxo-header-filter>
+                    <dxi-column dataField="Placed" caption="Placed" dataType="date" format="y/MM/dd HH:mm:ss.S"
+                        [allowEditing]="false" [allowSorting]="true"></dxi-column>
+                    <dxi-column dataField="Side" caption="Side" [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="Symbol" caption="Symbol" [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="ClientID" caption="Client" [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="CumQty" dataType="number" caption="Quantity" [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="AvgPx" dataType="number" caption="Price" [allowSorting]="true">
+                        <dxo-format type="fixedPoint" [precision]="env.precision">
+                        </dxo-format>
+                    </dxi-column>
+                    <dxi-column dataType="number" caption="Proximity" [calculateCellValue]="getProximity"
+                        sortOrder="asc" [allowSorting]="true">
+                        <dxo-format type="percent" precision="2">
+                        </dxo-format>
+                    </dxi-column>
+                    <dxo-pager [showPageSizeSelector]="false"></dxo-pager>
+                    <dxo-scrolling mode="virtual" showScrollbar="always"></dxo-scrolling>
+                    <dxo-sorting mode="single"></dxo-sorting>
+                </dx-data-grid> -->
+    </mat-card-content>
+</mat-card>
+<div mat-dialog-actions *ngIf="dialogRef">
+    <button mat-button (click)="onNoClick()">{{'butt.cancel' | translate}}</button>
+    <span class="fill-remaining-space"></span>
+</div>
