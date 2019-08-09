@@ -6,6 +6,7 @@ import { AuthService } from "@ra/web-auth-be/auth.service";
 import { PreferenceRepository } from "@ra/web-core-be/dao/repositories/preference.repository";
 import { UserRepository } from "@ra/web-core-be/dao/repositories/user.repository";
 import { RaPreference } from "@ra/web-core-be/db/entity/ra-preference";
+import { EnvironmentService } from "@ra/web-env-be/environment.service";
 
 @Injectable()
 export class PreferencesService {
@@ -14,6 +15,7 @@ export class PreferencesService {
         @Inject("preferenceRepository") private raPreference: PreferenceRepository,
         @Inject("userRepository") private raUser: UserRepository,
         private authService: AuthService,
+        private env: EnvironmentService,
     ) { }
 
     async getAppPref(name: string) {
@@ -62,6 +64,7 @@ export class PreferencesService {
                 newPref.name = "layout.prefs";
                 newPref.userId = userData.userId;
                 newPref.companyId = userData.compId;
+                newPref.version = this.env.appVersion;
                 newPref.value = JSON.stringify(prefs.pref);
                 await this.raPreference.save(newPref);
             }
@@ -80,6 +83,7 @@ export class PreferencesService {
                 storedPref = new RaPreference();
                 storedPref.userId = userData.userId;
                 storedPref.companyId = userData.compId;
+                storedPref.version = this.env.appVersion;                
                 storedPref.name = "layout.prefs";
                 storedPref.value = "{}";
             }
@@ -118,6 +122,7 @@ export class PreferencesService {
         newPref.userId = userId;
         newPref.companyId = compId;
         newPref.value = value;
+        newPref.version = this.env.appVersion;
         return await this.raPreference.save(newPref);
     }
 
@@ -142,6 +147,7 @@ export class PreferencesService {
                 value: pref.value,
                 userId: pref.newUserId,
                 companyId: pref.newCompanyId,
+                version: this.env.appVersion,
             });
         }
         return await this.raPreference.update(
@@ -153,7 +159,8 @@ export class PreferencesService {
             {
                 value: pref.value,
                 userId: pref.newUserId,
-                companyId: pref.newCompanyId
+                companyId: pref.newCompanyId,
+                version: this.env.appVersion
             }
         );
     }

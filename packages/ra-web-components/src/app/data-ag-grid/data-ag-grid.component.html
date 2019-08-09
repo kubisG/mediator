@@ -1,0 +1,10 @@
+
+<div class="gridsize">
+<ag-grid-angular *ngIf="gridOptions" class="{{ theme }} grid-ag" [gridOptions]="gridOptions"
+    [rowGroupPanelShow]="showRowGroup" [groupIncludeFooter]="false" [sideBar]="false"
+    [aggFuncs]="aggFuncs" [groupSuppressBlankHeader]="true" [groupIncludeTotalFooter]="false" [groupRowAggNodes]="groupRowAggNodes"
+    (selectionChanged)="onSelectionChanged($event)" (rowSelected)="onRowSelected($event)"
+    [getContextMenuItems]="getContextMenuItems">
+</ag-grid-angular>
+<!-- [frameworkComponents]="frameworkComponents" [groupRemoveSingleChildren]="true" [groupRemoveLowestSingleChildren]="true" -->
+</div>

@@ -1,0 +1,23 @@
+<mat-card class="detail-card">
+    <mat-card-header color="primary">
+        <mat-card-title>
+            <button class="mat-icon-button" matTooltip="New preference" mat-icon-button (click)="newPreference()">
+                <mat-icon>control_point</mat-icon>
+            </button>
+            Preferences
+        </mat-card-title>
+        <span class="fill-remaining-space"></span>
+        <button matTooltip="{{'butt.save.layout' | translate}}" mat-icon-button (click)="saveState()">
+            <mat-icon aria-label="Save">send</mat-icon>
+        </button>
+    </mat-card-header>
+
+    <mat-card-content *ngIf="columns">
+            <div class="grid-wrapper">
+            <ra-data-grid id="gridContainer" [initColumns]="columns" (initialized)="onInitialized($event)"
+              [gridKey]="'id'" [actions]="actions" [rowGroup]="'never'"
+              (buttonClick)="rowActionClick($event)">
+            </ra-data-grid>
+            </div>
+        </mat-card-content>
+    </mat-card>

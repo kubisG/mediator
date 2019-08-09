@@ -18,6 +18,9 @@ export class RaPreference extends AEntity {
     @PrimaryColumn()
     public companyId: number;
 
+    @Column({nullable: true})
+    public version: string;    
+
     @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
     public createDate: Date;
 
