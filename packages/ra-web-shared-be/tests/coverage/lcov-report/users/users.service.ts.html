@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for users/users.service.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">All files</a> / <a href="index.html">users</a> users.service.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">65.15% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>86/132</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">54.43% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>43/79</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">63.41% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>26/41</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">66.12% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>80/121</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Injectable, Unaut<span class="branch-1 cbranch-no" title="branch not covered" >horizedException</span>, Inject, HttpException } from "@nestjs/common";
+import { AuthService } from "@ra/web-auth-be/auth.s<span class="branch-1 cbranch-no" title="branch not covered" >ervice";</span>
+impo<span class="missing-if-branch" title="else path not taken" >E</span>rt { AuthDto } from "@ra/web-auth-be/dto/auth.dto";
+import { <span class="cstat-no" title="statement not covered" >UserData } from "./user-data.interface";<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span>
+import { PreferenceR<span class="branch-1 cbranch-no" title="branch not covered" >ep</span>osi<span class="branch-2 cbranch-no" title="branch not covered" >tory } from "@ra/web-core-be/dao/repos</span>itories/preference.repository";
+import * as generator from "generate-password";
+import { bcryptHash } from<span class="branch-1 cbranch-no" title="branch not covered" > "@ra/web-core-b</span>e/utils";
+impo<span class="missing-if-branch" title="else path not taken" >E</span>rt { UserRepository } from "@ra/web-core-be/dao/repositories/user.repository";
+import { HttpStatus } from "@nestjs/common";
+import { RaUser } from <span class="branch-1 cbranch-no" title="branch not covered" >"@ra/web-core</span>-be/db/entity/ra-user";
+import { LightMapper } from "light-mapper";
+import { DbException } from "@ra/web-core-be/exceptions/db.exception";
+import { Subject } from "<span class="branch-1 cbranch-no" title="branch not covered" >rxjs/internal/S</span>ubject";
+import { Observable } from "rxjs/internal/Observable";
+<span class="cstat-no" title="statement not covered" ></span>
+@Injectable()<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span>
+export class UsersService {
+&nbsp;
+    public switchLogging: Subject&lt;any&gt; = new Subject&lt;any&gt;();
+    public switchLogging$: Observable&lt;any&gt; = this.switchLogging.asObservable();
+        
+    constructor(
+        private authService: AuthService,
+        @Inject("preferenceRepository") private preferenceRepository: PreferenceRepository,
+        @Inject("userRepository") private raUser: UserRepository,
+        @Inject("mailer") private emailsService,
+    ) { }
+&nbsp;
+    async logIn(auth: AuthDto): Promise&lt;any&gt; {
+        const bearerToken = await this.authService.createToken(auth);
+        if (bearerToken === null) {
+            throw new UnauthorizedException();
+        }
+        return bearerToken;
+    }
+&nbsp;
+    public async setLogging(userId: number, companyId: number, enabled: any) {
+        enabled = (enabled === "true" ? true : false);
+        const settings = { userId, companyId, enabled };
+        this.switchLogging.next(settings);
+        const pref = await this.preferenceRepository.findOne({
+<span class="fstat-no" title="function not covered" ></span>            userId,
+<span class="cstat-no" title="statement not covered" >            companyId,<span class="fstat-no" title="function not covered" ></span></span>
+            name: "layout.prefs"<span class="cstat-no" title="statement not covered" ></span>
+        });<span class="cstat-no" title="statement not covered" ></span>
+        let json<span class="cstat-no" title="statement not covered" > = {};</span>
+        if (pref) {
+<span class="cstat-no" title="statement not covered" >            json = JSON.parse(pr</span>ef.value);
+        }
+        if (json["logging"]) {
+            json["logging"] = enabled;
+        } else {
+            json["logging"] = enabled;<span class="branch-1 cbranch-no" title="branch not covered" ></span>
+        }
+        if (pref) {
+            pref.value = JSON.stringify(json);
+            return await this.preferenceRepository.save(pref);
+        } else {
+            return await this.preferenceRepository.save({
+                userId,
+                companyId,
+            <span class="missing-if-branch" title="else path not taken" >E</span>    name: "layout.prefs",
+                value: JSON.stringify(json)
+            });
+        }<span class="missing-if-branch" title="if path not taken" >I</span>
+    }<span class="cstat-no" title="statement not covered" ></span>
+&nbsp;
+&nbsp;
+    /**
+     * TODO : text to config/db
+     * @para<span class="missing-if-branch" title="else path not taken" >E</span>m email
+     */
+    async resetMail(email: string): Promise&lt;any&gt; {
+        const user = await this.raUser.findOne({ email: email });
+        const status = { message: "", statusCode: HttpStatus.OK };
+<span class="cstat-no" title="statement not covered" ></span>
+        if (user) {
+            const newpassword = generator.generate({
+                length: 10,
+                numbers: true
+            });
+&nbsp;
+            user.password = await bcryptHash(newpassword);
+            await this.raUser.save(user);
+<span class="fstat-no" title="function not covered" ></span>            this.emailsService.send("info@rapidaddition.com", user.email, "RappidAdditon Order Manager - Password reset", newpassword);
+<span class="cstat-no" title="statement not covered" >            status.message = "New password crea<span class="fstat-no" title="function not covered" >te</span>d and sended";</span>
+        } else {<span class="cstat-no" title="statement not covered" ></span>
+            throw new HttpE<span class="cstat-no" title="statement not covered" >xception("Email doesnt exists", HttpStatus.</span>NOT_FOUND);
+        }<span class="cstat-no" title="statement not covered" ></span>
+        return status;<span class="cstat-no" title="statement not covered" ></span>
+    }
+&nbsp;
+    async logOut(token: string): Promise&lt;any&gt; {
+        return a<span class="cstat-no" title="statement not covered" >wait this.authService.destroySession(token);</span>
+    }<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+    async getUse<span class="cstat-no" title="statement not covered" >rsLayoutPreferences() {</span>
+        const prefs = await this.preferenceRepository.createQueryBuilder("pref")
+        .where("pref.userId &gt; 0 AND pref.companyId &gt; 0 AND pref.name = 'layout.prefs'")
+        .getMany<span class="cstat-no" title="statement not covered" >();</span>
+        const buff = {};
+        for <span class="cstat-no" title="statement not covered" >(let i = 0; i &lt;</span> prefs.length; i++) {
+            const json = JSON.parse(prefs[i].value);
+            buff[`${prefs[i].userId}-${prefs[i].companyId}`] = json;
+<span class="fstat-no" title="function not covered" ></span>        }
+<span class="cstat-no" title="statement not covered" >        return buff;<span class="fstat-no" title="function not covered" ></span></span>
+    }<span class="cstat-no" title="statement not covered" ></span>
+&nbsp;
+    async findAll(token: string): Promise&lt;[RaUser[], number]&gt; {
+        return await this.raUser.findAndCount({ relations: ["company"], order: { username: "ASC" } });
+    }
+&nbsp;
+    async findCompAll(token: string): Promise&lt;RaUser[]&gt; {
+        const userData = await this.authService.getUserData&lt;UserData&gt;(token);
+        return await this.raUser.find({ where: { compId: userData.compId }, relations: ["company"], order: { username: "ASC" } });
+    }
+&nbsp;
+    
+    async findOne(id: any): Promise&lt;RaUser&gt; {
+        return await this.raUser.findOne({ id: id }, { relations: ["company"] });
+    }
+&nbsp;
+    async delete(id: any): Promise&lt;any&gt; {
+        return await this.raUser.delete({ id: id });
+    }
+&nbsp;
+    /**
+     * Creates user
+     * @param user  user informations
+     */
+    async createUser(token: any, user: any): Promise&lt;any&gt; {
+        const userData = await this.authService.getUserData&lt;UserData&gt;(token);
+        if (user.company) {
+            user.company = user.company.id;
+        }
+        try {
+            const mapper = new LightMapper();
+            const raUser = mapper.map&lt;RaUser&gt;(RaUser, user);
+            raUser.password = await bcryptHash(user.password);
+            const newUser = await this.raUser.save(raUser);
+            delete newUser.password;
+            return newUser;
+        } catch (ex) {
+            throw new DbException(ex, "RaUser");
+        }
+    }
+<span class="missing-if-branch" title="else path not taken" >E</span>
+    async updateUser(id, user: any, token: any): Promise&lt;any&gt; {
+        let userData;
+        if (token !== null) {
+            userData = await this.authService.getUserData&lt;UserData&gt;(token);
+            if ((userData.role !== "ADMIN") &amp;&amp; (id !== userData.id)) {
+                return;
+            }
+        } else {
+            return;
+        }
+        try {
+            cons<span class="cstat-no" title="statement not covered" >t mapper = new LightMapper();</span>
+            if (!user.company) {
+                user.company = userData.compId;
+            }
+&nbsp;
+            const raUser = mapper.map&lt;RaUser&gt;(RaUser, user);
+&nbsp;
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (user.password) {
+                raUser.password = await bcryptHash(user.password);
+            } el<span class="missing-if-branch" title="if path not taken" >I</span>se {
+                dele<span class="cstat-no" title="statement not covered" >te raUse</span>r.password;
+            }
+            if (userData.role !== "ADMIN") {
+                delete raUser.email;
+<span class="cstat-no" title="statement not covered" >                delete r</span>aUser.username;
+                delete raUser.company;
+                delete raUser.class;
+            }
+<span class="missing-if-branch" title="if path not taken" >I</span>
+            await th<span class="cstat-no" title="statement not covered" >is.raUser.update({ id: id }, raU</span>ser);
+            const savedUser = await this.findOne(id);
+            delete savedUser.password;
+            retu<span class="missing-if-branch" title="else path not taken" >E</span>rn savedUser;
+        } catch (ex) {
+            console.log("err", ex);
+            throw new DbException(ex, "RaUser");
+        }<span class="cstat-no" title="statement not covered" ></span>
+    }
+<span class="missing-if-branch" title="else path not taken" >E</span>
+&nbsp;
+    async getLayoutConfig(token: string, name: string) {
+        const userData: UserData = await this.authService.getUserData&lt;UserData&gt;(token);
+        return await this.preferenceRepository.getLayoutConfig(userData.userId, userData.compId, name);
+    }
+&nbsp;
+    async setLayoutConfig(token: string, config: any, name: string) {
+        const userData: UserData = await this.authService.getUserData&lt;UserData&gt;(token);
+        return await this.preferenceRepository.setLayoutConfig(userData.userId, userData.compId, config, name);
+    }
+&nbsp;
+    async delete<span class="cstat-no" title="statement not covered" >LayoutConfig(token: stri</span>ng, name: string) {
+        const us<span class="cstat-no" title="statement not covered" >erData: UserData = await this.authSer</span>vice.getUserData&lt;UserData&gt;(token);
+        return await this.preferenceRepository.deleteLayoutConfig(userData.userId, userData.compId, name);
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    as</span>ync getLayoutsName(token: string) {
+<span class="cstat-no" title="statement not covered" >        const userData: UserData = await this.a<span class="fstat-no" title="function not covered" >ut</span>hService.getUserData&lt;UserData&gt;(token);</span>
+        return await this.pre<span class="cstat-no" title="statement not covered" >ferenceRepository.getLayoutsName(userData.</span>userId, userData.compId);
+    }<span class="cstat-no" title="statement not covered" ></span>
+&nbsp;
+}
+<span class="fstat-no" title="function not covered" ></span></pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 09 2019 12:24:37 GMT+0200 (CEST)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

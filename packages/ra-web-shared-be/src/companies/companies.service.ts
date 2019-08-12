@@ -73,6 +73,7 @@ export class CompaniesService {
             await this.companyRep.update({ id: id }, newCompany);
             return await this.findOne(token, id);
         } catch (ex) {
+            console.log("err",ex);
             throw new DbException(ex, "RaCompany");
         }
     }

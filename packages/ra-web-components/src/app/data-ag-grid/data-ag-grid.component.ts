@@ -355,16 +355,18 @@ export class DataAgGridComponent implements DataGridInterface, OnInit, OnDestroy
     private subscribeBackendFilterData() {
         for (const column of this.columns) {
             const agGridFilter = this.gridOptions.api.getFilterInstance(column.headerName);
-            const ng2FilterInstance = agGridFilter.getFrameworkComponentInstance();
-            this.subscriptions.add = ng2FilterInstance.outOperator.subscribe((out: { column: string, operator: Operator }) => {
-                if (out.operator instanceof ClearOperator) {
-                    delete this.backEndFilters[out.column];
-                } else {
-                    this.backEndFilters[out.column] = out.operator;
-                    const group = this.groupBackendFilters();
-                    this.backEndFilterOut.emit(group);
-                }
-            });
+            if (agGridFilter) {
+                const ng2FilterInstance = agGridFilter.getFrameworkComponentInstance();
+                this.subscriptions.add = ng2FilterInstance.outOperator.subscribe((out: { column: string, operator: Operator }) => {
+                    if (out.operator instanceof ClearOperator) {
+                        delete this.backEndFilters[out.column];
+                    } else {
+                        this.backEndFilters[out.column] = out.operator;
+                        const group = this.groupBackendFilters();
+                        this.backEndFilterOut.emit(group);
+                    }
+                });
+            }
         }
     }
 

@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for layout/layout.service.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">All files</a> / <a href="index.html">layout</a> layout.service.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">62.5% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>30/48</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">55.1% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>27/49</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">60.87% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>14/23</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">62.16% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>23/37</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Injectable, Injec<span class="branch-1 cbranch-no" title="branch not covered" >t } from "@nestj</span>s/common";
+import { AuthService } from "@ra/web-auth-be/auth.s<span class="branch-1 cbranch-no" title="branch not covered" >ervice";</span>
+impo<span class="missing-if-branch" title="else path not taken" >E</span>rt { PreferenceRepository } from "@ra/web-core-be/dao/repositories/preference.repository";
+import { <span class="cstat-no" title="statement not covered" >UserData } from "../users/user-data.interface";<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span>
+<span class="branch-2 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" ></span></span>
+@Injectable()
+export class LayoutService<span class="branch-1 cbranch-no" title="branch not covered" > {</span>
+<span class="missing-if-branch" title="else path not taken" >E</span>
+    constructor(
+        private readonl<span class="branch-1 cbranch-no" title="branch not covered" >y authService</span>: AuthService,
+        @Inject("preferenceRepository") private raPreferences: PreferenceRepository,
+    ) { }
+<span class="branch-1 cbranch-no" title="branch not covered" ></span>
+    async getLayoutConfig(token: string, name: string) {
+        const userData: UserData = await this.authService.getUserData&lt;UserData&gt;(token);
+        return aw<span class="fstat-no" title="function not covered" >ait this.</span>raPrefere<span class="cstat-no" title="statement not covered" >nces.g<span class="cstat-no" title="statement not covered" >etLayoutConfig(userData.userId, u</span>serData.compId<span class="cstat-no" title="statement not covered" >, name);</span></span>
+    }<span class="branch-0 cbranch-no" title="branch not covered" ></span>
+&nbsp;
+    async setLayoutConfig(token: string, config: any, name: string) {
+        const userData: UserData = await this.authService.getUserData&lt;UserData&gt;(token);
+        return await this.raPreferences.setLayoutConfig(userData.userId, userData.compId, config, name);
+    }
+&nbsp;
+    async deleteLayoutConfig(token: string, name: string) {
+        const userData: UserData = await this.authService.getUserData&lt;UserData&gt;(token);
+        return await this.raPreferences.deleteLayoutConfig(userData.userId, userData.compId, name);
+    }
+&nbsp;
+    async getLayoutsName(token: string) {
+        const userData: UserData = await this.authService.getUserData&lt;UserData&gt;(token);
+        return await this.raPreferences.getLayoutsName(userData.userId, userData.compId);
+    }
+&nbsp;
+    async getLayoutDefault(token: string, modul: string) {
+        const userData: UserData = await this.authService.getUserData&lt;UserData&gt;(token);
+        return await this.raPreferences.findOne({
+            userId: userData.userId,
+            companyId: userData.compId,
+            name: `default_layout_${modul}`
+        });
+    }
+<span class="fstat-no" title="function not covered" ></span>
+    asyn<span class="cstat-no" title="statement not covered" >c setLayoutDefault(token: string, modul<span class="fstat-no" title="function not covered" >: </span>string, name: any) {</span>
+        const userData: UserD<span class="cstat-no" title="statement not covered" >ata = await this.authService.getUserData&lt;U</span>serData&gt;(token);
+        retu<span class="cstat-no" title="statement not covered" >rn await this.raPreferences.save({</span>
+            name: `default_layout_${modul}`,
+            value: name,
+<span class="fstat-no" title="function not covered" ></span>            userId: userData.userId,
+<span class="cstat-no" title="statement not covered" >            companyId: userData.compId,<span class="fstat-no" title="function not covered" ></span></span>
+        });<span class="cstat-no" title="statement not covered" ></span>
+    }<span class="cstat-no" title="statement not covered" ></span>
+&nbsp;
+}
+<span class="fstat-no" title="function not covered" ></span></pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 09 2019 12:24:37 GMT+0200 (CEST)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

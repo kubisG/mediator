@@ -106,7 +106,7 @@ export class UsersService {
         return buff;
     }
 
-    async findAll(token: string, page: number = 0, sort: string = "ASC"): Promise<[RaUser[], number]> {
+    async findAll(token: string): Promise<[RaUser[], number]> {
         return await this.raUser.findAndCount({ relations: ["company"], order: { username: "ASC" } });
     }
 
@@ -180,6 +180,7 @@ export class UsersService {
             delete savedUser.password;
             return savedUser;
         } catch (ex) {
+            console.log("err", ex);
             throw new DbException(ex, "RaUser");
         }
     }

@@ -82,10 +82,8 @@ export class UsersController {
     @UseGuards(RolesGuard)
     @ApiBearerAuth()
     @Roles("ADMIN")
-    @ApiImplicitQuery({ name: "skip", required: false })
-    @ApiImplicitQuery({ name: "sort", required: false })
-    findAll(@Bearer() auth: string, @Query("skip") skip: number, @Query("sort") sort: string) {
-        return this.usersService.findAll(auth, skip, sort);
+    findAll(@Bearer() auth: string) {
+        return this.usersService.findAll(auth);
     }
 
     @Get("company")

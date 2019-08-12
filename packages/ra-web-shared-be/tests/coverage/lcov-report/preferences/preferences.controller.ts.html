@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for preferences/preferences.controller.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">All files</a> / <a href="index.html">preferences</a> preferences.controller.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">77.5% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>31/40</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">58.33% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>21/36</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">62.5% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>10/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">79.41% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>27/34</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Body, Controller,<span class="branch-1 cbranch-no" title="branch not covered" > Get, Post, UseG</span>uards, Put, Param, Delete } from "@nestjs/common";
+import { AuthGuard } from "@nestjs/passport";<span class="branch-1 cbranch-no" title="branch not covered" ></span>
+<span class="missing-if-branch" title="else path not taken" >E</span>
+import { <span class="cstat-no" title="statement not covered" >PreferencesService } from "./preferences.service"<span class="cstat-no" title="statement not covered" >;<span class="cstat-no" title="statement not covered" ></span></span></span>
+import { Bearer } from "@ra/web-auth-be/decorators/bearer.decorator";
+import { ApiBearerAuth, ApiImplicitParam } from "@nestjs/swagger";
+import { RolesGuard } from<span class="branch-1 cbranch-no" title="branch not covered" > "@ra/web-auth-b</span>e/guards/roles.guard";
+impo<span class="missing-if-branch" title="else path not taken" >E</span>rt { Roles } from "@ra/web-auth-be/decorators/roles.decorator";
+&nbsp;
+<span class="branch-1 cbranch-no" title="branch not covered" ></span>
+@Controller("preferences")
+@ApiBearerAuth()
+@UseGuards(AuthGuard())
+export class PreferencesController {
+&nbsp;
+    constructor(
+        private readonly preferencesService: PreferencesService,
+    ) { }
+&nbsp;
+    @Get("/hitlist/:key")
+    @ApiImplicitParam({ name: "key" })
+    getStorage(@Bearer() auth: string, @Param("key") key) {
+        return this.preferencesService.loadUserPref(auth, "hitlist_" + key);
+    }
+&nbsp;
+    @Put("/hitlist/:key")
+    @ApiImplicitParam({ name: "key" })
+    setStorage(@Bearer() auth: string, @Param("key") key, @Body() storage: any) {
+        return this.preferencesService.saveUserPref(auth, "hitlist_" + key, storage.body);
+    }
+<span class="fstat-no" title="function not covered" ></span>
+    @Get<span class="cstat-no" title="statement not covered" >("/app/:name")</span>
+    @ApiImplicitParam({ name: "name" })
+    getAppPref(@Param("name") name: string) {
+        return this.preferencesService.getAppPref(name);
+    }
+&nbsp;
+    @Post()
+    create(@Bearer() auth: string, @Body() preferenceDto: any) {
+        return this.preferencesService.save(preferenceDto, auth);
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    @P</span>ost("/update")
+    upda<span class="cstat-no" title="statement not covered" >te(@Bearer() auth: string, @Body() pref: a</span>ny) {
+        return this.preferencesService.update(pref, auth);
+<span class="fstat-no" title="function not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" ></span>
+    @Get()
+<span class="fstat-no" title="function not covered" >    fi</span>ndAll(@Bearer() auth: string) {
+<span class="cstat-no" title="statement not covered" >        return this.preferencesService.find(auth);</span>
+    }
+<span class="fstat-no" title="function not covered" ></span>
+    @Get<span class="cstat-no" title="statement not covered" >("all")</span>
+    @UseGuards(RolesGuard)
+<span class="fstat-no" title="function not covered" >    @A</span>piBearerAuth()
+    @Rol<span class="cstat-no" title="statement not covered" >es("ADMIN")</span>
+    findAllPrefs() {
+        return this.preferencesService.findAll();
+    }
+&nbsp;
+    @Post("save")
+    @UseGuards(RolesGuard)
+    @ApiBearerAuth()
+    @Roles("ADMIN")
+    savePreference(@Body() pref: any) {
+        return this.preferencesService.savePreference(pref);
+    }
+&nbsp;
+    @Delete("delete/:name/:user/:company")
+    @UseGuards(RolesGuard)
+    @ApiBearerAuth()
+    @Roles("ADMIN")
+    deletePreference(@Param("name") name: any, @Param("user") user: number, @Param("company") company: number) {
+        return this.preferencesService.deletePreference(name, user, company);
+    }
+&nbsp;
+    @Get("/user/:name")
+    @ApiImplicitParam({ name: "name" })
+    findUserPref(@Bearer() auth: string, @Param("name") name: string) {
+        return this.preferencesService.loadUserPref(auth, name);
+    }
+&nbsp;
+    @Post("/user/:name")
+    @ApiImplicitParam({ name: "name" })
+    setUserPref(@Bearer() auth: string, @Param("name") name: string, @Body() mypref: any) {
+        return this.preferencesService.saveUserPref(auth, name, mypref);
+    }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 09 2019 12:24:37 GMT+0200 (CEST)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

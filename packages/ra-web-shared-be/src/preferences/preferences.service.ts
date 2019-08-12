@@ -66,7 +66,7 @@ export class PreferencesService {
                 newPref.companyId = userData.compId;
                 newPref.version = this.env.appVersion;
                 newPref.value = JSON.stringify(prefs.pref);
-                await this.raPreference.save(newPref);
+                return await this.raPreference.save(newPref);
             }
         } catch (ex) {
             throw new DbException(ex, "RaPreference");
@@ -92,6 +92,7 @@ export class PreferencesService {
             storedPref.value = JSON.stringify(prefObject);
             return await this.raPreference.save(storedPref);
         } catch (ex) {
+            console.log(ex);
             throw new DbException(ex, "RaUser");
         }
     }
