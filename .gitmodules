@@ -2,31 +2,15 @@
 	path = packages/ra-trader-be
 	url = git@bitbucket.org:rapid-addition/ra-trader-be.git
 	branch = .
-[submodule "packages/ra-trader-fe"]
-	path = packages/ra-trader-fe
-	url = git@bitbucket.org:rapid-addition/ra-trader-fe.git
-	branch = .
 [submodule "packages/ra-web-monitor-be"]
 	path = packages/ra-web-monitor-be
 	url = git@bitbucket.org:rapid-addition/ra-web-monitor-be.git
 [submodule "packages/ra-web-platform-be"]
 	path = packages/ra-web-platform-be
 	url = git@bitbucket.org:rapid-addition/ra-web-platform-be.git
-[submodule "packages/ra-web-platform-fe"]
-	path = packages/ra-web-platform-fe
-	url = git@bitbucket.org:rapid-addition/ra-web-platform-fe.git
-[submodule "packages/ra-web-monitor-fe"]
-	path = packages/ra-web-monitor-fe
-	url = git@bitbucket.org:rapid-addition/ra-web-monitor-fe.git
-[submodule "packages/ra-web-forms-fe"]
-	path = packages/ra-web-forms-fe
-	url = git@bitbucket.org:rapid-addition/ra-web-forms-fe.git
 [submodule "packages/ra-web-forms-be"]
 	path = packages/ra-web-forms-be
 	url = git@bitbucket.org:rapid-addition/ra-web-forms-be.git
-[submodule "packages/ra-web-bundle-fe"]
-	path = packages/ra-web-bundle-fe
-	url = git@bitbucket.org:rapid-addition/ra-web-bundle-fe.git
 [submodule "packages/ra-web-bundle-be"]
 	path = packages/ra-web-bundle-be
 	url = git@bitbucket.org:rapid-addition/ra-web-bundle-be.git

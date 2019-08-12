@@ -35,7 +35,7 @@ export class RedisStore implements SessionStore {
                 reject({ message: "redisClient undefined" });
                 return;
             }
-            redisClient.get(sid, function (err, reply) {
+            redisClient.get(sid, function(err, reply) {
                 if (err) {
                     reject(err);
                 } else {

@@ -53,8 +53,8 @@ export const environment = {
             },
             password: () => {
                 return process.env.RABBIT_MQ_PASSWORD;
-            }
-        }
+            },
+        },
     },
     db: {
         type: (): string => {
@@ -80,7 +80,7 @@ export const environment = {
         },
         synch: () => {
             return process.env.DB_SYNCH;
-        }
+        },
     },
     mailer: {
         type: config.get("mailer.type"),
@@ -99,7 +99,7 @@ export const environment = {
             },
             password: () => {
                 return process.env.SMTP_PASSWORD;
-            }
-        }
+            },
+        },
     },
 };

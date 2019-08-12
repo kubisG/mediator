@@ -50,7 +50,7 @@ export class RaUser extends AEntity {
     @Column({ unique: true })
     public email: string;
 
-    @Column({ type: "timestamptz", nullable: true, default: () => 'CURRENT_TIMESTAMP' })
+    @Column({ type: "timestamptz", nullable: true, default: () => "CURRENT_TIMESTAMP" })
     public createDate: Date;
 
     @Column({ type: "timestamptz", nullable: true })
@@ -70,12 +70,12 @@ export class RaUser extends AEntity {
         requirement: MappingRequirement.REQUIRED,
         transformation: (companyId: number) => {
             return new RaCompany(companyId);
-        }
+        },
     })
     @ManyToOne(() => RaCompany, (raCompany) => raCompany.user)
     public company: RaCompany;
 
-    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
+    @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
     public updatedDate: Date;
 
     @BeforeUpdate()

@@ -1,58 +1,28 @@
 {
 	"folders": [
 		{
-			"path": "packages\\ra-web-admin-fe"
-		},
-		{
 			"path": "packages\\ra-web-admin-be"
 		},
 		{
 			"path": "packages\\ra-trader-be"
 		},
 		{
-			"path": "packages\\ra-trader-fe"
-		},
-		{
 			"path": "packages\\ra-web-auth-be"
-		},
-		{
-			"path": "packages\\ra-web-auth-fe"
 		},
 		{
 			"path": "packages\\ra-web-core-be"
 		},
 		{
-			"path": "packages\\ra-web-core-fe"
-		},
-		{
 			"path": "packages\\ra-web-env-be"
-		},
-		{
-			"path": "packages\\ra-web-env-fe"
-		},
-		{
-			"path": "packages\\ra-web-material-fe"
-		},
-		{
-			"path": "packages\\ra-web-modules-fe"
 		},
 		{
 			"path": "packages\\ra-web-monitor-be"
 		},
 		{
-			"path": "packages\\ra-web-monitor-fe"
-		},
-		{
 			"path": "packages\\ra-web-platform-be"
 		},
 		{
-			"path": "packages\\ra-web-platform-fe"
-		},
-		{
 			"path": "packages\\ra-web-queue"
-		},
-		{
-			"path": "packages\\ra-web-shared-fe"
 		},
 		{
 			"path": "packages\\ra-web-shared-be"
@@ -61,19 +31,10 @@
 			"path": "packages\\ra-web-shared"
 		},
 		{
-			"path": "packages\\ra-web-forms-fe"
-		},
-		{
 			"path": "packages\\ra-web-forms-be"
 		},
 		{
-			"path": "packages\\ra-web-components"
-		},
-		{
 			"path": "packages\\ra-web-ee-router"
-		},
-		{
-			"path": "packages\\ra-web-bundle-fe"
 		},
 		{
 			"path": "packages\\ra-web-bundle-be"

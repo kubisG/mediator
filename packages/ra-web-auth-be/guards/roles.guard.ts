@@ -8,6 +8,7 @@ import { Logger } from "@ra/web-core-be/logger/providers/logger";
 
 @Injectable()
 export class RolesGuard implements CanActivate {
+
     constructor(private readonly reflector: Reflector,
         private jwtService: JwtService,
         private authService: AuthService,

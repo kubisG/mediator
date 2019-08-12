@@ -39,7 +39,7 @@ export class EnvironmentService {
 
     get worker() {
         return {
-            resending: this.conf.get("worker.resending") ? this.conf.get("worker.resending") : 60
+            resending: this.conf.get("worker.resending") ? this.conf.get("worker.resending") : 60,
         };
     }
 
@@ -104,8 +104,8 @@ export class EnvironmentService {
                     heartbeat: 10,
                     dataQueue: process.env.NATS_QUEUE_DATA,
                     requestQueue: process.env.NATS_QUEUE_REQUEST,
-                }
-            }
+                },
+            },
         };
     }
 
@@ -118,7 +118,7 @@ export class EnvironmentService {
                 secure: process.env.SMTP_SECURE,
                 user: process.env.SMTP_USER,
                 password: process.env.SMTP_PASSWORD,
-            }
+            },
         };
     }
 
@@ -131,7 +131,7 @@ export class EnvironmentService {
             password: process.env.DB_PASSWORD,
             schema: process.env.DB_SCHEMA,
             db: process.env.DB_DATABASE,
-            synch: (process.env.DB_SYNCH === "true")
+            synch: (process.env.DB_SYNCH === "true"),
         };
     }
 
@@ -145,7 +145,7 @@ export class EnvironmentService {
         return {
             baseUrl: this.conf.get("stockDataService.baseUrl"),
             currUrl: this.conf.get("stockDataService.currUrl"),
-            apiKey: this.conf.get("stockDataService.apiKey")
+            apiKey: this.conf.get("stockDataService.apiKey"),
         };
     }
 
