@@ -30,7 +30,7 @@ export async function bcryptHash(password: string): Promise<string> {
 
 export async function bcryptCompare(password: string, hash: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-        bcrypt.compare(password, hash, function (err, res) {
+        bcrypt.compare(password, hash, function(err, res) {
             if (res) {
                 resolve(true);
             } else {
@@ -45,7 +45,7 @@ export function md5(data: string) {
 }
 
 export function deepCloning(obj: any) {
-    const newObject = new obj.constructor;
+    const newObject = new obj.constructor();
     for (const attribut in obj) {
         if (obj[attribut]) {
             newObject[attribut] = obj[attribut];
@@ -121,5 +121,5 @@ export async function prepareFilter(filter: any, sortCol: string, sortDefault: s
         });
         whereCl = whereCl + ")";
     }
-    return { whereCl: whereCl, data: data, orderBy: orderBy };
+    return { whereCl, data, orderBy };
 }

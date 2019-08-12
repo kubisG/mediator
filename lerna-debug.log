@@ -1,0 +1,13 @@
+0 silly argv { _: [ 'bootstrap' ],
+0 silly argv   hoist: true,
+0 silly argv   'force-local': true,
+0 silly argv   forceLocal: true,
+0 silly argv   'include-filtered-dependencies': true,
+0 silly argv   includeFilteredDependencies: true,
+0 silly argv   loglevel: 'verbose',
+0 silly argv   lernaVersion: '3.13.3',
+0 silly argv   '$0': 'node_modules\\lerna\\cli.js' }
+1 notice cli v3.13.3
+2 verbose rootPath C:\Users\Jirin\Documents\NetbeansProjects\rapid-addition\ra-web
+3 info versioning independent
+4 error

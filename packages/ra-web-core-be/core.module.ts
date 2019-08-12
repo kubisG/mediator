@@ -37,7 +37,7 @@ import { HttpCacheService } from "./http-cache.service";
         MessageValidatorService,
         HttpCacheService,
         fastRandomFactory,
-    ]
+    ],
 })
 export class CoreModule implements OnModuleDestroy {
 

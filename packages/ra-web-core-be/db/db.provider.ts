@@ -32,7 +32,7 @@ export function dataseProviders(entities: any[]) {
                     ],
                     synchronize: env.db.synch,
                     logging: ((env.logging.db === "true" || env.logging.db === true) ? true : ["error"]),
-                    logger: "advanced-console"
+                    logger: "advanced-console",
                 } as PostgresConnectionOptions);
                 if (driver) {
                     await driver.connect();

@@ -12,15 +12,15 @@
     "scripts": {
         "test": "echo \"Error: run tests from root\" && exit 1",
         "bundle": "rm -rf dist && tsc -p tsconfig.json",
-        "lint:fix": "tslint -c tslint.json '**/*.ts' --fix",
+        "lint:fix": "tslint -c tslint.json --project ./tsconfig.json --fix",
         "test:cov": "jest --coverage",
         "libtest": "npm run test:cov"
     },
     "dependencies": {
-        "@nestjs/common": "5.4.0",
-        "@nestjs/core": "5.4.0",
-        "@nestjs/microservices": "5.4.0",
-        "@nestjs/websockets": "5.4.0",
+        "@nestjs/common": "6.5.3",
+        "@nestjs/core": "6.5.3",
+        "@nestjs/microservices": "6.5.3",
+        "@nestjs/websockets": "6.5.3",
         "@ra/web-auth-be": "1.1.0",
         "@ra/web-core-be": "^1.1.0",
         "@ra/web-env-be": "^1.1.0",
@@ -37,5 +37,8 @@
         "typescript": "3.2.4",
         "winston": "3.0.0",
         "winston-daily-rotate-file": "3.5.1"
+    },
+    "devDependencies": {
+        "tslint": "5.9.1"
     }
 }

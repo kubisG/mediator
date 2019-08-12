@@ -1,3 +1,3 @@
 export enum mailerType {
-    smtp = 0
+    smtp = 0,
 }

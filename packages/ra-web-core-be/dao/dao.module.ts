@@ -3,11 +3,13 @@ import { repositoriesProvider } from "./repository.provider";
 import { entities } from "./entities";
 import { CoreModule } from "../core.module";
 import { dataseProviders } from "../db/db.provider";
+import { EnvironmentsModule } from "@ra/web-env-be/environments.module";
 
 @Global()
 @Module({
     imports: [
         CoreModule,
+        EnvironmentsModule,
     ],
     controllers: [
     ],
@@ -45,10 +47,9 @@ export class DaoModule {
             exports: [
                 ...dataseProviders(Object.values(DaoModule.entitiesMap)),
                 ...repositoriesProvider,
-            ]
+            ],
         };
     }
-
 
     static forOMS(customEntities: any[], providers: any[]): DynamicModule {
         return {
@@ -60,7 +61,7 @@ export class DaoModule {
             exports: [
                 ...dataseProviders(customEntities),
                 ...providers,
-            ]
+            ],
         };
     }
 

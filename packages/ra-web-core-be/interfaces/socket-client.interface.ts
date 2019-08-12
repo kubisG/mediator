@@ -2,11 +2,11 @@ export interface SocketClient {
 
     handshake: {
         query: {
-            token: any
-        }
+            token: any,
+        },
     };
     client: {
-        id: any
+        id: any,
     };
 
 }

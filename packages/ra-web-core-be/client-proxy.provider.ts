@@ -20,6 +20,6 @@ export const clientProxyProviders = [
             await proxyClient.connect();
             return proxyClient;
         },
-        inject: [EnvironmentService]
-    }
+        inject: [EnvironmentService],
+    },
 ];

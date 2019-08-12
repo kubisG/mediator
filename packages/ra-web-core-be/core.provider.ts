@@ -7,7 +7,7 @@ export const fastRandomFactory = {
         return {
             nextInt: () => {
                 return Number(`${new Date().toISOString().substr(0, 10).replace(/-/g, "")}${fastRnd.nextInt()}`);
-            }
+            },
         };
     },
     inject: [],

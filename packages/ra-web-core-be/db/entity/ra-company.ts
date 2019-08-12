@@ -4,7 +4,6 @@ import { Mapping, MappingRequirement } from "light-mapper";
 import { AEntity } from "../a-entity";
 import { RaUser } from "./ra-user";
 
-
 @Entity()
 export class RaCompany extends AEntity {
 
@@ -39,10 +38,10 @@ export class RaCompany extends AEntity {
     @Column({ nullable: true })
     public state: string;
 
-    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
+    @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
     public createDate: Date;
 
-    @Column({ type: "timestamptz", default: () => 'CURRENT_TIMESTAMP' })
+    @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
     public updatedDate: Date;
 
     @Mapping(MappingRequirement.OPTIONAL)

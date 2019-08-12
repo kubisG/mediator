@@ -18,7 +18,7 @@ import { VerifyService } from "./verify/verify.service";
         EnvironmentsModule,
         PassportModule.register({ defaultStrategy: "jwt" }),
         JwtModule.register({
-            secretOrPrivateKey: EnvironmentService.instance.auth.secretKey,
+            secret: EnvironmentService.instance.auth.secretKey,
             signOptions: {
                 expiresIn: EnvironmentService.instance.auth.expiresIn,
             },

@@ -30,8 +30,8 @@ export class Smtp implements Mailer {
                     secure: (this.env.mailer.opt.secure === "true"),
                     auth: {
                         user: this.env.mailer.opt.user, // user
-                        pass: this.env.mailer.opt.password // password
-                    }
+                        pass: this.env.mailer.opt.password, // password
+                    },
                 };
             } else {
                 options = {
@@ -57,10 +57,10 @@ export class Smtp implements Mailer {
 
     public async send(from: string, to: string, subject: string, text: string) {
         const email: Nodemailer.SendMailOptions = {
-            from: from, // sender address
-            to: to, // list of receivers
-            subject: subject, // Subject line
-            text: text
+            from, // sender address
+            to, // list of receivers
+            subject, // Subject line
+            text,
         };
         return await this.transporter.sendMail(email);
     }
