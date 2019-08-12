@@ -14,6 +14,7 @@
     "lint:fix": "lerna run --no-bail lint:fix",
     "ra-trader-be": "lerna run --scope ra-trader-be build:prod",
     "ra-trader-fe": "lerna run --scope ra-trader-fe build:all",
+    "libtest": "lerna run libtest",
     "ra-web-bundle-be": "lerna run --scope @ra/web-bundle-be build",
     "ra-web-bundle-fe": "lerna run --scope @ra/web-bundle-fe build",
     "watch:bundle": "tsc ./scripts/nodemon-bundle.ts && node ./scripts/nodemon-bundle.js",

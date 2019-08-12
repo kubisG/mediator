@@ -14,10 +14,12 @@ function start() {
     var newCoverage;
     try {
         lastCoverage = readJsonFile(pwd + "/coverage.json");
+    }
+    catch (ex) { }
+    try {
         newCoverage = readJsonFile(pwd + "/coverage/coverage-summary.json").total;
     }
-    catch (ex) {
-    }
+    catch (ex) { }
     if (!newCoverage) {
         logger_1.Logger.silly("Missing coverage report!!!");
         return;

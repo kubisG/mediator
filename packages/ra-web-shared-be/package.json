@@ -1,39 +1,41 @@
 {
-  "name": "@ra/web-shared-be",
-  "version": "1.1.0",
-  "description": "> TODO: description",
-  "author": "Hajek Jiri <hajekj14@gmail.com>",
-  "homepage": "https://bitbucket.org/rapid-addition/ra-web#readme",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@bitbucket.org/rapid-addition/ra-web.git"
-  },
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1",
-    "bundle": "rm -rf dist && tsc -p tsconfig.json",
-    "lint:fix": "tslint -c tslint.json '**/*.ts' --fix"
-  },
-  "dependencies": {
-    "@nestjs/common": "5.4.0",
-    "@nestjs/core": "5.4.0",
-    "@nestjs/microservices": "5.4.0",
-    "@nestjs/websockets": "5.4.0",
-    "@ra/web-auth-be": "1.1.0",
-    "@ra/web-core-be": "^1.1.0",
-    "@ra/web-env-be": "^1.1.0",
-    "@types/node": "9.6.49",
-    "bcryptjs": "2.4.3",
-    "devextreme-angular": "19.1.4-build-19151-2014",
-    "fast-random": "2.0.4",
-    "light-mapper": "1.1.6",
-    "lodash": "4.17.10",
-    "nodemailer": "4.6.8",
-    "redis": "2.8.0",
-    "rxjs": "6.5.1",
-    "typeorm": "0.2.7",
-    "typescript": "3.2.4",
-    "winston": "3.0.0",
-    "winston-daily-rotate-file": "3.5.1"
-  }
+    "name": "@ra/web-shared-be",
+    "version": "1.1.0",
+    "description": "> TODO: description",
+    "author": "Hajek Jiri <hajekj14@gmail.com>",
+    "homepage": "https://bitbucket.org/rapid-addition/ra-web#readme",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@bitbucket.org/rapid-addition/ra-web.git"
+    },
+    "scripts": {
+        "test": "echo \"Error: run tests from root\" && exit 1",
+        "bundle": "rm -rf dist && tsc -p tsconfig.json",
+        "lint:fix": "tslint -c tslint.json '**/*.ts' --fix",
+        "test:cov": "jest --coverage",
+        "libtest": "npm run test:cov"
+    },
+    "dependencies": {
+        "@nestjs/common": "5.4.0",
+        "@nestjs/core": "5.4.0",
+        "@nestjs/microservices": "5.4.0",
+        "@nestjs/websockets": "5.4.0",
+        "@ra/web-auth-be": "1.1.0",
+        "@ra/web-core-be": "^1.1.0",
+        "@ra/web-env-be": "^1.1.0",
+        "@types/node": "9.6.49",
+        "bcryptjs": "2.4.3",
+        "devextreme-angular": "19.1.4-build-19151-2014",
+        "fast-random": "2.0.4",
+        "light-mapper": "1.1.6",
+        "lodash": "4.17.10",
+        "nodemailer": "4.6.8",
+        "redis": "2.8.0",
+        "rxjs": "6.5.1",
+        "typeorm": "0.2.7",
+        "typescript": "3.2.4",
+        "winston": "3.0.0",
+        "winston-daily-rotate-file": "3.5.1"
+    }
 }
