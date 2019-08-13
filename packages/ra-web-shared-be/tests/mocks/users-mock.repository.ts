@@ -2,8 +2,8 @@ import { ObjectID, FindConditions, DeepPartial, SaveOptions } from "typeorm";
 import { bcryptHash } from "@ra/web-core-be/utils";
 
 export class UsersMockRepository {
-    save<T extends import("typeorm").DeepPartial<any>>(entities: T[], options?: import("typeorm").SaveOptions): Promise<T[]> {
-        return Promise.resolve([{ result: "OK" } as unknown as T]);
+    save<T extends import("typeorm").DeepPartial<any>>(entities: T[], options?: import("typeorm").SaveOptions): Promise<T> {
+        return Promise.resolve({ result: "OK" } as unknown as T);
     }
 
     remove(entities: any[], options?: import("typeorm").RemoveOptions): Promise<any[]> {

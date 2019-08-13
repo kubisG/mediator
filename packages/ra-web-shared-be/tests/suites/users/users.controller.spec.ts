@@ -73,7 +73,7 @@ describe("UsersController", () => {
         id: 1, userName: "name", password: "pasword", class: "ADMIN",
         company: { id: 1 }
       });
-      expect((result[0] as any).result).toEqual("OK");
+      expect((result as any).result).toEqual("OK");
     });
   });
 

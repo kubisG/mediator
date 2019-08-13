@@ -1,10 +1,52 @@
 import { ObjectID, FindConditions, DeepPartial, SaveOptions } from "typeorm";
 import { RaAppDirectory } from "../../src/app-directory/entities/ra-app-directory";
 import { AppDirectorySearchDto } from "../../src/app-directory/dto/app-directory-search.dto";
+import { RaAppDirectoryType } from "../../src/app-directory/entities/ra-app-directory-type";
+import { AppDirectoryItemDto } from "../../src/app-directory/dto/app-directory-item.dto";
 
 export class AppDirectoryMockRepository {
-    save<T extends import("typeorm").DeepPartial<any>>(entities: T[], options?: import("typeorm").SaveOptions): Promise<T[]> {
-        return Promise.resolve([{ result: "OK" } as unknown as T]);
+
+    public static appDirectoryItem: AppDirectoryItemDto = {
+        appId: "Id",
+        name: "Test",
+        manifest: "Test",
+        manifestType: "Test",
+        version: "1.0.0",
+        title: "Title",
+        tooltip: "Tolltip",
+        description: "Description",
+        images: null,
+        contactEmail: "test@test.cz",
+        supportEmail: "test@test.cz",
+        publisher: "Test",
+        icons: null,
+        customConfig: null,
+        intents: null,
+    };
+
+    public appDirectory = {
+        id: 1,
+        intents: [],
+        manifestDef: new RaAppDirectoryType(1),
+        appId: "Id",
+        name: "Test",
+        manifest: "Test",
+        manifestType: "Test",
+        version: "1.0.0",
+        title: "Title",
+        tooltip: "Tolltip",
+        description: "Description",
+        images: null,
+        contactEmail: "test@test.cz",
+        supportEmail: "test@test.cz",
+        publisher: "Test",
+        icons: null,
+        customConfig: null,
+    };
+    
+
+    save<T extends import("typeorm").DeepPartial<any>>(entities: T[], options?: import("typeorm").SaveOptions): Promise<T> {
+        return Promise.resolve(this.appDirectory as unknown as T);
     }
 
     remove(entities: any[], options?: import("typeorm").RemoveOptions): Promise<any[]> {
@@ -16,7 +58,7 @@ export class AppDirectoryMockRepository {
     }
 
     find(options?: import("typeorm").FindManyOptions<any>): Promise<any[]> {
-        return Promise.resolve([{ result: "OK" }]);
+        return Promise.resolve([this.appDirectory]);
     }
 
     findAndCount(options?: import("typeorm").FindManyOptions<any>): Promise<[any[], number]> {
@@ -24,7 +66,7 @@ export class AppDirectoryMockRepository {
     }
 
     async findOne(id?: string | number | Date | import("typeorm").ObjectID, options?: import("typeorm").FindOneOptions<any>): Promise<any> {
-        return Promise.resolve({ result: "OK", password: pass, email: "test@test.cz" });
+        return Promise.resolve(this.appDirectory);
     }
 
     delete(id: number): Promise<any> {
@@ -36,7 +78,7 @@ export class AppDirectoryMockRepository {
     }
 
     public async getApp(appId: string): Promise<RaAppDirectory> {
-        return await this.findOne( appId, { relations: ["intents", "manifestDef"] });
+        return await this.findOne(appId, { relations: ["intents", "manifestDef"] });
     }
 
     public async searchApps(searchQuery: AppDirectorySearchDto): Promise<RaAppDirectory[]> {

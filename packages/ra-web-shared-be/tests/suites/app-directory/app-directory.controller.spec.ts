@@ -6,7 +6,9 @@ import { LoggerMock } from "../../mocks/logger-mock";
 import { Subscription } from "rxjs/internal/Subscription";
 import { AppDirectoryController } from "../../../src/app-directory/app-directory.controller";
 import { AppDirectoryService } from "../../../src/app-directory/app-directory.service";
-import { UsersMockRepository } from "../../mocks/users-mock.repository";
+import { AppDirectoryMockRepository } from "../../mocks/app-directory-mock.repository";
+import { AppDirectoryIntentMockRepository } from "../../mocks/app-directory-intent-mock.repository";
+import { AppDirectoryTypeMockRepository } from "../../mocks/app-directory-type-mock.repository";
 import { EnvironmentService } from "@ra/web-env-be/environment.service";
 import { EnvironmentMockService } from "../../mocks/environment-mock.service";
 import { JwtMockService } from "../../mocks/jwt-mock.service";
@@ -35,7 +37,7 @@ describe("AppDirectoryController", () => {
         {
           provide: "appDirectoryTypeDao",
           useClass: AppDirectoryTypeMockRepository,
-        },        
+        },
         {
           provide: AuthService,
           useClass: AuthMockService,
@@ -68,9 +70,34 @@ describe("AppDirectoryController", () => {
   describe("createApp()", () => {
     it("should create directory app", async () => {
       const token = "AAAAA";
-      const result = await controller.createApp(token, ({appId: "1", name: "ADMIN", manifest: "Test", manifestType: "Test"} as any));
-      console.log("createApp()", result);
-      expect(result.result).toEqual("OK");
+
+      const result = await controller.createApp(token, AppDirectoryMockRepository.appDirectoryItem);
+      expect((result as any).name).toEqual("Test");
+      expect((result as any).manifest).toEqual("Test");
+      expect((result as any).manifest).toEqual("Test");
+    });
+  });
+
+  describe("getAppDef()", () => {
+    it("should create directory app", async () => {
+      const token = "AAAAA";
+
+      const result = await controller.getAppDef(token, "Test");
+      expect((result as any).name).toEqual("Test");
+      expect((result as any).manifest).toEqual("Test");
+      expect((result as any).manifestType).toEqual("Test");
+    });
+  });
+
+  describe("searchApps()", () => {
+    it("should create directory app", async () => {
+      const token = "AAAAA";
+
+      const result = await controller.searchApps(token, "Test");
+      console.log("searchApps()", result);
+      expect(result.applications[0].name).toEqual("Test");
+      expect(result.applications[0].manifest).toEqual("Test");
+      expect(result.applications[0].manifestType).toEqual("Test");
     });
   });
 

@@ -1,6 +1,6 @@
 import { ObjectID, FindConditions, DeepPartial, SaveOptions } from "typeorm";
 
-export class AppDirectoryMockRepository {
+export class AppDirectoryTypeMockRepository {
 
     save<T extends import("typeorm").DeepPartial<any>>(entities: T[], options?: import("typeorm").SaveOptions): Promise<T[]> {
         return Promise.resolve([{ result: "OK" } as unknown as T]);

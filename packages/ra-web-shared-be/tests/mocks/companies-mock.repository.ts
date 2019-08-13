@@ -1,8 +1,8 @@
 import { ObjectID, FindConditions, SaveOptions, DeepPartial } from "typeorm";
 
 export class CompaniesMockRepository {
-    save<T extends import("typeorm").DeepPartial<any>>(entities: T[], options?: import("typeorm").SaveOptions): Promise<T[]> {
-        return Promise.resolve([{ result: "OK" } as unknown as T]);
+    save<T extends import("typeorm").DeepPartial<any>>(entities: T[], options?: import("typeorm").SaveOptions): Promise<T> {
+        return Promise.resolve({ result: "OK" } as unknown as T);
     }
 
     remove(entities: any[], options?: import("typeorm").RemoveOptions): Promise<any[]> {

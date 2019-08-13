@@ -91,7 +91,7 @@ describe("CompaniesController", () => {
         id: 0, companyName: "name", street: "street", city: "city"
         , numInStreet: "numinstreet", state: "cz", partyID: null, partyIDSource: null, partyRole: null, flgDel: null
       });
-      expect(result[0].result).toEqual("OK");
+      expect(result.result).toEqual("OK");
     });
   });
 
