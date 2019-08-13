@@ -19,8 +19,8 @@
     },
     "dependencies": {
         "@nestjs/common": "6.5.3",
-        "@nestjs/core":"6.5.3",
-        "@nestjs/microservices":"6.5.3",
+        "@nestjs/core": "6.5.3",
+        "@nestjs/microservices": "6.5.3",
         "@nestjs/websockets": "6.5.3",
         "@ra/web-auth-be": "1.1.0",
         "@ra/web-core-be": "^1.1.0",
@@ -29,6 +29,7 @@
         "bcryptjs": "2.4.3",
         "devextreme-angular": "19.1.4-build-19151-2014",
         "fast-random": "2.0.4",
+        "jest": "^24.8.0",
         "light-mapper": "1.1.6",
         "lodash": "4.17.10",
         "nodemailer": "4.6.8",

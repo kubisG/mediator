@@ -24,6 +24,7 @@
         "bcryptjs": "2.4.3",
         "devextreme-angular": "19.1.4-build-19151-2014",
         "fast-random": "2.0.4",
+        "jest": "^24.8.0",
         "light-mapper": "1.1.6",
         "rxjs": "6.5.1",
         "typeorm": "0.2.7",

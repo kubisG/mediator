@@ -15,7 +15,7 @@
         "test": "npm run clean && jest",
         "test:cov": "npm run clean && jest --coverage",
         "test:e2e": "npm run clean && jest --config ./tests/jest-e2e.json",
-        "libtest": "npm run test:cov && npm --prefix ../../ run lastcov -- \"packages/ra-web-shared-be\""
+        "libtest": "npm run test:cov && npm --prefix ../../ run lastcov -- \"packages/ra-web-core-be\""
     },
     "dependencies": {
         "@nestjs/common": "6.5.3",
@@ -27,6 +27,7 @@
         "bcryptjs": "2.4.3",
         "devextreme-angular": "19.1.4-build-19151-2014",
         "fast-random": "2.0.4",
+        "jest": "^24.8.0",
         "light-mapper": "1.1.6",
         "lodash": "4.17.10",
         "nodemailer": "4.6.8",

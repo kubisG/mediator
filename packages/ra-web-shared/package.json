@@ -9,6 +9,7 @@
     },
     "private": true,
     "dependencies": {
+        "jest": "^24.8.0",
         "rxjs": "6.5.1"
     },
     "devDependencies": {
