@@ -18,72 +18,100 @@ describe("LayoutController", () => {
   let app: TestingModule;
   let service: LayoutService;
   let controller: LayoutController;
-  let subscriptions: Subscription[] = [];
+  const subscriptions: Subscription[] = [];
 
   beforeAll(async () => {
-      app = await Test.createTestingModule({
-          controllers: [LayoutController],
-          providers: [
-              fastRandomFactory,
-              LayoutService,
-              {
-                  provide: "preferenceRepository",
-                  useClass: PreferencesMockRepository,
-              },
-              {
-                provide: "userRepository",
-                useClass: UsersMockRepository,
-            },
-            {
-                  provide: AuthService,
-                  useClass: AuthMockService,
-              },
-              {
-                provide: EnvironmentService,
-                useClass: EnvironmentMockService,
-              },     
-              {
-                provide: JwtService,
-                useClass: JwtMockService,
-              },               
-              {
-                  provide: "logger",
-                  useClass: LoggerMock,
-              }
-          ],
-      }).compile();
-      controller = app.get(LayoutController);
-      service = app.get(LayoutService);   
+    app = await Test.createTestingModule({
+      controllers: [LayoutController],
+      providers: [
+        fastRandomFactory,
+        LayoutService,
+        {
+          provide: "preferenceRepository",
+          useClass: PreferencesMockRepository,
+        },
+        {
+          provide: "userRepository",
+          useClass: UsersMockRepository,
+        },
+        {
+          provide: AuthService,
+          useClass: AuthMockService,
+        },
+        {
+          provide: EnvironmentService,
+          useClass: EnvironmentMockService,
+        },
+        {
+          provide: JwtService,
+          useClass: JwtMockService,
+        },
+        {
+          provide: "logger",
+          useClass: LoggerMock,
+        }
+      ],
+    }).compile();
+    controller = app.get(LayoutController);
+    service = app.get(LayoutService);
   });
 
-    afterEach(() => {
-        for (const sub of subscriptions) {
-            sub.unsubscribe();
-        }
+  afterEach(() => {
+    for (const sub of subscriptions) {
+      sub.unsubscribe();
+    }
+  });
+
+
+
+  describe("getLayout()", () => {
+    it("should get Layout for user", async () => {
+      const token = "AAAAA";
+      const result = await controller.getLayout(token, "test");
+      expect(result.result).toEqual("OK");
     });
+  });
 
-
-
-    describe('getLayout()', () => {
-      it('should get Layout for user', async () => {
-          const token = "AAAAA";
-        const result = await controller.getLayout(token, "test");
-
-        console.log("getLayout,", result);
-        const json = JSON.parse(result);
-        expect(json.result).toEqual("OK");
-      });
+  describe("setLayout()", () => {
+    it("should save layout", async () => {
+      const token = "AAAAA";
+      const result = await controller.setLayout(token, { body: "myStorage" }, "test");
+      expect(result.result).toEqual("OK");
     });
+  });
 
-    describe('setLayout()', () => {
-        it('should dave layout', async () => {
-            const token = "AAAAA";
-          const result = await controller.setLayout(token, {body: "myStorage"}, "test");
-          console.log("setLayout,", result);
-          const json = JSON.parse((result as any ).value);
-          expect(json.result).toEqual("OK");          
-        });
-      });
+  describe("deleteLayout()", () => {
+    it("should delete layout", async () => {
+      const token = "AAAAA";
+      const result = await controller.deleteLayout(token, "test");
+      expect((result as any).result).toEqual("OK");
+    });
+  });
 
+  describe("getLayoutsName()", () => {
+    it("should show all saved layouts", async () => {
+      const token = "AAAAA";
+      const result = await controller.getLayoutsName(token);
+      expect((result as any)[0].result).toEqual("OK");
+    });
+  });
+
+  describe("getLayoutDefault(:modul)", () => {
+    it("should return default layout name", async () => {
+      const token = "AAAAA";
+      const result = await controller.getLayoutDefault(token, "ADMIN");
+      const json = JSON.parse(result.value);
+      expect(json.result).toEqual("OK");
+    });
+  });
+
+  describe("setLayoutDefault(:modul)", () => {
+    it("should save default layout name", async () => {
+      const token = "AAAAA";
+      const result = await controller.setLayoutDefault(token, { body: "myLayout" }, "ADMIN");
+      const json = JSON.parse(result.value);
+      expect(json.result).toEqual("OK");
+    });
+  });
 
 });

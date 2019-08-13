@@ -1,7 +1,7 @@
 import { ObjectID, FindConditions, DeepPartial, SaveOptions } from "typeorm";
-import { bcryptHash } from "@ra/web-core-be/utils";
 
-export class UsersMockRepository {
+export class AppDirectoryMockRepository {
+
     save<T extends import("typeorm").DeepPartial<any>>(entities: T[], options?: import("typeorm").SaveOptions): Promise<T[]> {
         return Promise.resolve([{ result: "OK" } as unknown as T]);
     }
@@ -23,16 +23,11 @@ export class UsersMockRepository {
     }
 
     async findOne(id?: string | number | Date | import("typeorm").ObjectID, options?: import("typeorm").FindOneOptions<any>): Promise<any> {
-        const pass = await bcryptHash("test");
         return Promise.resolve({ result: "OK", password: pass, email: "test@test.cz" });
     }
 
     delete(id: number): Promise<any> {
         return Promise.resolve({ result: "OK" });
-    }
-
-    getData(dateFrom, dateTo, compId, typ): Promise<any> {
-        return Promise.resolve([{ result: "OK" }]);
     }
     update({ criteria, partialEntity, options }: { criteria: string | string[] | number | number[] | Date | Date[] | ObjectID | ObjectID[] | FindConditions<any>; partialEntity: DeepPartial<any>; options?: SaveOptions; }): Promise<any> {
         return Promise.resolve({ result: "OK" });

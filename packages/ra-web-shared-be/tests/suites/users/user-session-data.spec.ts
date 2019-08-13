@@ -9,7 +9,7 @@ import { UserData } from "../../../src/users/user-data.interface";
 describe("UserSessionData", () => {
   let app: TestingModule;
   let service: UserSessionData;
-  let subscriptions: Subscription[] = [];
+  const subscriptions: Subscription[] = [];
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
@@ -34,19 +34,23 @@ describe("UserSessionData", () => {
     }
   });
 
-  describe('getData()', () => {
-    it('should getData', async () => {
+  describe("getData()", () => {
+    it("should getData", async () => {
       const token = "AAAAA";
-      const result = await service.getSessionData({ id: 1, company : { id: 1 }, username: "TEST", class: "USER" } as any, {    email: "mail", sid: "sid", iat: 1, exp: 1} ,token);
+      const result = await service.getSessionData({
+        id: 1, company: { id: 1 },
+        username: "TEST", class: "USER"} as any, { email: "mail", sid: "sid", iat: 1, exp: 1 }, token);
       expect(result).toBeDefined();
       expect(result.email).toEqual("mail");
     });
   });
 
-  describe('getResponseData()', () => {
-    it('should getResponseData', async () => {
+  describe("getResponseData()", () => {
+    it("should getResponseData", async () => {
       const token = "AAAAA";
-      const result = await service.getResponseData({ id: 1, company : { id: 1 }, username: "TEST", class: "USER" } as any, {    email: "mail", sid: "sid", iat: 1, exp: 1} ,token);
+      const result = await service.getResponseData({
+        id: 1, company: { id: 1 },
+        username: "TEST", class: "USER"} as any, { email: "mail", sid: "sid", iat: 1, exp: 1 }, token);
       expect(result).toBeDefined();
       expect(result.payload.nickName).toEqual("TEST");
     });

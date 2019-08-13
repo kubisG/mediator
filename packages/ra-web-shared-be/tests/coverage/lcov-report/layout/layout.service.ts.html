@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">62.5% </span>
+        <span class="strong">85.42% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>30/48</span>
+        <span class='fraction'>41/48</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">55.1% </span>
+        <span class="strong">57.14% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>27/49</span>
+        <span class='fraction'>28/49</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">60.87% </span>
+        <span class="strong">95.65% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>14/23</span>
+        <span class='fraction'>22/23</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">62.16% </span>
+        <span class="strong">94.59% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>23/37</span>
+        <span class='fraction'>35/37</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -109,11 +109,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,15 +138,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Injectable, Injec<span class="branch-1 cbranch-no" title="branch not covered" >t } from "@nestj</span>s/common";
@@ -163,9 +163,9 @@ export class LayoutService<span class="branch-1 cbranch-no" title="branch not co
     ) { }
 <span class="branch-1 cbranch-no" title="branch not covered" ></span>
     async getLayoutConfig(token: string, name: string) {
-        const userData: UserData = await this.authService.getUserData&lt;UserData&gt;(token);
+        const userData: UserData = await this.authService.getUserData&lt;UserData&gt;(token<span class="cstat-no" title="statement not covered" >);</span>
         return aw<span class="fstat-no" title="function not covered" >ait this.</span>raPrefere<span class="cstat-no" title="statement not covered" >nces.g<span class="cstat-no" title="statement not covered" >etLayoutConfig(userData.userId, u</span>serData.compId<span class="cstat-no" title="statement not covered" >, name);</span></span>
-    }<span class="branch-0 cbranch-no" title="branch not covered" ></span>
+    }
 &nbsp;
     async setLayoutConfig(token: string, config: any, name: string) {
         const userData: UserData = await this.authService.getUserData&lt;UserData&gt;(token);
@@ -190,25 +190,25 @@ export class LayoutService<span class="branch-1 cbranch-no" title="branch not co
             name: `default_layout_${modul}`
         });
     }
-<span class="fstat-no" title="function not covered" ></span>
-    asyn<span class="cstat-no" title="statement not covered" >c setLayoutDefault(token: string, modul<span class="fstat-no" title="function not covered" >: </span>string, name: any) {</span>
-        const userData: UserD<span class="cstat-no" title="statement not covered" >ata = await this.authService.getUserData&lt;U</span>serData&gt;(token);
-        retu<span class="cstat-no" title="statement not covered" >rn await this.raPreferences.save({</span>
+&nbsp;
+    async setLayoutDefault(token: string, modul: string, name: any) {
+        const userData: UserData = await this.authService.getUserData&lt;UserData&gt;(token);
+        return await this.raPreferences.save({
             name: `default_layout_${modul}`,
             value: name,
-<span class="fstat-no" title="function not covered" ></span>            userId: userData.userId,
-<span class="cstat-no" title="statement not covered" >            companyId: userData.compId,<span class="fstat-no" title="function not covered" ></span></span>
-        });<span class="cstat-no" title="statement not covered" ></span>
-    }<span class="cstat-no" title="statement not covered" ></span>
+            userId: userData.userId,
+            companyId: userData.compId,
+        });
+    }
 &nbsp;
 }
-<span class="fstat-no" title="function not covered" ></span></pre></td></tr>
+&nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 09 2019 12:24:37 GMT+0200 (CEST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Aug 13 2019 09:19:55 GMT+0200 (Central European Summer Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

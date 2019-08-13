@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">70.21% </span>
+        <span class="strong">85.11% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>33/47</span>
+        <span class='fraction'>40/47</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">65.57% </span>
+        <span class="strong">67.21% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>40/61</span>
+        <span class='fraction'>41/61</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">60.87% </span>
+        <span class="strong">95.65% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>14/23</span>
+        <span class='fraction'>22/23</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">72.22% </span>
+        <span class="strong">94.44% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>26/36</span>
+        <span class='fraction'>34/36</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -107,11 +107,11 @@
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,18 +134,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Controller, Get, <span class="branch-1 cbranch-no" title="branch not covered" >UseGuards, Param</span>, Post, Body, Delete } from "@nestjs/common";
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { Controller, Get, <span class="branch-1 cbranch-no" title="branch not covered" >UseGuards, Param</span>, Post, Body, Delete } from "@nestjs/common";
 import { LayoutService } from "./layout.service";<span class="branch-1 cbranch-no" title="branch not covered" ></span>
 impo<span class="missing-if-branch" title="else path not taken" >E</span>rt { AuthGuard } from "@nestjs/passport";
 import { <span class="cstat-no" title="statement not covered" >Bearer } from "@ra/web-auth-be/decorators/bearer.<span class="cstat-no" title="statement not covered" >decorator";<span class="cstat-no" title="statement not covered" ></span></span></span>
@@ -159,9 +159,9 @@ export class LayoutControl<span class="branch-1 cbranch-no" title="branch not co
 &nbsp;
     @Get(":name")<span class="branch-1 cbranch-no" title="branch not covered" ></span>
     @UseGuards(AuthGuard())
-    async getLayo<span class="fstat-no" title="function not covered" >ut(@Bearer</span>() auth: <span class="cstat-no" title="statement not covered" >string<span class="cstat-no" title="statement not covered" >, @Param("name") name: string</span>): Promise&lt;any<span class="cstat-no" title="statement not covered" >&gt; {</span></span>
-        return await this.layoutService.getLayoutConfig(auth, name);
-    }<span class="branch-0 cbranch-no" title="branch not covered" ></span>
+    async getLayout(@Bearer() auth: string, @Param("name") name: string): Promise&lt;any<span class="cstat-no" title="statement not covered" >&gt; {</span>
+        return aw<span class="fstat-no" title="function not covered" >ait this.</span>layoutSer<span class="cstat-no" title="statement not covered" >vice.g<span class="cstat-no" title="statement not covered" >etLayoutConfig(auth, name);<span class="cstat-no" title="statement not covered" ></span></span></span>
+    }
 &nbsp;
     @Post("layout/:name")
     @UseGuards(AuthGuard())
@@ -184,25 +184,25 @@ export class LayoutControl<span class="branch-1 cbranch-no" title="branch not co
     @Get("layout-default/:modul")
     @UseGuards(AuthGuard())
     async getLayoutDefault(@Bearer() auth: string, @Param("modul") modul: string): Promise&lt;any&gt; {
-<span class="fstat-no" title="function not covered" ></span>        return await this.layoutService.getLayoutDefault(auth, modul);
-    }<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
-    <span class="cstat-no" title="statement not covered" ></span>
+        return await this.layoutService.getLayoutDefault(auth, modul);
+    }
+    
     @Post("layout-default/:modul")
     @UseGuards(AuthGuard())
-<span class="fstat-no" title="function not covered" >    as</span>ync setLayoutDefault(@Bearer() auth: string, @Body() data: any, @Param("modul") modul: string): Promise&lt;any&gt; {
-<span class="cstat-no" title="statement not covered" >        return await this.layoutService.setLayo<span class="fstat-no" title="function not covered" >ut</span>Default(auth, modul, data.name);</span>
-    }<span class="cstat-no" title="statement not covered" ></span>
+    async setLayoutDefault(@Bearer() auth: string, @Body() data: any, @Param("modul") modul: string): Promise&lt;any&gt; {
+        return await this.layoutService.setLayoutDefault(auth, modul, data.name);
+    }
     
     
-<span class="fstat-no" title="function not covered" ></span>
-}<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
-<span class="cstat-no" title="statement not covered" ></span></pre></td></tr>
+&nbsp;
+}
+&nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 09 2019 12:24:37 GMT+0200 (CEST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Aug 13 2019 09:19:55 GMT+0200 (Central European Summer Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

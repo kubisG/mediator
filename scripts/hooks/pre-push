@@ -1,6 +1,8 @@
 #!/bin/sh
 
+echo "--------------------------"
 # npm --prefix "$PWD" run prepush
 npm --prefix "$PWD" run lint:fix
 npm --prefix "$PWD" run test:cov
 npm --prefix ../../ run lastcov -- "$PWD"
+echo "--------------------------"

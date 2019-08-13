@@ -6,7 +6,7 @@ import { Roles } from "@ra/web-auth-be/decorators/roles.decorator";
 import { AppDirectoryItemDto } from "./dto/app-directory-item.dto";
 import { AppDirectoryService } from "./app-directory.service";
 import { AppDirectoryDto } from "./dto/app-directory.dto";
-import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiUseTags, ApiBearerAuth } from "@nestjs/swagger";
 import { SqlExceptionFilter } from "./error/sql-exception.filter";
 
 @UseFilters(SqlExceptionFilter)
