@@ -1,7 +1,9 @@
 import * as fs from "fs";
+import * as path from "path";
+import * as upath from 'upath';
 import { Logger } from "./logger";
 
-const pwd = process.argv[process.argv.length - 1];
+let pwd = process.argv[process.argv.length - 1];
 
 function readJsonFile(file: string) {
     return JSON.parse(fs.readFileSync(file, "utf8"));
