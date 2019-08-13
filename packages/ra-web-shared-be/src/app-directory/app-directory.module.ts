@@ -6,7 +6,7 @@ import { repositoriesProvider } from "./dao/dao.provider";
 import { JwtModule } from "@nestjs/jwt";
 import { EnvironmentService } from "@ra/web-env-be/environment.service";
 import { PassportModule } from "@nestjs/passport";
-import { CoreModule } from "@ra/web-core-be/core.module";
+import { CoreModule } from "@ra/web-core-be/src/core.module";
 
 @Module({
     imports: [

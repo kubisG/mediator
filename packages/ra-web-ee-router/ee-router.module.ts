@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { MessageMiddleware } from "@ra/web-core-be/middlewares/message-middleware.interface";
+import { MessageMiddleware } from "@ra/web-core-be/src/middlewares/message-middleware.interface";
 
 const inMiddlewaresProvider = {
     provide: "inMiddlewares",

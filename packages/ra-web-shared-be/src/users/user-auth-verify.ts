@@ -1,8 +1,8 @@
 import { Verify } from "@ra/web-auth-be/verify/verify.interface";
 import { AuthDto } from "@ra/web-auth-be/dto/auth.dto";
-import { bcryptCompare } from "@ra/web-core-be/utils";
+import { bcryptCompare } from "@ra/web-core-be/src/utils";
 import { Injectable, Inject } from "@nestjs/common";
-import { UserRepository } from "@ra/web-core-be/dao/repositories/user.repository";
+import { UserRepository } from "@ra/web-core-be/src/dao/repositories/user.repository";
 
 @Injectable()
 export class UserAuthVerify implements Verify {

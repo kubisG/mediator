@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Index, OneToOne, JoinColumn, Unique } from "typeorm";
 import { Mapping, MappingRequirement } from "light-mapper";
-import { AEntity } from "@ra/web-core-be/db/a-entity";
+import { AEntity } from "@ra/web-core-be/src/db/a-entity";
 import { RaAppDirectory } from "./ra-app-directory";
 
 @Entity()

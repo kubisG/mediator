@@ -18,10 +18,10 @@
         "libtest": "npm run test:cov && npm --prefix ../../ run lastcov -- \"packages/ra-web-shared-be\""
     },
     "dependencies": {
-        "@nestjs/common": "5.4.0",
-        "@nestjs/core": "5.4.0",
-        "@nestjs/microservices": "5.4.0",
-        "@nestjs/websockets": "5.4.0",
+        "@nestjs/common": "6.5.3",
+        "@nestjs/core":"6.5.3",
+        "@nestjs/microservices":"6.5.3",
+        "@nestjs/websockets": "6.5.3",
         "@ra/web-auth-be": "1.1.0",
         "@ra/web-core-be": "^1.1.0",
         "@ra/web-env-be": "^1.1.0",
@@ -40,14 +40,14 @@
         "winston-daily-rotate-file": "3.5.1"
     },
     "devDependencies": {
-        "@nestjs/testing": "5.4.0",
+        "@nestjs/testing": "6.5.3",
         "@types/express": "4.0.39",
         "@types/node": "9.6.49",
         "@types/supertest": "2.0.4",
         "jest": "21.2.1",
-        "rimraf": "2.6.1",
         "nodemon": "1.19.0",
         "prettier": "1.11.1",
+        "rimraf": "2.6.1",
         "supertest": "3.0.0",
         "ts-jest": "21.2.4",
         "ts-loader": "4.1.0",

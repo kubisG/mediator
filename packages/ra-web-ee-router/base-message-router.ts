@@ -1,7 +1,7 @@
 import { Queue } from "@ra/web-queue/providers/queue.interface";
-import { Logger } from "@ra/web-core-be/logger/providers/logger";
-import { MiddlewareRunner } from "@ra/web-core-be/middlewares/middleware-runner";
-import { MessageMiddleware } from "@ra/web-core-be/middlewares/message-middleware.interface";
+import { Logger } from "@ra/web-core-be/src/logger/providers/logger";
+import { MiddlewareRunner } from "@ra/web-core-be/src/middlewares/middleware-runner";
+import { MessageMiddleware } from "@ra/web-core-be/src/middlewares/message-middleware.interface";
 import { MessageRouter } from "./interfaces/message-router.interface";
 import { ClientRouter } from "./interfaces/client-router.interface";
 

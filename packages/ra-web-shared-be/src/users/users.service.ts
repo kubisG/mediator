@@ -2,14 +2,14 @@ import { Injectable, UnauthorizedException, Inject, HttpException } from "@nestj
 import { AuthService } from "@ra/web-auth-be/auth.service";
 import { AuthDto } from "@ra/web-auth-be/dto/auth.dto";
 import { UserData } from "./user-data.interface";
-import { PreferenceRepository } from "@ra/web-core-be/dao/repositories/preference.repository";
+import { PreferenceRepository } from "@ra/web-core-be/src/dao/repositories/preference.repository";
 import * as generator from "generate-password";
-import { bcryptHash } from "@ra/web-core-be/utils";
-import { UserRepository } from "@ra/web-core-be/dao/repositories/user.repository";
+import { bcryptHash } from "@ra/web-core-be/src/utils";
+import { UserRepository } from "@ra/web-core-be/src/dao/repositories/user.repository";
 import { HttpStatus } from "@nestjs/common";
-import { RaUser } from "@ra/web-core-be/db/entity/ra-user";
+import { RaUser } from "@ra/web-core-be/src/db/entity/ra-user";
 import { LightMapper } from "light-mapper";
-import { DbException } from "@ra/web-core-be/exceptions/db.exception";
+import { DbException } from "@ra/web-core-be/src/exceptions/db.exception";
 import { Subject } from "rxjs/internal/Subject";
 import { Observable } from "rxjs/internal/Observable";
 

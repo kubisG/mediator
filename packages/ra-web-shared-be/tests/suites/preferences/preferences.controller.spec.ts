@@ -1,7 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { AuthService } from "@ra/web-auth-be/auth.service";
 import { AuthMockService } from "../../mocks/auth-mock.service";
-import { fastRandomFactory } from "@ra/web-core-be/core.provider";
+import { fastRandomFactory } from "@ra/web-core-be/src/core.provider";
 import { LoggerMock } from "../../mocks/logger-mock";
 import { Subscription } from "rxjs/internal/Subscription";
 import { PreferencesController } from "../../../src/preferences/preferences.controller";

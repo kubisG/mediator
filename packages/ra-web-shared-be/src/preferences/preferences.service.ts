@@ -1,11 +1,11 @@
 import { Inject, Injectable } from "@nestjs/common";
 
-import { DbException } from "@ra/web-core-be/exceptions/db.exception";
+import { DbException } from "@ra/web-core-be/src/exceptions/db.exception";
 import { UserData } from "../users/user-data.interface";
 import { AuthService } from "@ra/web-auth-be/auth.service";
-import { PreferenceRepository } from "@ra/web-core-be/dao/repositories/preference.repository";
-import { UserRepository } from "@ra/web-core-be/dao/repositories/user.repository";
-import { RaPreference } from "@ra/web-core-be/db/entity/ra-preference";
+import { PreferenceRepository } from "@ra/web-core-be/src/dao/repositories/preference.repository";
+import { UserRepository } from "@ra/web-core-be/src/dao/repositories/user.repository";
+import { RaPreference } from "@ra/web-core-be/src/db/entity/ra-preference";
 import { EnvironmentService } from "@ra/web-env-be/environment.service";
 
 @Injectable()

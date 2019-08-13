@@ -1,7 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { AuthService } from "@ra/web-auth-be/auth.service";
 import { AuthMockService } from "../../mocks/auth-mock.service";
-import { fastRandomFactory } from "@ra/web-core-be/core.provider";
+import { fastRandomFactory } from "@ra/web-core-be/src/core.provider";
 import { LoggerMock } from "../../mocks/logger-mock";
 import { Subscription } from "rxjs/internal/Subscription";
 import { AppDirectoryController } from "../../../src/app-directory/app-directory.controller";
@@ -81,7 +81,6 @@ describe("AppDirectoryController", () => {
   describe("getAppDef()", () => {
     it("should create directory app", async () => {
       const token = "AAAAA";
-
       const result = await controller.getAppDef(token, "Test");
       expect((result as any).name).toEqual("Test");
       expect((result as any).manifest).toEqual("Test");
@@ -94,7 +93,6 @@ describe("AppDirectoryController", () => {
       const token = "AAAAA";
 
       const result = await controller.searchApps(token, "Test");
-      console.log("searchApps()", result);
       expect(result.applications[0].name).toEqual("Test");
       expect(result.applications[0].manifest).toEqual("Test");
       expect(result.applications[0].manifestType).toEqual("Test");

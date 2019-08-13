@@ -1,4 +1,4 @@
-import { BaseError } from "@ra/web-core-be/errors/base-error";
+import { BaseError } from "@ra/web-core-be/src/errors/base-error";
 
 export class QueueConnectionError extends BaseError {
 

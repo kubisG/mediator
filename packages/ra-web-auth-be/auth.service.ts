@@ -4,9 +4,9 @@ import { JwtService } from "@nestjs/jwt";
 import { AuthDto } from "./dto/auth.dto";
 import { BearerData } from "./interfaces/bearer-data.interface";
 import { BearerToken } from "./interfaces/bearer-token.interface";
-import { SessionStore } from "@ra/web-core-be/sessions/providers/session-store.interface";
+import { SessionStore } from "@ra/web-core-be/src/sessions/providers/session-store.interface";
 import * as uuid from "uuid/v4";
-import { Logger } from "@ra/web-core-be/logger/providers/logger";
+import { Logger } from "@ra/web-core-be/src/logger/providers/logger";
 import { VerifyService } from "./verify/verify.service";
 import { SessionDataService } from "./session-data/session-data.service";
 

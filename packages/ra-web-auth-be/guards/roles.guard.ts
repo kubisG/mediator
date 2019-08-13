@@ -4,7 +4,7 @@ import { JwtService } from "@nestjs/jwt";
 
 import { AuthService } from "../auth.service";
 import { BearerData } from "../interfaces/bearer-data.interface";
-import { Logger } from "@ra/web-core-be/logger/providers/logger";
+import { Logger } from "@ra/web-core-be/src/logger/providers/logger";
 
 @Injectable()
 export class RolesGuard implements CanActivate {

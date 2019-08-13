@@ -1,7 +1,7 @@
 import { Connection, Options, connect, ConfirmChannel } from "amqplib";
 
 import { Queue } from "./queue.interface";
-import { Logger } from "@ra/web-core-be/logger/providers/logger";
+import { Logger } from "@ra/web-core-be/src/logger/providers/logger";
 import { Subject } from "rxjs/internal/Subject";
 import { Observable } from "rxjs/internal/Observable";
 import { QueueConnectionError } from "../errors/queue-connection-error";

@@ -12,8 +12,19 @@
         "rxjs": "6.5.1"
     },
     "devDependencies": {
+        "@nestjs/testing": "6.5.3",
+        "@types/express": "4.0.39",
+        "@types/node": "9.6.49",
+        "@types/supertest": "2.0.4",
+        "jest": "21.2.1",
+        "nodemon": "1.19.0",
+        "prettier": "1.11.1",
+        "rimraf": "2.6.1",
+        "supertest": "3.0.0",
+        "ts-jest": "21.2.4",
+        "ts-loader": "4.1.0",
         "ts-node": "5.0.1",
-        "tslint": "5.9.1",
-        "typescript": "3.2.4"
+        "tsconfig-paths": "3.1.1",
+        "tslint": "5.9.1"
     }
 }

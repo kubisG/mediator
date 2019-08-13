@@ -10,11 +10,12 @@
         "url": "git+ssh://git@bitbucket.org/rapid-addition/ra-web.git"
     },
     "scripts": {
-        "test": "echo \"Error: run tests from root\" && exit 1",
+        "clean": "rimraf ./src/**/*.js ./src/**/*.js.map ./src/**/*.d.ts",
         "bundle": "rm -rf dist && tsc -p tsconfig.json",
-        "lint:fix": "tslint --project ./tsconfig.json -c tslint.json --fix",
-        "test:cov": "jest --coverage",
-        "libtest": "npm run test:cov"
+        "test": "npm run clean && jest",
+        "test:cov": "npm run clean && jest --coverage",
+        "test:e2e": "npm run clean && jest --config ./tests/jest-e2e.json",
+        "libtest": "npm run test:cov && npm --prefix ../../ run lastcov -- \"packages/ra-web-shared-be\""
     },
     "dependencies": {
         "@nestjs/common": "6.5.3",
@@ -37,6 +38,19 @@
         "winston-daily-rotate-file": "3.5.1"
     },
     "devDependencies": {
+        "@nestjs/testing": "6.5.3",
+        "@types/express": "4.0.39",
+        "@types/node": "9.6.49",
+        "@types/supertest": "2.0.4",
+        "jest": "21.2.1",
+        "nodemon": "1.19.0",
+        "prettier": "1.11.1",
+        "rimraf": "2.6.1",
+        "supertest": "3.0.0",
+        "ts-jest": "21.2.4",
+        "ts-loader": "4.1.0",
+        "ts-node": "5.0.1",
+        "tsconfig-paths": "3.1.1",
         "tslint": "5.9.1"
     }
 }
