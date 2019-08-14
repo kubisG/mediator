@@ -6,9 +6,9 @@
     "homepage": "https://bitbucket.org/rapid-addition/ra-web#readme",
     "license": "ISC",
     "main": "dist/index.js",
-    "files": [ 
-        "dist/index.js" 
-    ],    
+    "files": [
+        "dist/index.js"
+    ],
     "repository": {
         "type": "git",
         "url": "git+ssh://git@bitbucket.org/rapid-addition/ra-web.git"
@@ -46,6 +46,7 @@
     "devDependencies": {
         "@nestjs/testing": "6.5.3",
         "@types/express": "4.0.39",
+        "@types/jest": "^24.0.17",
         "@types/node": "9.6.49",
         "@types/supertest": "2.0.4",
         "jest": "^24.8.0",
