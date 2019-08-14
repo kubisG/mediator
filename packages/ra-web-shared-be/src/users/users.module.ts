@@ -8,6 +8,7 @@ import { CoreModule } from "@ra/web-core-be/dist/core.module";
 import { JwtModule } from "@nestjs/jwt";
 import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { PassportModule } from "@nestjs/passport";
+import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
 
 @Module({
     imports: [
@@ -23,6 +24,7 @@ import { PassportModule } from "@nestjs/passport";
             UserSessionData,
             UserAuthVerify,
         ),
+        EnvironmentsModule,
     ],
     controllers: [
         UsersController,

@@ -5,6 +5,10 @@
     "author": "Hajek Jiri <hajekj14@gmail.com>",
     "homepage": "https://bitbucket.org/rapid-addition/ra-web#readme",
     "license": "ISC",
+    "main": "dist/index.js",
+    "files": [ 
+        "dist/index.js" 
+    ],    
     "repository": {
         "type": "git",
         "url": "git+ssh://git@bitbucket.org/rapid-addition/ra-web.git"

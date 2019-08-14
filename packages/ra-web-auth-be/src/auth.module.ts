@@ -12,13 +12,11 @@ import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { SessionDataService } from "./session-data/session-data.service";
 import { VerifyService } from "./verify/verify.service";
 
-const passportModule = PassportModule.register({ defaultStrategy: "jwt" });
-
 @Module({
     imports: [
         CoreModule,
         EnvironmentsModule,
-        passportModule,
+        PassportModule.register({ defaultStrategy: "jwt" }),
         JwtModule.register({
             secret: EnvironmentService.instance.auth.secretKey,
             signOptions: {
@@ -47,7 +45,8 @@ const passportModule = PassportModule.register({ defaultStrategy: "jwt" });
         RolesGuard,
         SessionDataService,
         VerifyService,
-        passportModule,
+        JwtModule,
+        PassportModule,
     ],
 })
 
