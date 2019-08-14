@@ -6,22 +6,6 @@
   "command": {
     "bootstrap": {
       "ignore": [
-        "@embedded-enterprises/ng6-golden-layout",
-        "golden-layout"
-        ,"ra-trader-fe"
-        ,"ra-web-admin-fe"
-        ,"ra-web-authentication-fe"
-        ,"ra-web-auth-fe"
-        ,"ra-web-bundle-fe"
-        ,"ra-web-core-fe"
-        ,"ra-web-components"
-        ,"ra-web-env-fe"
-        ,"ra-web-forms-fe"
-        ,"ra-web-material-fe"
-        ,"ra-web-modules-fe"
-        ,"ra-web-monitor-fe"
-        ,"ra-web-platform-fe"
-        ,"ra-web-shared-fe"        
       ]
     }
   }
