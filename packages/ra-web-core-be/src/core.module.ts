@@ -6,7 +6,7 @@ import { Mailer } from "./mailer/providers/mailer.interface";
 import { mailerFactory } from "./mailer/mailer.provider";
 import { SessionStore } from "./sessions/providers/session-store.interface";
 import { sessionStoreFactory } from "./sessions/sessions.provider";
-import { EnvironmentsModule } from "@ra/web-env-be/environments.module";
+import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
 import { clientProxyProviders } from "./client-proxy.provider";
 import { MessageValidatorService } from "./validators/message-validator.service";
 import { fastRandomFactory } from "./core.provider";

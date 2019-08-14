@@ -1,4 +1,4 @@
-import { EnvironmentService } from "@ra/web-env-be/environment.service";
+import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { ClientProxyFactory, Transport, ClientProxy, Closeable } from "@nestjs/microservices";
 
 export const clientProxyProviders = [

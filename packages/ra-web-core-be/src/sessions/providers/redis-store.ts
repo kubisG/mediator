@@ -2,7 +2,7 @@ import * as redis from "redis";
 
 import { Logger } from "../../logger/providers/logger";
 import { SessionStore } from "./session-store.interface";
-import { EnvironmentService } from "@ra/web-env-be/environment.service";
+import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { Inject } from "@nestjs/common";
 // import { closeHandlers } from "../../../main";
 

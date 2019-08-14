@@ -1,7 +1,7 @@
 import { Controller, Get, UseGuards, Param, Post, Body, Delete } from "@nestjs/common";
 import { LayoutService } from "./layout.service";
 import { AuthGuard } from "@nestjs/passport";
-import { Bearer } from "@ra/web-auth-be/decorators/bearer.decorator";
+import { Bearer } from "@ra/web-auth-be/dist/decorators/bearer.decorator";
 
 @Controller("layout")
 export class LayoutController {

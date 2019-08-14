@@ -1,6 +1,6 @@
 import { Logger } from "../../logger/providers/logger";
 import { Mailer } from "./mailer.interface";
-import { EnvironmentService } from "@ra/web-env-be/environment.service";
+import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 
 import * as Nodemailer from "nodemailer";
 // import { closeHandlers } from "../../../main";

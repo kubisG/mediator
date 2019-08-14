@@ -1,5 +1,5 @@
 import { ObjectID, FindConditions, DeepPartial, SaveOptions } from "typeorm";
-import { bcryptHash } from "@ra/web-core-be/src/utils";
+import { bcryptHash } from "@ra/web-core-be/dist/utils";
 
 export class UsersMockRepository {
     save<T extends import("typeorm").DeepPartial<any>>(entities: T[], options?: import("typeorm").SaveOptions): Promise<T> {

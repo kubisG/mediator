@@ -1,7 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { AuthService } from "@ra/web-auth-be/auth.service";
+import { AuthService } from "@ra/web-auth-be/dist/auth.service";
 import { AuthMockService } from "../../mocks/auth-mock.service";
-import { fastRandomFactory } from "@ra/web-core-be/src/core.provider";
+import { fastRandomFactory } from "@ra/web-core-be/dist/core.provider";
 import { LoggerMock } from "../../mocks/logger-mock";
 import { Subscription } from "rxjs/internal/Subscription";
 import { AppDirectoryController } from "../../../src/app-directory/app-directory.controller";
@@ -9,7 +9,7 @@ import { AppDirectoryService } from "../../../src/app-directory/app-directory.se
 import { AppDirectoryMockRepository } from "../../mocks/app-directory-mock.repository";
 import { AppDirectoryIntentMockRepository } from "../../mocks/app-directory-intent-mock.repository";
 import { AppDirectoryTypeMockRepository } from "../../mocks/app-directory-type-mock.repository";
-import { EnvironmentService } from "@ra/web-env-be/environment.service";
+import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { EnvironmentMockService } from "../../mocks/environment-mock.service";
 import { JwtMockService } from "../../mocks/jwt-mock.service";
 import { JwtService } from "@nestjs/jwt";

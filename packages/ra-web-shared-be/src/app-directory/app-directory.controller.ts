@@ -1,8 +1,8 @@
 import { Controller, UseGuards, Get, Param, Post, Body, Inject, Query, UseFilters } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
-import { Bearer } from "@ra/web-auth-be/decorators/bearer.decorator";
-import { RolesGuard } from "@ra/web-auth-be/guards/roles.guard";
-import { Roles } from "@ra/web-auth-be/decorators/roles.decorator";
+import { Bearer } from "@ra/web-auth-be/dist/decorators/bearer.decorator";
+import { RolesGuard } from "@ra/web-auth-be/dist/guards/roles.guard";
+import { Roles } from "@ra/web-auth-be/dist/decorators/roles.decorator";
 import { AppDirectoryItemDto } from "./dto/app-directory-item.dto";
 import { AppDirectoryService } from "./app-directory.service";
 import { AppDirectoryDto } from "./dto/app-directory.dto";

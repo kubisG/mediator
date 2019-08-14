@@ -1,6 +1,6 @@
 import { Connection, createConnection, getConnectionManager, ConnectionManager, Driver } from "typeorm";
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
-import { EnvironmentService } from "@ra/web-env-be/environment.service";
+import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { Logger } from "../logger/providers/logger";
 
 export function dataseProviders(entities: any[]) {

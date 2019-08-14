@@ -1,5 +1,5 @@
 import { SaveOptions, DeepPartial, FindConditions, ObjectID } from "typeorm";
-import { RaPreference } from "@ra/web-core-be/src/db/entity/ra-preference";
+import { RaPreference } from "@ra/web-core-be/dist/db/entity/ra-preference";
 
 export class PreferencesMockRepository {
     save<T extends DeepPartial<RaPreference>>(entity: T, options?: SaveOptions): Promise<T> {

@@ -1,7 +1,7 @@
 import { RedisStore } from "./providers/redis-store";
 import { SessionStore } from "./providers/session-store.interface";
 import { sessionStore } from "./constants";
-import { EnvironmentService } from "@ra/web-env-be/environment.service";
+import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { Logger } from "../logger/providers/logger";
 
 export const sessionStoreFactory = {

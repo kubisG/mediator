@@ -3,7 +3,7 @@ import { repositoriesProvider } from "./repository.provider";
 import { entities } from "./entities";
 import { CoreModule } from "../core.module";
 import { dataseProviders } from "../db/db.provider";
-import { EnvironmentsModule } from "@ra/web-env-be/environments.module";
+import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
 
 @Global()
 @Module({

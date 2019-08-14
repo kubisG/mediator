@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { Subscription } from "rxjs/internal/Subscription";
-import { EnvironmentService } from "@ra/web-env-be/environment.service";
+import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { EnvironmentMockService } from "../../mocks/environment-mock.service";
 import { MessageValidatorService } from "../../../src/validators/message-validator.service";
 
