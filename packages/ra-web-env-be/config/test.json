@@ -1,3 +1,40 @@
 {
-    "production": false
+    "production": false,
+    "logging": {
+        "provider": 0,
+        "remote": true,
+        "db": false
+    },
+    "app": {
+        "port": 3000
+    },
+    "cors": {
+        "origin": [
+            "http://localhost:4200",
+            "http://127.0.0.1:8080"
+        ]
+    },
+    "auth": {
+        "expiresIn": 96000,
+        "secretKey": "secretKey",
+        "sessionStore": 0
+    },
+    "queue": {
+        "type": "amqp",
+        "prefix": "comp_"
+    },
+    "mailer": {
+        "type": "smtp"
+    },
+    "verifyService": {
+        "provider": "db"
+    },
+    "stockDataService": {
+        "baseUrl": "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY",
+        "currUrl": "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE",        
+        "apiKey": "G6IVKKTQ14S4RS1W"
+    },
+    "worker": {
+        "resending": 10
+    }
 }
