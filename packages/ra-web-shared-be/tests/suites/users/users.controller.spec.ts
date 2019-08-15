@@ -13,6 +13,7 @@ import { JwtMockService } from "../../mocks/jwt-mock.service";
 import { JwtService } from "@nestjs/jwt";
 import { MailerMock } from "../../mocks/mailer-mock";
 import { PreferencesMockRepository } from "../../mocks/preferences-mock.repository";
+import { PassportModule } from "@nestjs/passport";
 
 describe("UsersController", () => {
   let app: TestingModule;
@@ -22,6 +23,7 @@ describe("UsersController", () => {
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
+      imports: [       PassportModule.register({ defaultStrategy: "jwt" }) ],
       controllers: [UsersController],
       providers: [
         fastRandomFactory,
@@ -37,7 +39,7 @@ describe("UsersController", () => {
         {
           provide: "mailer",
           useClass: MailerMock,
-        },        
+        },
         {
           provide: AuthService,
           useClass: AuthMockService,
@@ -45,11 +47,11 @@ describe("UsersController", () => {
         {
           provide: EnvironmentService,
           useClass: EnvironmentMockService,
-        },    
+        },
         {
           provide: JwtService,
           useClass: JwtMockService,
-        },               
+        },
         {
           provide: "logger",
           useClass: LoggerMock,

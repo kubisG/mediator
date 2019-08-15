@@ -13,6 +13,7 @@ import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { EnvironmentMockService } from "../../mocks/environment-mock.service";
 import { JwtMockService } from "../../mocks/jwt-mock.service";
 import { JwtService } from "@nestjs/jwt";
+import { PassportModule } from "@nestjs/passport";
 
 describe("AppDirectoryController", () => {
   let app: TestingModule;
@@ -22,6 +23,7 @@ describe("AppDirectoryController", () => {
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
+      imports: [       PassportModule.register({ defaultStrategy: "jwt" }) ],
       controllers: [AppDirectoryController],
       providers: [
         fastRandomFactory,
