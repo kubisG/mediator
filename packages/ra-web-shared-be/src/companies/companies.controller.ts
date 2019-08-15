@@ -2,12 +2,10 @@ import { Body, Controller, Delete, Get, Post, UseGuards, Param, Put } from "@nes
 
 import { CompanyDto } from "./dto/companies.dto";
 import { CompaniesService } from "./companies.service";
-import { RolesGuard } from "@ra/web-auth-be/guards/roles.guard";
-import { Roles } from "@ra/web-auth-be/decorators/roles.decorator";
+import { RolesGuard } from "@ra/web-auth-be/dist/guards/roles.guard";
+import { Roles } from "@ra/web-auth-be/dist/decorators/roles.decorator";
 import { ApiBearerAuth, ApiImplicitParam } from "@nestjs/swagger/dist";
-import { Bearer } from "@ra/web-auth-be/decorators/bearer.decorator";
-
-
+import { Bearer } from "@ra/web-auth-be/dist/decorators/bearer.decorator";
 
 @Controller("companies")
 @UseGuards(RolesGuard)
@@ -31,7 +29,6 @@ export class CompaniesController {
     updateMyCompany(@Bearer() token: string, @Param("id") id, @Body() companyDto: CompanyDto) {
         return this.companiesService.myUpdate(token, id, companyDto);
     }
-
 
     @Roles("ADMIN")
     @Delete("/:id")

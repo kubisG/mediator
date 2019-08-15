@@ -1,12 +1,12 @@
 import { Module } from "@nestjs/common";
 import { AppDirectoryController } from "./app-directory.controller";
-import { AuthModule } from "@ra/web-auth-be/auth.module";
+import { AuthModule } from "@ra/web-auth-be/dist/auth.module";
 import { AppDirectoryService } from "./app-directory.service";
 import { repositoriesProvider } from "./dao/dao.provider";
 import { JwtModule } from "@nestjs/jwt";
-import { EnvironmentService } from "@ra/web-env-be/environment.service";
+import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { PassportModule } from "@nestjs/passport";
-import { CoreModule } from "@ra/web-core-be/core.module";
+import { CoreModule } from "@ra/web-core-be/dist/core.module";
 
 @Module({
     imports: [

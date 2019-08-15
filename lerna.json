@@ -1,14 +1,11 @@
 {
   "packages": [
-    "packages/*",
-    "ra-web-fix/**"
+    "packages/*"
   ],
   "version": "independent",
   "command": {
     "bootstrap": {
       "ignore": [
-        "@embedded-enterprises/ng6-golden-layout",
-        "golden-layout"
       ]
     }
   }

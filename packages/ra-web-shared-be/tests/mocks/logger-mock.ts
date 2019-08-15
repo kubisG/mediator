@@ -1,4 +1,4 @@
-import { Logger } from "@ra/web-core-be/logger/providers/logger";
+import { Logger } from "@ra/web-core-be/dist/logger/providers/logger";
 
 export class LoggerMock implements Logger {
 

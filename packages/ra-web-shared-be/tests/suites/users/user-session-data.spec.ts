@@ -1,7 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { LoggerMock } from "../../mocks/logger-mock";
 import { Subscription } from "rxjs/internal/Subscription";
-import { EnvironmentService } from "@ra/web-env-be/environment.service";
+import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { EnvironmentMockService } from "../../mocks/environment-mock.service";
 import { UserSessionData } from "../../../src/users/user-session-data";
 import { UserData } from "../../../src/users/user-data.interface";

@@ -1,6 +1,6 @@
 import { Injectable, Inject } from "@nestjs/common";
-import { AuthService } from "@ra/web-auth-be/auth.service";
-import { PreferenceRepository } from "@ra/web-core-be/dao/repositories/preference.repository";
+import { AuthService } from "@ra/web-auth-be/dist/auth.service";
+import { PreferenceRepository } from "@ra/web-core-be/dist/dao/repositories/preference.repository";
 import { UserData } from "../users/user-data.interface";
 
 @Injectable()

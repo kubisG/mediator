@@ -1,14 +1,14 @@
 import { Inject, Injectable } from "@nestjs/common";
 
 import { CompanyDto } from "./dto/companies.dto";
-import { DbException } from "@ra/web-core-be/exceptions/db.exception";
-import { prepareFilter } from "@ra/web-core-be/utils";
+import { DbException } from "@ra/web-core-be/dist/exceptions/db.exception";
+import { prepareFilter } from "@ra/web-core-be/dist/utils";
 import { LightMapper } from "light-mapper";
-import { EnvironmentService } from "@ra/web-env-be/environment.service";
-import { AuthService } from "@ra/web-auth-be/auth.service";
+import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
+import { AuthService } from "@ra/web-auth-be/dist/auth.service";
 import { UserData } from "../users/user-data.interface";
-import { RaCompany } from "@ra/web-core-be/db/entity/ra-company";
-import { CompanyRepository } from "@ra/web-core-be/dao/repositories/company.repository";
+import { RaCompany } from "@ra/web-core-be/dist/db/entity/ra-company";
+import { CompanyRepository } from "@ra/web-core-be/dist/dao/repositories/company.repository";
 import { Subject } from "rxjs/internal/Subject";
 import { Observable } from "rxjs/internal/Observable";
 

@@ -1,7 +1,7 @@
-import { SessionData } from "@ra/web-auth-be/session-data/session-data.interface";
-import { BearerData } from "@ra/web-auth-be/interfaces/bearer-data.interface";
-import { EnvironmentService } from "@ra/web-env-be/environment.service";
-import { RaUser } from "@ra/web-core-be/db/entity/ra-user";
+import { SessionData } from "@ra/web-auth-be/dist/session-data/session-data.interface";
+import { BearerData } from "@ra/web-auth-be/dist/interfaces/bearer-data.interface";
+import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
+import { RaUser } from "@ra/web-core-be/dist/db/entity/ra-user";
 import { UserData } from "./user-data.interface";
 import { Injectable } from "@nestjs/common";
 

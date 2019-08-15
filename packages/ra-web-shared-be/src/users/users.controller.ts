@@ -1,11 +1,11 @@
 import { Controller, Post, Body, Delete, Get, Put, UseGuards, Param, Query } from "@nestjs/common";
 import { UsersService } from "./users.service";
-import { AuthDto } from "@ra/web-auth-be/dto/auth.dto";
-import { Bearer } from "@ra/web-auth-be/decorators/bearer.decorator";
+import { AuthDto } from "@ra/web-auth-be/dist/dto/auth.dto";
+import { Bearer } from "@ra/web-auth-be/dist/decorators/bearer.decorator";
 import { AuthGuard } from "@nestjs/passport";
-import { RolesGuard } from "@ra/web-auth-be/guards/roles.guard";
+import { RolesGuard } from "@ra/web-auth-be/dist/guards/roles.guard";
 import { ApiBearerAuth, ApiImplicitParam, ApiImplicitQuery } from "@nestjs/swagger/dist";
-import { Roles } from "@ra/web-auth-be/decorators/roles.decorator";
+import { Roles } from "@ra/web-auth-be/dist/decorators/roles.decorator";
 
 @Controller("users")
 export class UsersController {

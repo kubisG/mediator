@@ -1,14 +1,14 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { AuthService } from "@ra/web-auth-be/auth.service";
+import { AuthService } from "@ra/web-auth-be/dist/auth.service";
 import { AuthMockService } from "../../mocks/auth-mock.service";
-import { fastRandomFactory } from "@ra/web-core-be/core.provider";
+import { fastRandomFactory } from "@ra/web-core-be/dist/core.provider";
 import { LoggerMock } from "../../mocks/logger-mock";
 import { Subscription } from "rxjs/internal/Subscription";
 import { LayoutController } from "../../../src/layout/layout.controller";
 import { LayoutService } from "../../../src/layout/layout.service";
 import { PreferencesMockRepository } from "../../mocks/preferences-mock.repository";
 import { UsersMockRepository } from "../../mocks/users-mock.repository";
-import { EnvironmentService } from "@ra/web-env-be/environment.service";
+import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { EnvironmentMockService } from "../../mocks/environment-mock.service";
 import { JwtMockService } from "../../mocks/jwt-mock.service";
 import { JwtService } from "@nestjs/jwt";

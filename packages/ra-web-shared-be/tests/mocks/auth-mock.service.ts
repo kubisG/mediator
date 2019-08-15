@@ -1,6 +1,6 @@
-import { AuthDto } from "@ra/web-auth-be/dto/auth.dto";
-import { BearerToken } from "@ra/web-auth-be/interfaces/bearer-token.interface";
-import { BearerData } from "@ra/web-auth-be/interfaces/bearer-data.interface";
+import { AuthDto } from "@ra/web-auth-be/dist/dto/auth.dto";
+import { BearerToken } from "@ra/web-auth-be/dist/interfaces/bearer-token.interface";
+import { BearerData } from "@ra/web-auth-be/dist/interfaces/bearer-data.interface";
 
 export class AuthMockService {
 

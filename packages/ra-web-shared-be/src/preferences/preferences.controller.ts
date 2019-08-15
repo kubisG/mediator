@@ -2,10 +2,10 @@ import { Body, Controller, Get, Post, UseGuards, Put, Param, Delete } from "@nes
 import { AuthGuard } from "@nestjs/passport";
 
 import { PreferencesService } from "./preferences.service";
-import { Bearer } from "@ra/web-auth-be/decorators/bearer.decorator";
+import { Bearer } from "@ra/web-auth-be/dist/decorators/bearer.decorator";
 import { ApiBearerAuth, ApiImplicitParam } from "@nestjs/swagger";
-import { RolesGuard } from "@ra/web-auth-be/guards/roles.guard";
-import { Roles } from "@ra/web-auth-be/decorators/roles.decorator";
+import { RolesGuard } from "@ra/web-auth-be/dist/guards/roles.guard";
+import { Roles } from "@ra/web-auth-be/dist/decorators/roles.decorator";
 
 
 @Controller("preferences")

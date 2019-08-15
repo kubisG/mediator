@@ -21,9 +21,11 @@ module.exports = {
         "^.+\\.(t|j)s$": "ts-jest",
     },
     coverageDirectory: "./coverage",
+    collectCoverage: true,
     collectCoverageFrom: [
-        "src/**/*.{ts}",
-        "!src/**/*.{d.ts}",
+        "src/**/*.ts",
+	"src/*.ts",    
+        "!src/**/*.d.ts",
         "!**/node_modules/**",
         "!src/**/*.provider.ts",
         "!src/**/*.providers.ts",
