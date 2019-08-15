@@ -28,7 +28,6 @@ export class Amqp implements Queue {
     ) { }
 
     private bindConnectionEvents(connection: Connection) {
-        console.log("binding", connection);
         connection.on("close", () => {
             this.logger.warn("RMQ CONNECTION CLOSED");
             this.connectionReady = false;
@@ -69,10 +68,7 @@ export class Amqp implements Queue {
 
     private async createConnection() {
         this.connection = await this.getConnection(this.config);
-        console.log("BEFERO bindConnectionEvents");
-        console.log("this.connection", this.connection);
         this.bindConnectionEvents(this.connection);
-        console.log("BEFERO READY");
         this.logger.info("CONNECTED TO MQ");
         this.connectionReady = true;
     }
@@ -131,13 +127,9 @@ export class Amqp implements Queue {
 
     public setDriver(driver: (config: any) => Promise<Connection>) {
         this.driver = driver;
-        console.log("this.driver");
-        console.log(this.driver);
     }
 
     public async getConnection(config: Options.Connect) {
-        console.log("config,", config);
-        console.log("this.driver ,", this.driver);
         return await (this.driver ? this.driver(config) : connect(config));
     }
 
