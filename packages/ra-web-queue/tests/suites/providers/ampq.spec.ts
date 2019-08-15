@@ -67,5 +67,19 @@ describe("amqp()", () => {
             service.sendToQueue({ test: "test" }, "testq");
         });
     });
+
+
+    describe("close()", () => {
+        it("should close Amqp Connection", async () => {
+            await service.close();
+            try {
+                await service.createQueue("testq");
+                fail("Queue still exists");
+            } catch (ex) {
+                expect(ex).toBeDefined();
+            }
+        });
+    });
+
 });
 
