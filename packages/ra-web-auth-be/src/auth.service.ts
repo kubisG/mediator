@@ -19,7 +19,6 @@ export class AuthService {
         private verifyService: VerifyService,
         @Inject("logger") private logger: Logger,
         private sessionDataService: SessionDataService,
-        @Inject("test") private test: any
     ) { }
 
     setVerifyService(verify) {
@@ -28,7 +27,7 @@ export class AuthService {
 
     setSessionDataService(sessionData) {
         this.sessionDataService = sessionData;
-    }    
+    }
 
     async createToken(auth: AuthDto): Promise<BearerToken> {
         const entry: any = await this.verifyService.find(auth);
@@ -45,7 +44,6 @@ export class AuthService {
         this.sessions.set(sid, sessionData);
         return responseData;
     }
-
 
     async validateUser(data: BearerData): Promise<any> {
         return await this.sessions.get(data.sid);

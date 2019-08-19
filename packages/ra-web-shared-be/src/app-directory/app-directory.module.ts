@@ -7,11 +7,20 @@ import { JwtModule } from "@nestjs/jwt";
 import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { PassportModule } from "@nestjs/passport";
 import { CoreModule } from "@ra/web-core-be/dist/core.module";
+import { RaAppDirectory } from "./entities/ra-app-directory";
+import { RaAppDirectoryIntent } from "./entities/ra-app-directory-intent";
+import { RaAppDirectoryType } from "./entities/ra-app-directory-type";
+import { DaoModule } from "@ra/web-core-be/dist/dao/dao.module";
 
 @Module({
     imports: [
         CoreModule,
         AuthModule,
+        DaoModule.forRoot([
+            RaAppDirectory,
+            RaAppDirectoryIntent,
+            RaAppDirectoryType,
+        ]),
         PassportModule.register({ defaultStrategy: "jwt" }),
         JwtModule.register({
             secret: EnvironmentService.instance.auth.secretKey,

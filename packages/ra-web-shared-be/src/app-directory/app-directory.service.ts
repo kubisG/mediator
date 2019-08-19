@@ -15,9 +15,9 @@ import { RaAppDirectoryType } from "./entities/ra-app-directory-type";
 export class AppDirectoryService {
 
     constructor(
-        @Inject("appDirectoryDao") private appDirectoryDao: AppDirectoryRepository,
-        @Inject("appDirectoryIntentDao") private appDirectoryIntentDao: AppDirectoryIntentRepository,
-        @Inject("appDirectoryTypeDao") private appDirectoryTypeDao: AppDirectoryTypeRepository,
+        @Inject("appDirectoryDao") private appDirectoryDao: (AppDirectoryRepository | any),
+        @Inject("appDirectoryIntentDao") private appDirectoryIntentDao: (AppDirectoryIntentRepository | any),
+        @Inject("appDirectoryTypeDao") private appDirectoryTypeDao: (AppDirectoryTypeRepository | any),
     ) { }
 
     public async createApp(token: string, app: AppDirectoryItemDto): Promise<AppDirectoryItemDto> {

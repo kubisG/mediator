@@ -114,7 +114,6 @@ describe("UserSessionData", () => {
             service.setFilter(filter);
             const result = await service.treatMessage({ RequestType: "Trader", msgType: "NewOrderSingle"
             , Currency: "EUR", RaID: "aaa", Limit: 1000, Blem: "aaaa"});
-            console.log("result,", result);
             expect(result["Blem"]).not.toBeDefined();
             expect(result["Limit"]).toEqual(1000);
         });
