@@ -23,7 +23,7 @@ describe("UsersController", () => {
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
-      imports: [       PassportModule.register({ defaultStrategy: "jwt" }) ],
+      imports: [PassportModule.register({ defaultStrategy: "jwt" })],
       controllers: [UsersController],
       providers: [
         fastRandomFactory,
@@ -35,7 +35,7 @@ describe("UsersController", () => {
         {
           provide: "preferenceRepository",
           useClass: PreferencesMockRepository,
-      },
+        },
         {
           provide: "mailer",
           useClass: MailerMock,
@@ -93,7 +93,7 @@ describe("UsersController", () => {
       const result = await controller.findAll(token);
       expect((result[0] as any)[0].result).toEqual("OK");
     });
-  });  
+  });
 
   describe('findCompAll()', () => {
     it('should find all form company result', async () => {
@@ -101,23 +101,23 @@ describe("UsersController", () => {
       const result = await controller.findCompAll(token);
       expect((result[0] as any).result).toEqual("OK");
     });
-  });  
-  
+  });
+
   describe('getUsersLayoutPreferences()', () => {
     it('should preferences for user', async () => {
       const token = "AAAAA";
       const result = await controller.getUsersLayoutPreferences();
       expect((result["1-1"] as any).result).toEqual("OK");
     });
-  });  
+  });
 
 
   describe('setLogging()', () => {
     it('should set Logging for user', async () => {
       const token = "AAAAA";
-      const result = await controller.setLogging(1,1,"true");
-      const json = JSON.parse((result as any ).value);
-      expect(json.result).toEqual("OK");   
+      const result = await controller.setLogging(1, 1, "true");
+      const json = JSON.parse((result as any).value);
+      expect(json.result).toEqual("OK");
     });
   });
 
@@ -131,14 +131,21 @@ describe("UsersController", () => {
     });
   });
 
-      describe('remove()', () => {
-        it('should remove record', async () => {
-            const token = "AAAAA";
-          const result = await controller.remove(1);
+  describe('remove()', () => {
+    it('should remove record', async () => {
+      const token = "AAAAA";
+      const result = await controller.remove(1);
 
-          expect(result.result).toEqual("OK");
-        });
-      });         
+      expect(result.result).toEqual("OK");
+    });
+  });
 
+  describe("service.getLayoutsName()", () => {
+    it("should show all saved layouts", async () => {
+      const token = "AAAAA";
+      const result = await service.getLayoutsName(token);
+      expect((result as any)[0].result).toEqual("OK");
+    });
+  });
 
 });
