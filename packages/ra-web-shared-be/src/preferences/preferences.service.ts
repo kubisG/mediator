@@ -19,7 +19,7 @@ export class PreferencesService {
     ) { }
 
     async getAppPref(name: string) {
-        const pref = await this.raPreference.findOne({ name, userId: 0, companyId: 0 });
+        const pref = await this.raPreference.findOne({ name, userId: 0, companyId: 0, version: this.env.appVersion });
         if (pref) {
             return JSON.parse(pref.value);
         } else {
@@ -43,14 +43,14 @@ export class PreferencesService {
 
     async findPrefs(userId) {
         let userPref = await this.raPreference.createQueryBuilder("pref")
-            .where("pref.userId=:user and pref.name='layout.prefs'"
-                , { user: userId })
+            .where("pref.userId=:user and pref.name='layout.prefs' and pref.version=:version"
+                , { user: userId, version: this.env.appVersion })
             .getOne();
         // we dont have preferences for user, so we try to find default prefs
         if ((!userPref) || (userPref === null)) {
             userPref = await this.raPreference.createQueryBuilder("pref")
-                .where("pref.userId=:user and pref.name='layout.prefs'"
-                    , { user: 0 })
+                .where("pref.userId=:user and pref.name='layout.prefs' and pref.version=:version"
+                    , { user: 0, version: this.env.appVersion })
                 .getOne();
         }
         return userPref;
@@ -78,12 +78,13 @@ export class PreferencesService {
         try {
             let storedPref = await this.raPreference.findOne({
                 userId: userData.userId, companyId: userData.compId, name: "layout.prefs"
+                , version: this.env.appVersion,
             });
             if (!storedPref) {
                 storedPref = new RaPreference();
                 storedPref.userId = userData.userId;
                 storedPref.companyId = userData.compId;
-                storedPref.version = this.env.appVersion;                
+                storedPref.version = this.env.appVersion;
                 storedPref.name = "layout.prefs";
                 storedPref.value = "{}";
             }
@@ -99,14 +100,14 @@ export class PreferencesService {
 
     async findPref(userId, compId, key): Promise<any> {
         let pref = await this.raPreference.createQueryBuilder("pref")
-            .where("pref.userId=:user and pref.name=:name and pref.companyId=:comp"
-                , { user: userId, comp: compId, name: key })
+            .where("pref.userId=:user and pref.name=:name and pref.companyId=:comp and pref.version=:version"
+                , { user: userId, comp: compId, name: key, version: this.env.appVersion })
             .getOne();
         // we dont have preferences for user, so we try to find default prefs
         if ((!pref) || (pref === null)) {
             pref = await this.raPreference.createQueryBuilder("pref")
-            .where("pref.userId=:user and pref.name=:name and pref.companyId=:comp"
-                    , { user: 0, comp: 0, name: key })
+                .where("pref.userId=:user and pref.name=:name and pref.companyId=:comp and pref.version=:version"
+                    , { user: 0, comp: 0, name: key, version: this.env.appVersion })
                 .getOne();
         }
 
@@ -138,6 +139,7 @@ export class PreferencesService {
     }
 
     public async createPreference(pref: any) {
+        pref.version = this.env.appVersion;
         return await this.raPreference.insert(pref);
     }
 
@@ -155,19 +157,20 @@ export class PreferencesService {
             {
                 name: pref.name,
                 userId: pref.userId,
-                companyId: pref.companyId
+                companyId: pref.companyId,
+                version: this.env.appVersion,
             },
             {
                 value: pref.value,
                 userId: pref.newUserId,
                 companyId: pref.newCompanyId,
-                version: this.env.appVersion
-            }
+                version: this.env.appVersion,
+            },
         );
     }
 
     public async deletePreference(name: any, user: number, company: number) {
-        return await this.raPreference.delete({ name, userId: user, companyId: company });
+        return await this.raPreference.delete({ name, userId: user, companyId: company, version: this.env.appVersion });
     }
 
 }
