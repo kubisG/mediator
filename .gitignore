@@ -4,6 +4,7 @@
 # compiled output
 !**/index.ts
 !index.ts
+!packages/**/index.ts
 /dist
 /tmp
 /out-tsc
