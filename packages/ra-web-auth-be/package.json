@@ -12,11 +12,11 @@
     },
     "scripts": {
         "clean": "rimraf ./src/**/*.js ./src/**/*.js.map ./src/**/*.d.ts",
-        "bundle": "rm -rf dist && tsc -p tsconfig.json",
-        "test": "npm run clean && jest",
-        "test:cov": "npm run clean && jest --coverage --passWithNoTests",
-        "test:e2e": "npm run clean && jest --config ./tests/jest-e2e.json",
-        "libtest": "npm run test:cov && npm --prefix ../../ run lastcov -- \"packages/ra-web-auth-be\""
+        "test": "echo \"Error: run tests from root\" && exit 1",
+        "bundle": "npm run clean && rm -rf dist && tsc -p tsconfig.json",
+        "lint:fix": "tslint -c tslint.json --project ./tsconfig.json --fix",
+        "test:cov": "jest --coverage --passWithNoTests",
+        "libtest": "npm run test:cov"
     },
     "dependencies": {
         "@ra/web-core-be": "1.1.0",
@@ -36,7 +36,6 @@
         "@types/jest": "^24.0.17",
         "@types/node": "9.6.49",
         "@types/supertest": "2.0.4",
-        "jest": "^24.8.0",
         "nodemon": "1.19.0",
         "prettier": "1.11.1",
         "rimraf": "2.6.1",
@@ -45,6 +44,7 @@
         "ts-loader": "4.1.0",
         "ts-node": "5.0.1",
         "tsconfig-paths": "3.1.1",
-        "tslint": "^5.18.0"
+        "tslint": "5.9.1",
+        "jest": "24.8.0"
     }
 }
