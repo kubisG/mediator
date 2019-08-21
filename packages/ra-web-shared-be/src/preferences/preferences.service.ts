@@ -19,7 +19,10 @@ export class PreferencesService {
     ) { }
 
     async getAppPref(name: string) {
-        const pref = await this.raPreference.findOne({ name, userId: 0, companyId: 0, version: this.env.appVersion });
+        const pref = await this.raPreference.findOne({
+            name, userId: 0, companyId: 0,
+            version: this.env.appVersion ? this.env.appVersion : "1.0.0"
+        });
         if (pref) {
             return JSON.parse(pref.value);
         } else {
@@ -44,13 +47,13 @@ export class PreferencesService {
     async findPrefs(userId) {
         let userPref = await this.raPreference.createQueryBuilder("pref")
             .where("pref.userId=:user and pref.name='layout.prefs' and pref.version=:version"
-                , { user: userId, version: this.env.appVersion })
+                , { user: userId, version: this.env.appVersion ? this.env.appVersion : "1.0.0" })
             .getOne();
         // we dont have preferences for user, so we try to find default prefs
         if ((!userPref) || (userPref === null)) {
             userPref = await this.raPreference.createQueryBuilder("pref")
                 .where("pref.userId=:user and pref.name='layout.prefs' and pref.version=:version"
-                    , { user: 0, version: this.env.appVersion })
+                    , { user: 0, version: this.env.appVersion ? this.env.appVersion : "1.0.0" })
                 .getOne();
         }
         return userPref;
@@ -78,7 +81,7 @@ export class PreferencesService {
         try {
             let storedPref = await this.raPreference.findOne({
                 userId: userData.userId, companyId: userData.compId, name: "layout.prefs"
-                , version: this.env.appVersion,
+                , version: this.env.appVersion ? this.env.appVersion : "1.0.0",
             });
             if (!storedPref) {
                 storedPref = new RaPreference();
@@ -101,13 +104,13 @@ export class PreferencesService {
     async findPref(userId, compId, key): Promise<any> {
         let pref = await this.raPreference.createQueryBuilder("pref")
             .where("pref.userId=:user and pref.name=:name and pref.companyId=:comp and pref.version=:version"
-                , { user: userId, comp: compId, name: key, version: this.env.appVersion })
+                , { user: userId, comp: compId, name: key, version: this.env.appVersion ? this.env.appVersion : "1.0.0" })
             .getOne();
         // we dont have preferences for user, so we try to find default prefs
         if ((!pref) || (pref === null)) {
             pref = await this.raPreference.createQueryBuilder("pref")
                 .where("pref.userId=:user and pref.name=:name and pref.companyId=:comp and pref.version=:version"
-                    , { user: 0, comp: 0, name: key, version: this.env.appVersion })
+                    , { user: 0, comp: 0, name: key, version: this.env.appVersion ? this.env.appVersion : "1.0.0" })
                 .getOne();
         }
 
@@ -158,7 +161,7 @@ export class PreferencesService {
                 name: pref.name,
                 userId: pref.userId,
                 companyId: pref.companyId,
-                version: this.env.appVersion,
+                version: this.env.appVersion ? this.env.appVersion : "1.0.0",
             },
             {
                 value: pref.value,
