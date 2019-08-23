@@ -143,7 +143,7 @@ export class PreferencesService {
 
     public async createPreference(pref: any) {
         pref.version = this.env.appVersion;
-        return await this.raPreference.insert(pref);
+        return await this.raPreference.save(pref);
     }
 
     public async savePreference(pref: any) {

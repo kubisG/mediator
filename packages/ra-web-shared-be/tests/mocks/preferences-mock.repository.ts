@@ -52,8 +52,6 @@ export class PreferencesMockRepository {
         getOne: jest.fn().mockReturnValueOnce({ value: "{ \"result\":\"OK\" }" }),
         getMany: jest.fn().mockReturnValueOnce([{ value: "{ \"result\":\"OK\" }", userId: "1", companyId: "1" }]),
     }));
-
-
     getLayoutConfig(userId, compId, name) {
         return Promise.resolve({ result: "OK" });
     }
@@ -70,5 +68,7 @@ export class PreferencesMockRepository {
         return Promise.resolve([{ result: "OK" }]);
     }
 
-
+    setPublicPrivateLayout(userId, compId, state, name) {
+        return Promise.resolve({ result: "OK" });
+    }
 }

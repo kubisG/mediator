@@ -115,4 +115,12 @@ describe("LayoutController", () => {
     });
   });
 
+  describe("setPublicPrivate(:state)", () => {
+    it("should cahnge public/private property", async () => {
+      const token = "AAAAA";
+      const result = await controller.setPublicPrivate(token, { name: "test" }, "Public");
+      expect(result.result).toEqual("OK");
+    });
+  });
+
 });
