@@ -36,7 +36,7 @@ export class LayoutService {
         return await this.raPreferences.findOne({
             userId: userData.userId,
             companyId: userData.compId,
-            name: `default_layout_${modul}`
+            name: `default_layout_${modul}`,
         });
     }
 
@@ -48,6 +48,12 @@ export class LayoutService {
             userId: userData.userId,
             companyId: userData.compId,
         });
+    }
+
+    async setLayoutPublicPrivate(token: string, state: string, name: any) {
+        const userData: UserData = await this.authService.getUserData<UserData>(token);
+
+        return await this.raPreferences.setPublicPrivateLayout(userData.userId, userData.compId, state, name);
     }
 
 }

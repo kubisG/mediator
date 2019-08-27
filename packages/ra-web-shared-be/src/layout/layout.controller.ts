@@ -39,13 +39,16 @@ export class LayoutController {
     async getLayoutDefault(@Bearer() auth: string, @Param("modul") modul: string): Promise<any> {
         return await this.layoutService.getLayoutDefault(auth, modul);
     }
-    
+
     @Post("layout-default/:modul")
     @UseGuards(AuthGuard())
     async setLayoutDefault(@Bearer() auth: string, @Body() data: any, @Param("modul") modul: string): Promise<any> {
         return await this.layoutService.setLayoutDefault(auth, modul, data.name);
     }
-    
-    
 
+    @Post("layout-settings/:state")
+    @UseGuards(AuthGuard())
+    async setPublicPrivate(@Bearer() auth: string, @Body() data: any, @Param("state") state: string): Promise<any> {
+        return await this.layoutService.setLayoutPublicPrivate(auth, state, data.name);
+    }
 }
