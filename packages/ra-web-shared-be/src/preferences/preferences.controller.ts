@@ -85,4 +85,11 @@ export class PreferencesController {
     setUserPref(@Bearer() auth: string, @Param("name") name: string, @Body() mypref: any) {
         return this.preferencesService.saveUserPref(auth, name, mypref);
     }
+
+    @Get("/hitlist/all/:hitlist")
+    @UseGuards(AuthGuard())
+    @ApiImplicitParam({ name: "hitlist" })
+    async getHitlistsName(@Bearer() auth: string, @Param("hitlist") hitlist: string) {
+        return await this.preferencesService.getHitlistsName(hitlist, auth);
+    }
 }

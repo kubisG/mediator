@@ -73,6 +73,28 @@ export class PreferenceRepository extends Repository<RaPreference> {
         return layouts;
     }
 
+    public async getHitlistsName(hitlist: string, userId: number, companyId: number, version: string) {
+        const configs: RaPreference[] = await this.find({
+            where: {
+                userId: Raw(`
+                "userId" AND ("userId" IN (0,` + userId + `) OR "flag" = 'Public')
+                `),
+                companyId: In([companyId, 0]),
+                name: Like("hitlist_" + hitlist + "~%"),
+                version: version ? version : "1.0.0",
+            }, order: { userId: "ASC", name: "ASC" },
+        });
+
+        const hitlists: any[] = [];
+        for (let i = 0; i < configs.length; i++) {
+            if (configs[i].name.indexOf(`hitlist_` + hitlist + "~") > -1) {
+                const name = configs[i].name.split("~");
+                hitlists.push({ name: name[1], flag: configs[i].flag, userId: configs[i].userId });
+            }
+        }
+        return hitlists;
+    }
+
     public async deleteLayoutConfig(userId: number, companyId: number, name: string) {
         return await this.delete({
             name: `layout_${name}`, userId, companyId, version: this.env.appVersion ? this.env.appVersion : "1.0.0",
