@@ -3,13 +3,15 @@ import { BearerData } from "@ra/web-auth-be/dist/interfaces/bearer-data.interfac
 import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { RaUser } from "@ra/web-core-be/dist/db/entity/ra-user";
 import { UserData } from "./user-data.interface";
-import { Injectable } from "@nestjs/common";
+import { Injectable, Inject } from "@nestjs/common";
+import { ObjectRightsRepository } from "@ra/web-core-be/dist/dao/repositories/object-rights.repository";
 
 @Injectable()
 export class UserSessionData implements SessionData {
 
     constructor(
         private env: EnvironmentService,
+        @Inject("objectRightsRepository") private raObjectRights: ObjectRightsRepository,
     ) { }
 
     public async getSessionData(entry: RaUser, tokenData: BearerData, accessToken: string): Promise<UserData> {
@@ -21,11 +23,15 @@ export class UserSessionData implements SessionData {
             userId: entry.id,
             compId: entry.company.id,
             nickName: entry.username,
-            role: entry.class
-        }
+            role: entry.class,
+        };
     }
 
     public async getResponseData(entry: any, tokenData: BearerData, accessToken: string): Promise<any> {
+        const rights = await this.raObjectRights.find({
+            userId: entry.id, companyId: entry.company.id,
+        });
+
         return {
             expiresIn: this.env.auth.expiresIn,
             accessToken,
@@ -35,7 +41,8 @@ export class UserSessionData implements SessionData {
                 lastName: entry.lastName,
                 nickName: entry.username,
                 compId: entry.company.id,
-            }
+                rights,
+            },
         };
     }
 
