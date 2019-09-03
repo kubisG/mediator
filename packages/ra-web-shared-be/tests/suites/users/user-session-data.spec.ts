@@ -4,7 +4,7 @@ import { Subscription } from "rxjs/internal/Subscription";
 import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { EnvironmentMockService } from "../../mocks/environment-mock.service";
 import { UserSessionData } from "../../../src/users/user-session-data";
-import { UserData } from "../../../src/users/user-data.interface";
+import { ObjectRightsMockRepository } from "../../mocks/object-rights-mock.repository";
 
 describe("UserSessionData", () => {
   let app: TestingModule;
@@ -22,7 +22,11 @@ describe("UserSessionData", () => {
         {
           provide: "logger",
           useClass: LoggerMock,
-        }
+        },
+        {
+          provide: "objectRightsRepository",
+          useClass: ObjectRightsMockRepository,
+        },
       ],
     }).compile();
     service = app.get<UserSessionData>(UserSessionData);

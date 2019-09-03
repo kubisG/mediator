@@ -1,5 +1,5 @@
 import { SaveOptions, DeepPartial, FindConditions, ObjectID } from "typeorm";
-import { RaObjectRights } from "@ra/web-core-be/dist/db/entity/ra-preference";
+import { RaObjectRights } from "@ra/web-core-be/dist/db/entity/ra-object-rights";
 
 export class ObjectRightsMockRepository {
     save<T extends DeepPartial<RaObjectRights>>(entity: T, options?: SaveOptions): Promise<T> {
