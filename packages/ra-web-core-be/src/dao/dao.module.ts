@@ -36,16 +36,16 @@ export class DaoModule {
         }
     }
 
-    static forRoot(customEntities: any[]): DynamicModule {
+    static forRoot(customEntities: any[], subscribers?: any[]): DynamicModule {
         DaoModule.mapEntity(customEntities);
         return {
             module: DaoModule,
             providers: [
-                ...dataseProviders(Object.values(DaoModule.entitiesMap)),
+                ...dataseProviders(Object.values(DaoModule.entitiesMap), subscribers),
                 ...repositoriesProvider,
             ],
             exports: [
-                ...dataseProviders(Object.values(DaoModule.entitiesMap)),
+                ...dataseProviders(Object.values(DaoModule.entitiesMap), subscribers),
                 ...repositoriesProvider,
             ],
         };

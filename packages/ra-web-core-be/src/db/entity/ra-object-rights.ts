@@ -12,11 +12,11 @@ export class RaObjectRights extends AEntity {
     @Column()
     public name: string;
 
-    @Column({ nullable: true })
-    public read: string;
+    @Column({ nullable: true, default: false })
+    public read: boolean;
 
-    @Column({ nullable: true })
-    public write: string;
+    @Column({ nullable: true, default: false })
+    public write: boolean;
 
     @Column()
     public userId: number;

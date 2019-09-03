@@ -6,7 +6,7 @@
   },
   "include": [
       "*.ts",
-      "src/**/*.ts"
+      "src/**/*.ts", "../ra-web-forms-be/src/forms-dao/subscribers/audit.subscriber.ts"
   ],
   "exclude": [
     "node_modules",

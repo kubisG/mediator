@@ -3,6 +3,7 @@ import { UserRepository } from "./repositories/user.repository";
 import { PreferenceRepository } from "./repositories/preference.repository";
 import { CompanyRepository } from "./repositories/company.repository";
 import { ObjectRightsRepository } from "./repositories/object-rights.repository";
+import { AuditTrailRepository } from "./repositories/audit-trail.repository";
 
 export const repositoriesProvider = [
     {
@@ -23,6 +24,11 @@ export const repositoriesProvider = [
     {
         provide: "objectRightsRepository",
         useFactory: (connection: () => Connection) => connection().getCustomRepository(ObjectRightsRepository),
+        inject: ["DbConnection"],
+    },
+    {
+        provide: "auditTrailRepository",
+        useFactory: (connection: () => Connection) => connection().getCustomRepository(AuditTrailRepository),
         inject: ["DbConnection"],
     },
 ];

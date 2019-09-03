@@ -3,7 +3,7 @@ import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConne
 import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { Logger } from "../logger/providers/logger";
 
-export function dataseProviders(entities: any[]) {
+export function dataseProviders(entities: any[], subscribers: any[] = []) {
     return [
         {
             provide: "DbConnection",
@@ -32,6 +32,7 @@ export function dataseProviders(entities: any[]) {
                     entities: [
                         ...entities,
                     ],
+                    subscribers: [ ...subscribers ],
                     synchronize: env.db.synch,
                     logging: ((env.logging.db === "true" || env.logging.db === true) ? true : ["error"]),
                     logger: "advanced-console",
