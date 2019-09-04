@@ -3,11 +3,16 @@ import { Observable } from "rxjs/internal/Observable";
 import { ClientRouter } from "./interfaces/client-router.interface";
 import { ClientsMap } from "./interfaces/clients-map.interface";
 import { AccountsMap } from "./interfaces/accounts-map.interface";
-
+import { Logger } from "@ra/web-core-be/dist/logger/providers/logger";
 export class ClientRouterService implements ClientRouter {
 
     private clients: ClientsMap = {};
     private accounts: AccountsMap = {};
+
+    constructor(
+        protected logger: Logger,
+    ) {
+    }
 
     private registerClient<T>(clinetId: string): Observable<T> {
         const clientSubject = new Subject<T>();
@@ -25,7 +30,11 @@ export class ClientRouterService implements ClientRouter {
     }
 
     private getRegisteredClients(account: string): string[] {
-        return Object.keys(this.accounts[account]);
+        if (this.accounts[account]) {
+            return Object.keys(this.accounts[account]);
+        } else {
+            return [];
+        }
     }
 
     public addClientToAccount<T>(clinetId: string, account: string): Observable<T> {
@@ -48,9 +57,7 @@ export class ClientRouterService implements ClientRouter {
     public pushToAccount(account: string, data: any, clients?: string[]) {
         const registeredClients = this.getRegisteredClients(account);
         for (let i = 0; i < registeredClients.length; i++) {
-            if (clients && clients.indexOf(registeredClients[i]) > -1) {
-                this.pushToClient(registeredClients[i], data);
-            } else {
+            if ((!clients) || (clients && clients.indexOf(registeredClients[i]) > -1)) {
                 this.pushToClient(registeredClients[i], data);
             }
         }
@@ -60,7 +67,9 @@ export class ClientRouterService implements ClientRouter {
         if (this.clients[clinetId]) {
             return this.clients[clinetId].subject;
         }
-        throw new Error(`Client ${clinetId} not exists`);
+        this.logger.error(`Client ${clinetId} not exists!!!!`);
+        return new Subject<T>(); // empty subject
+//        throw new Error(`Client ${clinetId} not exists`);
     }
 
     public getAccountSubjects(account: string): Subject<any>[] {
