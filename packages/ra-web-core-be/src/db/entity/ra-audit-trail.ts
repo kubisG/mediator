@@ -9,10 +9,16 @@ export class RaAuditTrail extends AEntity {
     public id: number;
 
     @Column()
+    public recordId: number;
+
+    @Column()
     public action: string;
 
     @Column()
     public data: string;
+
+    @Column()
+    public table: string;
 
     @Column()
     public user: string;

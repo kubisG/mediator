@@ -51,7 +51,10 @@ export class ClientRouterService implements ClientRouter {
     }
 
     public pushToClient(clinetId: string, data: any) {
-        this.getClientSubject(clinetId).next(data);
+        const subj = this.getClientSubject(clinetId);
+        if (subj) {
+            subj.next(data);
+        }
     }
 
     public pushToAccount(account: string, data: any, clients?: string[]) {
@@ -68,7 +71,7 @@ export class ClientRouterService implements ClientRouter {
             return this.clients[clinetId].subject;
         }
         this.logger.error(`Client ${clinetId} not exists!!!!`);
-        return new Subject<T>(); // empty subject
+        return; // empty subject
 //        throw new Error(`Client ${clinetId} not exists`);
     }
 
