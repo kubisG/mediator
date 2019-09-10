@@ -6,5 +6,6 @@ export interface UserData {
     userId: number;
     compId: number;
     nickName: string;
+    clientId: string;
     role: string;
 }

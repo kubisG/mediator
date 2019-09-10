@@ -74,6 +74,12 @@ export class PreferencesController {
         return this.preferencesService.deletePreference(name, user, company);
     }
 
+    @Delete("delete-user/:name")
+    @ApiBearerAuth()
+    deleteUserPreference(@Bearer() auth: string, @Param("name") name: any) {
+        return this.preferencesService.deleteUserPreference(name, auth);
+    }
+
     @Get("/user/:name")
     @ApiImplicitParam({ name: "name" })
     findUserPref(@Bearer() auth: string, @Param("name") name: string) {

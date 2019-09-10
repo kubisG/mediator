@@ -62,7 +62,6 @@ describe("ClientRouterService", () => {
     service.pushToClient("testClient", response);
   });
 
-
   it("pushToAccount(accountId: string, data)", (done) => {
     service.addClientToAccount("testClient", "testAccount");
     const response = { id: "1", result: "OK" };
