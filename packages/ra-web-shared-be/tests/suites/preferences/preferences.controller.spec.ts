@@ -127,6 +127,14 @@ describe("PreferencesController", () => {
     });
   });
 
+  describe("deleteUserPreference(:name)", () => {
+    it("should delete user pref record", async () => {
+      const token = "AAAAA";
+      const result = await controller.deleteUserPreference(token, "test" );
+      expect((result as any).result).toEqual("OK");
+    });
+  });
+
   describe("findUserPref()", () => {
     it("should find pref result", async () => {
       const token = "AAAAA";
