@@ -16,6 +16,4 @@ export class SessionDataService implements SessionData {
     async getDummyToken(...args: any[]) {
         return { bla: 555 };
     }
-
-
 }
