@@ -46,13 +46,14 @@ RUN chown -R rapidnode /usr/src/app && \
 
 USER rapidnode
 
-COPY --from=bundle /usr/src/bundle/packages/$project/node_modules ./node_modules
 COPY --from=bundle /usr/src/bundle/packages/$project/config ./config
 COPY --from=bundle /usr/src/bundle/packages/$project/dist ./dist
+COPY --from=bundle /usr/src/bundle/packages/$project/node_modules ./dist/node_modules
 COPY --from=bundle /usr/src/bundle/packages/$project/package*.json ./
 COPY --from=bundle /usr/src/bundle/packages/$project/ecosystem.config.js ./
 COPY --from=bundle /usr/src/bundle/packages/$project/db ./db
 
+RUN ls -lattr ./dist
 RUN ls -lattr ./node_modules
 
 EXPOSE 3000
