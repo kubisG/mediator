@@ -1,7 +1,9 @@
-FROM node:10.15-alpine as bundle
+FROM keymetrics/pm2:latest-alpine as bundle
 ARG project
+ARG params
 
 RUN apk add --no-cache python && \
+    apk add --no-cache postgresql-dev g++ make && \
     python -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
     pip install --upgrade pip setuptools && \
@@ -22,22 +24,35 @@ RUN npm install
 # RUN npm install --only=production
 # Bundle app source
 COPY . .
-
-RUN npm cache clean --force && \
-    npm run init && \
+RUN npm run docker-init && \
     npm run bundle && \
-    npm --prefix packages/ra-web-bundle-fe run package -- $project && \
-    npm --prefix packages/ra-web-bundle-fe run build
+    npm cache clean --force && \
+    npm run bootstrap -- --scope $project --include-filtered-dependencies && \
+    npm run lerna -- run --scope $project build && \
+    rm -rfv /usr/src/bundle/packages/$project/node_modules/@ra/**/node_modules && \
+    tar -hcf /tmp/ra-dep.tar /usr/src/bundle/packages/$project/node_modules/@ra && \
+    rm -rfv /usr/src/bundle/packages/$project/node_modules/@ra && \
+    tar -xf /tmp/ra-dep.tar -C /
 
-FROM nginx:1.15.8-alpine as start
+FROM keymetrics/pm2:latest-alpine as start
 ARG project
+
+RUN adduser -S rapidnode
 
 WORKDIR /usr/src/app
 
-RUN chown -R nginx /usr/src/app && \
+RUN chown -R rapidnode /usr/src/app && \
     chmod 755 /usr/src/app
 
-COPY --from=bundle /usr/src/bundle/packages/$project/dist/ra-*/assets ./assets
-COPY --from=bundle /usr/src/bundle/packages/$project/dist/ra-*/*.* ./
+USER rapidnode
 
-CMD ["nginx", "-g", "daemon off;"]
+COPY --from=bundle /usr/src/bundle/packages/$project/node_modules ./node_modules
+COPY --from=bundle /usr/src/bundle/packages/$project/config ./config
+COPY --from=bundle /usr/src/bundle/packages/$project/dist ./dist
+COPY --from=bundle /usr/src/bundle/packages/$project/package*.json ./
+COPY --from=bundle /usr/src/bundle/packages/$project/ecosystem.config.js ./
+COPY --from=bundle /usr/src/bundle/packages/$project/db ./db
+
+EXPOSE 3000
+# --log-date-format="YYYY-MM-DD HH:mm Z"
+CMD ["pm2-runtime", "ecosystem.config.js","--log-date-format","'YYYY-MM-DD HH:mm Z'"]

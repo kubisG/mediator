@@ -6,6 +6,7 @@
     "hoists": "lerna bootstrap --hoist --force-local --include-filtered-dependencies --loglevel verbose",
     "nohoists": "lerna bootstrap",
     "init": "npm run init-hooks && npm run clean && npm run hoists",
+    "docker-init": "npm run clean && npm run hoists",
     "init-hooks": "sh ./scripts/init-hooks",
     "bts": "lerna bootstrap",
     "bootstrap": "npm run clean && lerna bootstrap",
@@ -19,7 +20,8 @@
     "watch:bundle": "tsc ./scripts/nodemon-bundle.ts && node ./scripts/nodemon-bundle.js",
     "workspaces": "tsc ./scripts/generate-workspaces.ts && node ./scripts/generate-workspaces.js",
     "lastcov:build": "tsc ./scripts/lastcov.ts",
-    "lastcov": "node ./scripts/lastcov.js"
+    "lastcov": "node ./scripts/lastcov.js",
+    "lerna": "lerna"
   },
   "devDependencies": {
     "lerna": "3.13.3",

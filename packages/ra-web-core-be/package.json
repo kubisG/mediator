@@ -28,7 +28,7 @@
         "devextreme-angular": "19.1.4-build-19151-2014",
         "fast-random": "2.0.4",
         "light-mapper": "1.1.6",
-        "lodash": "4.17.10",
+        "lodash": "4.17.15",
         "nodemailer": "4.6.8",
         "redis": "2.8.0",
         "rxjs": "6.5.1",

@@ -9,7 +9,6 @@ export function dataseProviders(entities: any[], subscribers: any[] = []) {
             provide: "DbConnection",
             useFactory: async (env: EnvironmentService, logger: Logger): Promise<() => Connection> => {
                 logger.silly(`PASS ENTITIES, COUNT: ${entities.length}`);
-                console.log(entities);
                 const connectionManager: ConnectionManager = getConnectionManager();
                 let connection: Connection;
                 let driver: Driver;
@@ -32,7 +31,7 @@ export function dataseProviders(entities: any[], subscribers: any[] = []) {
                     entities: [
                         ...entities,
                     ],
-                    subscribers: [ ...subscribers ],
+                    subscribers: [...subscribers],
                     synchronize: env.db.synch,
                     logging: ((env.logging.db === "true" || env.logging.db === true) ? true : ["error"]),
                     logger: "advanced-console",
