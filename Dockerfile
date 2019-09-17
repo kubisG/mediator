@@ -54,6 +54,8 @@ COPY --from=bundle /usr/src/bundle/packages/$project/package*.json ./
 COPY --from=bundle /usr/src/bundle/packages/$project/ecosystem.config.js ./
 COPY --from=bundle /usr/src/bundle/packages/$project/db ./db
 
+RUN ls -lattr ./node_modules
+
 EXPOSE 3000
 # --log-date-format="YYYY-MM-DD HH:mm Z"
 CMD ["pm2-runtime", "ecosystem.config.js","--log-date-format","'YYYY-MM-DD HH:mm Z'"]
