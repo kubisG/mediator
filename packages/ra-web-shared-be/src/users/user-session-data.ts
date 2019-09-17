@@ -22,6 +22,7 @@ export class UserSessionData implements SessionData {
             exp: tokenData.exp,
             userId: entry.id,
             compId: entry.company.id,
+            clientId: entry.company.clientId,
             nickName: entry.username,
             role: entry.class,
         };
@@ -40,6 +41,7 @@ export class UserSessionData implements SessionData {
                 firstName: entry.firstName,
                 lastName: entry.lastName,
                 nickName: entry.username,
+                clientId: entry.company.clientId,
                 compId: entry.company.id,
                 rights,
             },

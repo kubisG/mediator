@@ -176,6 +176,11 @@ export class PreferencesService {
         return await this.raPreference.delete({ name, userId: user, companyId: company, version: this.env.appVersion });
     }
 
+    public async deleteUserPreference(name: any, token: string) {
+        const userData: UserData = await this.authService.getUserData<UserData>(token);
+        return await this.raPreference.delete({ name, userId: userData.userId, companyId: userData.compId, version: this.env.appVersion });
+    }
+
     async getHitlistsName(hitlist: string, token: string) {
         const userData: UserData = await this.authService.getUserData<UserData>(token);
         return await this.raPreference.getHitlistsName(hitlist, userData.userId, userData.compId, this.env.appVersion);

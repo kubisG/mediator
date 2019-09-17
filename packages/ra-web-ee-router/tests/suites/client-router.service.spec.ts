@@ -19,7 +19,9 @@ describe("ClientRouterService", () => {
         },
       ],
     }).compile();
-    service = app.get<ClientRouterService>(ClientRouterService);
+
+    const logger = new LoggerMock();
+    service = new ClientRouterService(logger);
   });
 
   afterEach(() => {
@@ -30,8 +32,10 @@ describe("ClientRouterService", () => {
 
   it("getClientSubject()", async () => {
     await service.addClientToAccount("testClient", "testAccount");
-    const subject = service.getClientSubject("testClient");
+    let subject = service.getClientSubject("testClient");
     expect(subject).toBeInstanceOf(Subject);
+    subject = service.getClientSubject("testClienterr");
+    expect(subject).toBeUndefined();
   });
 
   it("removeClient(client)", async () => {
@@ -61,7 +65,6 @@ describe("ClientRouterService", () => {
     }));
     service.pushToClient("testClient", response);
   });
-
 
   it("pushToAccount(accountId: string, data)", (done) => {
     service.addClientToAccount("testClient", "testAccount");
