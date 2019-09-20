@@ -102,9 +102,24 @@ export class EnvironmentService {
                     user: process.env.NATS_USER,
                     password: process.env.NATS_PASSWORD,
                     heartbeat: 10,
-                    dataQueue: process.env.NATS_QUEUE_DATA,
-                    requestQueue: process.env.NATS_QUEUE_REQUEST,
+                    dataQueue: () => {
+                        if (process.env.NATS_QUEUE_DYNAMIC_ID && process.env.NATS_QUEUE_DYNAMIC_ID === "true") {
+                            const splitedHostname = process.env.HOSTNAME.split("-");
+                            const queuePostfix = splitedHostname[splitedHostname.length - 1];
+                            return `${process.env.NATS_QUEUE_DATA}${queuePostfix}`;
+                        }
+                        return process.env.NATS_QUEUE_DATA;
+                    },
+                    requestQueue: () => {
+                        if (process.env.NATS_QUEUE_DYNAMIC_ID && process.env.NATS_QUEUE_DYNAMIC_ID === "true") {
+                            const splitedHostname = process.env.HOSTNAME.split("-");
+                            const queuePostfix = splitedHostname[splitedHostname.length - 1];
+                            return `${process.env.NATS_QUEUE_REQUEST}${queuePostfix}`;
+                        }
+                        return process.env.NATS_QUEUE_REQUEST;
+                    },
                     locatesId: process.env.NATS_LOCATES_ID,
+                    queueDynamicId: process.env.NATS_QUEUE_DYNAMIC_ID && process.env.NATS_QUEUE_DYNAMIC_ID === "true" ? true : false,
                 },
             },
         };
