@@ -40,6 +40,10 @@ export class RaCompany extends AEntity {
 
     @Mapping(MappingRequirement.OPTIONAL)
     @Column({ nullable: true })
+    public companyMail: string;
+
+    @Mapping(MappingRequirement.OPTIONAL)
+    @Column({ nullable: true })
     public clientId: string;
 
     @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })

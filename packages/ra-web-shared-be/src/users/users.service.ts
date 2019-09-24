@@ -18,7 +18,7 @@ export class UsersService {
 
     public switchLogging: Subject<any> = new Subject<any>();
     public switchLogging$: Observable<any> = this.switchLogging.asObservable();
-        
+
     constructor(
         private authService: AuthService,
         @Inject("preferenceRepository") private preferenceRepository: PreferenceRepository,

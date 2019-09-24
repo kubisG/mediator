@@ -64,5 +64,4 @@ describe("ClientRouterService", () => {
     expect(settings).toBeDefined();
   });
 
-
 });

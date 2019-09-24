@@ -56,13 +56,18 @@ export class Smtp implements Mailer {
     }
 
     public async send(from: string, to: string, subject: string, text: string) {
-        const email: Nodemailer.SendMailOptions = {
-            from, // sender address
-            to, // list of receivers
-            subject, // Subject line
-            text,
-        };
-        return await this.transporter.sendMail(email);
+
+        if ((from) && (to) && (subject)) {
+            const email: Nodemailer.SendMailOptions = {
+                from, // sender address
+                to, // list of receivers
+                subject, // Subject line
+                text,
+            };
+            return await this.transporter.sendMail(email);
+        } else {
+            return Promise.reject();
+        }
     }
 
 }
