@@ -1,0 +1,25 @@
+{
+    "projects": {
+        "ra-web-automarking-be": {
+            "fileReplacements": [
+                {
+                    "replace": "./packages/ra-web-bundle-be/src/app.module.ts",
+                    "with": "./packages/ra-web-bundle-be/src/automarking.module.ts"
+                },
+                {
+                    "replace": "./packages/ra-web-bundle-be/src/install.ts",
+                    "with": "./packages/ra-web-bundle-be/src/automarking-install.ts"
+                },
+                {
+                    "replace": "./packages/ra-web-bundle-be/config",
+                    "with": "./packages/ra-web-bundle-be/src/automarking-config"
+                },
+                {
+                    "replace": "./packages/ra-web-bundle-be/db",
+                    "with": "./packages/ra-web-bundle-be/src/automarking-db"
+                }
+            ],
+            "rootDir": "./packages/ra-web-bundle-be"
+        }
+    }
+}

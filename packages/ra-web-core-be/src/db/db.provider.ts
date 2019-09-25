@@ -9,6 +9,7 @@ export function dataseProviders(entities: any[], subscribers: any[] = []) {
             provide: "DbConnection",
             useFactory: async (env: EnvironmentService, logger: Logger): Promise<() => Connection> => {
                 logger.silly(`PASS ENTITIES, COUNT: ${entities.length}`);
+                logger.silly(entities);
                 const connectionManager: ConnectionManager = getConnectionManager();
                 let connection: Connection;
                 let driver: Driver;
