@@ -6,12 +6,12 @@ import { FileLogger } from "./providers/file-logger";
 })
 export class LoggerGateway {
 
-    private logger: FileLogger = new FileLogger();
+    // private logger: FileLogger = new FileLogger();
 
     constructor() { }
 
     @SubscribeMessage("message")
     public onData(client, data) {
-        this.logger.log(data.level, data.message);
+        // this.logger.log(data.level, data.message);
     }
 }

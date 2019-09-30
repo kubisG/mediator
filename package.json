@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "clean": "lerna clean",
-    "hoists": "lerna bootstrap --hoist --force-local --include-filtered-dependencies --loglevel verbose",
+    "hoists": "lerna bootstrap --hoist --force-local --include-filtered-dependencies",
     "nohoists": "lerna bootstrap",
     "init": "npm run init-hooks && npm run clean && npm run hoists",
     "docker-init": "npm run clean && npm run hoists",
@@ -21,7 +21,8 @@
     "workspaces": "tsc ./scripts/generate-workspaces.ts && node ./scripts/generate-workspaces.js",
     "lastcov:build": "tsc ./scripts/lastcov.ts",
     "lastcov": "node ./scripts/lastcov.js",
-    "lerna": "lerna"
+    "lerna": "lerna",
+    "rimraf": "rimraf"
   },
   "devDependencies": {
     "lerna": "3.13.3",
@@ -30,6 +31,7 @@
     "nodemon": "1.19.0",
     "ts-node": "5.0.1",
     "chokidar": "3.0.1",
-    "http-proxy": "^1.18.0"
+    "http-proxy": "^1.18.0",
+    "rimraf": "2.6.1"
   }
 }

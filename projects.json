@@ -1,6 +1,6 @@
 {
     "projects": {
-        "ra-web-automarking-be": {
+        "automarking-be": {
             "fileReplacements": [
                 {
                     "replace": "./packages/ra-web-bundle-be/src/app.module.ts",
@@ -12,14 +12,14 @@
                 },
                 {
                     "replace": "./packages/ra-web-bundle-be/config",
-                    "with": "./packages/ra-web-bundle-be/src/automarking-config"
+                    "with": "./packages/ra-web-bundle-be/automarking-config"
                 },
                 {
                     "replace": "./packages/ra-web-bundle-be/db",
-                    "with": "./packages/ra-web-bundle-be/src/automarking-db"
+                    "with": "./packages/ra-web-bundle-be/automarking-db"
                 }
             ],
-            "rootDir": "./packages/ra-web-bundle-be"
+            "package": "ra-web-bundle-be"
         }
     }
 }
