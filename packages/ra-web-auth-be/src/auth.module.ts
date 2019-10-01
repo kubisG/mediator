@@ -54,6 +54,7 @@ export class AuthModule {
     static forRoot(
         sessionData: any,
         verifyService: any,
+        providers: any[] = [],
     ): DynamicModule {
         return {
             module: AuthModule,
@@ -66,6 +67,7 @@ export class AuthModule {
                     provide: VerifyService,
                     useClass: verifyService,
                 },
+                ...providers,
             ],
         };
     }

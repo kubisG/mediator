@@ -1,10 +1,11 @@
-import { Column, Entity, PrimaryColumn, OneToMany, PrimaryGeneratedColumn, Index, BeforeUpdate } from "typeorm";
+import { Column, Entity, PrimaryColumn, OneToMany, PrimaryGeneratedColumn, Index, BeforeUpdate, Unique } from "typeorm";
 import { Mapping, MappingRequirement } from "light-mapper";
 
 import { AEntity } from "../a-entity";
 import { RaUser } from "./ra-user";
 
 @Entity()
+@Unique(["clientId"])
 export class RaCompany extends AEntity {
 
     constructor(id?: number) {
