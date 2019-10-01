@@ -64,7 +64,7 @@ function buildBundle(project) {
         }
     }
     params.project = project.package;
-    // buildSimple();
+    buildSimple();
 }
 
 setParams(process.argv);
@@ -72,5 +72,5 @@ const project = getProject(params.project);
 if (project) {
     buildBundle(project);
 } else {
-    // buildSimple();
+    buildSimple();
 }
