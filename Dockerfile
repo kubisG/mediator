@@ -28,7 +28,6 @@ COPY . .
 RUN npm run docker-init
 RUN npm run bundle
 RUN npm cache clean --force
-RUN npm run bootstrap -- --scope $project --include-filtered-dependencies
 RUN npm run rimraf -- /usr/src/bundle/packages/$project/node_modules/**/node_modules
 RUN npm run rimraf -- /usr/src/bundle/packages/$project/node_modules/@ra/**/node_modules
 RUN chmod +x ./replace-symlinks.sh
@@ -49,6 +48,7 @@ USER rapidnode
 
 COPY --from=bundle /usr/src/bundle/packages/$project/config ./config
 COPY --from=bundle /usr/src/bundle/packages/$project/node_modules ./node_modules
+COPY --from=bundle /usr/src/bundle/node_modules ./node_modules
 COPY --from=bundle /usr/src/bundle/packages/$project/dist ./dist
 COPY --from=bundle /usr/src/bundle/packages/$project/package*.json ./
 COPY --from=bundle /usr/src/bundle/packages/$project/ecosystem.config.js ./
