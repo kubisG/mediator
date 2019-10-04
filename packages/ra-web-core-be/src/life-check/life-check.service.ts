@@ -15,7 +15,7 @@ export class LifeCheckService implements TerminusOptionsFactory {
 
     createTerminusOptions(): TerminusModuleOptions | Promise<TerminusModuleOptions> {
         const healthEndpoint: TerminusEndpoint = {
-            url: "/health",
+            url: "/api/health",
             healthIndicators: [
                 async () => this.databaseHealthIndicator.isHealthy("db"),
             ],
