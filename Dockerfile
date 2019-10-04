@@ -25,14 +25,14 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-RUN npm run docker-init
-RUN npm run bundle
-RUN npm cache clean --force
-RUN npm run rimraf -- /usr/src/bundle/packages/$project/node_modules/**/node_modules
-RUN npm run rimraf -- /usr/src/bundle/packages/$project/node_modules/@ra/**/node_modules
-RUN chmod +x ./replace-symlinks.sh
-RUN find /usr/src/bundle/packages/$project/node_modules -maxdepth 2 -type l -exec ./replace-symlinks.sh '{}' \;
-# RUN node ./scripts/builder/builder.js --project $project
+# RUN npm run docker-init
+# RUN npm run bundle
+# RUN npm cache clean --force
+# RUN npm run rimraf -- /usr/src/bundle/packages/$project/node_modules/**/node_modules
+# RUN npm run rimraf -- /usr/src/bundle/packages/$project/node_modules/@ra/**/node_modules
+# RUN chmod +x ./replace-symlinks.sh
+# RUN find /usr/src/bundle/packages/$project/node_modules -maxdepth 2 -type l -exec ./replace-symlinks.sh '{}' \;
+RUN node ./scripts/builder/builder.js --project $project
 
 FROM keymetrics/pm2:latest-alpine as start
 ARG project
