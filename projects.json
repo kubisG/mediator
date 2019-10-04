@@ -16,7 +16,7 @@
                 },
                 {
                     "replace": "./packages/ra-web-bundle-be/db",
-                    "with": "./packages/ra-web-forms-be/db/*"
+                    "with": "./packages/ra-web-forms-be/db/01_postgres.sql"
                 }
             ],
             "package": "ra-web-bundle-be"

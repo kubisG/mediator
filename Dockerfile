@@ -32,7 +32,7 @@ RUN npm run rimraf -- /usr/src/bundle/packages/$project/node_modules/**/node_mod
 RUN npm run rimraf -- /usr/src/bundle/packages/$project/node_modules/@ra/**/node_modules
 RUN chmod +x ./replace-symlinks.sh
 RUN find /usr/src/bundle/packages/$project/node_modules -maxdepth 2 -type l -exec ./replace-symlinks.sh '{}' \;
-# RUN node scripts/builder/builder.js --project $project
+# RUN node ./scripts/builder/builder.js --project $project
 
 FROM keymetrics/pm2:latest-alpine as start
 ARG project

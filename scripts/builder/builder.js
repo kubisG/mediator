@@ -42,7 +42,7 @@ function buildSimple() {
     // chmod +x ./replace-symlinks.sh
     execute("chmod", ["+x", "./replace-symlinks.sh"]);
     // find /usr/src/bundle/packages/$project/node_modules -maxdepth 2 -type l -exec ./replace-symlinks.sh '{}' \;
-    execute("find", [`/usr/src/bundle/packages/${params.project}/node_modules`, "-maxdepth", "2", "-type", "l", "-exec", "./replace-symlinks.sh", "'{}'", "\\;"]);
+    execute("find", [`/usr/src/bundle/packages/${params.project}/node_modules -maxdepth 2 -type l -exec ./replace-symlinks.sh '{}'\\;`]);
 }
 
 function buildBundle(project) {
@@ -63,8 +63,10 @@ function buildBundle(project) {
             execute("cp", ["-fv", replacement.with, replacement.replace]);
         }
     }
+    var proj = params.project;
     params.project = project.package;
     buildSimple();
+    execute("mv", [`/usr/src/bundle/packages/${params.project}`, `/usr/src/bundle/packages/${proj}`]);
 }
 
 setParams(process.argv);
