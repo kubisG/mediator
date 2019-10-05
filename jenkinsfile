@@ -45,6 +45,7 @@ node("centos7"){
                 if(params.BUNDLE == 'true'){
                     def imageTag = "${params.BRANCH_NAME}.${(new Date().format( 'yyyyMMdd' ))}.${params.GIT_COMMIT}"
                     sh "git submodule foreach 'git checkout ${params.BRANCH_NAME} || :'"
+                    sh "npm install"
                     sh "node ./scripts/builder/builder.js --project ${params.PROJECT_NAME} --rootDir ."
                     sh "tar -czf ${params.IMG_NAME}.${imageTag}.tar.gz ./packages/${params.PROJECT_NAME}/config ./packages/${params.PROJECT_NAME}/node_modules ./node_modules ./packages/${params.PROJECT_NAME}/dist ./packages/${params.PROJECT_NAME}/package*.json ./packages/${params.PROJECT_NAME}/ecosystem.config.js ./packages/${params.PROJECT_NAME}/db"
                     sh "aws s3 cp ${params.IMG_NAME}.${imageTag}.tar.gz s3://rapid-addition-build-transfer/development/jenkins/build-artifacts/ra-web/"
