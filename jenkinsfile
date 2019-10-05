@@ -47,7 +47,15 @@ node("centos7"){
                     sh "git submodule foreach 'git checkout ${params.BRANCH_NAME} || :'"
                     sh "npm install"
                     sh "node ./scripts/builder/builder.js --project ${params.PROJECT_NAME} --rootDir ."
-                    sh "tar -czf ${params.IMG_NAME}.${imageTag}.tar.gz ./packages/${params.PROJECT_NAME}/config ./packages/${params.PROJECT_NAME}/node_modules ./node_modules ./packages/${params.PROJECT_NAME}/dist ./packages/${params.PROJECT_NAME}/package*.json ./packages/${params.PROJECT_NAME}/ecosystem.config.js ./packages/${params.PROJECT_NAME}/db"
+                    sh "mkdir bundle"
+                    sh "mv ./packages/${params.PROJECT_NAME}/config ./bundle/config"
+                    sh "mv ./packages/${params.PROJECT_NAME}/node_modules ./bundle/node_modules"
+                    sh "cp -a ./node_modules/. ./bundle/node_modules"
+                    sh "mv ./packages/${params.PROJECT_NAME}/dist ./bundle/dist"
+                    sh "cp ./packages/${params.PROJECT_NAME}/package*.json ./bundle"
+                    sh "cp ./packages/${params.PROJECT_NAME}/ecosystem.config.js ./bundle"
+                    sh "mv ./packages/${params.PROJECT_NAME}/db ./bundle/db"
+                    sh "tar -czvf ${params.IMG_NAME}.${imageTag}.tar.gz -C ./bundle ."
                     sh "aws s3 cp ${params.IMG_NAME}.${imageTag}.tar.gz s3://rapid-addition-build-transfer/development/jenkins/build-artifacts/ra-web/"
                 }
             }
