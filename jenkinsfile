@@ -1,5 +1,6 @@
 properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')),
-                        parameters([stringParam(defaultValue: 'false', description: 'Enable if you want build.', name: 'BUILD'),
+                        parameters([stringParam(defaultValue: 'true', description: 'Enable if you want build.', name: 'BUILD'),
+                        stringParam(defaultValue: 'false', description: 'Enable if you want create bundle.', name: 'BUNDLE'),
                         stringParam(defaultValue: 'latest', description: 'Specific GIT revision to build', name: 'GIT_COMMIT'),
                         stringParam(defaultValue: '612810951372.dkr.ecr.eu-west-1.amazonaws.com', description: 'ECR Registry', name: 'DOCKER_REGISTRY'),
                         stringParam(defaultValue: 'release', description: 'Repo branch', name: 'BRANCH_NAME'),
@@ -38,6 +39,15 @@ node("centos7"){
                 if(params.BUILD == 'true'){
                     sh "git submodule foreach 'git checkout "+params.BRANCH_NAME+" || :'"
                     pushDocker(params.PROJECT_NAME,params.DOCKER_REGISTRY, params.IMG_NAME, params.GIT_COMMIT, params.BRANCH_NAME)
+                }
+            }
+            stage('Bundle'){
+                if(params.BUNDLE == 'true'){
+                    def imageTag = params.BRANCH_NAME+"."+(new Date().format( 'yyyyMMdd' ))+"."+params.GIT_COMMIT
+                    sh "git submodule foreach 'git checkout "+params.BRANCH_NAME+" || :'"
+                    sh "node ./scripts/builder/builder.js --project ${params.PROJECT_NAME} --rootDir ."
+                    sh "tar -czf "params.IMG_NAME+"."+imageTag+".tar.gz ./packages/${params.PROJECT_NAME}/config ./packages/${params.PROJECT_NAME}/node_modules ./node_modules ./packages/${params.PROJECT_NAME}/dist ./packages/${params.PROJECT_NAME}/package*.json ./packages/${params.PROJECT_NAME}/ecosystem.config.js ./packages/${params.PROJECT_NAME}/db"
+                    sh "aws s3 cp "params.IMG_NAME+"."+imageTag+".tar.gz s3://rapid-addition-build-transfer/development/jenkins/build-artifacts/ra-web/"
                 }
             }
         }

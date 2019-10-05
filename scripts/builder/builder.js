@@ -2,13 +2,20 @@ const { execSync } = require("child_process");
 const fs = require("fs");
 
 const params = {
-    project: ""
+    project: "",
+    rootDir: "/usr/src/bundle",
 };
 
 function setParams(args) {
     for (var i = 0; i < args.length; i++) {
         if (args[i] === "--project" && args[i + 1]) {
             params.project = args[i + 1];
+        }
+        if (args[i] === "--rootDir" && args[i + 1]) {
+            if (args[i + 1].endsWith("/")) {
+                args[i + 1] = args[i + 1].slice(0, -1);
+            }
+            params.rootDir = args[i + 1];
         }
     }
 }
@@ -38,13 +45,13 @@ function buildSimple() {
     // npm cache clean --force
     execute("npm cache clean --force");
     // npm run rimraf -- /usr/src/bundle/packages/$project/node_modules/**/node_modules
-    execute(`npm run rimraf -- /usr/src/bundle/packages/${params.project}/node_modules/**/node_modules`);
+    execute(`npm run rimraf -- ${params.rootDir}/packages/${params.project}/node_modules/**/node_modules`);
     // npm run rimraf -- /usr/src/bundle/packages/$project/node_modules/@ra/**/node_modules
-    execute(`npm run rimraf -- /usr/src/bundle/packages/${params.project}/node_modules/@ra/**/node_modules`);
+    execute(`npm run rimraf -- ${params.rootDir}/packages/${params.project}/node_modules/@ra/**/node_modules`);
     // chmod +x ./replace-symlinks.sh
     execute("chmod +x ./replace-symlinks.sh");
     // find /usr/src/bundle/packages/$project/node_modules -maxdepth 2 -type l -exec ./replace-symlinks.sh '{}' \;
-    execute(`find /usr/src/bundle/packages/${params.project}/node_modules -maxdepth 2 -type l -exec ./replace-symlinks.sh '{}' \\;`);
+    execute(`find ${params.rootDir}/packages/${params.project}/node_modules -maxdepth 2 -type l -exec ./replace-symlinks.sh '{}' \\;`);
 }
 
 function buildBundle(project) {
@@ -68,7 +75,7 @@ function buildBundle(project) {
     var proj = params.project;
     params.project = project.package;
     buildSimple();
-    execute(`mv /usr/src/bundle/packages/${params.project} /usr/src/bundle/packages/${proj}`);
+    execute(`mv ${params.rootDir}/packages/${params.project} ${params.rootDir}/packages/${proj}`);
 }
 
 setParams(process.argv);
