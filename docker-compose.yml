@@ -1,0 +1,53 @@
+version: "3"
+volumes:
+    postgresql:
+        external: true
+services:
+    web-be:
+        image: ra-web:be
+        ports:
+            - "3000:3000"
+        environment:
+            REDIS_PREFIX: ra-web-core
+            REDIS_HOST: redis-be
+            REDIS_PORT: 6379
+            REDIS_DB: 1
+            NATS_HOST: nats-be
+            NATS_PORT: 4222
+            NATS_USER: ruser
+            NATS_PASSWORD: T0pS3cr3t
+            NATS_QUEUE_REQUEST: mediator_1_0
+            NATS_QUEUE_DATA: web_1_0
+            NATS_QUEUE_DYNAMIC_ID: "false"
+            DB_TYPE: postgres
+            DB_HOST: postgre-be
+            DB_PORT: 5432
+            DB_USER: ra-web
+            DB_PASSWORD: ra-web
+            DB_SCHEMA: public
+            DB_DATABASE: ra-web
+            DB_SYNCH: "true"
+            DB_LOGGING: "true"
+        container_name: web-be
+    redis:
+        image: redis:latest
+        ports:
+            - "6379:6379"
+        container_name: redis-be
+    postgre:
+        image: postgres:11.5
+        volumes:
+            - postgresql:/var/lib/postgresql/data/pgdata
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_PASSWORD: ra-web
+            POSTGRES_USER: ra-web
+            POSTGRES_DB: ra-web
+            PGDATA: "/var/lib/postgresql/data/pgdata"
+        container_name: postgre-be
+    nats:
+        image: nats:latest
+        ports:
+            - "4222:4222"
+        container_name: nats-be
