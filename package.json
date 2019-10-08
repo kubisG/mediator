@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "clean": "lerna clean",
+    "clean": "lerna clean --yes",
     "hoists": "lerna bootstrap --hoist --force-local --include-filtered-dependencies",
     "nohoists": "lerna bootstrap",
     "init": "npm run init-hooks && npm run clean && npm run hoists",
