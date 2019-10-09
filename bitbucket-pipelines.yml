@@ -5,3 +5,14 @@ pipelines:
             - step:
                   script:
                       - npm install
+                      - npm run init
+                      - npm run bundle
+                      - npm run libtest
+    branches:
+        develop:
+            - step:
+                  script:
+                      - npm install
+                      - npm run init
+                      - npm run bundle
+                      - npm run libtest
