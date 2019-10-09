@@ -7,6 +7,7 @@ pipelines:
                       - git checkout ${BITBUCKET_BRANCH}
                       - npm install
                       - npm run init
+                      - npm run bundle
                       - npm run libtest
     branches:
         develop:
@@ -15,4 +16,5 @@ pipelines:
                       - git checkout ${BITBUCKET_BRANCH}
                       - npm install
                       - npm run init
+                      - npm run bundle
                       - npm run libtest
