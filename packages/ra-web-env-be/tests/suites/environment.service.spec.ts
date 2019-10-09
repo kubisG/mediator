@@ -3,7 +3,7 @@ import { Subscription } from "rxjs/internal/Subscription";
 import { EnvironmentService } from "../../src/environment.service";
 import { Subject } from "rxjs";
 
-describe("ClientRouterService", async () => {
+describe("ClientRouterService", () => {
     let app: TestingModule;
     let service: EnvironmentService;
     const subscriptions: Subscription[] = [];
