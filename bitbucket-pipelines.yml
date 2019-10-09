@@ -4,7 +4,6 @@ pipelines:
         feature/*:
             - step:
                   script:
-                      - git checkout ${BITBUCKET_BRANCH}
                       - npm install
                       - npm run init
                       - npm run bundle
@@ -13,7 +12,6 @@ pipelines:
         develop:
             - step:
                   script:
-                      - git checkout ${BITBUCKET_BRANCH}
                       - npm install
                       - npm run init
                       - npm run bundle
