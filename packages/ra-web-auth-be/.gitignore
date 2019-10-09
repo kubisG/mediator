@@ -47,12 +47,3 @@ Thumbs.db
 
 # ts and js
 /logs
-*.js
-*.d.ts
-*.js.map
-
-# ts and js
-**/*.js
-**/*.d.ts
-**/*.js.map
-**/*.log
