@@ -4,4 +4,15 @@ pipelines:
         feature/*:
             - step:
                   script:
+                      - git checkout ${BITBUCKET_BRANCH}
                       - npm install
+                      - npm run init
+                      - npm run libtest
+    branches:
+        develop:
+            - step:
+                  script:
+                      - git checkout ${BITBUCKET_BRANCH}
+                      - npm install
+                      - npm run init
+                      - npm run libtest
