@@ -25,6 +25,14 @@ const unitTestsConfig = {
     transform: {
         "^.+\\.(t|j)s$": "ts-jest",
     },
+    testPathIgnorePatterns: [
+        "node_modules",
+        "dist",
+        "/test.ts"
+    ],
+    modulePaths: [
+        "node_modules"
+    ],
     coverageDirectory: "./coverage",
     collectCoverage: true,
     collectCoverageFrom: [
