@@ -1,7 +1,12 @@
 const { defaults } = require("jest-config");
 
-module.exports = {
+const unitTestsConfig = {
     verbose: true,
+    globals: {
+        "ts-jest": {
+            tsConfig: "../tsconfig.json",
+        }
+    },
     moduleFileExtensions: [
         "js",
         "json",
@@ -20,6 +25,14 @@ module.exports = {
     transform: {
         "^.+\\.(t|j)s$": "ts-jest",
     },
+    testPathIgnorePatterns: [
+        "node_modules",
+        "dist",
+        "/test.ts"
+    ],
+    modulePaths: [
+        "node_modules"
+    ],
     coverageDirectory: "./coverage",
     collectCoverage: true,
     collectCoverageFrom: [
@@ -41,4 +54,8 @@ module.exports = {
         "lcov",
         "text",
     ],
+};
+
+module.exports = {
+    unitTestsConfig
 };
