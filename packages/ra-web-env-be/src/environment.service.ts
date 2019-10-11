@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import * as config from "config";
+import * as fs from "fs";
 
 @Injectable()
 export class EnvironmentService {
@@ -102,6 +103,39 @@ export class EnvironmentService {
                     user: process.env.NATS_USER,
                     password: process.env.NATS_PASSWORD,
                     heartbeat: 10,
+                    tls: {
+                        isEnabled: (): boolean => {
+                            if (
+                                process.env.NATS_TLS_REJECT_UNAUTHORIZED ||
+                                process.env.NATS_TLS_CA ||
+                                process.env.NATS_TLS_KEY ||
+                                process.env.NATS_TLS_CERT) {
+                                return true;
+                            }
+                            return false;
+                        },
+                        rejectUnauthorized: process.env.NATS_TLS_REJECT_UNAUTHORIZED === "false" ? false : true,
+                        ca: (): Buffer[] | undefined => {
+                            if (process.env.NATS_TLS_CA) {
+                                const splited = process.env.NATS_TLS_CA.split(" ");
+                                const result: Buffer[] = [];
+                                for (const cert of splited) {
+                                    result.push(fs.readFileSync(cert));
+                                }
+                                return result;
+                            }
+                        },
+                        key: (): string | undefined => {
+                            if (process.env.NATS_TLS_KEY) {
+                                return process.env.NATS_TLS_KEY;
+                            }
+                        },
+                        cert: () => {
+                            if (process.env.NATS_TLS_CERT) {
+                                return process.env.NATS_TLS_CERT;
+                            }
+                        },
+                    },
                     dataQueue: () => {
                         if (process.env.NATS_QUEUE_DYNAMIC_ID && process.env.NATS_QUEUE_DYNAMIC_ID === "true") {
                             const splitedHostname = process.env.HOSTNAME.split("-");

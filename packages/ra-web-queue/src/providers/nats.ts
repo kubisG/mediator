@@ -6,6 +6,7 @@ import { Logger } from "@ra/web-core-be/dist/logger/providers/logger";
 import { Subject } from "rxjs/internal/Subject";
 import { Observable } from "rxjs/internal/Observable";
 import { QueueConnectionError } from "../errors/queue-connection-error";
+import { TlsOptions } from "tls";
 
 export class Nats implements Queue {
 
@@ -25,6 +26,7 @@ export class Nats implements Queue {
     constructor(
         private logger: Logger,
         private config: Options.Connect,
+        private tls?: TlsOptions,
     ) { }
 
     private bindConnectionEvents(connection: NATS.Client) {
@@ -102,7 +104,13 @@ export class Nats implements Queue {
 
     public async getConnection(config: Options.Connect) {
         const servers = ["nats://" + config.hostname + ":" + config.port];
-        return await NATS.connect({ "servers": servers, "user": config.username, "pass": config.password, "json": true });
+        return await NATS.connect({
+            servers,
+            user: config.username,
+            pass: config.password,
+            json: true,
+            tls: this.tls,
+        });
     }
 
     public async createConnections() {
