@@ -106,18 +106,18 @@ export class EnvironmentService {
                     tls: {
                         isEnabled: (): boolean => {
                             if (
-                                process.env.NATS_TLS_REJECT_UNAUTHORIZED ||
-                                process.env.NATS_TLS_CA ||
-                                process.env.NATS_TLS_KEY ||
-                                process.env.NATS_TLS_CERT) {
+                                process.env.TLS_REJECT_UNAUTHORIZED ||
+                                process.env.TLS_CA ||
+                                process.env.TLS_KEY ||
+                                process.env.TLS_CERT) {
                                 return true;
                             }
                             return false;
                         },
-                        rejectUnauthorized: process.env.NATS_TLS_REJECT_UNAUTHORIZED === "false" ? false : true,
+                        rejectUnauthorized: process.env.TLS_REJECT_UNAUTHORIZED === "false" ? false : true,
                         ca: (): Buffer[] | undefined => {
-                            if (process.env.NATS_TLS_CA) {
-                                const splited = process.env.NATS_TLS_CA.split(" ");
+                            if (process.env.TLS_CA) {
+                                const splited = process.env.TLS_CA.split(" ");
                                 const result: Buffer[] = [];
                                 for (const cert of splited) {
                                     result.push(fs.readFileSync(cert));
@@ -126,13 +126,13 @@ export class EnvironmentService {
                             }
                         },
                         key: (): string | undefined => {
-                            if (process.env.NATS_TLS_KEY) {
-                                return process.env.NATS_TLS_KEY;
+                            if (process.env.TLS_KEY) {
+                                return process.env.TLS_KEY;
                             }
                         },
                         cert: () => {
-                            if (process.env.NATS_TLS_CERT) {
-                                return process.env.NATS_TLS_CERT;
+                            if (process.env.TLS_CERT) {
+                                return process.env.TLS_CERT;
                             }
                         },
                     },
