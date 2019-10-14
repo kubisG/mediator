@@ -125,14 +125,14 @@ export class EnvironmentService {
                                 return result;
                             }
                         },
-                        key: (): string | undefined => {
+                        key: (): Buffer | undefined => {
                             if (process.env.TLS_KEY) {
-                                return process.env.TLS_KEY;
+                                return fs.readFileSync(process.env.TLS_KEY);
                             }
                         },
                         cert: () => {
                             if (process.env.TLS_CERT) {
-                                return process.env.TLS_CERT;
+                                return fs.readFileSync(process.env.TLS_CERT);
                             }
                         },
                     },
