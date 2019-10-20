@@ -77,8 +77,8 @@ void pushDocker(String project,String registry, String imgName, String shortHash
     sh "sudo docker system prune -f"
     sh "sudo docker build --build-arg project="+project+" . -t "+registry+"/"+imgName+":"+imageTag
     sh "sudo docker push "+registry+"/"+imgName+":"+imageTag
-    // sh "sudo docker tag "+registry+"/"+imgName+":"+imageTag+" "+registry+"/"+imgName+":"+imageTagLatest
-    // sh "sudo docker push "+registry+"/"+imgName+":"+imageTagLatest
+    sh "sudo docker tag "+registry+"/"+imgName+":"+imageTag+" "+registry+"/"+imgName+":"+imageTagLatest
+    sh "sudo docker push "+registry+"/"+imgName+":"+imageTagLatest
 }
 
 def notifyBuild(String buildStatus = 'STARTED', String repo) {
