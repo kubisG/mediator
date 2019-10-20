@@ -71,13 +71,13 @@ node("centos7"){
 }
 
 void pushDocker(String project,String registry, String imgName, String shortHash, String branch) {
-    def imageTag = branch+"."+(new Date().format( 'yyyyMMdd' ))+"."+shortHash
-    def imageTagLatest = branch+"."+(new Date().format( 'yyyyMMdd' ))+".latest"
+    def hash = "${branch}.${(new Date().format( 'yyyyMMdd' ))}.${shortHash}"
+    def imageTagLatest = "${branch}.${(new Date().format( 'yyyyMMdd' ))}.latest"
     sh "echo `aws ecr get-login --no-include-email --region eu-west-1` | sudo sh"
     sh "sudo docker system prune -f"
-    sh "sudo docker build --build-arg project="+project+" . -t "+registry+"/"+imgName+":"+imageTag
-    sh "sudo docker push "+registry+"/"+imgName+":"+imageTag
-    sh "sudo docker tag "+registry+"/"+imgName+":"+imageTag+" "+registry+"/"+imgName+":"+imageTagLatest
+    sh "sudo docker build --build-arg project="+project+" . -t "+registry+"/"+imgName+":"+hash
+    sh "sudo docker push "+registry+"/"+imgName+":"+hash
+    sh "sudo docker tag "+registry+"/"+imgName+":"+hash+" "+registry+"/"+imgName+":"+imageTagLatest
     sh "sudo docker push "+registry+"/"+imgName+":"+imageTagLatest
 }
 
