@@ -18,12 +18,12 @@ node("centos7"){
                 scmVars = checkout scm;
             }
             stage('Build'){
-                if(params.BUILD == 'true'){
+                if(params.BUILD){
                     pushDocker(params.PROJECT_NAME,params.DOCKER_REGISTRY, params.IMG_NAME, scmVars.GIT_COMMIT.take(8), env.BRANCH_NAME)
                 }
             }
             stage('Bundle'){
-                if(params.BUNDLE == 'true'){
+                if(params.BUNDLE){
                     def imageTag = "${env.BRANCH_NAME}.${(new Date().format( 'yyyyMMdd' ))}.${scmVars.GIT_COMMIT.take(8)}"
                     sh "npm install"
                     sh "node ./scripts/builder/builder.js --project ${params.PROJECT_NAME} --rootDir ."
