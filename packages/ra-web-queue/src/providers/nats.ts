@@ -63,6 +63,14 @@ export class Nats implements Queue {
         this.channelReady = true;
     }
 
+    public sendInternalMsg(msg, queue): Promise<any> {
+        if (this.consumeSubjects[queue]) {
+            this.consumeSubjects[queue].next(msg);
+            return Promise.resolve(true);
+        }
+        return Promise.reject(false);
+    }
+
     private consumeChannel(queue: string) {
         this.initializedConsumersChannel[queue] = this.connection.subscribe(queue, (msg) => {
             if (msg !== null) {

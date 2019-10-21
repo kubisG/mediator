@@ -43,6 +43,9 @@ export class MiddlewareRunner {
         for (let i = 0; i < this.middlewares.length; i++) {
             this.logger.silly(`${context.id} RUNNING ${this.middlewares[i].constructor.name} MIDDLEWARE`);
             data = await this.middlewares[i].resolve(data, context);
+            if ((!data) && (context.finish) && (context.finish === true)) {
+                return;
+            }
             if (!data) {
                 throw new NoDataError(`${this.middlewares[i].constructor.name} MIDDLEWARE return ${data}`);
             }

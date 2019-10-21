@@ -87,6 +87,15 @@ export class Amqp implements Queue {
         return this.channel;
     }
 
+    public sendInternalMsg(msg, queue): Promise<any> {
+        if (this.consumeSubjects[queue]) {
+            console.log("sending internal", msg);
+            this.consumeSubjects[queue].next(msg);
+            return Promise.resolve(true);
+        }
+        return Promise.reject(false);
+    }
+
     private consumeChannel(queue: string, channel: ConfirmChannel) {
         channel.consume(queue, (msg) => {
             if (msg !== null) {
