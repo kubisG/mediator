@@ -1,9 +1,7 @@
 properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')),
-                        parameters([stringParam(defaultValue: 'true', description: 'Enable if you want build.', name: 'BUILD'),
-                        stringParam(defaultValue: 'false', description: 'Enable if you want to create bundle.', name: 'BUNDLE'),
-                        stringParam(defaultValue: 'latest', description: 'Specific GIT revision to build', name: 'GIT_COMMIT'),
+                        parameters([booleanParam(defaultValue: true, description: 'Enable if you want build.', name: 'BUILD'),
+                        booleanParam(defaultValue: false, description: 'Enable if you want to create bundle.', name: 'BUNDLE'),
                         stringParam(defaultValue: '612810951372.dkr.ecr.eu-west-1.amazonaws.com', description: 'ECR Registry', name: 'DOCKER_REGISTRY'),
-                        stringParam(defaultValue: 'develop', description: 'Repo branch', name: 'BRANCH_NAME'),
                         stringParam(description: 'Project name', name: 'PROJECT_NAME'),
                         stringParam(description: 'image name', name: 'IMG_NAME'),
                         ])
@@ -11,40 +9,22 @@ properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKe
 node("centos7"){
     try {
         timestamps {
+            def scmVars;
             stage ('Clean') {
                 cleanWs()
                 deleteDir()
             }
             stage('Clone'){
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [
-                        [name: '*/'+params.BRANCH_NAME]
-                    ],
-                    doGenerateSubmoduleConfigurations: false,
-                    extensions: [
-                        [$class: 'CleanBeforeCheckout'],
-                        [$class: 'CleanCheckout'],
-                        [$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', trackingSubmodules: false],
-                        [$class: 'CheckoutOption', timeout: 10],
-                        [$class: 'CloneOption', depth: 0, noTags: false, reference: '', shallow: false, timeout: 10]
-                    ],
-                    submoduleCfg: [],
-                    userRemoteConfigs: [
-                        [credentialsId: 'hajek', url: 'git@bitbucket.org:rapid-addition/ra-web.git']
-                    ]
-                ]);
+                scmVars = checkout scm;
             }
             stage('Build'){
                 if(params.BUILD == 'true'){
-                    sh "git submodule foreach 'git checkout "+params.BRANCH_NAME+" || :'"
-                    pushDocker(params.PROJECT_NAME,params.DOCKER_REGISTRY, params.IMG_NAME, params.GIT_COMMIT, params.BRANCH_NAME)
+                    pushDocker(params.PROJECT_NAME,params.DOCKER_REGISTRY, params.IMG_NAME, scmVars.GIT_COMMIT.take(8), env.BRANCH_NAME)
                 }
             }
             stage('Bundle'){
                 if(params.BUNDLE == 'true'){
-                    def imageTag = "${params.BRANCH_NAME}.${(new Date().format( 'yyyyMMdd' ))}.${params.GIT_COMMIT}"
-                    sh "git submodule foreach 'git checkout ${params.BRANCH_NAME} || :'"
+                    def imageTag = "${env.BRANCH_NAME}.${(new Date().format( 'yyyyMMdd' ))}.${scmVars.GIT_COMMIT.take(8)}"
                     sh "npm install"
                     sh "node ./scripts/builder/builder.js --project ${params.PROJECT_NAME} --rootDir ."
                     sh "mkdir bundle"
