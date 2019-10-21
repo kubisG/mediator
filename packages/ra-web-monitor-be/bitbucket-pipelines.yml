@@ -1,0 +1,34 @@
+image: node:12.8.0
+pipelines:
+    pull-requests:
+        feature/*:
+            - step:
+                  caches:
+                      - node
+                  script:
+                      - git clone git@bitbucket.org:rapid-addition/ra-web.git
+                      - cd ./ra-web
+                      - git checkout ${BITBUCKET_BRANCH}
+                      - npm install
+                      - git submodule init ./packages/ra-web-monitor-be
+                      - git submodule update ./packages/ra-web-monitor-be
+                      - cd ./packages/ra-web-monitor-be && git checkout ${BITBUCKET_BRANCH} && cd ../..
+                      - npm run init
+                      - npm run bundle
+                      - npm --prefix ./packages/ra-web-monitor-be run test:cov
+    branches:
+        develop:
+            - step:
+                  caches:
+                      - node
+                  script:
+                      - git clone git@bitbucket.org:rapid-addition/ra-web.git
+                      - cd ./ra-web
+                      - git checkout ${BITBUCKET_BRANCH}
+                      - npm install
+                      - git submodule init ./packages/ra-web-monitor-be
+                      - git submodule update ./packages/ra-web-monitor-be
+                      - cd ./packages/ra-web-monitor-be && git checkout ${BITBUCKET_BRANCH} && cd ../..
+                      - npm run init
+                      - npm run bundle
+                      - npm --prefix ./packages/ra-web-monitor-be run test:cov

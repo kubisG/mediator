@@ -1,0 +1,9 @@
+# Add any directories, files, or patterns you don't want to be tracked by version control
+node_modules
+dist
+
+/node_modules
+/dist
+/coverage
+!jest.config.js
+logs

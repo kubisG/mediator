@@ -1,0 +1,10 @@
+{
+    "watch": [
+        "mediator-mock.ts"
+    ],
+    "ext": "ts",
+    "ignore": [
+        "src/**/*.spec.ts"
+    ],
+    "exec": "ts-node mediator-mock.ts"
+}

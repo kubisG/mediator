@@ -1,0 +1,10 @@
+{
+  "watch": [
+    "src"
+  ],
+  "ext": "ts",
+  "ignore": [
+    "src/**/*.spec.ts"
+  ],
+  "exec": "kill -9 $(ps aux | grep \"ts-node\\s\"| grep -v \"cross-env\" | grep -v \"nodemon\" | awk '{print $2}'); ts-node src/main.ts"
+}

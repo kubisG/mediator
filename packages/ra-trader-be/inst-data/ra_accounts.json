@@ -1,0 +1,64 @@
+[
+    {
+        "id": 1,
+        "name": "Main",
+        "code": "Main",
+        "active": "Y",
+        "companyId": 1
+    },{
+        "id": 2,
+        "name": "Managed Income",
+        "code": "ManInc",
+        "info": "High dividend stocks",
+        "active": "Y",
+        "companyId": 1
+    },{
+        "id": 3,
+        "name": "Managed Growth",
+        "code": "ManGrowth",
+        "info": "Blue chip capital growth fund",
+        "settlement1": "Euroclear00001",
+        "active": "Y",
+        "companyId": 1
+    },{
+        "id": 4,
+        "name": "European Diversified",
+        "code": "EuroDiversified",
+        "info": "Pan European general fund",
+        "settlement1": "Euroclear120003",
+        "active": "Y",
+        "companyId": 1
+    },{
+        "id": 5,
+        "name": "European Large Cap",
+        "code": "EuroLargeCap",
+        "info": ">EUR1bn mkt cap",
+        "settlement1": "Euroclear120005",
+        "active": "Y",
+        "companyId": 1
+    },{
+        "id": 6,
+        "name": "European mid-caps",
+        "code": "EuroMidCap",
+        "info": ">500mEUR<1bnEuro mkt cap",
+        "settlement1": "Euroclear1200009",
+        "active": "Y",
+        "companyId": 1
+    },{
+        "id": 7,
+        "name": "European Small Caps",
+        "code": "EuroSmallCap",
+        "info": ">EUR500m mkt cap",
+        "settlement1": "Euroclear12001003",
+        "active": "Y",
+        "companyId": 1
+    },{
+        "id": 8,
+        "name": "Global Diversified",
+        "code": "GlobDiversified",
+        "info": "Global general fund",
+        "settlement1": "DTC000001",
+        "active": "Y",
+        "companyId": 1
+    }
+]

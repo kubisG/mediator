@@ -1,0 +1,10 @@
+{
+    "watch": [
+        "hub-simulator.ts"
+    ],
+    "ext": "ts",
+    "ignore": [
+        "src/**/*.spec.ts"
+    ],
+    "exec": "ts-node hub-simulator.ts"
+}

@@ -1,0 +1,1633 @@
+[
+    {
+        "id": 50,
+        "label": "ExecType",
+        "name": "Suspend",
+        "value": "Suspend",
+        "companyid": 0
+    },
+    {
+        "id": 49,
+        "label": "ExecType",
+        "name": "Stopped",
+        "value": "Stopped",
+        "companyid": 0
+    },
+    {
+        "id": 48,
+        "label": "ExecType",
+        "name": "Replaced",
+        "value": "Replaced",
+        "companyid": 0
+    },
+    {
+        "id": 46,
+        "label": "ExecType",
+        "name": "Pending Replace",
+        "value": "PendingReplace",
+        "companyid": 0
+    },
+    {
+        "id": 47,
+        "label": "ExecType",
+        "name": "Rejected",
+        "value": "Rejected",
+        "companyid": 0
+    },
+    {
+        "id": 57,
+        "label": "OrdStatus",
+        "name": "Done For Day",
+        "value": "DoneForDay",
+        "companyid": 0
+    },
+    {
+        "id": 1025,
+        "label": "Reject",
+        "name": "Cancel",
+        "value": "cancel",
+        "companyid": 0
+    },
+    {
+        "id": 22,
+        "label": "Commission",
+        "name": "2%",
+        "value": "2%",
+        "companyid": 0
+    },
+    {
+        "id": 30,
+        "label": "DeliverToSubID",
+        "name": "Dest2",
+        "value": "Dest2",
+        "companyid": 0
+    },
+    {
+        "id": 23,
+        "label": "Commission",
+        "name": "4%",
+        "value": "4%",
+        "companyid": 0
+    },
+    {
+        "id": 31,
+        "label": "DeliverToSubID",
+        "name": "Dest3",
+        "value": "Dest3",
+        "companyid": 0
+    },
+    {
+        "id": 2,
+        "label": "ExDestination",
+        "name": "XPRA",
+        "value": "XPRA",
+        "companyid": 0
+    },
+    {
+        "id": 1,
+        "label": "ExDestination",
+        "name": "NYSE",
+        "value": "NYSE",
+        "companyid": 0
+    },
+    {
+        "id": 56,
+        "label": "OrdStatus",
+        "name": "Canceled",
+        "value": "Canceled",
+        "companyid": 0
+    },
+    {
+        "id": 61,
+        "label": "OrdStatus",
+        "name": "Pending Cancel",
+        "value": "PendingCancel",
+        "companyid": 0
+    },
+    {
+        "id": 66,
+        "label": "OrdStatus",
+        "name": "Stopped",
+        "value": "Stopped",
+        "companyid": 0
+    },
+    {
+        "id": 67,
+        "label": "OrdStatus",
+        "name": "Suspend",
+        "value": "Suspend",
+        "companyid": 0
+    },
+    {
+        "id": 64,
+        "label": "OrdStatus",
+        "name": "Rejected",
+        "value": "Rejected",
+        "companyid": 0
+    },
+    {
+        "id": 60,
+        "label": "OrdStatus",
+        "name": "Partially Filled",
+        "value": "PartiallyFilled",
+        "companyid": 0
+    },
+    {
+        "id": 62,
+        "label": "OrdStatus",
+        "name": "Pending New",
+        "value": "PendingNew",
+        "companyid": 0
+    },
+    {
+        "id": 63,
+        "label": "OrdStatus",
+        "name": "Pending Replace",
+        "value": "PendingReplace",
+        "companyid": 0
+    },
+    {
+        "id": 54,
+        "label": "Side",
+        "name": "Sell",
+        "value": "Sell",
+        "companyid": 0
+    },
+    {
+        "id": 53,
+        "label": "Side",
+        "name": "Buy",
+        "value": "Buy",
+        "companyid": 0
+    },
+    {
+        "id": 8,
+        "label": "Commission",
+        "name": "25",
+        "value": "25",
+        "companyid": 0
+    },
+    {
+        "id": 7,
+        "label": "Commission",
+        "name": "15",
+        "value": "15",
+        "companyid": 0
+    },
+    {
+        "id": 10,
+        "label": "Commission",
+        "name": "20",
+        "value": "20",
+        "companyid": 0
+    },
+    {
+        "id": 9,
+        "label": "Commission",
+        "name": "10",
+        "value": "10",
+        "companyid": 0
+    },
+    {
+        "id": 15,
+        "label": "DeliverToSubID",
+        "name": "Dest1",
+        "value": "Dest1",
+        "companyid": 0
+    },
+    {
+        "id": 13,
+        "label": "Commission",
+        "name": "30",
+        "value": "30",
+        "companyid": 0
+    },
+    {
+        "id": 36,
+        "label": "ExecInst",
+        "name": "Over the day",
+        "value": "OverTheDay",
+        "companyid": 0
+    },
+    {
+        "id": 37,
+        "label": "ExecInst",
+        "name": "Stay on offer side",
+        "value": "StayOnOfferSide",
+        "companyid": 0
+    },
+    {
+        "id": 38,
+        "label": "ExecInst",
+        "name": "Work",
+        "value": "Work",
+        "companyid": 0
+    },
+    {
+        "id": 51,
+        "label": "OrderCapacity",
+        "name": "Agency",
+        "value": "Agency",
+        "companyid": 0
+    },
+    {
+        "id": 52,
+        "label": "OrderCapacity",
+        "name": "Proprietary",
+        "value": "Proprietary",
+        "companyid": 0
+    },
+    {
+        "id": 68,
+        "label": "TimeInForce",
+        "name": "Day",
+        "value": "Day",
+        "companyid": 0
+    },
+    {
+        "id": 73,
+        "label": "OrdType",
+        "name": "Limit",
+        "value": "Limit",
+        "companyid": 0
+    },
+    {
+        "id": 75,
+        "label": "OrdType",
+        "name": "Stop Limit",
+        "value": "StopLimit",
+        "companyid": 0
+    },
+    {
+        "id": 76,
+        "label": "OrdType",
+        "name": "Stop Loss",
+        "value": "Stop",
+        "companyid": 0
+    },
+    {
+        "id": 59,
+        "label": "OrdStatus",
+        "name": "New",
+        "value": "New",
+        "companyid": 0
+    },
+    {
+        "id": 58,
+        "label": "OrdStatus",
+        "name": "Filled",
+        "value": "Filled",
+        "companyid": 0
+    },
+    {
+        "id": 65,
+        "label": "OrdStatus",
+        "name": "Replaced",
+        "value": "Replaced",
+        "companyid": 0
+    },
+    {
+        "id": 42,
+        "label": "ExecType",
+        "name": "New",
+        "value": "New",
+        "companyid": 0
+    },
+    {
+        "id": 43,
+        "label": "ExecType",
+        "name": "Partially Filled",
+        "value": "PartialFill",
+        "companyid": 0
+    },
+    {
+        "id": 44,
+        "label": "ExecType",
+        "name": "Pending Cancel",
+        "value": "PendingCancel",
+        "companyid": 0
+    },
+    {
+        "id": 45,
+        "label": "ExecType",
+        "name": "Pending New",
+        "value": "PendingNew",
+        "companyid": 0
+    },
+    {
+        "id": 39,
+        "label": "ExecType",
+        "name": "Canceled",
+        "value": "Canceled",
+        "companyid": 0
+    },
+    {
+        "id": 40,
+        "label": "ExecType",
+        "name": "Done For Day",
+        "value": "DoneForDay",
+        "companyid": 0
+    },
+    {
+        "id": 41,
+        "label": "ExecType",
+        "name": "Filled",
+        "value": "Filled",
+        "companyid": 0
+    },
+    {
+        "id": 21,
+        "label": "CommType",
+        "name": "percentage",
+        "value": "Percent",
+        "companyid": 0
+    },
+    {
+        "id": 4,
+        "label": "CommType",
+        "name": "percentage",
+        "value": "Percent",
+        "companyid": 0
+    },
+    {
+        "id": 3,
+        "label": "CommType",
+        "name": "per share",
+        "value": "PerUnit",
+        "companyid": 0
+    },
+    {
+        "id": 103,
+        "label": "ExDestination",
+        "name": "BROKER",
+        "value": "BROKER",
+        "companyid": 0
+    },
+    {
+        "id": 1001,
+        "label": "Currency",
+        "name": "GBp",
+        "value": "GBp",
+        "companyid": 0
+    },
+    {
+        "id": 1002,
+        "label": "Currency",
+        "name": "Rand",
+        "value": "Rand",
+        "companyid": 0
+    },
+    {
+        "id": 1005,
+        "label": "ExDestination",
+        "name": "NEWBROKER",
+        "value": "NEWBROKER",
+        "companyid": 0
+    },
+    {
+        "id": 1006,
+        "label": "DeliverToSubID",
+        "name": "broker_1",
+        "value": "broker_1",
+        "companyid": 0
+    },
+    {
+        "id": 1007,
+        "label": "ExDestination",
+        "name": "NEWFIXBROKER",
+        "value": "NEWFIXBROKER",
+        "companyid": 0
+    },
+    {
+        "id": 69,
+        "label": "TimeInForce",
+        "name": "GTC",
+        "value": "GoodTillCancel",
+        "companyid": 0
+    },
+    {
+        "id": 70,
+        "label": "TimeInForce",
+        "name": "GTD",
+        "value": "GoodTillDate",
+        "companyid": 0
+    },
+    {
+        "id": 1028,
+        "label": "Reject",
+        "name": "Broker Option",
+        "value": "BrokerCredit",
+        "companyid": 0
+    },
+    {
+        "id": 1029,
+        "label": "Reject",
+        "name": "Order already in Pending Cancel or Pending Replace status",
+        "value": "OrderAlreadyInPendingStatus",
+        "companyid": 0
+    },
+    {
+        "id": 1015,
+        "label": "Reject",
+        "name": "New",
+        "value": "new",
+        "companyid": 0
+    },
+    {
+        "id": 1019,
+        "label": "Reject",
+        "name": "Order exceeds limit",
+        "value": "OrderExceedsLimit",
+        "companyid": 0
+    },
+    {
+        "id": 1030,
+        "label": "Reject",
+        "name": "Bust",
+        "value": "bust",
+        "companyid": 0
+    },
+    {
+        "id": 1186,
+        "label": "BookingType",
+        "name": "RegularBooking",
+        "value": "RegularBooking",
+        "companyid": 0
+    },
+    {
+        "id": 1187,
+        "label": "BookingType",
+        "name": "CFD",
+        "value": "CFD",
+        "companyid": 0
+    },
+    {
+        "id": 1031,
+        "label": "Reject",
+        "name": "GT Corporate action",
+        "value": "GTCorporateAction",
+        "companyid": 0
+    },        
+    {
+        "id": 74,
+        "label": "OrdType",
+        "name": "MKT",
+        "value": "Market",
+        "companyid": 0
+    },
+    {
+        "id": 55,
+        "label": "Side",
+        "name": "SSell",
+        "value": "SellShort",
+        "companyid": 0
+    },
+    {
+        "id": 1026,
+        "label": "Reject",
+        "name": "Too late to cancel",
+        "value": "TooLateToCancel",
+        "companyid": 0
+    },
+    {
+        "id": 1027,
+        "label": "Reject",
+        "name": "Unknown order",
+        "value": "UnknownOrder",
+        "companyid": 0
+    },
+    {
+        "id": 1016,
+        "label": "Reject",
+        "name": "Broker Option",
+        "value": "BrokerCredit",
+        "companyid": 0
+    },
+    {
+        "id": 1017,
+        "label": "Reject",
+        "name": "Unknown symbol",
+        "value": "UnknownSymbol",
+        "companyid": 0
+    },
+    {
+        "id": 1018,
+        "label": "Reject",
+        "name": "Exchange closed",
+        "value": "ExchangeClosed",
+        "companyid": 0
+    },
+    {
+        "id": 1037,
+        "label": "Reject",
+        "name": "Allocation",
+        "value": "allocation",
+        "companyid": 0
+    },
+    {
+        "id": 1038,
+        "label": "Reject",
+        "name": "Unknown account(s)",
+        "value": "UnknownAccount",
+        "companyid": 0
+    },
+    {
+        "id": 1039,
+        "label": "Reject",
+        "name": "Incorrect quantity",
+        "value": "IncorrectQuantity",
+        "companyid": 0
+    },
+    {
+        "id": 1040,
+        "label": "Reject",
+        "name": "Incorrect average price",
+        "value": "IncorrectAveragegPrice",
+        "companyid": 0
+    },
+    {
+        "id": 1041,
+        "label": "Reject",
+        "name": "Unknown executing broker mnemonic",
+        "value": "UnknownExecutingBrokerMnemonic",
+        "companyid": 0
+    },
+    {
+        "id": 1010,
+        "label": "TargetCompID",
+        "name": "broker_1",
+        "value": "broker_1",
+        "companyid": 0
+    },
+    {
+        "id": 1011,
+        "label": "TargetCompID",
+        "name": "broker_2",
+        "value": "broker_2",
+        "companyid": 0
+    },
+    {
+        "id": 1042,
+        "label": "Reject",
+        "name": "Commission difference",
+        "value": "CommissionDifference",
+        "companyid": 0
+    },
+    {
+        "id": 1043,
+        "label": "Reject",
+        "name": "Unknown OrderID",
+        "value": "UnknownOrderID",
+        "companyid": 0
+    },
+    {
+        "id": 1044,
+        "label": "Reject",
+        "name": "Unknown ListID",
+        "value": "UnknownListID",
+        "companyid": 0
+    },
+    {
+        "id": 1045,
+        "label": "Reject",
+        "name": "Other",
+        "value": "OtherSeeText",
+        "companyid": 0
+    },
+    {
+        "id": 1046,
+        "label": "TargetCompID",
+        "name": "BROKER",
+        "value": "BROKER",
+        "companyid": 0
+    },
+    {
+        "id": 1047,
+        "label": "TargetCompID",
+        "name": "TEST",
+        "value": "TEST",
+        "companyid": 0
+    },
+    {
+        "id": 1048,
+        "label": "AllocRejCode",
+        "name": "UnknownAccount",
+        "value": "UnknownAccount",
+        "companyid": 0
+    },
+    {
+        "id": 1049,
+        "label": "AllocRejCode",
+        "name": "IncorrectQuantity",
+        "value": "IncorrectQuantity",
+        "companyid": 0
+    },
+    {
+        "id": 1051,
+        "label": "AllocRejCode",
+        "name": "IncorrectAveragegPrice",
+        "value": "IncorrectAveragegPrice",
+        "companyid": 0
+    },
+    {
+        "id": 1052,
+        "label": "AllocRejCode",
+        "name": "UnknownExecutingBrokerMnemonic",
+        "value": "UnknownExecutingBrokerMnemonic",
+        "companyid": 0
+    },
+    {
+        "id": 1053,
+        "label": "AllocRejCode",
+        "name": "CommissionDifference",
+        "value": "CommissionDifference",
+        "companyid": 0
+    },
+    {
+        "id": 1054,
+        "label": "AllocRejCode",
+        "name": "UnknownOrderID",
+        "value": "UnknownOrderID",
+        "companyid": 0
+    },
+    {
+        "id": 1055,
+        "label": "AllocRejCode",
+        "name": "UnknownListID",
+        "value": "UnknownListID",
+        "companyid": 0
+    },
+    {
+        "id": 1050,
+        "label": "AllocRejCode",
+        "name": "OtherSeeText",
+        "value": "OtherSeeText",
+        "companyid": 0
+    },
+    {
+        "id": 1013,
+        "label": "TargetCompID",
+        "name": "broker_3",
+        "value": "broker_3",
+        "companyid": 0
+    },
+    {
+        "id": 1056,
+        "label": "TargetCompID",
+        "name": "brker_3",
+        "value": "brker_3",
+        "companyid": 0
+    },
+    {
+        "id": 1057,
+        "label": "LastCapacity",
+        "name": "LastCapacity",
+        "value": "LastCapacity",
+        "companyid": 0
+    },
+    {
+        "id": 1061,
+        "label": "LastLiquidityInd",
+        "name": "LastLiquidityInd",
+        "value": "LastLiquidityInd",
+        "companyid": 0
+    },
+    {
+        "id": 1068,
+        "label": "LastCapacity",
+        "name": "AOTC",
+        "value": "AOTC",
+        "companyid": 0
+    },
+    {
+        "id": 1069,
+        "label": "LastCapacity",
+        "name": "MTCH",
+        "value": "MTCH",
+        "companyid": 0
+    },
+    {
+        "id": 1070,
+        "label": "LastCapacity",
+        "name": "DEAL",
+        "value": "DEAL",
+        "companyid": 0
+    },
+    {
+        "id": 1072,
+        "label": "LastLiquidityInd",
+        "name": "Added Liquidity",
+        "value": "AddedLiquidity",
+        "companyid": 0
+    },
+    {
+        "id": 1073,
+        "label": "LastLiquidityInd",
+        "name": "Removed Liquidity",
+        "value": "RemovedLiquidity",
+        "companyid": 0
+    },
+    {
+        "id": 1074,
+        "label": "LastLiquidityInd",
+        "name": "Liquidity Routed Out",
+        "value": "LiquidityRoutedOut",
+        "companyid": 0
+    },
+    {
+        "id": 1075,
+        "label": "CommissionDetails",
+        "name": "CommissionDetails",
+        "value": "CommissionDetails",
+        "companyid": 0
+    },
+    {
+        "id": 1076,
+        "label": "CommissionDetails",
+        "name": "Percent",
+        "value": "Percent",
+        "companyid": 0
+    },
+    {
+        "id": 1077,
+        "label": "CommissionDetails",
+        "name": "Per Share",
+        "value": "PerUnit",
+        "companyid": 0
+    },
+    {
+        "id": 1078,
+        "label": "CommissionDetails",
+        "name": "Absolute",
+        "value": "Absolute",
+        "companyid": 0
+    },
+    {
+        "id": 619,
+        "label": "TimeInForce",
+        "name": "OPG",
+        "value": "AtTheOpening",
+        "companyid": 0
+    },
+    {
+        "id": 620,
+        "label": "TimeInForce",
+        "name": "IOC",
+        "value": "ImmediateOrCancel",
+        "companyid": 0
+    },
+    {
+        "id": 621,
+        "label": "TimeInForce",
+        "name": "FOK",
+        "value": "FillOrKill",
+        "companyid": 0
+    },
+    {
+        "id": 622,
+        "label": "OrdType",
+        "name": "MOC",
+        "value": "MarketOnClose",
+        "companyid": 0
+    },
+    {
+        "id": 626,
+        "label": "ExecInst",
+        "name": "Not Held",
+        "value": "NotHeld",
+        "companyid": 0
+    },
+    {
+        "id": 627,
+        "label": "ExecInst",
+        "name": "Go Along",
+        "value": "GoAlong",
+        "companyid": 0
+    },
+    {
+        "id": 629,
+        "label": "ExecInst",
+        "name": "Held",
+        "value": "Held",
+        "companyid": 0
+    },
+    {
+        "id": 602,
+        "label": "Currency",
+        "name": "EUR",
+        "value": "EUR",
+        "companyid": 0
+    },
+    {
+        "id": 604,
+        "label": "Currency",
+        "name": "CHF",
+        "value": "CHF",
+        "companyid": 0
+    },
+    {
+        "id": 605,
+        "label": "Currency",
+        "name": "USD",
+        "value": "USD",
+        "companyid": 0
+    },
+    {
+        "id": 637,
+        "label": "Currency",
+        "name": "GBP",
+        "value": "GBP",
+        "companyid": 0
+    },
+    {
+        "id": 638,
+        "label": "Currency",
+        "name": "SEK",
+        "value": "SEK",
+        "companyid": 0
+    },
+    {
+        "id": 639,
+        "label": "Currency",
+        "name": "ZAr",
+        "value": "ZAr",
+        "companyid": 0
+    },
+    {
+        "id": 654,
+        "label": "Currency",
+        "name": "EGP",
+        "value": "EGP",
+        "companyid": 0
+    },
+    {
+        "id": 655,
+        "label": "Currency",
+        "name": "ILS",
+        "value": "ILS",
+        "companyid": 0
+    },
+    {
+        "id": 656,
+        "label": "Currency",
+        "name": "HUF",
+        "value": "HUF",
+        "companyid": 0
+    },
+    {
+        "id": 657,
+        "label": "Currency",
+        "name": "TRY",
+        "value": "TRY",
+        "companyid": 0
+    },
+    {
+        "id": 658,
+        "label": "Currency",
+        "name": "MAD",
+        "value": "MAD",
+        "companyid": 0
+    },
+    {
+        "id": 668,
+        "label": "Currency",
+        "name": "JPY",
+        "value": "JPY",
+        "companyid": 0
+    },
+    {
+        "id": 897,
+        "label": "ExDestination",
+        "name": "JSE",
+        "value": "JSE",
+        "companyid": 0
+    },
+    {
+        "id": 898,
+        "label": "ExDestination",
+        "name": "A2X",
+        "value": "A2X",
+        "companyid": 0
+    },
+    {
+        "id": 628,
+        "label": "ExecInst",
+        "name": "Stay on Bidside",
+        "value": "StayOnBidSide",
+        "companyid": 0
+    },
+    {
+        "id": 1021,
+        "label": "Reject",
+        "name": "Unknown Order",
+        "value": "UnknownSymbol",
+        "companyid": 0
+    },
+    {
+        "id": 1022,
+        "label": "Reject",
+        "name": "Duplicate Order (e.g. dupe ClOrdID)",
+        "value": "DuplicateOrder",
+        "companyid": 0
+    },
+    {
+        "id": 1023,
+        "label": "Reject",
+        "name": "Duplicate of a verbally communicated order",
+        "value": "DuplicateOfAVerballyCommunicatedOrder",
+        "companyid": 0
+    },
+    {
+        "id": 1024,
+        "label": "Reject",
+        "name": "Stale Order",
+        "value": "StaleOrder",
+        "companyid": 0
+    },
+    {
+        "id": 1032,
+        "label": "Reject",
+        "name": "GT renewal \/ restatement (no corporate action)",
+        "value": "GTRenewal",
+        "companyid": 0
+    },
+    {
+        "id": 1020,
+        "label": "Reject",
+        "name": "Too late to enter",
+        "value": "TooLateToEnter",
+        "companyid": 0
+    },
+    {
+        "id": 1033,
+        "label": "Reject",
+        "name": "Verbal change",
+        "value": "VerbalChange",
+        "companyid": 0
+    },
+    {
+        "id": 1034,
+        "label": "Reject",
+        "name": "Repricing of order",
+        "value": "RepricingOfOrder",
+        "companyid": 0
+    },
+    {
+        "id": 1035,
+        "label": "Reject",
+        "name": "Broker option",
+        "value": "BrokerCredit",
+        "companyid": 0
+    },
+    {
+        "id": 1036,
+        "label": "Reject",
+        "name": "Partial decline of OrderQty (e.g. exchange-initiated partial cancel)",
+        "value": "PartialDeclineOfOrderQty",
+        "companyid": 0
+    },
+    {
+        "id": 1082,
+        "label": "SecurityID",
+        "name": "GB00B019KW72",
+        "value": "GB00B019KW72",
+        "companyid": 0
+    },
+    {
+        "id": 1083,
+        "label": "SecurityIDSource",
+        "name": "ISIN Number",
+        "value": "ISIN Number",
+        "companyid": 0
+    },
+    {
+        "id": 1085,
+        "label": "SecurityDesc",
+        "name": "British Petroleum",
+        "value": "British Petroleum",
+        "companyid": 0
+    },
+    {
+        "id": 1086,
+        "label": "SecurityID",
+        "name": "GB0007980591",
+        "value": "GB0007980591",
+        "companyid": 0
+    },
+    {
+        "id": 1088,
+        "label": "SecurityID",
+        "name": "0798059",
+        "value": "0798059",
+        "companyid": 0
+    },
+    {
+        "id": 1135,
+        "label": "Symbol",
+        "name": "CCL.L",
+        "value": "CCL.L",
+        "companyid": 0
+    },
+    {
+        "id": 1136,
+        "label": "SecurityDesc",
+        "name": "Carnival PLC",
+        "value": "Carnival PLC",
+        "companyid": 0
+    },
+    {
+        "id": 1137,
+        "label": "SecurityID",
+        "name": "GB0031215220",
+        "value": "GB0031215220",
+        "companyid": 0
+    },
+    {
+        "id": 1080,
+        "label": "Symbol",
+        "name": "SBRY.L",
+        "value": "SBRY.L",
+        "companyid": 0
+    },
+    {
+        "id": 1084,
+        "label": "Symbol",
+        "name": "BP.L",
+        "value": "BP.L",
+        "companyid": 0
+    },
+    {
+        "id": 1081,
+        "label": "SecurityDesc",
+        "name": "Sainsbury's PLC",
+        "value": "SAinsbury's PLC",
+        "companyid": 0
+    },
+    {
+        "id": 1164,
+        "label": "Side",
+        "name": "Sell Short Exempt",
+        "value": "SellShortExempt",
+        "companyid": 0
+    },
+    {
+        "id": 608,
+        "label": "SecurityDesc",
+        "name": "SAINSBURY (J) PLC ORD 28 4\/7P",
+        "value": "SAINSBURY (J) PLC ORD 28 4\/7P",
+        "companyid": 0
+    },
+    {
+        "id": 609,
+        "label": "SecurityID",
+        "name": "B019KW7",
+        "value": "B019KW7",
+        "companyid": 0
+    },
+    {
+        "id": 610,
+        "label": "SecurityIDSource",
+        "name": "SEDOL",
+        "value": "SEDOL",
+        "companyid": 0
+    },
+    {
+        "id": 611,
+        "label": "SecurityIDSource",
+        "name": "ISIN",
+        "value": "ISIN",
+        "companyid": 0
+    },
+    {
+        "id": 642,
+        "label": "SecurityDesc",
+        "name": "Centrica PLC Ord 6 14\/81p",
+        "value": "Centrica PLC ORd",
+        "companyid": 0
+    },
+    {
+        "id": 643,
+        "label": "SecurityID",
+        "name": "GB00B033F229",
+        "value": "GB00B033F229",
+        "companyid": 0
+    },
+    {
+        "id": 1165,
+        "label": "Side",
+        "name": "Sell undisclosed",
+        "value": "SellUndisclosed",
+        "companyid": 0
+    },
+    {
+        "id": 1138,
+        "label": "SecurityIDSource",
+        "name": "ISIN Number",
+        "value": "ISIN Number",
+        "companyid": 0
+    },
+    {
+        "id": 1143,
+        "label": "Symbol",
+        "name": "EXPN.L",
+        "value": "EXPN.L",
+        "companyid": 0
+    },
+    {
+        "id": 1149,
+        "label": "SecurityID",
+        "name": "GB0005405286",
+        "value": "GB0005405286",
+        "companyid": 0
+    },
+    {
+        "id": 1150,
+        "label": "SecurityIDSource",
+        "name": "ISIN Number",
+        "value": "ISIN Number",
+        "companyid": 0
+    },
+    {
+        "id": 1139,
+        "label": "Symbol",
+        "name": "EVR.L",
+        "value": "EVR.L",
+        "companyid": 0
+    },
+    {
+        "id": 646,
+        "label": "Symbol",
+        "name": "EGBE.CA",
+        "value": "EGBE.CA",
+        "companyid": 0
+    },
+    {
+        "id": 647,
+        "label": "SecurityDesc",
+        "name": "Egyptian Gulf Bank",
+        "value": "Egyptian Gulf Bank",
+        "companyid": 0
+    },
+    {
+        "id": 648,
+        "label": "SecurityID",
+        "name": "EGS60182C010",
+        "value": "EGS60182C010",
+        "companyid": 0
+    },
+    {
+        "id": 650,
+        "label": "Symbol",
+        "name": "BEZQ.TA",
+        "value": "BEZQ.TA",
+        "companyid": 0
+    },
+    {
+        "id": 1175,
+        "label": "SecurityIDSource",
+        "name": "ISIN Number",
+        "value": "ISINNumber",
+        "companyid": 0
+    },
+    {
+        "id": 659,
+        "label": "Symbol",
+        "name": "ALHE.TA",
+        "value": "ALHE.TA",
+        "companyid": 0
+    },
+    {
+        "id": 1171,
+        "label": "Symbol",
+        "name": "ITV.L",
+        "value": "ITV.L",
+        "companyid": 0
+    },
+    {
+        "id": 1172,
+        "label": "SecurityDesc",
+        "name": "ITV PLC",
+        "value": "ITV PLC",
+        "companyid": 0
+    },
+    {
+        "id": 630,
+        "label": "ExecInst",
+        "name": "Participate Don't Initiate",
+        "value": "ParticipateDoNotInitiate",
+        "companyid": 0
+    },
+    {
+        "id": 612,
+        "label": "Symbol",
+        "name": "BARC.L",
+        "value": "BARC.L",
+        "companyid": 0
+    },
+    {
+        "id": 613,
+        "label": "SecurityID",
+        "name": "GB0031348658",
+        "value": "GB0031348658",
+        "companyid": 0
+    },
+    {
+        "id": 618,
+        "label": "SecurityDesc",
+        "name": "BARCLAYS PLC ORD 25P",
+        "value": "BARCLAYS PLC ORD 25P",
+        "companyid": 0
+    },
+    {
+        "id": 1147,
+        "label": "Symbol",
+        "name": "HSBA.L",
+        "value": "HSBA.L",
+        "companyid": 0
+    },
+    {
+        "id": 660,
+        "label": "SecurityDesc",
+        "name": "Alony-Hetz Properties  Ltd",
+        "value": "Alony-Hetz Properties  Ltd",
+        "companyid": 0
+    },
+    {
+        "id": 652,
+        "label": "SecurityID",
+        "name": "IL0002300114",
+        "value": "IL0002300114",
+        "companyid": 0
+    },
+    {
+        "id": 651,
+        "label": "SecurityDesc",
+        "name": "Bezeq The Israeli Telecom Co",
+        "value": "Bezeq Telecom",
+        "companyid": 0
+    },
+    {
+        "id": 1092,
+        "label": "Symbol",
+        "name": "DGE.L",
+        "value": "DGE.L",
+        "companyid": 0
+    },
+    {
+        "id": 1093,
+        "label": "SecurityID",
+        "name": "GB0002374006.",
+        "value": "GB0002374006.",
+        "companyid": 0
+    },
+    {
+        "id": 661,
+        "label": "SecurityID",
+        "name": "IL0003900136",
+        "value": "IL0003900136",
+        "companyid": 0
+    },
+    {
+        "id": 1094,
+        "label": "SecurityIDSource",
+        "name": "ISIN Number",
+        "value": "ISIN Number",
+        "companyid": 0
+    },
+    {
+        "id": 1095,
+        "label": "SecurityDesc",
+        "name": "Diageo PLC",
+        "value": "Diageo PLC",
+        "companyid": 0
+    },
+    {
+        "id": 1144,
+        "label": "SecurityDesc",
+        "name": "Experian PLC",
+        "value": "Experian PLC",
+        "companyid": 0
+    },
+    {
+        "id": 1145,
+        "label": "SecurityID",
+        "name": "GB00B19NLV48",
+        "value": "GB00B19NLV48",
+        "companyid": 0
+    },
+    {
+        "id": 669,
+        "label": "Symbol",
+        "name": "DTE.DE",
+        "value": "DTE.DE",
+        "companyid": 0
+    },
+    {
+        "id": 1146,
+        "label": "SecurityIDSource",
+        "name": "ISIN Number",
+        "value": "ISIN Number",
+        "companyid": 0
+    },
+    {
+        "id": 1167,
+        "label": "Symbol",
+        "name": "KGF.L",
+        "value": "KGF.L",
+        "companyid": 0
+    },
+    {
+        "id": 670,
+        "label": "SecurityDesc",
+        "name": "Deutsche Telekom AG",
+        "value": "Deutsche Telekom AG",
+        "companyid": 0
+    },
+    {
+        "id": 1168,
+        "label": "SecurityDesc",
+        "name": "Kingfisher PLC",
+        "value": "Kingfisher PLC",
+        "companyid": 0
+    },
+    {
+        "id": 1169,
+        "label": "SecurityID",
+        "name": "GB0033195214",
+        "value": "GB0033195214",
+        "companyid": 0
+    },
+    {
+        "id": 1170,
+        "label": "SecurityIDSource",
+        "name": "ISIN Number",
+        "value": "ISINNumber",
+        "companyid": 0
+    },
+    {
+        "id": 671,
+        "label": "SecurityID",
+        "name": "DE0005557508",
+        "value": "DE0005557508",
+        "companyid": 0
+    },
+    {
+        "id": 675,
+        "label": "SecurityIDSource",
+        "name": "WKN",
+        "value": "WKN",
+        "companyid": 0
+    },
+    {
+        "id": 673,
+        "label": "SecurityID",
+        "name": "555750",
+        "value": "555750",
+        "companyid": 0
+    },
+    {
+        "id": 1131,
+        "label": "Symbol",
+        "name": "BT.L",
+        "value": "BT.L",
+        "companyid": 0
+    },
+    {
+        "id": 1132,
+        "label": "SecurityDesc",
+        "name": "British Telecom PLC",
+        "value": "British Telecom",
+        "companyid": 0
+    },
+    {
+        "id": 1133,
+        "label": "SecurityID",
+        "name": "GB0030913577",
+        "value": "GB0030913577",
+        "companyid": 0
+    },
+    {
+        "id": 1134,
+        "label": "SecurityIDSource",
+        "name": "ISIN Number",
+        "value": "ISIN Number",
+        "companyid": 0
+    },
+    {
+        "id": 1091,
+        "label": "SecurityIDSource",
+        "name": "Sicovam Number",
+        "value": "Sicovam Number",
+        "companyid": 0
+    },
+    {
+        "id": 1087,
+        "label": "SecurityIDSource",
+        "name": "ISIN Number",
+        "value": "ISIN Number",
+        "companyid": 0
+    },
+    {
+        "id": 1089,
+        "label": "SecurityIDSource",
+        "name": "SEDOL Number",
+        "value": "SEDOL Number",
+        "companyid": 0
+    },
+    {
+        "id": 1090,
+        "label": "SecurityID",
+        "name": "966940",
+        "value": "966940",
+        "companyid": 0
+    },
+    {
+        "id": 1140,
+        "label": "SecurityDesc",
+        "name": "Evraz PLC",
+        "value": "Evraz PLC",
+        "companyid": 0
+    },
+    {
+        "id": 1141,
+        "label": "SecurityID",
+        "name": "GB00B71N6K86",
+        "value": "GB00B71N6K86",
+        "companyid": 0
+    },
+    {
+        "id": 1142,
+        "label": "SecurityIDSource",
+        "name": "ISIN Number",
+        "value": "ISIN Number",
+        "companyid": 0
+    },
+    {
+        "id": 1173,
+        "label": "SecurityID",
+        "name": "GB0033986497",
+        "value": "GB0033986497",
+        "companyid": 0
+    },
+    {
+        "id": 1174,
+        "label": "SecurityIDSource",
+        "name": "ISIN Number",
+        "value": "ISINNumber",
+        "companyid": 0
+    },
+    {
+        "id": 664,
+        "label": "Symbol",
+        "name": "8729.T",
+        "value": "8729.T",
+        "companyid": 0
+    },
+    {
+        "id": 665,
+        "label": "SecurityDesc",
+        "name": "Sony Corp",
+        "value": "Sony Corp",
+        "companyid": 0
+    },
+    {
+        "id": 666,
+        "label": "SecurityID",
+        "name": "JP3435000009",
+        "value": "JP3435000009",
+        "companyid": 0
+    },
+    {
+        "id": 1148,
+        "label": "SecurityDesc",
+        "name": "HSBC Holdings",
+        "value": "HSBC Holdings",
+        "companyid": 0
+    },
+    {
+        "id": 1177,
+        "label": "SecurityIDSource",
+        "name": "ISIN Number",
+        "value": "ISINNumber",
+        "companyid": 0
+    },
+    {
+        "id": 1178,
+        "label": "SecurityID",
+        "name": "GAA",
+        "value": "GAA",
+        "companyid": 0
+    },
+    {
+        "id": 1179,
+        "label": "SecurityIDSource",
+        "name": "WKN",
+        "value": "WKN",
+        "companyid": 0
+    },
+    {
+        "id": 1194,
+        "label": "Currency",
+        "name": "GBp",
+        "value": "GBp",
+        "companyid": 0
+    },
+    {
+        "id": 1195,
+        "label": "Currency",
+        "name": "GBp",
+        "value": "GBp",
+        "companyid": 0
+    },
+    {
+        "id": 1196,
+        "label": "Currency",
+        "name": "GBp",
+        "value": "GBp",
+        "companyid": 0
+    },
+    {
+        "id": 1197,
+        "label": "Currency",
+        "name": "GBp",
+        "value": "GBp",
+        "companyid": 0
+    },
+    {
+        "id": 1198,
+        "label": "Currency",
+        "name": "GBp",
+        "value": "GBp",
+        "companyid": 0
+    },
+    {
+        "id": 1199,
+        "label": "Currency",
+        "name": "JPY",
+        "value": "JPY",
+        "companyid": 0
+    },
+    {
+        "id": 1200,
+        "label": "Currency",
+        "name": "EGP",
+        "value": "EGP",
+        "companyid": 0
+    },
+    {
+        "id": 1176,
+        "label": "SecurityIDSource",
+        "name": "ISIN Number",
+        "value": "ISINNumber",
+        "companyid": 0
+    },
+    {
+        "id": 1201,
+        "label": "Currency",
+        "name": "ILS",
+        "value": "ILS",
+        "companyid": 0
+    },
+    {
+        "id": 1202,
+        "label": "Currency",
+        "name": "ILS",
+        "value": "ILS",
+        "companyid": 0
+    },
+    {
+        "id": 1203,
+        "label": "Currency",
+        "name": "EUR",
+        "value": "EUR",
+        "companyid": 0
+    },
+    {
+        "id": 1204,
+        "label": "Currency",
+        "name": "GBp",
+        "value": "GBp",
+        "companyid": 0
+    },
+    {
+        "id": 1205,
+        "label": "Currency",
+        "name": "GBp",
+        "value": "GBp",
+        "companyid": 0
+    },
+    {
+        "id": 1206,
+        "label": "Currency",
+        "name": "GBp",
+        "value": "GBp",
+        "companyid": 0
+    },
+    {
+        "id": 1207,
+        "label": "Currency",
+        "name": "GBp",
+        "value": "GBp",
+        "companyid": 0
+    }
+]

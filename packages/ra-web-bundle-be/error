@@ -1,0 +1,1183 @@
+FORMS stderr: 
+FORMS stdout: [32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[33m +261ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mEnvironmentsModule dependencies initialized[39m[33m +2ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mPassportModule dependencies initialized[39m[33m +1ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mEERouterModule dependencies initialized[39m[33m +2ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mQueueModule dependencies initialized[39m[33m +1ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mJwtModule dependencies initialized[39m[33m +6ms[39m
+[2019-09-25 16:25:07] [[35mSILLY[39m] - [35m[ 'PASS ENTITIES, COUNT: 14' ][39m
+[2019-09-25 16:25:07] [[35mSILLY[39m] - [35m[ [ [Function: RaUser],[39m
+[35m    [Function: RaCompany],[39m
+[35m    [Function: RaPreference],[39m
+[35m    [Function: RaObjectRights],[39m
+[35m    [Function: RaAuditTrail],[39m
+[35m    [Function: RaAppDirectory],[39m
+[35m    [Function: RaAppDirectoryIntent],[39m
+[35m    [Function: RaAppDirectoryType],[39m
+[35m    [Function: RaFormsData],[39m
+[35m    [Function: RaFormsSpec],[39m
+[35m    [Function: RaLocatesData],[39m
+[35m    [Function: RaExchangeData],[39m
+[35m    [Function: RaLocatesUpdate],[39m
+[35m    [Function: RaRulesData] ] ][39m
+[2019-09-25 16:25:07] [[35mSILLY[39m] - [35m[ 'BEFORE NEW DB CONNECTION' ][39m
+[2019-09-25 16:25:08] [[32mINFO[39m] - [32m[ 'CONNECTED TO NATS' ][39m
+[2019-09-25 16:25:08] [[32mINFO[39m] - [32m[ 'CHANNEL TO NATS' ][39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mConnectionModule dependencies initialized[39m[33m +31ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[33m +3ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mSystemChannelModule dependencies initialized[39m[33m +2ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mCoreModule dependencies initialized[39m[33m +44ms[39m
+query: START TRANSACTION
+query: SELECT * FROM current_schema()
+query: SELECT * FROM "information_schema"."tables" WHERE ("table_schema" = 'public' AND "table_name" = 'ra_preference') OR ("table_schema" = 'public' AND "table_name" = 'ra_company') OR ("table_schema" = 'public' AND "table_name" = 'ra_user') OR ("table_schema" = 'public' AND "table_name" = 'ra_object_rights') OR ("table_schema" = 'public' AND "table_name" = 'ra_app_directory_intent') OR ("table_schema" = 'public' AND "table_name" = 'ra_app_directory_type') OR ("table_schema" = 'public' AND "table_name" = 'ra_app_directory') OR ("table_schema" = 'public' AND "table_name" = 'ra_audit_trail') OR ("table_schema" = 'public' AND "table_name" = 'ra_forms_data') OR ("table_schema" = 'public' AND "table_name" = 'ra_forms_spec') OR ("table_schema" = 'public' AND "table_name" = 'ra_locates_data') OR ("table_schema" = 'public' AND "table_name" = 'ra_exchange_data') OR ("table_schema" = 'public' AND "table_name" = 'ra_rules_data') OR ("table_schema" = 'public' AND "table_name" = 'ra_locates_update')
+query: SELECT *, "udt_name"::"regtype" AS "regtype" FROM "information_schema"."columns" WHERE ("table_schema" = 'public' AND "table_name" = 'ra_preference') OR ("table_schema" = 'public' AND "table_name" = 'ra_company') OR ("table_schema" = 'public' AND "table_name" = 'ra_user') OR ("table_schema" = 'public' AND "table_name" = 'ra_object_rights') OR ("table_schema" = 'public' AND "table_name" = 'ra_app_directory_intent') OR ("table_schema" = 'public' AND "table_name" = 'ra_app_directory_type') OR ("table_schema" = 'public' AND "table_name" = 'ra_app_directory') OR ("table_schema" = 'public' AND "table_name" = 'ra_audit_trail') OR ("table_schema" = 'public' AND "table_name" = 'ra_forms_data') OR ("table_schema" = 'public' AND "table_name" = 'ra_forms_spec') OR ("table_schema" = 'public' AND "table_name" = 'ra_locates_data') OR ("table_schema" = 'public' AND "table_name" = 'ra_exchange_data') OR ("table_schema" = 'public' AND "table_name" = 'ra_rules_data') OR ("table_schema" = 'public' AND "table_name" = 'ra_locates_update')
+query: SELECT "ns"."nspname" AS "table_schema", "t"."relname" AS "table_name", "cnst"."conname" AS "constraint_name", "cnst"."consrc" AS "expression", CASE "cnst"."contype" WHEN 'p' THEN 'PRIMARY' WHEN 'u' THEN 'UNIQUE' WHEN 'c' THEN 'CHECK' END AS "constraint_type", "a"."attname" AS "column_name" FROM "pg_constraint" "cnst" INNER JOIN "pg_class" "t" ON "t"."oid" = "cnst"."conrelid" INNER JOIN "pg_namespace" "ns" ON "ns"."oid" = "cnst"."connamespace" INNER JOIN "pg_attribute" "a" ON "a"."attrelid" = "cnst"."conrelid" AND "a"."attnum" = ANY ("cnst"."conkey") WHERE "t"."relkind" = 'r' AND (("ns"."nspname" = 'public' AND "t"."relname" = 'ra_preference') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_company') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_user') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_object_rights') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_app_directory_intent') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_app_directory_type') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_app_directory') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_audit_trail') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_forms_data') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_forms_spec') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_locates_data') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_exchange_data') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_rules_data') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_locates_update'))
+query: SELECT "ns"."nspname" AS "table_schema", "t"."relname" AS "table_name", "i"."relname" AS "constraint_name", "a"."attname" AS "column_name", CASE "ix"."indisunique" WHEN 't' THEN 'TRUE' ELSE'FALSE' END AS "is_unique", pg_get_expr("ix"."indpred", "ix"."indrelid") AS "condition" FROM "pg_class" "t" INNER JOIN "pg_index" "ix" ON "ix"."indrelid" = "t"."oid" INNER JOIN "pg_attribute" "a" ON "a"."attrelid" = "t"."oid"  AND "a"."attnum" = ANY ("ix"."indkey") INNER JOIN "pg_namespace" "ns" ON "ns"."oid" = "t"."relnamespace" INNER JOIN "pg_class" "i" ON "i"."oid" = "ix"."indexrelid" LEFT JOIN "pg_constraint" "cnst" ON "cnst"."conname" = "i"."relname" WHERE "t"."relkind" = 'r' AND "cnst"."contype" IS NULL AND (("ns"."nspname" = 'public' AND "t"."relname" = 'ra_preference') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_company') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_user') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_object_rights') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_app_directory_intent') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_app_directory_type') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_app_directory') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_audit_trail') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_forms_data') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_forms_spec') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_locates_data') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_exchange_data') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_rules_data') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_locates_update'))
+query: SELECT "con"."conname" AS "constraint_name", "con"."nspname" AS "table_schema", "con"."relname" AS "table_name", "att2"."attname" AS "column_name", "ns"."nspname" AS "referenced_table_schema", "cl"."relname" AS "referenced_table_name", "att"."attname" AS "referenced_column_name", "con"."confdeltype" AS "on_delete", "con"."confupdtype" AS "on_update" FROM ( SELECT UNNEST ("con1"."conkey") AS "parent", UNNEST ("con1"."confkey") AS "child", "con1"."confrelid", "con1"."conrelid", "con1"."conname", "con1"."contype", "ns"."nspname", "cl"."relname", CASE "con1"."confdeltype" WHEN 'a' THEN 'NO ACTION' WHEN 'r' THEN 'RESTRICT' WHEN 'c' THEN 'CASCADE' WHEN 'n' THEN 'SET NULL' WHEN 'd' THEN 'SET DEFAULT' END as "confdeltype", CASE "con1"."confupdtype" WHEN 'a' THEN 'NO ACTION' WHEN 'r' THEN 'RESTRICT' WHEN 'c' THEN 'CASCADE' WHEN 'n' THEN 'SET NULL' WHEN 'd' THEN 'SET DEFAULT' END as "confupdtype" FROM "pg_class" "cl" INNER JOIN "pg_namespace" "ns" ON "cl"."relnamespace" = "ns"."oid" INNER JOIN "pg_constraint" "con1" ON "con1"."conrelid" = "cl"."oid" WHERE "con1"."contype" = 'f' AND (("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_preference') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_company') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_user') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_object_rights') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_app_directory_intent') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_app_directory_type') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_app_directory') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_audit_trail') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_forms_data') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_forms_spec') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_locates_data') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_exchange_data') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_rules_data') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_locates_update')) ) "con" INNER JOIN "pg_attribute" "att" ON "att"."attrelid" = "con"."confrelid" AND "att"."attnum" = "con"."child" INNER JOIN "pg_class" "cl" ON "cl"."oid" = "con"."confrelid" INNER JOIN "pg_namespace" "ns" ON "cl"."relnamespace" = "ns"."oid" INNER JOIN "pg_attribute" "att2" ON "att2"."attrelid" = "con"."conrelid" AND "att2"."attnum" = "con"."parent"
+query: COMMIT
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ 'GET NEW DB CONNECTION' ][39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mDaoModule dependencies initialized[39m[33m +650ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mFormsDaoModule dependencies initialized[39m[33m +1ms[39m
+[2019-09-25 16:25:08] [[32mINFO[39m] - [32m[ 'NATS: CREATING CONSUMER FOR: web_1_1' ][39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ '----START MIDDLEWARE RUNNER----' ][39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ 'RUNNING OutMiddleware MIDDLEWARE' ][39m
+[2019-09-25 16:25:08] [[32mINFO[39m] - [32m[ 'OUT MIDDLEWARE: {"id":20190925451226628,"type":"locates"}...' ][39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ '----END MIDDLEWARE RUNNER----' ][39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[33m +14ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mLayoutModule dependencies initialized[39m[33m +1ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mFormsSpecModule dependencies initialized[39m[33m +1ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mLocatesModule dependencies initialized[39m[33m +1ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mFormsModule dependencies initialized[39m[33m +1ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mAppDirectoryModule dependencies initialized[39m[33m +1ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mPreferencesModule dependencies initialized[39m[33m +0ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mCompaniesModule dependencies initialized[39m[33m +1ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mObjectRightsModule dependencies initialized[39m[33m +2ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mUsersModule dependencies initialized[39m[33m +1ms[39m
+[32m[Nest] 6148   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mHubChannelModule dependencies initialized[39m[33m +1ms[39m
+[2019-09-25 16:25:08] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+query: SELECT "RaLocatesUpdate"."id" AS "RaLocatesUpdate_id", "RaLocatesUpdate"."recordId" AS "RaLocatesUpdate_recordId", "RaLocatesUpdate"."symbol" AS "RaLocatesUpdate_symbol", "RaLocatesUpdate"."clientId" AS "RaLocatesUpdate_clientId", "RaLocatesUpdate"."broker" AS "RaLocatesUpdate_broker", "RaLocatesUpdate"."usedQuantity" AS "RaLocatesUpdate_usedQuantity", "RaLocatesUpdate"."type" AS "RaLocatesUpdate_type", "RaLocatesUpdate"."createDate" AS "RaLocatesUpdate_createDate", "RaLocatesUpdate"."updatedDate" AS "RaLocatesUpdate_updatedDate" FROM "public"."ra_locates_update" "RaLocatesUpdate"
+query: CREATE TABLE
+IF NOT EXISTS ra_forms_data_audit as
+select
+    rap.*,
+    "updatedDate" as "archDate",
+    "updatedBy" as "archType"
+from ra_forms_data rap
+where 1=0;
+
+CREATE TABLE
+IF NOT EXISTS ra_forms_spec_audit as
+select
+    rap.*,
+    "updatedDate" as "archDate",
+    "updatedBy" as "archType"
+from ra_forms_spec rap
+where 1=0;
+
+CREATE TABLE
+IF NOT EXISTS ra_locates_data_audit as
+select
+    rap.*,
+    "updatedDate" as "archDate",
+    "updatedBy" as "archType"
+from ra_locates_data rap
+where 1=0;
+
+CREATE OR REPLACE FUNCTION raFormsDataAudit
+() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF (TG_OP = 'DELETE') THEN
+    INSERT INTO
+        ra_forms_data_audit
+        ("id",
+        "dataType",
+        "subType",
+        "name",
+        "status",
+        "accounts",
+        "alertMessage",
+        "emailAlert",
+        "emailAddress",
+        "triggeredCount",
+        "data",
+        "wsResponse",
+        "company",
+        "createdBy",
+        "updatedBy",
+        "createDate",
+        "updatedDate",
+        "archDate",
+        "archType")
+    VALUES(
+            old."id",
+            old."dataType",
+            old."subType",
+            old."name",
+            old."status",
+            old."accounts",
+            old."alertMessage",
+            old."emailAlert",
+            old."emailAddress",
+            old."triggeredCount",
+            old."data",
+            old."wsResponse",
+            old."company",
+            old."createdBy",
+            old."updatedBy",
+            old."createDate",
+            old."updatedDate",
+            now(),
+            TG_OP);
+    RETURN old;
+    ELSIF
+    ((TG_OP = 'UPDATE') OR
+    (TG_OP = 'INSERT')) THEN
+    INSERT INTO
+        ra_forms_data_audit
+        ("id",
+        "dataType",
+        "subType",
+        "name",
+        "status",
+        "accounts",
+        "alertMessage",
+        "emailAlert",
+        "emailAddress",
+        "triggeredCount",
+        "data",
+        "wsResponse",
+        "company",
+        "createdBy",
+        "updatedBy",
+        "createDate",
+        "updatedDate",
+        "archDate",
+        "archType")
+    VALUES(new."id",
+            new."dataType",
+            new."subType",
+            new."name",
+            new."status",
+            new."accounts",
+            new."alertMessage",
+            new."emailAlert",
+            new."emailAddress",
+            new."triggeredCount",
+            new."data",
+            new."wsResponse",
+            new."company",
+            new."createdBy",
+            new."updatedBy",
+            new."createDate",
+            new."updatedDate",
+            now(),
+            TG_OP);
+    RETURN new;
+END
+IF;
+        RETURN NULL;
+
+END;
+$BODY$
+language plpgsql;
+
+
+CREATE OR REPLACE FUNCTION raFormsSpecAudit
+() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF (TG_OP = 'DELETE') THEN
+
+    INSERT INTO
+        ra_forms_spec_audit
+        (
+        "id",
+        "dataType",
+        "subType",
+        "name",
+        "spec",
+        "company",
+        "createDate",
+        "updatedDate",
+        "archDate",
+        "archType")
+    VALUES(
+            old."id",
+            old."dataType",
+            old."subType",
+            old."name",
+            old."spec",
+            old."company",
+            old."createDate",
+            old."updatedDate",
+            now(),
+            TG_OP);
+    ELSIF
+    ((TG_OP = 'UPDATE') OR
+    (TG_OP = 'INSERT')) THEN
+    INSERT INTO
+        ra_forms_spec_audit
+        ("id",
+        "dataType",
+        "subType",
+        "name",
+        "spec",
+        "company",
+        "createDate",
+        "updatedDate",
+        "archDate",
+        "archType")
+    VALUES(new."id",
+            new."dataType",
+            new."subType",
+            new."name",
+            new."spec",
+            new."company",
+            new."createDate",
+            new."updatedDate",
+            new."archDate",
+            new."archType",
+            now(),
+            TG_OP);
+    RETURN new;
+END
+IF;
+        RETURN NULL;
+END;
+$BODY$
+language plpgsql;
+
+
+CREATE OR REPLACE FUNCTION raLocatesDataAudit
+() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF (TG_OP = 'DELETE') THEN
+    INSERT INTO
+        ra_locates_data_audit
+        ("id",
+        "type",
+        "user",
+        "symbol",
+        "quantity",
+        "broker",
+        "comment",
+        "goodShares",
+        "noGoodShares",
+        "pendingShares",
+        "usedShares",
+        "availableShares",
+        "orderId",
+        "repId",
+        "status",
+        "poolType",
+        "wsResponse",
+        "company",
+        "createdBy",
+        "updatedBy",
+        "createDate",
+        "updatedDate",
+        "archDate",
+        "archType")
+    VALUES(
+            old."id",
+            old."type",
+            old."user",
+            old."symbol",
+            old."quantity",
+            old."broker",
+            old."comment",
+            old."goodShares",
+            old."noGoodShares",
+            old."pendingShares",
+            old."usedShares",
+            old."availableShares",
+            old."orderId",
+            old."repId",
+            old."status",
+            old."poolType",
+            old."wsResponse",
+            old."company",
+            old."createdBy",
+            old."updatedBy",
+            old."createDate",
+            old."updatedDate",
+            old."createDate",
+            old."updatedDate",
+            now(),
+            TG_OP);
+    RETURN old;
+    ELSIF
+    ((TG_OP = 'UPDATE') OR
+    (TG_OP = 'INSERT')) THEN
+    INSERT INTO
+        ra_forms_data_audit
+        ("id",
+        "type",
+        "user",
+        "symbol",
+        "quantity",
+        "broker",
+        "comment",
+        "goodShares",
+        "noGoodShares",
+        "pendingShares",
+        "usedShares",
+        "availableShares",
+        "orderId",
+        "repId",
+        "status",
+        "poolType",
+        "wsResponse",
+        "company",
+        "createdBy",
+        "updatedBy",
+        "createDate",
+        "updatedDate",
+        "archDate",
+        "archType")
+    VALUES(new."id",
+        new."type",
+        new."user",
+        new."symbol",
+        new."quantity",
+        new."broker",
+        new."comment",
+        new."goodShares",
+        new."noGoodShares",
+        new."pendingShares",
+        new."usedShares",
+        new."availableShares",
+        new."orderId",
+        new."repId",
+        new."status",
+        new."poolType",
+        new."wsResponse",
+        new."company",
+        new."createdBy",
+       new."updatedBy",
+        new."createDate",
+        new."updatedDate",
+            now(),
+            TG_OP);
+    RETURN new;
+END
+IF;
+        RETURN NULL;
+
+END;
+$BODY$
+language plpgsql;
+
+
+DROP TRIGGER IF EXISTS ra_locates_data_audit_u_trigger
+ON ra_locates_data;
+CREATE TRIGGER ra_flocates_data_audit_u_trigger AFTER
+UPDATE ON ra_locates_data
+FOR EACH ROW
+WHEN
+(OLD.* IS DISTINCT FROM NEW.*)
+EXECUTE PROCEDURE raLocatesDataAudit
+('U');
+
+DROP TRIGGER IF EXISTS ra_forms_data_audit_u_trigger
+ON ra_forms_data;
+CREATE TRIGGER ra_forms_data_audit_u_trigger AFTER
+UPDATE ON ra_forms_data
+FOR EACH ROW
+WHEN
+(OLD.* IS DISTINCT FROM NEW.*)
+EXECUTE PROCEDURE raFormsDataAudit
+('U');
+
+DROP TRIGGER IF EXISTS ra_forms_spec_audit_u_trigger
+ON ra_forms_spec;
+CREATE TRIGGER ra_forms_spec_audit_u_trigger AFTER
+UPDATE ON ra_forms_spec
+FOR EACH ROW
+WHEN
+(OLD.* IS DISTINCT FROM NEW.*)
+EXECUTE PROCEDURE raFormsSpecAudit
+('U');
+
+DROP TRIGGER IF EXISTS ra_locates_data_audit_d_trigger
+ON ra_locates_data;
+CREATE TRIGGER ra_locates_data_audit_d_trigger AFTER
+DELETE ON ra_forms_data
+FOR EACH
+ROW
+EXECUTE PROCEDURE raLocatesDataAudit
+('D');
+
+DROP TRIGGER IF EXISTS ra_forms_data_audit_d_trigger
+ON ra_forms_data;
+CREATE TRIGGER ra_forms_data_audit_d_trigger AFTER
+DELETE ON ra_forms_data
+FOR EACH
+ROW
+EXECUTE PROCEDURE raFormsDataAudit
+('D');
+
+DROP TRIGGER IF EXISTS ra_forms_spec_audit_d_trigger
+ON ra_forms_spec;
+CREATE TRIGGER ra_forms_spec_audit_d_trigger AFTER
+DELETE ON ra_forms_spec
+FOR EACH
+ROW
+EXECUTE PROCEDURE raFormsSpecAudit
+('D');
+
+DROP TRIGGER IF EXISTS ra_locates_data_audit_i_trigger
+ON ra_locates_data;
+CREATE TRIGGER ra_locates_data_audit_i_trigger AFTER
+INSERT ON
+ra_locates_data
+FOR
+EACH
+ROW
+EXECUTE PROCEDURE raLocatesDataAudit
+('I');
+
+DROP TRIGGER IF EXISTS ra_forms_data_audit_i_trigger
+ON ra_forms_data;
+CREATE TRIGGER ra_forms_data_audit_i_trigger AFTER
+INSERT ON
+ra_forms_data
+FOR
+EACH
+ROW
+EXECUTE PROCEDURE raFormsDataAudit
+('I');
+
+DROP TRIGGER IF EXISTS ra_forms_spec_audit_i_trigger
+ON ra_forms_spec;
+CREATE TRIGGER ra_forms_spec_audit_i_trigger AFTER
+INSERT ON
+ra_forms_spec
+FOR
+EACH
+ROW
+EXECUTE PROCEDURE raFormsSpecAudit
+('I');
+
+Insert into ra_preference ("name","value","userId","companyId","createDate","updatedDate","version","flag") values ('locates.columns','[
+        {
+            "fieldGroup": [
+                {
+                    "key": "symbol",
+                    "type": "externalList",
+                    "className": "flex-1",
+                    "templateOptions": {
+                        "label": "Symbol",
+                        "required": true,
+                        "multiple": false,
+                        "placeholder": "Symbol",
+                        "options": [],
+                        "externalList": {
+                            "tableName": "symbols",
+                            "valueExpr": "id",
+                            "displayExpr": "name"
+                        }
+                    },
+                    "expressionProperties": {
+                        "templateOptions.disabled": "model.id"
+                    }
+                },
+                {
+                    "key": "quantity",
+                    "type": "input",
+                    "className": "flex-1",
+                    "templateOptions": {
+                        "label": "Quantity",
+                        "type": "number",
+                        "required": false,
+                        "placeholder": "Quantity"
+                    }
+                },
+                {
+                    "key": "broker",
+                    "type": "externalList",
+                    "className": "flex-1",
+                    "templateOptions": {
+                        "label": "Broker",
+                        "required": true,
+                        "multiple": false,
+                        "placeholder": "Broker",
+                        "options": [],
+                        "externalList": {
+                            "tableName": "brokers",
+                            "valueExpr": "id",
+                            "displayExpr": "name"
+                        }
+                    },
+                    "expressionProperties": {
+                        "templateOptions.disabled": "model.id"
+                    }
+                }
+            ],
+            "fieldGroupClassName": "display-flex"
+        },
+        {
+            "key": "comment",
+            "type": "input",
+            "templateOptions": {
+                "label": "Comment",
+                "required": false,
+                "placeholder": "Comment"
+            }
+        },
+        { "hitlist": true, "caption": "Used Shares", "key": "usedShares", "type": "number" },
+        { "hitlist": true, "caption": "Available Shares", "key": "availableShares", "type": "number" },
+        { "hitlist": true, "caption": "Status", "key": "status", "type": "string" },
+        { "hitlist": true, "caption": "Created", "key": "createDate", "type": "datepicker" },
+        { "hitlist": true, "caption": "Created By", "key": "createdBy", "type": "string" },
+        { "hitlist": true, "caption": "Update Date", "key": "updatedDate", "type": "datepicker" },
+        { "hitlist": true, "caption": "Update By", "key": "updatedBy", "type": "string" }]',0,0,NOW(),NOW(),'2.0.1',null);
+
+
+CREATE OR REPLACE FUNCTION NOTIFY_TRG() RETURNS trigger AS
+$BODY$
+BEGIN
+  PERFORM pg_notify('locatesUpdateEvt', row_to_json(NEW)::text);
+  RETURN new;
+END;
+$BODY$
+LANGUAGE 'plpgsql' VOLATILE COST 100;
+
+CREATE TRIGGER ra_locates_update_trg
+AFTER INSERT
+ON ra_locates_update
+FOR EACH ROW
+EXECUTE PROCEDURE NOTIFY_TRG();
+
+
+
+query failed: CREATE TABLE
+IF NOT EXISTS ra_forms_data_audit as
+select
+    rap.*,
+    "updatedDate" as "archDate",
+    "updatedBy" as "archType"
+from ra_forms_data rap
+where 1=0;
+
+CREATE TABLE
+IF NOT EXISTS ra_forms_spec_audit as
+select
+    rap.*,
+    "updatedDate" as "archDate",
+    "updatedBy" as "archType"
+from ra_forms_spec rap
+where 1=0;
+
+CREATE TABLE
+IF NOT EXISTS ra_locates_data_audit as
+select
+    rap.*,
+    "updatedDate" as "archDate",
+    "updatedBy" as "archType"
+from ra_locates_data rap
+where 1=0;
+
+CREATE OR REPLACE FUNCTION raFormsDataAudit
+() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF (TG_OP = 'DELETE') THEN
+    INSERT INTO
+        ra_forms_data_audit
+        ("id",
+        "dataType",
+        "subType",
+        "name",
+        "status",
+        "accounts",
+        "alertMessage",
+        "emailAlert",
+        "emailAddress",
+        "triggeredCount",
+        "data",
+        "wsResponse",
+        "company",
+        "createdBy",
+        "updatedBy",
+        "createDate",
+        "updatedDate",
+        "archDate",
+        "archType")
+    VALUES(
+            old."id",
+            old."dataType",
+            old."subType",
+            old."name",
+            old."status",
+            old."accounts",
+            old."alertMessage",
+            old."emailAlert",
+            old."emailAddress",
+            old."triggeredCount",
+            old."data",
+            old."wsResponse",
+            old."company",
+            old."createdBy",
+            old."updatedBy",
+            old."createDate",
+            old."updatedDate",
+            now(),
+            TG_OP);
+    RETURN old;
+    ELSIF
+    ((TG_OP = 'UPDATE') OR
+    (TG_OP = 'INSERT')) THEN
+    INSERT INTO
+        ra_forms_data_audit
+        ("id",
+        "dataType",
+        "subType",
+        "name",
+        "status",
+        "accounts",
+        "alertMessage",
+        "emailAlert",
+        "emailAddress",
+        "triggeredCount",
+        "data",
+        "wsResponse",
+        "company",
+        "createdBy",
+        "updatedBy",
+        "createDate",
+        "updatedDate",
+        "archDate",
+        "archType")
+    VALUES(new."id",
+            new."dataType",
+            new."subType",
+            new."name",
+            new."status",
+            new."accounts",
+            new."alertMessage",
+            new."emailAlert",
+            new."emailAddress",
+            new."triggeredCount",
+            new."data",
+            new."wsResponse",
+            new."company",
+            new."createdBy",
+            new."updatedBy",
+            new."createDate",
+            new."updatedDate",
+            now(),
+            TG_OP);
+    RETURN new;
+END
+IF;
+        RETURN NULL;
+
+END;
+$BODY$
+language plpgsql;
+
+
+CREATE OR REPLACE FUNCTION raFormsSpecAudit
+() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF (TG_OP = 'DELETE') THEN
+
+    INSERT INTO
+        ra_forms_spec_audit
+        (
+        "id",
+        "dataType",
+        "subType",
+        "name",
+        "spec",
+        "company",
+        "createDate",
+        "updatedDate",
+        "archDate",
+        "archType")
+    VALUES(
+            old."id",
+            old."dataType",
+            old."subType",
+            old."name",
+            old."spec",
+            old."company",
+            old."createDate",
+            old."updatedDate",
+            now(),
+            TG_OP);
+    ELSIF
+    ((TG_OP = 'UPDATE') OR
+    (TG_OP = 'INSERT')) THEN
+    INSERT INTO
+        ra_forms_spec_audit
+        ("id",
+        "dataType",
+        "subType",
+        "name",
+        "spec",
+        "company",
+        "createDate",
+        "updatedDate",
+        "archDate",
+        "archType")
+    VALUES(new."id",
+            new."dataType",
+            new."subType",
+            new."name",
+            new."spec",
+            new."company",
+            new."createDate",
+            new."updatedDate",
+            new."archDate",
+            new."archType",
+            now(),
+            TG_OP);
+    RETURN new;
+END
+IF;
+        RETURN NULL;
+END;
+$BODY$
+language plpgsql;
+
+
+CREATE OR REPLACE FUNCTION raLocatesDataAudit
+() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF (TG_OP = 'DELETE') THEN
+    INSERT INTO
+        ra_locates_data_audit
+        ("id",
+        "type",
+        "user",
+        "symbol",
+        "quantity",
+        "broker",
+        "comment",
+        "goodShares",
+        "noGoodShares",
+        "pendingShares",
+        "usedShares",
+        "availableShares",
+        "orderId",
+        "repId",
+        "status",
+        "poolType",
+        "wsResponse",
+        "company",
+        "createdBy",
+        "updatedBy",
+        "createDate",
+        "updatedDate",
+        "archDate",
+        "archType")
+    VALUES(
+            old."id",
+            old."type",
+            old."user",
+            old."symbol",
+            old."quantity",
+            old."broker",
+            old."comment",
+            old."goodShares",
+            old."noGoodShares",
+            old."pendingShares",
+            old."usedShares",
+            old."availableShares",
+            old."orderId",
+            old."repId",
+            old."status",
+            old."poolType",
+            old."wsResponse",
+            old."company",
+            old."createdBy",
+            old."updatedBy",
+            old."createDate",
+            old."updatedDate",
+            old."createDate",
+            old."updatedDate",
+            now(),
+            TG_OP);
+    RETURN old;
+    ELSIF
+    ((TG_OP = 'UPDATE') OR
+    (TG_OP = 'INSERT')) THEN
+    INSERT INTO
+        ra_forms_data_audit
+        ("id",
+        "type",
+        "user",
+        "symbol",
+        "quantity",
+        "broker",
+        "comment",
+        "goodShares",
+        "noGoodShares",
+        "pendingShares",
+        "usedShares",
+        "availableShares",
+        "orderId",
+        "repId",
+        "status",
+        "poolType",
+        "wsResponse",
+        "company",
+        "createdBy",
+        "updatedBy",
+        "createDate",
+        "updatedDate",
+        "archDate",
+        "archType")
+    VALUES(new."id",
+        new."type",
+        new."user",
+        new."symbol",
+        new."quantity",
+        new."broker",
+        new."comment",
+        new."goodShares",
+        new."noGoodShares",
+        new."pendingShares",
+        new."usedShares",
+        new."availableShares",
+        new."orderId",
+        new."repId",
+        new."status",
+        new."poolType",
+        new."wsResponse",
+        new."company",
+        new."createdBy",
+       new."updatedBy",
+        new."createDate",
+        new."updatedDate",
+            now(),
+            TG_OP);
+    RETURN new;
+END
+IF;
+        RETURN NULL;
+
+END;
+$BODY$
+language plpgsql;
+
+
+DROP TRIGGER IF EXISTS ra_locates_data_audit_u_trigger
+ON ra_locates_data;
+CREATE TRIGGER ra_flocates_data_audit_u_trigger AFTER
+UPDATE ON ra_locates_data
+FOR EACH ROW
+WHEN
+(OLD.* IS DISTINCT FROM NEW.*)
+EXECUTE PROCEDURE raLocatesDataAudit
+('U');
+
+DROP TRIGGER IF EXISTS ra_forms_data_audit_u_trigger
+ON ra_forms_data;
+CREATE TRIGGER ra_forms_data_audit_u_trigger AFTER
+UPDATE ON ra_forms_data
+FOR EACH ROW
+WHEN
+(OLD.* IS DISTINCT FROM NEW.*)
+EXECUTE PROCEDURE raFormsDataAudit
+('U');
+
+DROP TRIGGER IF EXISTS ra_forms_spec_audit_u_trigger
+ON ra_forms_spec;
+CREATE TRIGGER ra_forms_spec_audit_u_trigger AFTER
+UPDATE ON ra_forms_spec
+FOR EACH ROW
+WHEN
+(OLD.* IS DISTINCT FROM NEW.*)
+EXECUTE PROCEDURE raFormsSpecAudit
+('U');
+
+DROP TRIGGER IF EXISTS ra_locates_data_audit_d_trigger
+ON ra_locates_data;
+CREATE TRIGGER ra_locates_data_audit_d_trigger AFTER
+DELETE ON ra_forms_data
+FOR EACH
+ROW
+EXECUTE PROCEDURE raLocatesDataAudit
+('D');
+
+DROP TRIGGER IF EXISTS ra_forms_data_audit_d_trigger
+ON ra_forms_data;
+CREATE TRIGGER ra_forms_data_audit_d_trigger AFTER
+DELETE ON ra_forms_data
+FOR EACH
+ROW
+EXECUTE PROCEDURE raFormsDataAudit
+('D');
+
+DROP TRIGGER IF EXISTS ra_forms_spec_audit_d_trigger
+ON ra_forms_spec;
+CREATE TRIGGER ra_forms_spec_audit_d_trigger AFTER
+DELETE ON ra_forms_spec
+FOR EACH
+ROW
+EXECUTE PROCEDURE raFormsSpecAudit
+('D');
+
+DROP TRIGGER IF EXISTS ra_locates_data_audit_i_trigger
+ON ra_locates_data;
+CREATE TRIGGER ra_locates_data_audit_i_trigger AFTER
+INSERT ON
+ra_locates_data
+FOR
+EACH
+ROW
+EXECUTE PROCEDURE raLocatesDataAudit
+('I');
+
+DROP TRIGGER IF EXISTS ra_forms_data_audit_i_trigger
+ON ra_forms_data;
+CREATE TRIGGER ra_forms_data_audit_i_trigger AFTER
+INSERT ON
+ra_forms_data
+FOR
+EACH
+ROW
+EXECUTE PROCEDURE raFormsDataAudit
+('I');
+
+DROP TRIGGER IF EXISTS ra_forms_spec_audit_i_trigger
+ON ra_forms_spec;
+CREATE TRIGGER ra_forms_spec_audit_i_trigger AFTER
+INSERT ON
+ra_forms_spec
+FOR
+EACH
+ROW
+EXECUTE PROCEDURE raFormsSpecAudit
+('I');
+
+Insert into ra_preference ("name","value","userId","companyId","createDate","updatedDate","version","flag") values ('locates.columns','[
+        {
+            "fieldGroup": [
+                {
+                    "key": "symbol",
+                    "type": "externalList",
+                    "className": "flex-1",
+                    "templateOptions": {
+                        "label": "Symbol",
+                        "required": true,
+                        "multiple": false,
+                        "placeholder": "Symbol",
+                        "options": [],
+                        "externalList": {
+                            "tableName": "symbols",
+                            "valueExpr": "id",
+                            "displayExpr": "name"
+                        }
+                    },
+                    "expressionProperties": {
+                        "templateOptions.disabled": "model.id"
+                    }
+                },
+                {
+                    "key": "quantity",
+                    "type": "input",
+                    "className": "flex-1",
+                    "templateOptions": {
+                        "label": "Quantity",
+                        "type": "number",
+                        "required": false,
+                        "placeholder": "Quantity"
+                    }
+                },
+                {
+                    "key": "broker",
+                    "type": "externalList",
+                    "className": "flex-1",
+                    "templateOptions": {
+                        "label": "Broker",
+                        "required": true,
+                        "multiple": false,
+                        "placeholder": "Broker",
+                        "options": [],
+                        "externalList": {
+                            "tableName": "brokers",
+                            "valueExpr": "id",
+                            "displayExpr": "name"
+                        }
+                    },
+                    "expressionProperties": {
+                        "templateOptions.disabled": "model.id"
+                    }
+                }
+            ],
+            "fieldGroupClassName": "display-flex"
+        },
+        {
+            "key": "comment",
+            "type": "input",
+            "templateOptions": {
+                "label": "Comment",
+                "required": false,
+                "placeholder": "Comment"
+            }
+        },
+        { "hitlist": true, "caption": "Used Shares", "key": "usedShares", "type": "number" },
+        { "hitlist": true, "caption": "Available Shares", "key": "availableShares", "type": "number" },
+        { "hitlist": true, "caption": "Status", "key": "status", "type": "string" },
+        { "hitlist": true, "caption": "Created", "key": "createDate", "type": "datepicker" },
+        { "hitlist": true, "caption": "Created By", "key": "createdBy", "type": "string" },
+        { "hitlist": true, "caption": "Update Date", "key": "updatedDate", "type": "datepicker" },
+        { "hitlist": true, "caption": "Update By", "key": "updatedBy", "type": "string" }]',0,0,NOW(),NOW(),'2.0.1',null);
+
+
+CREATE OR REPLACE FUNCTION NOTIFY_TRG() RETURNS trigger AS
+$BODY$
+BEGIN
+  PERFORM pg_notify('locatesUpdateEvt', row_to_json(NEW)::text);
+  RETURN new;
+END;
+$BODY$
+LANGUAGE 'plpgsql' VOLATILE COST 100;
+
+CREATE TRIGGER ra_locates_update_trg
+AFTER INSERT
+ON ra_locates_update
+FOR EACH ROW
+EXECUTE PROCEDURE NOTIFY_TRG();
+
+
+
+error: { error: column "updatedBy" does not exist
+    at Connection.parseE (C:\Users\Jirin\Documents\NetbeansProjects\rapid-addition\ra-web\node_modules\pg\lib\connection.js:601:11)
+    at Connection.parseMessage (C:\Users\Jirin\Documents\NetbeansProjects\rapid-addition\ra-web\node_modules\pg\lib\connection.js:398:19)
+    at Socket.<anonymous> (C:\Users\Jirin\Documents\NetbeansProjects\rapid-addition\ra-web\node_modules\pg\lib\connection.js:120:22)
+    at Socket.emit (events.js:198:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+  name: 'error',
+  length: 110,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '286',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3293',
+  routine: 'errorMissingColumn' }
+ERR { QueryFailedError: column "updatedBy" does not exist
+    at new QueryFailedError (C:\Users\Jirin\Documents\NetbeansProjects\rapid-addition\ra-web\node_modules\typeorm\error\QueryFailedError.js:27:28)
+    at Query.callback (C:\Users\Jirin\Documents\NetbeansProjects\rapid-addition\ra-web\node_modules\typeorm\driver\postgres\PostgresQueryRunner.js:212:38)
+    at Query.handleError (C:\Users\Jirin\Documents\NetbeansProjects\rapid-addition\ra-web\node_modules\pg\lib\query.js:142:17)
+    at Connection.connectedErrorMessageHandler (C:\Users\Jirin\Documents\NetbeansProjects\rapid-addition\ra-web\node_modules\pg\lib\client.js:183:17)
+    at Connection.emit (events.js:198:13)
+    at Socket.<anonymous> (C:\Users\Jirin\Documents\NetbeansProjects\rapid-addition\ra-web\node_modules\pg\lib\connection.js:125:12)
+    at Socket.emit (events.js:198:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+  message: 'column "updatedBy" does not exist',
+  name: 'QueryFailedError',
+  length: 110,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '286',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3293',
+  routine: 'errorMissingColumn',
+  query:
+   'CREATE TABLE\r\nIF NOT EXISTS ra_forms_data_audit as\r\nselect\r\n    rap.*,\r\n    "updatedDate" as "archDate",\r\n    "updatedBy" as "archType"\r\nfrom ra_forms_data rap\r\nwhere 1=0;\r\n\r\nCREATE TABLE\r\nIF NOT EXISTS ra_forms_spec_audit as\r\nselect\r\n    rap.*,\r\n    "updatedDate" as "archDate",\r\n    "updatedBy" as "archType"\r\nfrom ra_forms_spec rap\r\nwhere 1=0;\r\n\r\nCREATE TABLE\r\nIF NOT EXISTS ra_locates_data_audit as\r\nselect\r\n    rap.*,\r\n    "updatedDate" as "archDate",\r\n    "updatedBy" as "archType"\r\nfrom ra_locates_data rap\r\nwhere 1=0;\r\n\r\nCREATE OR REPLACE FUNCTION raFormsDataAudit\r\n() RETURNS TRIGGER AS\r\n$BODY$\r\nBEGIN\r\n    IF (TG_OP = \'DELETE\') THEN\r\n    INSERT INTO\r\n        ra_forms_data_audit\r\n        ("id",\r\n        "dataType",\r\n        "subType",\r\n        "name",\r\n        "status",\r\n        "accounts",\r\n        "alertMessage",\r\n        "emailAlert",\r\n        "emailAddress",\r\n        "triggeredCount",\r\n        "data",\r\n        "wsResponse",\r\n        "company",\r\n        "createdBy",\r\n        "updatedBy",\r\n        "createDate",\r\n        "updatedDate",\r\n        "archDate",\r\n        "archType")\r\n    VALUES(\r\n            old."id",\r\n            old."dataType",\r\n            old."subType",\r\n            old."name",\r\n            old."status",\r\n            old."accounts",\r\n            old."alertMessage",\r\n            old."emailAlert",\r\n            old."emailAddress",\r\n            old."triggeredCount",\r\n            old."data",\r\n            old."wsResponse",\r\n            old."company",\r\n            old."createdBy",\r\n            old."updatedBy",\r\n            old."createDate",\r\n            old."updatedDate",\r\n            now(),\r\n            TG_OP);\r\n    RETURN old;\r\n    ELSIF\r\n    ((TG_OP = \'UPDATE\') OR\r\n    (TG_OP = \'INSERT\')) THEN\r\n    INSERT INTO\r\n        ra_forms_data_audit\r\n        ("id",\r\n        "dataType",\r\n        "subType",\r\n        "name",\r\n        "status",\r\n        "accounts",\r\n        "alertMessage",\r\n        "emailAlert",\r\n        "emailAddress",\r\n        "triggeredCount",\r\n        "data",\r\n        "wsResponse",\r\n        "company",\r\n        "createdBy",\r\n        "updatedBy",\r\n        "createDate",\r\n        "updatedDate",\r\n        "archDate",\r\n        "archType")\r\n    VALUES(new."id",\r\n            new."dataType",\r\n            new."subType",\r\n            new."name",\r\n            new."status",\r\n            new."accounts",\r\n            new."alertMessage",\r\n            new."emailAlert",\r\n            new."emailAddress",\r\n            new."triggeredCount",\r\n            new."data",\r\n            new."wsResponse",\r\n            new."company",\r\n            new."createdBy",\r\n            new."updatedBy",\r\n            new."createDate",\r\n            new."updatedDate",\r\n            now(),\r\n            TG_OP);\r\n    RETURN new;\r\nEND\r\nIF;\r\n        RETURN NULL;\r\n\r\nEND;\r\n$BODY$\r\nlanguage plpgsql;\r\n\r\n\r\nCREATE OR REPLACE FUNCTION raFormsSpecAudit\r\n() RETURNS TRIGGER AS\r\n$BODY$\r\nBEGIN\r\n    IF (TG_OP = \'DELETE\') THEN\r\n\r\n    INSERT INTO\r\n        ra_forms_spec_audit\r\n        (\r\n        "id",\r\n        "dataType",\r\n        "subType",\r\n        "name",\r\n        "spec",\r\n        "company",\r\n        "createDate",\r\n        "updatedDate",\r\n        "archDate",\r\n        "archType")\r\n    VALUES(\r\n            old."id",\r\n            old."dataType",\r\n            old."subType",\r\n            old."name",\r\n            old."spec",\r\n            old."company",\r\n            old."createDate",\r\n            old."updatedDate",\r\n            now(),\r\n            TG_OP);\r\n    ELSIF\r\n    ((TG_OP = \'UPDATE\') OR\r\n    (TG_OP = \'INSERT\')) THEN\r\n    INSERT INTO\r\n        ra_forms_spec_audit\r\n        ("id",\r\n        "dataType",\r\n        "subType",\r\n        "name",\r\n        "spec",\r\n        "company",\r\n        "createDate",\r\n        "updatedDate",\r\n        "archDate",\r\n        "archType")\r\n    VALUES(new."id",\r\n            new."dataType",\r\n            new."subType",\r\n            new."name",\r\n            new."spec",\r\n            new."company",\r\n            new."createDate",\r\n            new."updatedDate",\r\n            new."archDate",\r\n            new."archType",\r\n            now(),\r\n            TG_OP);\r\n    RETURN new;\r\nEND\r\nIF;\r\n        RETURN NULL;\r\nEND;\r\n$BODY$\r\nlanguage plpgsql;\r\n\r\n\r\nCREATE OR REPLACE FUNCTION raLocatesDataAudit\r\n() RETURNS TRIGGER AS\r\n$BODY$\r\nBEGIN\r\n    IF (TG_OP = \'DELETE\') THEN\r\n    INSERT INTO\r\n        ra_locates_data_audit\r\n        ("id",\r\n        "type",\r\n        "user",\r\n        "symbol",\r\n        "quantity",\r\n        "broker",\r\n        "comment",\r\n        "goodShares",\r\n        "noGoodShares",\r\n        "pendingShares",\r\n        "usedShares",\r\n        "availableShares",\r\n        "orderId",\r\n        "repId",\r\n        "status",\r\n        "poolType",\r\n        "wsResponse",\r\n        "company",\r\n        "createdBy",\r\n        "updatedBy",\r\n        "createDate",\r\n        "updatedDate",\r\n        "archDate",\r\n        "archType")\r\n    VALUES(\r\n            old."id",\r\n            old."type",\r\n            old."user",\r\n            old."symbol",\r\n            old."quantity",\r\n            old."broker",\r\n            old."comment",\r\n            old."goodShares",\r\n            old."noGoodShares",\r\n            old."pendingShares",\r\n            old."usedShares",\r\n            old."availableShares",\r\n            old."orderId",\r\n            old."repId",\r\n            old."status",\r\n            old."poolType",\r\n            old."wsResponse",\r\n            old."company",\r\n            old."createdBy",\r\n            old."updatedBy",\r\n            old."createDate",\r\n            old."updatedDate",\r\n            old."createDate",\r\n            old."updatedDate",\r\n            now(),\r\n            TG_OP);\r\n    RETURN old;\r\n    ELSIF\r\n    ((TG_OP = \'UPDATE\') OR\r\n    (TG_OP = \'INSERT\')) THEN\r\n    INSERT INTO\r\n        ra_forms_data_audit\r\n        ("id",\r\n        "type",\r\n        "user",\r\n        "symbol",\r\n        "quantity",\r\n        "broker",\r\n        "comment",\r\n        "goodShares",\r\n        "noGoodShares",\r\n        "pendingShares",\r\n        "usedShares",\r\n        "availableShares",\r\n        "orderId",\r\n        "repId",\r\n        "status",\r\n        "poolType",\r\n        "wsResponse",\r\n        "company",\r\n        "createdBy",\r\n        "updatedBy",\r\n        "createDate",\r\n        "updatedDate",\r\n        "archDate",\r\n        "archType")\r\n    VALUES(new."id",\r\n        new."type",\r\n        new."user",\r\n        new."symbol",\r\n        new."quantity",\r\n        new."broker",\r\n        new."comment",\r\n        new."goodShares",\r\n        new."noGoodShares",\r\n        new."pendingShares",\r\n        new."usedShares",\r\n        new."availableShares",\r\n        new."orderId",\r\n        new."repId",\r\n        new."status",\r\n        new."poolType",\r\n        new."wsResponse",\r\n        new."company",\r\n        new."createdBy",\r\n       new."updatedBy",\r\n        new."createDate",\r\n        new."updatedDate",\r\n            now(),\r\n            TG_OP);\r\n    RETURN new;\r\nEND\r\nIF;\r\n        RETURN NULL;\r\n\r\nEND;\r\n$BODY$\r\nlanguage plpgsql;\r\n\r\n\r\nDROP TRIGGER IF EXISTS ra_locates_data_audit_u_trigger\r\nON ra_locates_data;\r\nCREATE TRIGGER ra_flocates_data_audit_u_trigger AFTER\r\nUPDATE ON ra_locates_data\r\nFOR EACH ROW\r\nWHEN\r\n(OLD.* IS DISTINCT FROM NEW.*)\r\nEXECUTE PROCEDURE raLocatesDataAudit\r\n(\'U\');\r\n\r\nDROP TRIGGER IF EXISTS ra_forms_data_audit_u_trigger\r\nON ra_forms_data;\r\nCREATE TRIGGER ra_forms_data_audit_u_trigger AFTER\r\nUPDATE ON ra_forms_data\r\nFOR EACH ROW\r\nWHEN\r\n(OLD.* IS DISTINCT FROM NEW.*)\r\nEXECUTE PROCEDURE raFormsDataAudit\r\n(\'U\');\r\n\r\nDROP TRIGGER IF EXISTS ra_forms_spec_audit_u_trigger\r\nON ra_forms_spec;\r\nCREATE TRIGGER ra_forms_spec_audit_u_trigger AFTER\r\nUPDATE ON ra_forms_spec\r\nFOR EACH ROW\r\nWHEN\r\n(OLD.* IS DISTINCT FROM NEW.*)\r\nEXECUTE PROCEDURE raFormsSpecAudit\r\n(\'U\');\r\n\r\nDROP TRIGGER IF EXISTS ra_locates_data_audit_d_trigger\r\nON ra_locates_data;\r\nCREATE TRIGGER ra_locates_data_audit_d_trigger AFTER\r\nDELETE ON ra_forms_data\r\nFOR EACH\r\nROW\r\nEXECUTE PROCEDURE raLocatesDataAudit\r\n(\'D\');\r\n\r\nDROP TRIGGER IF EXISTS ra_forms_data_audit_d_trigger\r\nON ra_forms_data;\r\nCREATE TRIGGER ra_forms_data_audit_d_trigger AFTER\r\nDELETE ON ra_forms_data\r\nFOR EACH\r\nROW\r\nEXECUTE PROCEDURE raFormsDataAudit\r\n(\'D\');\r\n\r\nDROP TRIGGER IF EXISTS ra_forms_spec_audit_d_trigger\r\nON ra_forms_spec;\r\nCREATE TRIGGER ra_forms_spec_audit_d_trigger AFTER\r\nDELETE ON ra_forms_spec\r\nFOR EACH\r\nROW\r\nEXECUTE PROCEDURE raFormsSpecAudit\r\n(\'D\');\r\n\r\nDROP TRIGGER IF EXISTS ra_locates_data_audit_i_trigger\r\nON ra_locates_data;\r\nCREATE TRIGGER ra_locates_data_audit_i_trigger AFTER\r\nINSERT ON\r\nra_locates_data\r\nFOR\r\nEACH\r\nROW\r\nEXECUTE PROCEDURE raLocatesDataAudit\r\n(\'I\');\r\n\r\nDROP TRIGGER IF EXISTS ra_forms_data_audit_i_trigger\r\nON ra_forms_data;\r\nCREATE TRIGGER ra_forms_data_audit_i_trigger AFTER\r\nINSERT ON\r\nra_forms_data\r\nFOR\r\nEACH\r\nROW\r\nEXECUTE PROCEDURE raFormsDataAudit\r\n(\'I\');\r\n\r\nDROP TRIGGER IF EXISTS ra_forms_spec_audit_i_trigger\r\nON ra_forms_spec;\r\nCREATE TRIGGER ra_forms_spec_audit_i_trigger AFTER\r\nINSERT ON\r\nra_forms_spec\r\nFOR\r\nEACH\r\nROW\r\nEXECUTE PROCEDURE raFormsSpecAudit\r\n(\'I\');\r\n\r\nInsert into ra_preference ("name","value","userId","companyId","createDate","updatedDate","version","flag") values (\'locates.columns\',\'[\r\n        {\r\n            "fieldGroup": [\r\n                {\r\n                    "key": "symbol",\r\n                    "type": "externalList",\r\n                    "className": "flex-1",\r\n                    "templateOptions": {\r\n                        "label": "Symbol",\r\n                        "required": true,\r\n                        "multiple": false,\r\n                        "placeholder": "Symbol",\r\n                        "options": [],\r\n                        "externalList": {\r\n                            "tableName": "symbols",\r\n                            "valueExpr": "id",\r\n                            "displayExpr": "name"\r\n                        }\r\n                    },\r\n                    "expressionProperties": {\r\n                        "templateOptions.disabled": "model.id"\r\n                    }\r\n                },\r\n                {\r\n                    "key": "quantity",\r\n                    "type": "input",\r\n                    "className": "flex-1",\r\n                    "templateOptions": {\r\n                        "label": "Quantity",\r\n                        "type": "number",\r\n                        "required": false,\r\n                        "placeholder": "Quantity"\r\n                    }\r\n                },\r\n                {\r\n                    "key": "broker",\r\n                    "type": "externalList",\r\n                    "className": "flex-1",\r\n                    "templateOptions": {\r\n                        "label": "Broker",\r\n                        "required": true,\r\n                        "multiple": false,\r\n                        "placeholder": "Broker",\r\n                        "options": [],\r\n                        "externalList": {\r\n                            "tableName": "brokers",\r\n                            "valueExpr": "id",\r\n                            "displayExpr": "name"\r\n                        }\r\n                    },\r\n                    "expressionProperties": {\r\n                        "templateOptions.disabled": "model.id"\r\n                    }\r\n                }\r\n            ],\r\n            "fieldGroupClassName": "display-flex"\r\n        },\r\n        {\r\n            "key": "comment",\r\n            "type": "input",\r\n            "templateOptions": {\r\n                "label": "Comment",\r\n                "required": false,\r\n                "placeholder": "Comment"\r\n            }\r\n        },\r\n        { "hitlist": true, "caption": "Used Shares", "key": "usedShares", "type": "number" },\r\n        { "hitlist": true, "caption": "Available Shares", "key": "availableShares", "type": "number" },\r\n        { "hitlist": true, "caption": "Status", "key": "status", "type": "string" },\r\n        { "hitlist": true, "caption": "Created", "key": "createDate", "type": "datepicker" },\r\n        { "hitlist": true, "caption": "Created By", "key": "createdBy", "type": "string" },\r\n        { "hitlist": true, "caption": "Update Date", "key": "updatedDate", "type": "datepicker" },\r\n        { "hitlist": true, "caption": "Update By", "key": "updatedBy", "type": "string" }]\',0,0,NOW(),NOW(),\'2.0.1\',null);\r\n\r\n\r\nCREATE OR REPLACE FUNCTION NOTIFY_TRG() RETURNS trigger AS\r\n$BODY$\r\nBEGIN\r\n  PERFORM pg_notify(\'locatesUpdateEvt\', row_to_json(NEW)::text);\r\n  RETURN new;\r\nEND;\r\n$BODY$\r\nLANGUAGE \'plpgsql\' VOLATILE COST 100;\r\n\r\nCREATE TRIGGER ra_locates_update_trg\r\nAFTER INSERT\r\nON ra_locates_update\r\nFOR EACH ROW\r\nEXECUTE PROCEDURE NOTIFY_TRG();\r\n\r\n\r\n',
+  parameters: [] }
+
+MONITOR stderr: 
+MONITOR stdout: [32m[Nest] 3996   - [39m2019-09-25 4:25 PM   [33m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 3996   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mEnvironmentsModule dependencies initialized[39m[33m +82ms[39m
+[32m[Nest] 3996   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mPassportModule dependencies initialized[39m[33m +0ms[39m
+[32m[Nest] 3996   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mEERouterModule dependencies initialized[39m[33m +1ms[39m
+[32m[Nest] 3996   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mQueueModule dependencies initialized[39m[33m +1ms[39m
+[32m[Nest] 3996   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mJwtModule dependencies initialized[39m[33m +1ms[39m
+[32m[Nest] 3996   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[33m +2ms[39m
+[2019-09-25 16:25:12] [[35mSILLY[39m] - [35m[ 'PASS ENTITIES, COUNT: 8' ][39m
+[2019-09-25 16:25:12] [[35mSILLY[39m] - [35m[ [ [Function: RaUser],[39m
+[35m    [Function: RaCompany],[39m
+[35m    [Function: RaPreference],[39m
+[35m    [Function: RaObjectRights],[39m
+[35m    [Function: RaAuditTrail],[39m
+[35m    [Function: RaAppDirectory],[39m
+[35m    [Function: RaAppDirectoryIntent],[39m
+[35m    [Function: RaAppDirectoryType] ] ][39m
+[2019-09-25 16:25:12] [[35mSILLY[39m] - [35m[ 'BEFORE NEW DB CONNECTION' ][39m
+[2019-09-25 16:25:12] [[32mINFO[39m] - [32m[ 'CONNECTED TO NATS' ][39m
+[2019-09-25 16:25:12] [[32mINFO[39m] - [32m[ 'CHANNEL TO NATS' ][39m
+[32m[Nest] 3996   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mConnectionModule dependencies initialized[39m[33m +18ms[39m
+[2019-09-25 16:25:12] [[32mINFO[39m] - [32m[ 'NATS: CREATING CONSUMER FOR: web_1_1' ][39m
+[2019-09-25 16:25:12] [[32mINFO[39m] - [32m[ 'UNSUBSCRIBE ALL BEFORE START' ][39m
+[2019-09-25 16:25:12] [[35mSILLY[39m] - [35m[ '----START MIDDLEWARE RUNNER----' ][39m
+[2019-09-25 16:25:12] [[35mSILLY[39m] - [35m[ 'RUNNING OutMiddleware MIDDLEWARE' ][39m
+[2019-09-25 16:25:12] [[32mINFO[39m] - [32m[ 'OUT MIDDLEWARE: {"id":20190925670714864,"type":"unsubscribeAll"}...' ][39m
+[2019-09-25 16:25:12] [[35mSILLY[39m] - [35m[ '----END MIDDLEWARE RUNNER----' ][39m
+[32m[Nest] 3996   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[33m +5ms[39m
+[32m[Nest] 3996   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mMonitorModule dependencies initialized[39m[33m +5ms[39m
+[32m[Nest] 3996   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mCoreModule dependencies initialized[39m[33m +53ms[39m
+query: START TRANSACTION
+query: SELECT * FROM current_schema()
+query: SELECT * FROM "information_schema"."tables" WHERE ("table_schema" = 'public' AND "table_name" = 'ra_preference') OR ("table_schema" = 'public' AND "table_name" = 'ra_company') OR ("table_schema" = 'public' AND "table_name" = 'ra_user') OR ("table_schema" = 'public' AND "table_name" = 'ra_object_rights') OR ("table_schema" = 'public' AND "table_name" = 'ra_app_directory_intent') OR ("table_schema" = 'public' AND "table_name" = 'ra_app_directory_type') OR ("table_schema" = 'public' AND "table_name" = 'ra_app_directory') OR ("table_schema" = 'public' AND "table_name" = 'ra_audit_trail')
+query: SELECT *, "udt_name"::"regtype" AS "regtype" FROM "information_schema"."columns" WHERE ("table_schema" = 'public' AND "table_name" = 'ra_preference') OR ("table_schema" = 'public' AND "table_name" = 'ra_company') OR ("table_schema" = 'public' AND "table_name" = 'ra_user') OR ("table_schema" = 'public' AND "table_name" = 'ra_object_rights') OR ("table_schema" = 'public' AND "table_name" = 'ra_app_directory_intent') OR ("table_schema" = 'public' AND "table_name" = 'ra_app_directory_type') OR ("table_schema" = 'public' AND "table_name" = 'ra_app_directory') OR ("table_schema" = 'public' AND "table_name" = 'ra_audit_trail')
+query: SELECT "ns"."nspname" AS "table_schema", "t"."relname" AS "table_name", "cnst"."conname" AS "constraint_name", "cnst"."consrc" AS "expression", CASE "cnst"."contype" WHEN 'p' THEN 'PRIMARY' WHEN 'u' THEN 'UNIQUE' WHEN 'c' THEN 'CHECK' END AS "constraint_type", "a"."attname" AS "column_name" FROM "pg_constraint" "cnst" INNER JOIN "pg_class" "t" ON "t"."oid" = "cnst"."conrelid" INNER JOIN "pg_namespace" "ns" ON "ns"."oid" = "cnst"."connamespace" INNER JOIN "pg_attribute" "a" ON "a"."attrelid" = "cnst"."conrelid" AND "a"."attnum" = ANY ("cnst"."conkey") WHERE "t"."relkind" = 'r' AND (("ns"."nspname" = 'public' AND "t"."relname" = 'ra_preference') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_company') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_user') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_object_rights') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_app_directory_intent') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_app_directory_type') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_app_directory') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_audit_trail'))
+query: SELECT "ns"."nspname" AS "table_schema", "t"."relname" AS "table_name", "i"."relname" AS "constraint_name", "a"."attname" AS "column_name", CASE "ix"."indisunique" WHEN 't' THEN 'TRUE' ELSE'FALSE' END AS "is_unique", pg_get_expr("ix"."indpred", "ix"."indrelid") AS "condition" FROM "pg_class" "t" INNER JOIN "pg_index" "ix" ON "ix"."indrelid" = "t"."oid" INNER JOIN "pg_attribute" "a" ON "a"."attrelid" = "t"."oid"  AND "a"."attnum" = ANY ("ix"."indkey") INNER JOIN "pg_namespace" "ns" ON "ns"."oid" = "t"."relnamespace" INNER JOIN "pg_class" "i" ON "i"."oid" = "ix"."indexrelid" LEFT JOIN "pg_constraint" "cnst" ON "cnst"."conname" = "i"."relname" WHERE "t"."relkind" = 'r' AND "cnst"."contype" IS NULL AND (("ns"."nspname" = 'public' AND "t"."relname" = 'ra_preference') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_company') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_user') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_object_rights') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_app_directory_intent') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_app_directory_type') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_app_directory') OR ("ns"."nspname" = 'public' AND "t"."relname" = 'ra_audit_trail'))
+query: SELECT "con"."conname" AS "constraint_name", "con"."nspname" AS "table_schema", "con"."relname" AS "table_name", "att2"."attname" AS "column_name", "ns"."nspname" AS "referenced_table_schema", "cl"."relname" AS "referenced_table_name", "att"."attname" AS "referenced_column_name", "con"."confdeltype" AS "on_delete", "con"."confupdtype" AS "on_update" FROM ( SELECT UNNEST ("con1"."conkey") AS "parent", UNNEST ("con1"."confkey") AS "child", "con1"."confrelid", "con1"."conrelid", "con1"."conname", "con1"."contype", "ns"."nspname", "cl"."relname", CASE "con1"."confdeltype" WHEN 'a' THEN 'NO ACTION' WHEN 'r' THEN 'RESTRICT' WHEN 'c' THEN 'CASCADE' WHEN 'n' THEN 'SET NULL' WHEN 'd' THEN 'SET DEFAULT' END as "confdeltype", CASE "con1"."confupdtype" WHEN 'a' THEN 'NO ACTION' WHEN 'r' THEN 'RESTRICT' WHEN 'c' THEN 'CASCADE' WHEN 'n' THEN 'SET NULL' WHEN 'd' THEN 'SET DEFAULT' END as "confupdtype" FROM "pg_class" "cl" INNER JOIN "pg_namespace" "ns" ON "cl"."relnamespace" = "ns"."oid" INNER JOIN "pg_constraint" "con1" ON "con1"."conrelid" = "cl"."oid" WHERE "con1"."contype" = 'f' AND (("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_preference') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_company') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_user') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_object_rights') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_app_directory_intent') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_app_directory_type') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_app_directory') OR ("ns"."nspname" = 'public' AND "cl"."relname" = 'ra_audit_trail')) ) "con" INNER JOIN "pg_attribute" "att" ON "att"."attrelid" = "con"."confrelid" AND "att"."attnum" = "con"."child" INNER JOIN "pg_class" "cl" ON "cl"."oid" = "con"."confrelid" INNER JOIN "pg_namespace" "ns" ON "cl"."relnamespace" = "ns"."oid" INNER JOIN "pg_attribute" "att2" ON "att2"."attrelid" = "con"."conrelid" AND "att2"."attnum" = "con"."parent"
+query: COMMIT
+[2019-09-25 16:25:13] [[35mSILLY[39m] - [35m[ 'GET NEW DB CONNECTION' ][39m
+[2019-09-25 16:25:13] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:13] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:13] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:13] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:13] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:13] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:13] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[2019-09-25 16:25:13] [[35mSILLY[39m] - [35m[ 'RETURN DB CONNECTION' ][39m
+[32m[Nest] 3996   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mDaoModule dependencies initialized[39m[33m +608ms[39m
+[32m[Nest] 3996   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[33m +3ms[39m
+[32m[Nest] 3996   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mLayoutModule dependencies initialized[39m[33m +2ms[39m
+[32m[Nest] 3996   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mAppDirectoryModule dependencies initialized[39m[33m +1ms[39m
+[32m[Nest] 3996   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mPreferencesModule dependencies initialized[39m[33m +0ms[39m
+[32m[Nest] 3996   - [39m2019-09-25 4:25 PM   [33m[InstanceLoader] [39m[32mUsersModule dependencies initialized[39m[33m +1ms[39m
+

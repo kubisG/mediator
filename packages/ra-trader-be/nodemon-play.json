@@ -1,0 +1,10 @@
+{
+  "watch": [
+    "play.ts"
+  ],
+  "ext": "ts",
+  "ignore": [
+    "src/**/*.spec.ts"
+  ],
+  "exec": "ts-node play.ts"
+}

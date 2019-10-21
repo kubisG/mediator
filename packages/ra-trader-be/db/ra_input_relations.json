@@ -1,0 +1,919 @@
+[
+    {
+        "relid": 1,
+        "parentid": 21,
+        "childid": 22,
+        "rootid": 1,
+        "companyid": 0
+    },
+    {
+        "relid": 2,
+        "parentid": 1,
+        "childid": 30,
+        "rootid": 1,
+        "companyid": 0
+    },
+    {
+        "relid": 3,
+        "parentid": 21,
+        "childid": 23,
+        "rootid": 1,
+        "companyid": 0
+    },
+    {
+        "relid": 4,
+        "parentid": 1,
+        "childid": 31,
+        "rootid": 1,
+        "companyid": 0
+    },
+    {
+        "relid": 5,
+        "parentid": 4,
+        "childid": 8,
+        "rootid": 2,
+        "companyid": 0
+    },
+    {
+        "relid": 6,
+        "parentid": 4,
+        "childid": 7,
+        "rootid": 2,
+        "companyid": 0
+    },
+    {
+        "relid": 7,
+        "parentid": 3,
+        "childid": 10,
+        "rootid": 1,
+        "companyid": 0
+    },
+    {
+        "relid": 8,
+        "parentid": 3,
+        "childid": 9,
+        "rootid": 1,
+        "companyid": 0
+    },
+    {
+        "relid": 9,
+        "parentid": 1,
+        "childid": 15,
+        "rootid": 1,
+        "companyid": 0
+    },
+    {
+        "relid": 10,
+        "parentid": 3,
+        "childid": 13,
+        "rootid": 1,
+        "companyid": 0
+    },
+    {
+        "relid": 11,
+        "parentid": 1,
+        "childid": 21,
+        "rootid": 1,
+        "companyid": 0
+    },
+    {
+        "relid": 12,
+        "parentid": 2,
+        "childid": 4,
+        "rootid": 2,
+        "companyid": 0
+    },
+    {
+        "relid": 13,
+        "parentid": 1,
+        "childid": 3,
+        "rootid": 1,
+        "companyid": 0
+    },
+    {
+        "relid": 14,
+        "parentid": 1005,
+        "childid": 1006,
+        "rootid": 1005,
+        "companyid": 0
+    },
+    {
+        "relid": 15,
+        "parentid": 1025,
+        "childid": 1028,
+        "rootid": 1025,
+        "companyid": 0
+    },
+    {
+        "relid": 16,
+        "parentid": 1025,
+        "childid": 1029,
+        "rootid": 1025,
+        "companyid": 0
+    },
+    {
+        "relid": 17,
+        "parentid": 1015,
+        "childid": 1019,
+        "rootid": 1015,
+        "companyid": 0
+    },
+    {
+        "relid": 18,
+        "parentid": 1030,
+        "childid": 1031,
+        "rootid": 1030,
+        "companyid": 0
+    },
+    {
+        "relid": 19,
+        "parentid": 1025,
+        "childid": 1026,
+        "rootid": 1025,
+        "companyid": 0
+    },
+    {
+        "relid": 20,
+        "parentid": 1025,
+        "childid": 1027,
+        "rootid": 1025,
+        "companyid": 0
+    },
+    {
+        "relid": 21,
+        "parentid": 1015,
+        "childid": 1016,
+        "rootid": 1015,
+        "companyid": 0
+    },
+    {
+        "relid": 22,
+        "parentid": 1015,
+        "childid": 1017,
+        "rootid": 1015,
+        "companyid": 0
+    },
+    {
+        "relid": 23,
+        "parentid": 1015,
+        "childid": 1018,
+        "rootid": 1015,
+        "companyid": 0
+    },
+    {
+        "relid": 24,
+        "parentid": 1037,
+        "childid": 1038,
+        "rootid": 1037,
+        "companyid": 0
+    },
+    {
+        "relid": 25,
+        "parentid": 1037,
+        "childid": 1039,
+        "rootid": 1037,
+        "companyid": 0
+    },
+    {
+        "relid": 26,
+        "parentid": 1037,
+        "childid": 1040,
+        "rootid": 1037,
+        "companyid": 0
+    },
+    {
+        "relid": 27,
+        "parentid": 1037,
+        "childid": 1041,
+        "rootid": 1037,
+        "companyid": 0
+    },
+    {
+        "relid": 28,
+        "parentid": 1007,
+        "childid": 1010,
+        "rootid": 1007,
+        "companyid": 0
+    },
+    {
+        "relid": 29,
+        "parentid": 1007,
+        "childid": 1011,
+        "rootid": 1007,
+        "companyid": 0
+    },
+    {
+        "relid": 30,
+        "parentid": 1037,
+        "childid": 1042,
+        "rootid": 1037,
+        "companyid": 0
+    },
+    {
+        "relid": 31,
+        "parentid": 1037,
+        "childid": 1043,
+        "rootid": 1037,
+        "companyid": 0
+    },
+    {
+        "relid": 32,
+        "parentid": 1037,
+        "childid": 1044,
+        "rootid": 1037,
+        "companyid": 0
+    },
+    {
+        "relid": 33,
+        "parentid": 1037,
+        "childid": 1045,
+        "rootid": 1037,
+        "companyid": 0
+    },
+    {
+        "relid": 34,
+        "parentid": 103,
+        "childid": 1046,
+        "rootid": 103,
+        "companyid": 0
+    },
+    {
+        "relid": 35,
+        "parentid": 1,
+        "childid": 1047,
+        "rootid": 1,
+        "companyid": 0
+    },
+    {
+        "relid": 36,
+        "parentid": 1007,
+        "childid": 1013,
+        "rootid": 1007,
+        "companyid": 0
+    },
+    {
+        "relid": 37,
+        "parentid": 1007,
+        "childid": 1056,
+        "rootid": 1007,
+        "companyid": 0
+    },
+    {
+        "relid": 38,
+        "parentid": 1057,
+        "childid": 1068,
+        "rootid": 1057,
+        "companyid": 0
+    },
+    {
+        "relid": 39,
+        "parentid": 1057,
+        "childid": 1069,
+        "rootid": 1057,
+        "companyid": 0
+    },
+    {
+        "relid": 40,
+        "parentid": 1057,
+        "childid": 1070,
+        "rootid": 1057,
+        "companyid": 0
+    },
+    {
+        "relid": 41,
+        "parentid": 1061,
+        "childid": 1072,
+        "rootid": 1061,
+        "companyid": 0
+    },
+    {
+        "relid": 42,
+        "parentid": 1061,
+        "childid": 1073,
+        "rootid": 1061,
+        "companyid": 0
+    },
+    {
+        "relid": 43,
+        "parentid": 1061,
+        "childid": 1074,
+        "rootid": 1061,
+        "companyid": 0
+    },
+    {
+        "relid": 44,
+        "parentid": 1075,
+        "childid": 1076,
+        "rootid": 1075,
+        "companyid": 0
+    },
+    {
+        "relid": 45,
+        "parentid": 1075,
+        "childid": 1077,
+        "rootid": 1075,
+        "companyid": 0
+    },
+    {
+        "relid": 46,
+        "parentid": 1075,
+        "childid": 1078,
+        "rootid": 1075,
+        "companyid": 0
+    },
+    {
+        "relid": 47,
+        "parentid": 1015,
+        "childid": 1021,
+        "rootid": 1015,
+        "companyid": 0
+    },
+    {
+        "relid": 48,
+        "parentid": 1015,
+        "childid": 1022,
+        "rootid": 1015,
+        "companyid": 0
+    },
+    {
+        "relid": 49,
+        "parentid": 1015,
+        "childid": 1023,
+        "rootid": 1015,
+        "companyid": 0
+    },
+    {
+        "relid": 50,
+        "parentid": 1015,
+        "childid": 1024,
+        "rootid": 1015,
+        "companyid": 0
+    },
+    {
+        "relid": 51,
+        "parentid": 1030,
+        "childid": 1032,
+        "rootid": 1030,
+        "companyid": 0
+    },
+    {
+        "relid": 52,
+        "parentid": 1015,
+        "childid": 1020,
+        "rootid": 1015,
+        "companyid": 0
+    },
+    {
+        "relid": 53,
+        "parentid": 1030,
+        "childid": 1033,
+        "rootid": 1030,
+        "companyid": 0
+    },
+    {
+        "relid": 54,
+        "parentid": 1030,
+        "childid": 1034,
+        "rootid": 1030,
+        "companyid": 0
+    },
+    {
+        "relid": 55,
+        "parentid": 1030,
+        "childid": 1035,
+        "rootid": 1030,
+        "companyid": 0
+    },
+    {
+        "relid": 56,
+        "parentid": 1030,
+        "childid": 1036,
+        "rootid": 1030,
+        "companyid": 0
+    },
+    {
+        "relid": 57,
+        "parentid": 1080,
+        "childid": 1082,
+        "rootid": 1080,
+        "companyid": 0
+    },
+    {
+        "relid": 58,
+        "parentid": 1082,
+        "childid": 1083,
+        "rootid": 1080,
+        "companyid": 0
+    },
+    {
+        "relid": 59,
+        "parentid": 1084,
+        "childid": 1085,
+        "rootid": 1084,
+        "companyid": 0
+    },
+    {
+        "relid": 60,
+        "parentid": 1084,
+        "childid": 1086,
+        "rootid": 1084,
+        "companyid": 0
+    },
+    {
+        "relid": 61,
+        "parentid": 1084,
+        "childid": 1088,
+        "rootid": 1084,
+        "companyid": 0
+    },
+    {
+        "relid": 62,
+        "parentid": 1135,
+        "childid": 1136,
+        "rootid": 1135,
+        "companyid": 0
+    },
+    {
+        "relid": 63,
+        "parentid": 1135,
+        "childid": 1137,
+        "rootid": 1135,
+        "companyid": 0
+    },
+    {
+        "relid": 64,
+        "parentid": 1080,
+        "childid": 1081,
+        "rootid": 1080,
+        "companyid": 0
+    },
+    {
+        "relid": 65,
+        "parentid": 603,
+        "childid": 608,
+        "rootid": 603,
+        "companyid": 0
+    },
+    {
+        "relid": 66,
+        "parentid": 603,
+        "childid": 609,
+        "rootid": 603,
+        "companyid": 0
+    },
+    {
+        "relid": 67,
+        "parentid": 609,
+        "childid": 610,
+        "rootid": 603,
+        "companyid": 0
+    },
+    {
+        "relid": 68,
+        "parentid": 606,
+        "childid": 611,
+        "rootid": 603,
+        "companyid": 0
+    },
+    {
+        "relid": 69,
+        "parentid": 641,
+        "childid": 642,
+        "rootid": 641,
+        "companyid": 0
+    },
+    {
+        "relid": 70,
+        "parentid": 641,
+        "childid": 643,
+        "rootid": 641,
+        "companyid": 0
+    },
+    {
+        "relid": 71,
+        "parentid": 1137,
+        "childid": 1138,
+        "rootid": 1135,
+        "companyid": 0
+    },
+    {
+        "relid": 72,
+        "parentid": 1147,
+        "childid": 1149,
+        "rootid": 1147,
+        "companyid": 0
+    },
+    {
+        "relid": 73,
+        "parentid": 1149,
+        "childid": 1150,
+        "rootid": 1147,
+        "companyid": 0
+    },
+    {
+        "relid": 74,
+        "parentid": 646,
+        "childid": 647,
+        "rootid": 646,
+        "companyid": 0
+    },
+    {
+        "relid": 75,
+        "parentid": 646,
+        "childid": 648,
+        "rootid": 646,
+        "companyid": 0
+    },
+    {
+        "relid": 76,
+        "parentid": 648,
+        "childid": 1175,
+        "rootid": 646,
+        "companyid": 0
+    },
+    {
+        "relid": 77,
+        "parentid": 1171,
+        "childid": 1172,
+        "rootid": 1171,
+        "companyid": 0
+    },
+    {
+        "relid": 78,
+        "parentid": 612,
+        "childid": 613,
+        "rootid": 612,
+        "companyid": 0
+    },
+    {
+        "relid": 79,
+        "parentid": 612,
+        "childid": 618,
+        "rootid": 612,
+        "companyid": 0
+    },
+    {
+        "relid": 80,
+        "parentid": 659,
+        "childid": 660,
+        "rootid": 659,
+        "companyid": 0
+    },
+    {
+        "relid": 81,
+        "parentid": 650,
+        "childid": 652,
+        "rootid": 650,
+        "companyid": 0
+    },
+    {
+        "relid": 82,
+        "parentid": 650,
+        "childid": 651,
+        "rootid": 650,
+        "companyid": 0
+    },
+    {
+        "relid": 83,
+        "parentid": 1092,
+        "childid": 1093,
+        "rootid": 1092,
+        "companyid": 0
+    },
+    {
+        "relid": 84,
+        "parentid": 659,
+        "childid": 661,
+        "rootid": 659,
+        "companyid": 0
+    },
+    {
+        "relid": 85,
+        "parentid": 1093,
+        "childid": 1094,
+        "rootid": 1092,
+        "companyid": 0
+    },
+    {
+        "relid": 86,
+        "parentid": 1092,
+        "childid": 1095,
+        "rootid": 1092,
+        "companyid": 0
+    },
+    {
+        "relid": 87,
+        "parentid": 1143,
+        "childid": 1144,
+        "rootid": 1143,
+        "companyid": 0
+    },
+    {
+        "relid": 88,
+        "parentid": 1143,
+        "childid": 1145,
+        "rootid": 1143,
+        "companyid": 0
+    },
+    {
+        "relid": 89,
+        "parentid": 1145,
+        "childid": 1146,
+        "rootid": 1143,
+        "companyid": 0
+    },
+    {
+        "relid": 90,
+        "parentid": 669,
+        "childid": 670,
+        "rootid": 669,
+        "companyid": 0
+    },
+    {
+        "relid": 91,
+        "parentid": 1167,
+        "childid": 1168,
+        "rootid": 1167,
+        "companyid": 0
+    },
+    {
+        "relid": 92,
+        "parentid": 1167,
+        "childid": 1169,
+        "rootid": 1167,
+        "companyid": 0
+    },
+    {
+        "relid": 93,
+        "parentid": 1169,
+        "childid": 1170,
+        "rootid": 1167,
+        "companyid": 0
+    },
+    {
+        "relid": 94,
+        "parentid": 669,
+        "childid": 671,
+        "rootid": 669,
+        "companyid": 0
+    },
+    {
+        "relid": 95,
+        "parentid": 671,
+        "childid": 675,
+        "rootid": 669,
+        "companyid": 0
+    },
+    {
+        "relid": 96,
+        "parentid": 669,
+        "childid": 673,
+        "rootid": 669,
+        "companyid": 0
+    },
+    {
+        "relid": 97,
+        "parentid": 1131,
+        "childid": 1132,
+        "rootid": 1131,
+        "companyid": 0
+    },
+    {
+        "relid": 98,
+        "parentid": 1131,
+        "childid": 1133,
+        "rootid": 1131,
+        "companyid": 0
+    },
+    {
+        "relid": 99,
+        "parentid": 1133,
+        "childid": 1134,
+        "rootid": 1131,
+        "companyid": 0
+    },
+    {
+        "relid": 100,
+        "parentid": 1086,
+        "childid": 1091,
+        "rootid": 1084,
+        "companyid": 0
+    },
+    {
+        "relid": 101,
+        "parentid": 1086,
+        "childid": 1087,
+        "rootid": 1084,
+        "companyid": 0
+    },
+    {
+        "relid": 102,
+        "parentid": 1086,
+        "childid": 1089,
+        "rootid": 1084,
+        "companyid": 0
+    },
+    {
+        "relid": 103,
+        "parentid": 1084,
+        "childid": 1090,
+        "rootid": 1084,
+        "companyid": 0
+    },
+    {
+        "relid": 104,
+        "parentid": 1139,
+        "childid": 1140,
+        "rootid": 1139,
+        "companyid": 0
+    },
+    {
+        "relid": 105,
+        "parentid": 1139,
+        "childid": 1141,
+        "rootid": 1139,
+        "companyid": 0
+    },
+    {
+        "relid": 106,
+        "parentid": 1141,
+        "childid": 1142,
+        "rootid": 1139,
+        "companyid": 0
+    },
+    {
+        "relid": 107,
+        "parentid": 1171,
+        "childid": 1173,
+        "rootid": 1171,
+        "companyid": 0
+    },
+    {
+        "relid": 108,
+        "parentid": 1173,
+        "childid": 1174,
+        "rootid": 1171,
+        "companyid": 0
+    },
+    {
+        "relid": 109,
+        "parentid": 664,
+        "childid": 665,
+        "rootid": 664,
+        "companyid": 0
+    },
+    {
+        "relid": 110,
+        "parentid": 664,
+        "childid": 666,
+        "rootid": 664,
+        "companyid": 0
+    },
+    {
+        "relid": 111,
+        "parentid": 1147,
+        "childid": 1148,
+        "rootid": 1147,
+        "companyid": 0
+    },
+    {
+        "relid": 112,
+        "parentid": 613,
+        "childid": 1177,
+        "rootid": 612,
+        "companyid": 0
+    },
+    {
+        "relid": 113,
+        "parentid": 612,
+        "childid": 1178,
+        "rootid": 612,
+        "companyid": 0
+    },
+    {
+        "relid": 114,
+        "parentid": 1178,
+        "childid": 1179,
+        "rootid": 612,
+        "companyid": 0
+    },
+    {
+        "relid": 115,
+        "parentid": 1171,
+        "childid": 1194,
+        "rootid": 1171,
+        "companyid": 0
+    },
+    {
+        "relid": 116,
+        "parentid": 1084,
+        "childid": 1195,
+        "rootid": 1084,
+        "companyid": 0
+    },
+    {
+        "relid": 117,
+        "parentid": 1135,
+        "childid": 1196,
+        "rootid": 1135,
+        "companyid": 0
+    },
+    {
+        "relid": 118,
+        "parentid": 1080,
+        "childid": 1197,
+        "rootid": 1080,
+        "companyid": 0
+    },
+    {
+        "relid": 119,
+        "parentid": 1139,
+        "childid": 1198,
+        "rootid": 1139,
+        "companyid": 0
+    },
+    {
+        "relid": 120,
+        "parentid": 664,
+        "childid": 1199,
+        "rootid": 664,
+        "companyid": 0
+    },
+    {
+        "relid": 121,
+        "parentid": 646,
+        "childid": 1200,
+        "rootid": 646,
+        "companyid": 0
+    },
+    {
+        "relid": 122,
+        "parentid": 661,
+        "childid": 1176,
+        "rootid": 659,
+        "companyid": 0
+    },
+    {
+        "relid": 123,
+        "parentid": 659,
+        "childid": 1201,
+        "rootid": 659,
+        "companyid": 0
+    },
+    {
+        "relid": 124,
+        "parentid": 650,
+        "childid": 1202,
+        "rootid": 650,
+        "companyid": 0
+    },
+    {
+        "relid": 125,
+        "parentid": 669,
+        "childid": 1203,
+        "rootid": 669,
+        "companyid": 0
+    },
+    {
+        "relid": 126,
+        "parentid": 1143,
+        "childid": 1204,
+        "rootid": 1143,
+        "companyid": 0
+    },
+    {
+        "relid": 127,
+        "parentid": 1167,
+        "childid": 1205,
+        "rootid": 1167,
+        "companyid": 0
+    },
+    {
+        "relid": 128,
+        "parentid": 1092,
+        "childid": 1206,
+        "rootid": 1092,
+        "companyid": 0
+    },
+    {
+        "relid": 129,
+        "parentid": 1131,
+        "childid": 1207,
+        "rootid": 1131,
+        "companyid": 0
+    },
+    {
+        "relid": 130,
+        "parentid": 0,
+        "childid": 1187,
+        "rootid": 0,
+        "companyid": 0
+    },
+    {
+        "relid": 131,
+        "parentid": 0,
+        "childid": 1186,
+        "rootid": 0,
+        "companyid": 0
+    }
+]

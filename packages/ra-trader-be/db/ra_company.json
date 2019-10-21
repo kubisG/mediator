@@ -1,0 +1,11 @@
+[
+    {
+        "id": 1,
+        "companyName": "Rapid Addition",
+        "street": "Pobřežní",
+        "city": "Prague",
+        "numInStreet": "3",
+        "state": "CZ",
+        "ClientID": "RAPID"
+    }
+]

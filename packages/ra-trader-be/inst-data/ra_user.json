@@ -1,0 +1,15 @@
+[
+    {
+        "id": 1,
+        "username": "RapidAdmin",
+        "password": "$2a$10$361g9PP1rx2B7Ax5IUms4ebVxVNm5Um2bCJHLMCZBtr.uQMp5cPcG",
+        "firstName": "Support",
+        "lastName": "Rapid",
+        "email": "support@rapidaddition.com",
+        "class": "ADMIN",
+        "companyId": 1,
+        "currentBalance": "{\"CZK\": 0, \"EUR\": 0, \"GBP\": 0, \"GBp\": 0, \"USD\": 0, \"Rand\": 0}",
+        "openBalance": "{}",
+        "app": 0
+    }
+]

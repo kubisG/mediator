@@ -1,0 +1,7 @@
+image: node:12.8.0
+pipelines:
+    pull-requests:
+        feature/*:
+            - step:
+                  script:
+                      - npm install
