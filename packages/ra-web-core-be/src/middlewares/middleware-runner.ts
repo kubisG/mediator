@@ -22,7 +22,7 @@ export class MiddlewareRunner {
     public async runOnly(data: any, context: ContextMiddlewareInterface, runMid: string[]) {
         for (let i = 0; i < this.middlewares.length; i++) {
             if (runMid.indexOf(this.middlewares[i].constructor.name) > -1) {
-                this.logger.debug(`RUNNING ${this.middlewares[i].constructor.name} MIDDLEWARE`);
+                this.logger.debug(`${context.id} RUNNING ${this.middlewares[i].constructor.name} MIDDLEWARE`);
                 data = await this.middlewares[i].resolve(data, context);
                 if (!data) {
                     throw new NoDataError(`${this.middlewares[i].constructor.name} MIDDLEWARE return ${data}`);
@@ -33,7 +33,7 @@ export class MiddlewareRunner {
     }
 
     public async run(data: any, context: ContextMiddlewareInterface) {
-        this.logger.silly(`----START MIDDLEWARE RUNNER----`);
+        this.logger.silly(`${context.id} ----START MIDDLEWARE RUNNER----`);
         const runMid = data.runMid ? data.runMid : [];
         delete data.runMid;
         if (runMid.length > 0) {
@@ -41,13 +41,16 @@ export class MiddlewareRunner {
             return;
         }
         for (let i = 0; i < this.middlewares.length; i++) {
-            this.logger.silly(`RUNNING ${this.middlewares[i].constructor.name} MIDDLEWARE`);
+            this.logger.silly(`${context.id} RUNNING ${this.middlewares[i].constructor.name} MIDDLEWARE`);
             data = await this.middlewares[i].resolve(data, context);
+            if ((!data) && (context.finish) && (context.finish === true)) {
+                return;
+            }
             if (!data) {
                 throw new NoDataError(`${this.middlewares[i].constructor.name} MIDDLEWARE return ${data}`);
             }
         }
-        this.logger.silly(`----END MIDDLEWARE RUNNER----`);
+        this.logger.silly(`${context.id} ----END MIDDLEWARE RUNNER----`);
         return data;
     }
 

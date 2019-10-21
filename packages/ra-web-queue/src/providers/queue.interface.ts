@@ -12,6 +12,8 @@ export interface Queue {
     sendToQueue(msg: any, queue?: string): Promise<boolean>;
     consumeQueue(queue?: string): Observable<any>;
 
+    sendInternalMsg(msg, queue): Promise<any>;
+
     ack(fields: any);
     nack(fields: any);
 
