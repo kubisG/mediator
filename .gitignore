@@ -8,9 +8,6 @@
 /dist
 /tmp
 /out-tsc
-packages/**/*.d.ts
-packages/**/*.js
-packages/**/*.js.map
 !packages/jest.config.js
 !packages/**/jest.config.js
 
