@@ -17,6 +17,10 @@ export class QueueService {
         if (!this.messages[id]) {
             this.messages[id] = { queue: [] };
             result = true;
+            this.messages[id].queue.push({ message, context });
+        // resended message
+        } else if ((this.messages[id].queue.length > 0) && (message.current)) {
+            result = true;
         } else {
             this.messages[id].queue.push({ message, context });
         }
@@ -34,12 +38,11 @@ export class QueueService {
         console.log("id", id);
         console.log("FROMQUEUE,", this.messages);
 
-        if ((this.messages[id]) && (this.messages[id].queue) && (this.messages[id].queue.length > 0)) {
-            // if we have more messages, return next
-            const next = this.messages[id].queue.shift();
-            if (this.messages[id].queue.length === 0) {
-                delete this.messages[id];
-            }
+        if ((this.messages[id]) && (this.messages[id].queue) && (this.messages[id].queue.length > 1)) {
+            // if we have more messages, return next and keep it in array
+            const current = this.messages[id].queue.shift();
+            const next = { ...this.messages[id].queue[0] };
+            next.message.current = true;
             return next;
         } else {
             // clear queue

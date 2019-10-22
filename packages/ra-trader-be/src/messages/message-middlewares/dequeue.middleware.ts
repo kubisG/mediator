@@ -14,7 +14,6 @@ export class DeQueueMiddleware implements MessageMiddleware {
 
     async resolve(data: any, context: ContextMiddlewareInterface): Promise<any> {
         this.logger.warn(`${context.id} DEQUEUING ${logMessage(data)}`);
-        return data;
         const next = this.queueService.runFromQueue(data, context);
 
         console.log("next", next);

@@ -44,8 +44,6 @@ export const messagesRouting = [
                 Apps.broker,
             );
 
-            console.log("REPO", companyRepository);
-
             const companies = await companyRepository.find();
             for (let i = 0; i < companies.length; i++) {
                 logger.info(`MESSAGE PROVIDER: CREATING BROKER QUEUE: ${env.queue.prefixBroker}${companies[i].id}`);
