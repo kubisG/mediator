@@ -1,7 +1,7 @@
 import * as redis from "redis";
 import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { Logger } from "@ra/web-core-be/dist/logger/providers/logger";
-import { Connection, MoreThan, In, Repository } from "typeorm";
+import { Connection, MoreThan, In, Repository, IsNull, Not } from "typeorm";
 import { Observable } from "rxjs/internal/Observable";
 import { AuthService } from "@ra/web-auth-be/dist/auth.service";
 import { LightMapper } from "light-mapper";
@@ -255,7 +255,7 @@ export abstract class OrdersService {
         let where = {};
         let select = null;
         if ((raID) && (raID !== null)) {
-            where = { RaID: raID, company: userData.compId, app: app }; /*, user: userData.userId*/
+            where = { RaID: raID, company: userData.compId, app: app, OrdStatus: Not(IsNull()) }; /*, user: userData.userId*/
             return await this.raMessage.find({ where: where, order: { TransactTime: "ASC", id: "ASC" } });
         } else if ((symbol) && (symbol !== null)) {
             where = {
