@@ -473,6 +473,12 @@ update ra_preference set value='[
         "lookup": true
     },
     {
+        "dataField": "SecurityDesc",
+        "showInColumnChooser": true,
+        "lookup": true,
+        "visible": false
+    },    
+    {
         "dataField": "Currency",
         "showInColumnChooser": true,
         "lookup": true
@@ -623,8 +629,6 @@ Insert into ra_preference
     ("name","value","userId","companyId","createDate","updatedDate")
 values
     ('hitlist_broker', '{"columns":[{"visibleIndex":0,"dataField":"Checkbox","width":25,"visible":true,"fixed":true,"fixedPosition":"left"},{"visibleIndex":11,"dataField":"Placed","dataType":"date","width":70,"visible":true,"sortOrder":"desc","sortIndex":0},{"visibleIndex":12,"dataField":"TransactTime","dataType":"date","width":73,"visible":true},{"visibleIndex":1,"dataField":"Actions","visible":true,"fixed":true,"fixedPosition":"right"},{"visibleIndex":2,"dataField":"Side","dataType":"lookup","width":43,"visible":true},{"visibleIndex":4,"dataField":"Symbol","dataType":"lookup","width":50,"visible":true},{"visibleIndex":9,"dataField":"SecurityID","dataType":"lookup","visible":false},{"visibleIndex":10,"dataField":"SecurityIDSource","dataType":"lookup","visible":false},{"visibleIndex":16,"dataField":"ProgressBar","width":105,"visible":true},{"visibleIndex":14,"dataField":"CumQty","dataType":"number","width":79,"visible":true},{"visibleIndex":15,"dataField":"AvgPx","dataType":"number","width":67,"visible":true},{"visibleIndex":17,"dataField":"LeavesQty","dataType":"number","width":56,"visible":true},{"visibleIndex":18,"dataField":"LastPx","dataType":"number","width":68,"visible":true},{"visibleIndex":19,"dataField":"LastQty","dataType":"number","width":69,"visible":true},{"visibleIndex":3,"dataField":"OrderQty","dataType":"number","width":75,"visible":true},{"visibleIndex":5,"dataField":"OrdType","dataType":"lookup","width":49,"visible":true},{"visibleIndex":6,"dataField":"Price","dataType":"number","width":68,"visible":true},{"visibleIndex":7,"dataField":"TimeInForce","dataType":"lookup","width":46,"visible":true},{"visibleIndex":8,"dataField":"StopPx","dataType":"number","width":64,"visible":true},{"visibleIndex":23,"dataField":"HandlInst","dataType":"lookup","width":83,"visible":true},{"visibleIndex":13,"dataField":"OrdStatus","dataType":"lookup","width":102,"visible":true},{"visibleIndex":22,"dataField":"Currency","dataType":"lookup","width":81,"visible":true},{"visibleIndex":24,"dataField":"ExpireDate","dataType":"date","width":101,"visible":true},{"visibleIndex":25,"dataField":"SettlDate","dataType":"date","width":85,"visible":true},{"visibleIndex":26,"dataField":"OddLot","dataType":"bool","width":87,"visible":true},{"visibleIndex":27,"dataField":"Rule80A","dataType":"bool","width":81,"visible":true},{"visibleIndex":30,"dataField":"Commission","dataType":"string","width":89,"visible":true},{"visibleIndex":31,"dataField":"CommType","dataType":"lookup","width":88,"visible":true},{"visibleIndex":32,"dataField":"DeliverToCompID","dataType":"string","width":129,"visible":true},{"visibleIndex":33,"dataField":"OnBehalfOfCompID","dataType":"string","width":96,"visible":true},{"visibleIndex":34,"dataField":"ExDestination","dataType":"lookup","width":83,"visible":true},{"visibleIndex":35,"dataField":"DeliverToSubID","width":106,"visible":true},{"visibleIndex":21,"dataField":"Text","dataType":"string","width":119,"visible":true},{"visibleIndex":36,"dataField":"OpenClose","visible":false},{"visibleIndex":37,"dataField":"PutOrCall","visible":false},{"visibleIndex":38,"dataField":"MaturityDay","visible":false},{"visibleIndex":39,"dataField":"StrikePrice","visible":false},{"visibleIndex":20,"dataField":"ExecInst","dataType":"lookup","width":92,"visible":true},{"visibleIndex":29,"dataField":"Account","dataType":"lookup","width":90,"visible":true},{"visibleIndex":28,"dataField":"LastMkt","width":96,"visible":true},{"visibleIndex":40,"dataField":"ClOrdID","dataType":"string","width":88,"visible":true},{"visibleIndex":41,"dataField":"ClientID","dataType":"string","width":87,"visible":true},{"visibleIndex":42,"dataField":"PartyID","width":77,"visible":true},{"visibleIndex":43,"dataField":"OrderID","dataType":"string","width":311,"visible":true},{"visibleIndex":44,"dataField":"MinQty","dataType":"number","width":51,"visible":true},{"visibleIndex":45,"dataField":"LocateReqd","dataType":"bool","width":129,"visible":true},{"visibleIndex":46,"dataField":"StockCode","visible":false},{"visibleIndex":47,"dataField":"BasketName","width":88,"visible":true},{"visibleIndex":48,"dataField":"SecurityExchange","visible":false},{"visibleIndex":49,"dataField":"ManagerName","visible":false},{"visibleIndex":50,"dataField":"DealType","visible":false},{"visibleIndex":51,"dataField":"SSFMaturityDate","visible":false},{"visibleIndex":52,"dataField":"SSFTradeType","visible":false},{"visibleIndex":53,"dataField":"SBSADayTrade","visible":false},{"visibleIndex":54,"dataField":"UnwindID","visible":false},{"visibleIndex":55,"dataField":"Disclosed","width":78,"visible":true},{"visibleIndex":56,"dataField":"PrimeBrokerCode","width":114,"visible":true},{"visibleIndex":57,"dataField":"TargetSubID","width":93,"visible":true},{"visibleIndex":58,"dataField":"ClientCode","width":93,"visible":true},{"visibleIndex":59,"dataField":"MinExecSize","width":83,"visible":true},{"visibleIndex":60,"dataField":"StrategyCode","visible":false},{"visibleIndex":61,"dataField":"ValueFlag","visible":false},{"visibleIndex":62,"dataField":"Value%","visible":false},{"visibleIndex":63,"dataField":"Functions","visible":false},{"visibleIndex":64,"dataField":"SettlementType","visible":false},{"visibleIndex":65,"dataField":"SubID","visible":false},{"visibleIndex":66,"dataField":"DeskName","width":721,"visible":true}],"searchText":"","pageIndex":0,"pageSize":"15","allowedPageSizes":[50,"100",200],"filterPanel":{"filterEnabled":true},"filterValue":null,"selectedRowKeys":[]}', 0, 0, NOW(), NOW());
-
-
 
 update ra_preference set value='[
     {
@@ -795,6 +799,12 @@ update ra_preference set value='[
         "showInColumnChooser": true,
         "lookup": true
     },
+    {
+        "dataField": "SecurityDesc",
+        "showInColumnChooser": true,
+        "lookup": true,
+        "visible": false
+    },        
     {
         "dataField": "ExpireDate",
         "dataType": "date",
@@ -1045,7 +1055,7 @@ update ra_preference set value='[
         "showInColumnChooser": true,
         "visible": false
     }
-]' where name = 'order_store_columns';
+]' where name like 'order_store_columns';
 
 DELETE FROM ra_preference WHERE name IN ('layout_settings-default','layout_diagnostic-default','layout_trader-default','layout_broker-default', 'layout_admin-default') and "userId"=0 and "companyId"=0;
 Insert into ra_preference
