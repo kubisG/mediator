@@ -42,7 +42,7 @@ export class OrderStatusMiddleware implements MessageMiddleware {
             return data;
         }
         const messages = await this.messageRepository.find({
-            where: { RaID: data.RaID } // , company: parseCompanyId(context.queue)
+            where: { RaID: data.RaID, app: context.app }
             , order: { id: "DESC" }
         });
         this.logger.warn(`${context.id} STATUS ${logMessage(data)}`);
@@ -57,11 +57,12 @@ export class OrderStatusMiddleware implements MessageMiddleware {
                 return data;
             }
             const ordStatus = this.orderStatusPriority.getHeavierStatus(data, messages[0]);
+            this.logger.warn(`${context.id} STATUS ${ordStatus} - ${data.OrdStatus}`);
             if ((ordStatus) && (ordStatus !== data.OrdStatus)) {
                 data.disableStatusUpdate = true;
                 await this.orderStoreRepository.update({
                     RaID: data.RaID,
-                    app: context.app // , company: <any>parseCompanyId(context.queue)
+                    app: context.app
                 }, { OrdStatus: ordStatus });
             }
         }
@@ -70,6 +71,7 @@ export class OrderStatusMiddleware implements MessageMiddleware {
     }
 
     async resolve(data: any, context: ContextMiddlewareInterface): Promise<any> {
+        this.logger.warn(`${context.id} OrderStatusMiddleware ${logMessage(data)}`);
         data = await this.setStatus(data, context);
 
         return data;

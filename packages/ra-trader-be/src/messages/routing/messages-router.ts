@@ -171,11 +171,13 @@ export class MessagesRouter {
                         id: this.id,
                         side: "IN"
                     }).then((data) => {
+                        console.log("data", data);
+                        console.log("msg", msg);
                         // message is empty.. end...
-                        if (!msg) {
+                        if (!data) {
                             return;
                         }
-                        this.switchMessages(msg, queue);
+                        this.switchMessages(data, queue);
                     });
                 });
             }

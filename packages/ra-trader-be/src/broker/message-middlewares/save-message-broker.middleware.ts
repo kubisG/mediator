@@ -43,6 +43,8 @@ export class SaveMessageBrokerMiddleware extends SaveMessageMiddleware {
             raOrder = orderExist;
             raOrder.replaceMessage = { ...data };
             raOrder.OrdStatus = data.OrdStatus;
+        } else if (data.disableStatusUpdate) {
+            raOrder.OrdStatus = orderExist.OrdStatus;
         }
         return raOrder;
     }

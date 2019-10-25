@@ -37,8 +37,7 @@ export class MiddlewareRunner {
         const runMid = data.runMid ? data.runMid : [];
         delete data.runMid;
         if (runMid.length > 0) {
-            this.runOnly(data, context, runMid);
-            return;
+            return this.runOnly(data, context, runMid);
         }
         for (let i = 0; i < this.middlewares.length; i++) {
             this.logger.silly(`${context.id} RUNNING ${this.middlewares[i].constructor.name} MIDDLEWARE`);
