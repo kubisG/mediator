@@ -11,6 +11,7 @@
     "bootstrap": "npm run clean && lerna bootstrap",
     "reinit": "npm run hoists",
     "bundle": "lerna run bundle",
+    "lint": "lerna run --no-bail lint",
     "lint:fix": "lerna run --no-bail lint:fix",
     "ra-trader-be": "lerna run --scope ra-trader-be build:prod",
     "ra-trader-fe": "lerna run --scope ra-trader-fe build:all",

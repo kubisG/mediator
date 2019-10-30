@@ -21,6 +21,7 @@
         "all": "ts-node --project ./module-config/tsconfig.json ./module-config/generate.ts -- -c all",
         "generate": "ts-node --project ./module-config/tsconfig.json ./module-config/generate.ts",
         "package": "rm -rf dist && ts-node --project ./scripts/tsconfig.json ./scripts/build.ts",
+        "lint": "tslint -c tslint.json --project ./tsconfig.json",
         "lint:fix": "tslint -c tslint.json 'src/**/*.ts' --fix"
     },
     "dependencies": {
