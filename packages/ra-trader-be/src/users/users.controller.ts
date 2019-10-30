@@ -26,6 +26,14 @@ export class UsersController {
         return await this.usersService.resetMail(body.email);
     }
 
+    @Post("welcome")
+    @UseGuards(RolesGuard)
+    @ApiBearerAuth()
+    @Roles("ADMIN")
+    async welcome(@Bearer() auth: string, @Body() body: any): Promise<any> {
+        return await this.usersService.welcomeMail(body.email, auth);
+    }
+
     @Delete("auth")
     async logOut(@Bearer() auth: string): Promise<any> {
         return await this.usersService.logOut(auth);

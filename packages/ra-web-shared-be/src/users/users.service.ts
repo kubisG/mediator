@@ -138,8 +138,9 @@ export class UsersService {
             const raUser = mapper.map<RaUser>(RaUser, user);
             raUser.password = await bcryptHash(user.password);
             const newUser = await this.raUser.save(raUser);
-            delete newUser.password;
-            return newUser;
+            const savedUser = await this.findOne(newUser.id);
+            delete savedUser.password;
+            return savedUser;
         } catch (ex) {
             throw new DbException(ex, "RaUser");
         }

@@ -38,6 +38,12 @@ export class EnvironmentService {
         return this.conf.get("app.version");
     }
 
+    get appUrl() {
+        return {
+            url: process.env.FE_URL,
+        };
+    }
+
     get worker() {
         return {
             resending: this.conf.get("worker.resending") ? this.conf.get("worker.resending") : 60,

@@ -8,6 +8,11 @@ export const environment = {
         db: config.get("logging.db"),
     },
     appPort: config.get("app.port"),
+    appUrl: {
+        url: () => {
+            return process.env.FE_URL;
+        },
+    },
     cors: {
         origin: config.get("cors.origin"),
     },
