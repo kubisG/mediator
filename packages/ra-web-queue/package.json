@@ -15,6 +15,7 @@
         "test": "npm run clean && jest",
         "test:cov": "npm run clean && jest --coverage --passWithNoTests",
         "test:e2e": "npm run clean && jest --config ./tests/jest-e2e.json",
+        "lint": "tslint -c tslint.json --project ./tsconfig.json",
         "libtest": "npm run test:cov && npm --prefix ../../ run lastcov -- \"packages/ra-web-queue\""
     },
     "dependencies": {

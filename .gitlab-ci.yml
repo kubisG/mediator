@@ -1,0 +1,109 @@
+stages:
+  - lint
+  - build
+  - test
+  - distribution-archive
+  - distribution-docker
+
+image: node:12.13.0
+before_script:
+  - DISTRIBUTION_TAG="$CI_COMMIT_REF_NAME.$(date +"%Y%m%d").$CI_COMMIT_SHORT_SHA"
+
+lint:
+  stage: lint
+  allow_failure: true
+  only: 
+    - merge_requests
+  script:
+    - npm ci
+    - npm run init
+    - npm run lint
+
+build:
+  stage: build
+  only: 
+    - merge_requests
+  artifacts:
+    expire_in: 1 days
+    untracked: true
+  script:
+    - npm ci
+    - npm run init
+    - npm run bundle
+
+test:
+  stage: test
+  only: 
+    - merge_requests
+  script:
+    - npm run libtest
+
+.archive-template: &archive
+  stage: distribution-archive
+  when: manual
+  dependencies: []
+  script:
+    - DISTRIBUTION_FILE="$IMAGE_NAME.$DISTRIBUTION_TAG.tar.gz"
+    - npm ci
+    - npm run init
+    - npm run bundle
+    - node ./scripts/builder/builder.js --project $PROJECT_NAME --rootDir .
+    - mkdir bundle
+    - mv ./packages/$PROJECT_NAME/config ./bundle/config
+    - mv ./packages/$PROJECT_NAME/node_modules ./bundle/node_modules
+    - cp -a ./node_modules/. ./bundle/node_modules
+    - mv ./packages/$PROJECT_NAME/dist ./bundle/dist
+    - cp ./packages/$PROJECT_NAME/package*.json ./bundle
+    - cp ./packages/$PROJECT_NAME/ecosystem.config.js ./bundle
+    - mv ./packages/$PROJECT_NAME/db ./bundle/db
+    - tar -czf $DISTRIBUTION_FILE -C ./bundle .
+    - sh ci/awsPublish.sh $DISTRIBUTION_FILE ra-web/$IMAGE_NAME/$DISTRIBUTION_FILE
+    
+.docker-template: &docker
+  image: registry.gitlab.com/rapid-addition/ra-ci/docker-aws
+  dependencies: []
+  when: manual
+  services:
+    - docker:19.03.1-dind
+  stage: distribution-docker
+  script:
+    - DOCKER_REGISTRY="612810951372.dkr.ecr.eu-west-1.amazonaws.com"
+    - DOCKER_IMAGE_NAME="$DOCKER_REGISTRY/$IMAGE_NAME"
+    - docker build --build-arg project="$PROJECT_NAME" --tag $DOCKER_IMAGE_NAME:$DISTRIBUTION_TAG-gitlab .
+    - export AWS_ACCESS_KEY_ID="$DIST_AWS_ACCESS_KEY_ID"
+    - export AWS_SECRET_ACCESS_KEY="$DIST_AWS_SECRET_ACCESS_KEY"
+    - $(aws ecr get-login --no-include-email --region eu-west-1)
+    - docker push $DOCKER_IMAGE_NAME:$DISTRIBUTION_TAG-gitlab
+
+oms-archive:
+  <<: *archive
+  variables:
+    PROJECT_NAME: ra-trader-be
+    IMAGE_NAME: oms-be
+oms-docker:
+  <<: *docker
+  variables:
+    PROJECT_NAME: ra-trader-be
+    IMAGE_NAME: oms-be
+
+monitor-archive:
+  <<: *archive
+  variables:
+    PROJECT_NAME: ra-web-monitor-be
+    IMAGE_NAME: monitor-be
+monitor-docker:
+  <<: *docker
+  variables:
+    PROJECT_NAME: ra-web-monitor-be
+    IMAGE_NAME: monitor-be
+
+automarking-archive:
+  <<: *archive
+  variables:
+    PROJECT_NAME: automarking-be
+    IMAGE_NAME: automarking-be
+automarking-docker:
+  <<: *docker
+  variables:
+    PROJECT_NAME: automarking-be
+    IMAGE_NAME: automarking-be
