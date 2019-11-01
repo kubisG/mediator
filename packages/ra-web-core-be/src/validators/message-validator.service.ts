@@ -28,8 +28,8 @@ export class MessageValidatorService {
         if (this.filter[message.RequestType + "-" + message.msgType]) {
             const diff = _.difference(Object.keys(message), this.filter[message.RequestType + "-" + message.msgType].required
                 , this.filter[message.RequestType + "-" + message.msgType].optional);
-            for (let i = 0; i < diff.length; i++) {
-                delete message[diff[i]];
+            for (const row of diff) {
+                delete message[row];
             }
         }
         Object.keys(message).forEach(key => {
