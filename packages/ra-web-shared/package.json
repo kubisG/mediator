@@ -4,7 +4,7 @@
     "scripts": {
         "clean": "rimraf ./src/**/*.js ./src/**/*.js.map ./src/**/*.d.ts",
         "bundle": "rm -rf dist && tsc -p tsconfig.json",
-        "test": "npm run clean && jest",
+        "test": "npm run clean && jest --passWithNoTests",
         "test:cov": "npm run clean && jest --coverage --passWithNoTests",
         "test:e2e": "npm run clean && jest --config ./tests/jest-e2e.json",
         "lint": "tslint -c tslint.json --project ./tsconfig.json",

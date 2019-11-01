@@ -14,7 +14,7 @@
         "start:hmr": "node dist/server",
         "build": "rm -rf dist && tsc -p tsconfig.json",
         "bundle": "npm run build",
-        "test": "jest",
+        "test": "jest --passWithNoTests",
         "test:cov": "jest --coverage --passWithNoTests",
         "test:e2e": "jest --config ./test/jest-e2e.json",
         "webpack": "webpack --config webpack.config.js",
