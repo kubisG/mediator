@@ -60,12 +60,11 @@ export class TraderService extends OrdersService {
             brokerSplitService,
             orderRelRepository,
             orderUtilsService,
-            phoneService
+            phoneService,
         );
         this.consumePhoneMsg();
         this.app = Apps.trader;
     }
-
 
     public consumeMessages(token: string, client: any): Observable<ConsumeDto> {
         return super.consumeMessages(token, client);
@@ -95,7 +94,7 @@ export class TraderService extends OrdersService {
     }
 
     public async getOrders(app: number, dates: string, token: string, compOrders: string, gtcGtd: string, clOrdLinkID?: string
-        , isPhone?: string) {
+        ,                  isPhone?: string) {
         return super.getOrders(app, dates, token, compOrders, gtcGtd, clOrdLinkID, isPhone);
     }
 

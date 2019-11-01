@@ -43,13 +43,13 @@ export class OrderStatusMiddleware implements MessageMiddleware {
         }
         const messages = await this.messageRepository.find({
             where: { RaID: data.RaID, app: context.app }
-            , order: { id: "DESC" }
+            , order: { id: "DESC" },
         });
         this.logger.warn(`${context.id} STATUS ${logMessage(data)}`);
         if (messages.length > 0) {
             if (this.exeptionsMsgType.indexOf(data.msgType) > -1) {
                 for (let i = 0; i < messages.length; i++) {
-                    if (!(this.exeptionsOrdStatus.indexOf(<any>messages[i].OrdStatus) > -1)) {
+                    if (!(this.exeptionsOrdStatus.indexOf(messages[i].OrdStatus as any) > -1)) {
                         data.OrdStatus = messages[i].OrdStatus;
                         break;
                     }
@@ -62,7 +62,7 @@ export class OrderStatusMiddleware implements MessageMiddleware {
                 data.disableStatusUpdate = true;
                 await this.orderStoreRepository.update({
                     RaID: data.RaID,
-                    app: context.app
+                    app: context.app,
                 }, { OrdStatus: ordStatus });
             }
         }

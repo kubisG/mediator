@@ -22,7 +22,7 @@ export const inMessageMiddlewares = [
     CancelRejectMiddleware,
     SaveMessageTraderMiddleware,
     AckMiddleware,
-    DeQueueMiddleware
+    DeQueueMiddleware,
 ];
 
 export const outMessageMiddlewares = [
@@ -34,7 +34,7 @@ export const outMessageMiddlewares = [
     SaveMessageTraderMiddleware,
     PhoneMessageMiddleware,
     FilterMiddleware,
-    DeQueueMiddleware
+    DeQueueMiddleware,
 ];
 
 export const traderProviders = [
@@ -47,7 +47,7 @@ export const traderProviders = [
             return ordersService;
         },
         inject: [
-            TraderService
+            TraderService,
         ],
     },
     {
@@ -75,6 +75,5 @@ export const traderProviders = [
             "traderRouting",
             ...outMessageMiddlewares,
         ],
-    }
+    },
 ];
-

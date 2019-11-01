@@ -32,7 +32,6 @@ export class BrokerSplitService {
         return this.consumeParentSubject;
     }
 
-
     private getFillExecType(orderQty: number, filledQty: number) {
         if (filledQty < orderQty) {
             return ExecType.PartialFill;
@@ -56,14 +55,13 @@ export class BrokerSplitService {
         parentMessage.CumQty = Number(parentMessage.CumQty ? parentMessage.CumQty : 0) + Number(childMessage.LastQty);
         parentMessage.LeavesQty = parentMessage.OrderQty - parentMessage.CumQty;
 
-
         parentMessage["ExecType"] = this.getFillExecType(
             Number(parentMessage.OrderQty),
-            parentMessage.CumQty
+            parentMessage.CumQty,
         );
         parentMessage.OrdStatus = this.getFillOrderStatus(
             Number(parentMessage.OrderQty),
-            parentMessage.CumQty
+            parentMessage.CumQty,
         );
     }
 
@@ -82,16 +80,16 @@ export class BrokerSplitService {
             await raOrderStoreToken.update({
                 ClOrdID: data.data.ClOrdLinkID,
                 company: data.company,
-                app: Number(Apps.broker)
+                app: Number(Apps.broker),
             },
                 {
-                    updateDate: new Date()
+                    updateDate: new Date(),
                 });
 
             const result = await raOrderStoreToken.findOne({
                 ClOrdID: data.data.ClOrdLinkID,
                 company: data.company,
-                app: Number(Apps.broker)
+                app: Number(Apps.broker),
             });
 
             if (result.JsonMessage) {
@@ -120,14 +118,11 @@ export class BrokerSplitService {
             await this.calculateValue(result, data.data);
             // }
 
-
-
-
             // we need to update values immediatelly
             await raOrderStoreToken.update({ id: result.id },
                 {
                     CumQty: result.CumQty, LeavesQty: result.LeavesQty,
-                    AvgPx: avgPx
+                    AvgPx: avgPx,
                 });
 
             const mapper = new LightMapper();
@@ -152,7 +147,7 @@ export class BrokerSplitService {
             CumQty: data.data.original.CumQty,
             LeavesQty: data.data.original.LeavesQty,
             LastPx: data.data.original.LastPx,
-            LastQty: data.data.original.LastQty
+            LastQty: data.data.original.LastQty,
         });
         parentMessage["original"] = { ...resultMessage };
         const avgPx = (parentMessage.CumQty * parentMessage.AvgPx);

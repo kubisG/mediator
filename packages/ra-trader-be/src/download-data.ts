@@ -18,7 +18,7 @@ async function getConnection(env: EnvironmentService): Promise<Connection> {
         username: env.db.user,
         password: env.db.password,
         database: env.db.db,
-        entities: entities,
+        entities,
         synchronize: true,
         logging: env.logging.db,
     } as PostgresConnectionOptions);
@@ -77,7 +77,6 @@ async function getData(connection: Connection, env: EnvironmentService) {
         }
     }
 
-
     const currencies = await connection.getRepository(RaCurrency)
         .query("select distinct upper(value) val from ra_input_rules where label='Currency'");
 
@@ -120,16 +119,16 @@ async function getData(connection: Connection, env: EnvironmentService) {
 }
 
 async function insertToPrefDB(connection: Connection,
-    raPreference: RaPreference) {
+                              raPreference: RaPreference) {
     try {
         const select = await connection.getRepository(RaPreference).findOne({
             name: raPreference.name, userId: raPreference.userId
-            , companyId: raPreference.companyId
+            , companyId: raPreference.companyId,
         });
         if (select) {
             await connection.getRepository(RaPreference).update({
                 name: raPreference.name, userId: raPreference.userId
-                , companyId: raPreference.companyId
+                , companyId: raPreference.companyId,
             }, raPreference);
         } else {
             await connection.getRepository(RaPreference).insert(raPreference);
@@ -141,7 +140,7 @@ async function insertToPrefDB(connection: Connection,
 }
 
 async function insertToCurrDB(connection: Connection,
-    raCurrency: RaCurrency) {
+                              raCurrency: RaCurrency) {
     try {
         const select = await connection.getRepository(RaCurrency).findOne({ from: raCurrency.from, to: raCurrency.to });
         if (select) {
@@ -156,7 +155,7 @@ async function insertToCurrDB(connection: Connection,
 }
 
 async function insertToDB(connection: Connection,
-    raStock: RaStock) {
+                          raStock: RaStock) {
     try {
         const select = await connection.getRepository(RaStock).findOne({ symbol: raStock.symbol, priceDate: raStock.priceDate });
         if (select) {

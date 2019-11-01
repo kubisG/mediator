@@ -41,7 +41,7 @@ export class SaveMessageTraderMiddleware extends SaveMessageMiddleware {
         data: any,
         context: any,
         raOrderStoreToken: Repository<RaOrderStore>,
-        orderExist: RaOrderStore
+        orderExist: RaOrderStore,
     ): Promise<any> {
         if (data.msgType === MessageType.OrderCancelReject) {
             raOrder = orderExist;
@@ -63,7 +63,7 @@ export class SaveMessageTraderMiddleware extends SaveMessageMiddleware {
         await this.orderRelRepository.update({
             parentClOrdId: newOrderMessage.ClOrdLinkID,
             childClOrdId: newOrderMessage.RaID,
-            company: <any>parseCompanyId(context.queue),
+            company: parseCompanyId(context.queue) as any,
         }, { OrderQty: qty });
     }
 
@@ -71,13 +71,13 @@ export class SaveMessageTraderMiddleware extends SaveMessageMiddleware {
         raOrder: RaOrderStore,
         data: any, context: any,
         raOrderStoreToken: Repository<RaOrderStore>,
-        raOrderUpdateResult: UpdateResult
+        raOrderUpdateResult: UpdateResult,
     ) {
         if (data.ClOrdLinkID) {
             if ((data.OrdStatus === OrdStatus.PartiallyFilled)
                 || (data.OrdStatus === OrdStatus.Filled)
             ) {
-                this.brokerSplitService.updateParentMsg({ data: data, company: parseCompanyId(context.queue) });
+                this.brokerSplitService.updateParentMsg({ data, company: parseCompanyId(context.queue) });
             } else if (data.OrdStatus === OrdStatus.Canceled) {
                 await this.updateRelQty(data, context, data.CumQty);
             } else if (data.OrdStatus === OrdStatus.Replaced) {
@@ -90,7 +90,7 @@ export class SaveMessageTraderMiddleware extends SaveMessageMiddleware {
         raOrder: RaOrderStore,
         data: any,
         context: any,
-        raOrderStoreToken: Repository<RaOrderStore>
+        raOrderStoreToken: Repository<RaOrderStore>,
     ) {
 
     }
@@ -100,25 +100,25 @@ export class SaveMessageTraderMiddleware extends SaveMessageMiddleware {
         data: any,
         context: any,
         raOrderStoreToken: Repository<RaOrderStore>,
-        raOrderInsertResult: InsertResult
+        raOrderInsertResult: InsertResult,
     ) {
         if (data.ClOrdLinkID) {
             const find = await raOrderStoreToken.findOne({
                 RaID: data.ClOrdLinkID,
                 companyId: context.userData.compId,
-                app: Apps.broker
+                app: Apps.broker,
             });
             await this.orderRelRepository.insert(
                 {
                     parentId: find.id, parentClOrdId: data.ClOrdLinkID, company: new RaCompany(context.userData.compId),
                     childId: raOrderInsertResult.identifiers[0].id, childClOrdId: data.RaID,
-                    OrderQty: data.OrderQty
-                }
+                    OrderQty: data.OrderQty,
+                },
             );
             await raOrderStoreToken.update(
                 {
-                    id: find.id
-                }, { splitted: "Y" }
+                    id: find.id,
+                }, { splitted: "Y" },
             );
         }
     }
@@ -127,7 +127,7 @@ export class SaveMessageTraderMiddleware extends SaveMessageMiddleware {
         raMessage: RaMessage,
         data: any,
         context: any,
-        raMessageToken: Repository<RaMessage>
+        raMessageToken: Repository<RaMessage>,
     ) {
 
     }
@@ -136,10 +136,9 @@ export class SaveMessageTraderMiddleware extends SaveMessageMiddleware {
         data: any,
         context: any,
         raMessageToken: Repository<RaMessage>,
-        raMessageInsertResult: InsertResult
+        raMessageInsertResult: InsertResult,
     ) {
 
     }
-
 
 }

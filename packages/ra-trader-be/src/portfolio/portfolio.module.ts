@@ -9,13 +9,13 @@ import { WebAuthModule } from "../auth/web-auth.module";
     imports: [
         CoreModule,
         AuthModule,
-        WebAuthModule
+        WebAuthModule,
     ],
     controllers: [
         PortfolioController,
     ],
     providers: [
         PortfolioService,
-    ]
+    ],
 })
 export class PortfolioModule { }

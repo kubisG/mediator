@@ -20,7 +20,7 @@ import { EntityProviders } from "../entity/entity.providers";
         // ...dataseProviders(entities),
         // ...EntityProviders,
         // ...entityProviders,
-    ]
+    ],
 })
 export class WebDaoModule {
     constructor() { }

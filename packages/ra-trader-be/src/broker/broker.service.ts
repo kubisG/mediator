@@ -70,7 +70,7 @@ export class BrokerService extends OrdersService implements OnModuleInit {
             brokerSplitService,
             orderRelRepository,
             orderUtilsService,
-            phoneService
+            phoneService,
         );
 
         this.consumeParentMsg();
@@ -117,8 +117,8 @@ export class BrokerService extends OrdersService implements OnModuleInit {
             dateFrom.setMonth(dateFrom.getMonth() - 6);
 
             this.clientProxy.send<any>(
-                { cmd: "hasSleuth", },
-                { companyId: company, dateFrom, side: (data.Side === Side.Buy ? Side.Sell : Side.Buy), symbol: data.Symbol }
+                { cmd: "hasSleuth" },
+                { companyId: company, dateFrom, side: (data.Side === Side.Buy ? Side.Sell : Side.Buy), symbol: data.Symbol },
             ).subscribe((result) => {
                 this.hasSleuthSubject.next({ event: "sleuth", data: { msg: data, result } });
             });
@@ -157,7 +157,7 @@ export class BrokerService extends OrdersService implements OnModuleInit {
         return super.consumeInfo(token, client);
     }
 
-    public exception(token: string, client: any):  Promise<Observable<ExceptionDto>> {
+    public exception(token: string, client: any): Promise<Observable<ExceptionDto>> {
         return super.exception(token, client);
     }
 
@@ -168,7 +168,6 @@ export class BrokerService extends OrdersService implements OnModuleInit {
     public async getOrders(app: number, dates: string, token: string, compOrders: string, gtcGtd: string) {
         return super.getOrders(app, dates, token, compOrders, gtcGtd);
     }
-
 
     public async getParsedOrderBroker(token: string, raID: any) {
         return super.getParsedOrder(token, Apps.broker, raID);

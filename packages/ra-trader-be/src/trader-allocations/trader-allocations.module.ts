@@ -17,7 +17,7 @@ import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
         MessagesModule,
         AuthModule,
         WebAuthModule,
-        EnvironmentsModule
+        EnvironmentsModule,
     ],
     controllers: [
         TraderAllocationsController,
@@ -26,7 +26,7 @@ import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
         TraderAllocationsService,
         TraderAllocationsGateway,
         ...traderAllocationsProviders,
-    ]
+    ],
 })
 export class TraderAllocationsModule {
 

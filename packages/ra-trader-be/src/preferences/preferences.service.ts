@@ -77,7 +77,7 @@ export class PreferencesService {
         const userData = await this.authService.getUserData<UserData>(token);
         try {
             let storedPref = await this.raPreference.findOne({
-                userId: userData.userId, companyId: userData.compId, name: "layout.prefs"
+                userId: userData.userId, companyId: userData.compId, name: "layout.prefs",
             });
             if (!storedPref) {
                 storedPref = new RaPreference();
@@ -154,13 +154,13 @@ export class PreferencesService {
             {
                 name: pref.name,
                 userId: pref.userId,
-                companyId: pref.companyId
+                companyId: pref.companyId,
             },
             {
                 value: pref.value,
                 userId: pref.newUserId,
-                companyId: pref.newCompanyId
-            }
+                companyId: pref.newCompanyId,
+            },
         );
     }
 
@@ -179,7 +179,6 @@ export class PreferencesService {
     public async deletePreference(name: any, user: number, company: number) {
         return await this.raPreference.delete({ name, userId: user, companyId: company });
     }
-
 
     async findParsePrefs(userId: number) {
         const userPref = await this.raPreference.createQueryBuilder("pref")
@@ -206,6 +205,5 @@ export class PreferencesService {
             return JSON.parse(userPref.value);
         } else { return null; }
     }
-
 
 }

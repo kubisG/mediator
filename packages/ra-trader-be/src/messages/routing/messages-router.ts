@@ -124,12 +124,12 @@ export class MessagesRouter {
                 messageRouter: this,
                 userData,
                 app: this.app,
-                queue: queue,
+                queue,
                 nextQueue: q,
                 resendQueue,
                 finish: false,
                 id: this.id,
-                side: "OUT"
+                side: "OUT",
             }).then((result) => {
                 if (!result) {
                     resolve(true);
@@ -169,7 +169,7 @@ export class MessagesRouter {
                         finish: false,
                         app: this.app,
                         id: this.id,
-                        side: "IN"
+                        side: "IN",
                     }).then((data) => {
                         console.log("data", data);
                         console.log("msg", msg);

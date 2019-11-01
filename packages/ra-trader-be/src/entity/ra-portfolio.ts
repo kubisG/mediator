@@ -94,4 +94,3 @@ export class RaPortfolio extends AEntity {
     @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
     public updateDate: Date;
 }
-

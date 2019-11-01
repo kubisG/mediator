@@ -1,6 +1,5 @@
 import { Injectable, Inject } from "@nestjs/common";
 
-
 import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { Logger } from "@ra/web-core-be/dist/logger/providers/logger";
 import { StockDataRepository } from "../dao/repositories/stock-data.repository";
@@ -15,7 +14,6 @@ export class StockDataService {
         @Inject("stockRepository") private stockRep: StockDataRepository,
     ) { }
 
-
     async getAll(): Promise<RaStock[]> {
         return await this.stockRep.createQueryBuilder()
             .select("symbol")
@@ -26,20 +24,20 @@ export class StockDataService {
 
     async getSymbolPx(symbol: any): Promise<RaStock[]> {
         return await this.stockRep.find({
-            where: { symbol: symbol },
+            where: { symbol },
             order: {
-                priceDate: "DESC"
+                priceDate: "DESC",
             },
-            take: 1
+            take: 1,
         });
     }
 
     async getSymbolAllPx(symbol: any): Promise<RaStock[]> {
         return await this.stockRep.find({
-            where: { symbol: symbol },
+            where: { symbol },
             order: {
-                priceDate: "DESC"
-            }
+                priceDate: "DESC",
+            },
         });
     }
 }

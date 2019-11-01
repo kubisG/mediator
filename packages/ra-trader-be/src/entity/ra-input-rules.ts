@@ -31,7 +31,6 @@ export class RaInputRules extends AEntity {
     @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
     public createDate: Date;
 
-
     @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
     public updatedDate: Date;
 

@@ -35,11 +35,10 @@ export abstract class IoisService {
 
     }
 
-
     protected abstract async saveMessageTransaction(
         message,
         raIOIToken: Repository<RaIoi>,
-        consumer
+        consumer,
     );
 
     public async getIois(token: string, dates: string, compOrders: boolean = false) {
@@ -60,7 +59,7 @@ export abstract class IoisService {
     }
 
     async findOne(id: any): Promise<RaIoi> {
-        return await this.raIois.findOne({ id: id });
+        return await this.raIois.findOne({ id });
     }
 
     async update(id: number, ioi: any, token: string): Promise<any> {
@@ -79,7 +78,7 @@ export abstract class IoisService {
     async delete(id: number, token: string): Promise<any> {
         const userData = await this.authService.getUserData<UserData>(token);
         try {
-            return await this.raIois.delete({ id: id, company: userData.compId, user: <any>userData.userId });
+            return await this.raIois.delete({ id, company: userData.compId, user: userData.userId as any });
         } catch (ex) {
             throw new DbException(ex, "RaIois");
         }

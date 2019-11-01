@@ -53,7 +53,7 @@ export class SaveMessageBrokerMiddleware extends SaveMessageMiddleware {
         raOrder: RaOrderStore,
         data: any, context: any,
         raOrderStoreToken: Repository<RaOrderStore>,
-        raOrderUpdateResult: UpdateResult
+        raOrderUpdateResult: UpdateResult,
     ) {
 
     }
@@ -62,7 +62,7 @@ export class SaveMessageBrokerMiddleware extends SaveMessageMiddleware {
         raOrder: RaOrderStore,
         data: any,
         context: any,
-        raOrderStoreToken: Repository<RaOrderStore>
+        raOrderStoreToken: Repository<RaOrderStore>,
     ) {
 
     }
@@ -71,7 +71,7 @@ export class SaveMessageBrokerMiddleware extends SaveMessageMiddleware {
         raOrder: RaOrderStore,
         data: any, context: any,
         raOrderStoreToken: Repository<RaOrderStore>,
-        raOrderInsertResult: InsertResult
+        raOrderInsertResult: InsertResult,
     ) {
 
     }
@@ -80,7 +80,7 @@ export class SaveMessageBrokerMiddleware extends SaveMessageMiddleware {
         raMessage: RaMessage,
         data: any,
         context: any,
-        raMessageToken: Repository<RaMessage>
+        raMessageToken: Repository<RaMessage>,
     ) {
 
     }
@@ -90,7 +90,7 @@ export class SaveMessageBrokerMiddleware extends SaveMessageMiddleware {
         data: any,
         context: any,
         raMessageToken: Repository<RaMessage>,
-        raMessageInsertResult: InsertResult
+        raMessageInsertResult: InsertResult,
     ) {
 
     }

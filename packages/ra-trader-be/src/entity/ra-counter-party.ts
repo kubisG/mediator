@@ -72,4 +72,3 @@ export class RaCounterParty extends AEntity {
         this.updatedDate = new Date();
     }
 }
-

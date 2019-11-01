@@ -14,5 +14,3 @@ export class RaPortfolioAudit extends RaPortfolio {
     @Column({ nullable: true })
     public archType: string;
 }
-
-

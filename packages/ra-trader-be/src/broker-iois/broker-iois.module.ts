@@ -16,7 +16,7 @@ import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
         AuthModule,
         MessagesModule,
         WebAuthModule,
-        EnvironmentsModule
+        EnvironmentsModule,
     ],
     controllers: [
         BrokerIoisController,
@@ -25,7 +25,7 @@ import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
         BrokerIoisService,
         BrokerIoisGateway,
         ...brokerIOIsProviders,
-    ]
+    ],
 })
 export class BrokerIoisModule {
 

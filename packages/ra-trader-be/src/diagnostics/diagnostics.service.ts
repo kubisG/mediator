@@ -31,10 +31,10 @@ export class DiagnosticsService {
         return [
             {
                 name: "rabbitmq", status: await this.getRabbitMQStatus(),
-                host: `${this.env.queue.opt.trader.host}:${this.env.queue.opt.trader.port}`
+                host: `${this.env.queue.opt.trader.host}:${this.env.queue.opt.trader.port}`,
             },
             { name: "database", status: await this.getDatabaseStatus(), host: `${this.env.db.host}:${this.env.db.port}` },
-            { name: "redis", status: await this.getRedisStatus(), host: `${this.env.redis.host}:${this.env.redis.port}` }
+            { name: "redis", status: await this.getRedisStatus(), host: `${this.env.redis.host}:${this.env.redis.port}` },
         ];
     }
 

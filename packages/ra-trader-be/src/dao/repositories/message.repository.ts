@@ -10,20 +10,20 @@ export class MessageRepository extends Repository<RaMessage> {
     public async getPendingMessages(raId: string, OrigClOrdID: string, app: number) {
         const result = await this.createQueryBuilder("ord")
             .where("ord.\"RaID\"=:raId and ord.\"app\"=:app and ord.\"ClOrdID\"=:OrigClOrdID"
-                , { raId: raId, OrigClOrdID: OrigClOrdID, app: app })
+                , { raId, OrigClOrdID, app })
             .andWhere("ord.\"msgType\" in (:...AmsgType)", {
                 AmsgType:
-                    [MessageType.Replace, MessageType.Order, MessageType.Cancel]
+                    [MessageType.Replace, MessageType.Order, MessageType.Cancel],
             })
             .andWhere("not exists (select id from ra_message rm" +
                 " where rm.\"RaID\"=:raId and rm.\"app\"=:app and rm.\"ClOrdID\"=:OrigClOrdID and "
                 + "((rm.\"msgType\" not in (:...BmsgType)) and (rm.\"msgType\" not in (:...CmsgType)"
                 + " OR rm.\"OrdStatus\" not in (:...PendingNew))))"
                 , {
-                    raId: raId, OrigClOrdID: OrigClOrdID, app: app,
+                    raId, OrigClOrdID, app,
                     BmsgType: [MessageType.Replace, MessageType.Order, MessageType.Cancel],
                     CmsgType: [MessageType.Execution],
-                    PendingNew: [OrdStatus.PendingNew]
+                    PendingNew: [OrdStatus.PendingNew],
                 })
             .getMany();
 
@@ -38,15 +38,15 @@ export class MessageRepository extends Repository<RaMessage> {
 
         const result = await this.createQueryBuilder("ord")
             .where("ord.\"app\"=:app and ord.\"companyId\"=:company and ord.\"TransactTime\">=:time"
-                , { app: app, company: compId, time: today })
+                , { app, company: compId, time: today })
             .andWhere("ord.\"ExecType\" in (:...AexecType)", {
                 AexecType:
-                    [ExecType.PartialFill, ExecType.Fill, ExecType.Trade]
+                    [ExecType.PartialFill, ExecType.Fill, ExecType.Trade],
             })
             .andWhere("not exists (select id from ra_order_store ros" +
                 " where ros.\"RaID\"=ord.\"RaID\" and ros.\"app\"=:app and ros.\"companyId\"=:company and ros.\"specType\"='phone')"
                 , {
-                    app: app, company: compId
+                    app, company: compId,
                 })
             .getMany();
 

@@ -11,7 +11,7 @@ export const traderIOIsProviders = [
             return ioisService;
         },
         inject: [
-            TraderIoisService
+            TraderIoisService,
         ],
     },
 ];

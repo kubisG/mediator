@@ -23,10 +23,9 @@ export class CancelFillMiddleware implements MessageMiddleware {
             let lastMessage;
             const messages = await this.messageRepository.find({
                 where: { RaID: data.RaID, app: context.app },
-                order: { id: "ASC" }
+                order: { id: "ASC" },
             });
-            for (let i = 0; i < messages.length; i++) {
-                const message = messages[i];
+            for (const message of messages) {
                 if (
                     message.OrdStatus.indexOf("Fill") > -1 &&
                     message.ExecID === data.ExecRefID &&

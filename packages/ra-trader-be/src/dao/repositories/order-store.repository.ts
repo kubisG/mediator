@@ -20,34 +20,34 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
         const selectBuilder = queryBuilder
             .where("ord.\"OrdStatus\" in (:...AordStatus)", {
                 AordStatus:
-                    [OrdStatus.New, OrdStatus.PartiallyFilled, OrdStatus.Replaced, OrdStatus.PendingNew, OrdStatus.PendingReplace]
+                    [OrdStatus.New, OrdStatus.PartiallyFilled, OrdStatus.Replaced, OrdStatus.PendingNew, OrdStatus.PendingReplace],
             })
             .andWhere("((ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo)"
                 + " or (ord.\"TimeInForce\" IN (:gtd) and ord.\"ExpireDate\" >= NOW())"
                 + " or (ord.\"TimeInForce\" IN (:gtc) and ord.\"OrdStatus\" not in (:...BordStatus)))"
                 , {
                     dateFrom, dateTo, gtd, gtc, BordStatus:
-                        [OrdStatus.Canceled]
+                        [OrdStatus.Canceled],
                 })
-            .andWhere("ord.company = :compId", { compId: compId })
+            .andWhere("ord.company = :compId", { compId })
             .andWhere("ord.app = :app", { app })
-            .andWhere("ord.Side in (:...side)", { side: side });
+            .andWhere("ord.Side in (:...side)", { side });
         if (filtr === "personal") {
-            selectBuilder.andWhere("ord.user = :userId", { userId: userId });
+            selectBuilder.andWhere("ord.user = :userId", { userId });
         }
         if (ClientID) {
             selectBuilder.andWhere("ord.\"ClientID\" = :clientId", { clientId: ClientID });
         }
         const result = await selectBuilder.getMany();
-        for (let i = 0; i < result.length; i++) {
-            if (result[i].JsonMessage) {
-                const jsonMessage = JSON.parse(result[i].JsonMessage);
+        for (const data of result) {
+            if (data.JsonMessage) {
+                const jsonMessage = JSON.parse(data.JsonMessage);
                 for (const messid in jsonMessage) {
-                    if ((messid) && (!result[i][messid])) {
-                        result[i][messid] = jsonMessage[messid];
+                    if ((messid) && (!data[messid])) {
+                        data[messid] = jsonMessage[messid];
                     }
                 }
-                result[i].JsonMessage = null;
+                data.JsonMessage = null;
             }
         }
         return result;
@@ -72,7 +72,7 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
                     + ")"
                     , {
                         dateFrom, dateTo, gtd, gtc, done: OrdStatus.DoneForDay, ordStatus:
-                            [OrdStatus.Canceled]
+                            [OrdStatus.Canceled],
                     });
         } else {
             selectBuilder
@@ -80,11 +80,11 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
         }
 
         selectBuilder
-            .andWhere("ord.company = :compId", { compId: compId })
+            .andWhere("ord.company = :compId", { compId })
             .andWhere("ord.app = :app", { app })
             .orderBy("ord.id", "ASC");
         if ((compOrders === "false" || compOrders === false) && (app !== Apps.broker)) {
-            selectBuilder.andWhere("ord.user = :userId", { userId: userId });
+            selectBuilder.andWhere("ord.user = :userId", { userId });
         }
         if (isPhone === SpecType.phone) {
             selectBuilder.andWhere("ord.specType = :phone", { phone: SpecType.phone });
@@ -93,7 +93,7 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
         if (clOrdLinkID) {
             selectBuilder.andWhere(
                 "ord.id in (select \"childId\" from ra_order_rel rl where rl.\"parentClOrdId\"=:clOrdLinkID and \"companyId\"=:compId)"
-                , { clOrdLinkID: clOrdLinkID, compId: compId });
+                , { clOrdLinkID, compId });
         }
         return await selectBuilder.getMany();
     }
@@ -109,7 +109,7 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
             .where("ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo", { dateFrom, dateTo })
             .andWhere("ord.\"app\" = :app", { app })
             .andWhere("ord.\"OrdStatus\" = 'DoneForDay'")
-            .andWhere("ord.company = :compId", { compId: compId })
+            .andWhere("ord.company = :compId", { compId })
             ;
         if (!allmsgs) {
             selectBuilder.andWhere("ord.\"Account\" is NULL"); // only orders not setup to Accounts
@@ -117,16 +117,15 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
                 { sended: OrderAllocated.Sended, rejected: OrderAllocated.Rejected }); // only orders not setup to Accounts
         }
         if (!filter) {
-            selectBuilder.andWhere("ord.user = :userId", { userId: userId });
+            selectBuilder.andWhere("ord.user = :userId", { userId });
         }
         return await selectBuilder.orderBy("ord.id", "ASC").getRawMany();
     }
 
-
     public async getSleuth(companyId: number, dateFrom: Date, side: string, symbol: string) {
         const result = await this.createQueryBuilder("ord")
             .where("ord.\"Symbol\"=:symbol and app=:app and ord.\"Side\"=:side and ord.\"companyId\"=:comp"
-                , { symbol: symbol, side: side, comp: companyId, app: Apps.broker })
+                , { symbol, side, comp: companyId, app: Apps.broker })
             .andWhere("ord.\"createDate\" >= :dateFrom", { dateFrom })
             .andWhere("(ord.\"AvgPx\">0 OR ord.\"Price\">0)")
             .orderBy("ord.id", "DESC")
@@ -138,12 +137,11 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
     public async hasSleuth(companyId: number, dateFrom: Date, side: string, symbol: string) {
         return await this.createQueryBuilder("ord")
             .where("ord.\"Symbol\"=:symbol and app=:app and ord.\"Side\"=:side and ord.\"companyId\"=:comp"
-                , { symbol: symbol, side: side, comp: companyId, app: Apps.broker })
+                , { symbol, side, comp: companyId, app: Apps.broker })
             .andWhere("ord.\"createDate\" >= :dateFrom", { dateFrom })
             .andWhere("(ord.\"AvgPx\">0 OR ord.\"Price\">0)")
             .getCount();
     }
-
 
     public async getClients(companyId: number, app: number) {
         const dateFrom = new Date();
@@ -157,17 +155,17 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
             .select("distinct ord.\"ClientID\"", "ClientID")
             .where("ord.\"ClientID\" is not null and ord.\"OrdStatus\" in (:...AordStatus)", {
                 AordStatus:
-                    [OrdStatus.New, OrdStatus.PartiallyFilled, OrdStatus.Replaced, OrdStatus.PendingNew, OrdStatus.PendingReplace]
+                    [OrdStatus.New, OrdStatus.PartiallyFilled, OrdStatus.Replaced, OrdStatus.PendingNew, OrdStatus.PendingReplace],
             })
             .andWhere("((ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo)"
                 + " or (ord.\"TimeInForce\" IN (:gtd) and ord.\"ExpireDate\" >= NOW())"
                 + " or (ord.\"TimeInForce\" IN (:gtc) and ord.\"OrdStatus\" not in (:...BordStatus)))"
                 , {
                     dateFrom, dateTo, gtd, gtc, BordStatus:
-                        [OrdStatus.Canceled]
+                        [OrdStatus.Canceled],
                 })
             .andWhere("ord.company = :compId", { compId: companyId })
-            .andWhere("ord.app=:app", { app: app })
+            .andWhere("ord.app=:app", { app })
             .orderBy("ord.ClientID", "DESC")
             .getRawMany();
     }
@@ -179,7 +177,7 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
             .where("ord.\"OrdStatus\" = 'DoneForDay'"
                 + " and ((ord.\"TimeInForce\" IN (:gtd) and ord.\"ExpireDate\" >= NOW())"
                 + " or (ord.\"TimeInForce\" IN (:gtc)))",
-                { gtd: gtd, gtc: gtc })
+                { gtd, gtc })
             .getMany();
 
         for (let i = 0; i < orders.length; i++) {

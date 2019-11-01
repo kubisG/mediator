@@ -10,8 +10,8 @@ export class OrderRelRepository extends Repository<RaOrderRel> {
         const selectBuilder = queryBuilder
             .select("sum(CASE WHEN ors.\"LeavesQty\">-1 THEN ors.\"LeavesQty\" ELSE ors.\"OrderQty\" END)", "qty")
             .leftJoin("ra_order_store", "ors", "ors.\"id\" = \"childId\"")
-            .where("\"parentClOrdId\"=:clOrdLinkID", { clOrdLinkID: clOrdLinkID })
-            .andWhere("ord.company = :compId", { compId: compId });
+            .where("\"parentClOrdId\"=:clOrdLinkID", { clOrdLinkID })
+            .andWhere("ord.company = :compId", { compId });
 
         const result = await selectBuilder.getRawOne();
         return result.qty;
@@ -25,20 +25,18 @@ export class OrderRelRepository extends Repository<RaOrderRel> {
             selectBuilder = queryBuilder
                 .select("min(ors.Price)", "price")
                 .leftJoin("ra_order_store", "ors", "ors.\"id\" = \"childId\"")
-                .where("\"parentClOrdId\"=:clOrdLinkID", { clOrdLinkID: clOrdLinkID })
-                .andWhere("ord.company = :compId", { compId: compId });
+                .where("\"parentClOrdId\"=:clOrdLinkID", { clOrdLinkID })
+                .andWhere("ord.company = :compId", { compId });
         } else {
             selectBuilder = queryBuilder
                 .select("max(ors.Price)", "price")
                 .leftJoin("ra_order_store", "ors", "ors.\"id\" = \"childId\"")
-                .where("\"parentClOrdId\"=:clOrdLinkID", { clOrdLinkID: clOrdLinkID })
-                .andWhere("ord.company = :compId", { compId: compId });
+                .where("\"parentClOrdId\"=:clOrdLinkID", { clOrdLinkID })
+                .andWhere("ord.company = :compId", { compId });
         }
 
         const result = await selectBuilder.getRawOne();
         return result.price;
     }
-
-
 
 }

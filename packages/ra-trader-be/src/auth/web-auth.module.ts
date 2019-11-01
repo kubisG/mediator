@@ -20,7 +20,7 @@ import { PreferencesService } from "./preferences.service";
         DbVerify,
         RaUserSessionData,
         ...webAuthProvider,
-    ], exports: [...webAuthProvider]
+    ], exports: [...webAuthProvider],
 })
 export class WebAuthModule {
 

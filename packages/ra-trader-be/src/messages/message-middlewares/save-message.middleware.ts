@@ -64,7 +64,7 @@ export abstract class SaveMessageMiddleware implements MessageMiddleware {
         data: any,
         context: any,
         raOrderStoreToken: Repository<RaOrderStore>,
-        raMessageToken: Repository<RaMessage>
+        raMessageToken: Repository<RaMessage>,
     );
 
     abstract async beforeRaOrderUpdate(
@@ -72,7 +72,7 @@ export abstract class SaveMessageMiddleware implements MessageMiddleware {
         data: any,
         context: any,
         raOrderStoreToken: Repository<RaOrderStore>,
-        orderExist: RaOrderStore
+        orderExist: RaOrderStore,
     );
 
     abstract async afterRaOrderUpdate(
@@ -86,7 +86,7 @@ export abstract class SaveMessageMiddleware implements MessageMiddleware {
         raOrder: RaOrderStore,
         data: any,
         context: any,
-        raOrderStoreToken: Repository<RaOrderStore>
+        raOrderStoreToken: Repository<RaOrderStore>,
     );
 
     abstract async afterRaOrderInsert(
@@ -101,7 +101,7 @@ export abstract class SaveMessageMiddleware implements MessageMiddleware {
         raMessage: RaMessage,
         data: any,
         context: any,
-        raMessageToken: Repository<RaMessage>
+        raMessageToken: Repository<RaMessage>,
     );
 
     abstract async afterRaMessageInsert(

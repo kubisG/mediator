@@ -67,7 +67,6 @@ export class TraderIoisService extends IoisService {
         return super.insert(iois, token);
     }
 
-
     /**
      * TODO : split & validace
      * @param data
@@ -135,25 +134,24 @@ export class TraderIoisService extends IoisService {
         }
     }
 
-
     protected async saveMessageTransaction(msg,
-        raIOIToken: Repository<RaIoi>, consumer) {
+                                           raIOIToken: Repository<RaIoi>, consumer) {
         const mapper = new LightMapper();
 
         const newMessage = mapper.map(RaIoi, msg);
         if (msg.IOITransType === IOITransType.Replace) {
             await raIOIToken.update({ IOIid: msg.IOIRefID, company: msg.company }, newMessage).then(() => {
                 this.logger.info(
-                    `UPDATED IOI WITH ID: ${newMessage.id} - ${newMessage.msgType} TIMESTAMP: ${new Date().getTime()}`
+                    `UPDATED IOI WITH ID: ${newMessage.id} - ${newMessage.msgType} TIMESTAMP: ${new Date().getTime()}`,
                 );
             });
         } else if (msg.IOITransType === IOITransType.Cancel) {
             await raIOIToken.update({ IOIid: msg.IOIRefID, company: msg.company },
                 {
-                    Canceled: "Y", IOITransType: IOITransType.Cancel, IOIid: msg.IOIid, IOIRefID: msg.IOIRefID
+                    Canceled: "Y", IOITransType: IOITransType.Cancel, IOIid: msg.IOIid, IOIRefID: msg.IOIRefID,
                 }).then(() => {
                     this.logger.info(
-                        `CANCELED IOI WITH ID: ${newMessage.id} - ${newMessage.msgType} TIMESTAMP: ${new Date().getTime()}`
+                        `CANCELED IOI WITH ID: ${newMessage.id} - ${newMessage.msgType} TIMESTAMP: ${new Date().getTime()}`,
                     );
                 });
         } else {

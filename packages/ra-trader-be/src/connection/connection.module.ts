@@ -4,7 +4,6 @@ import { QueueModule } from "@ra/web-queue/dist/queue.module";
 import { queueFactory } from "./connection.provider";
 import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
 
-
 @Module({
     imports: [
         CoreModule,

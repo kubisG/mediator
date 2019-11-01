@@ -10,7 +10,7 @@ export const brokerIOIsProviders = [
             return ioisService;
         },
         inject: [
-            BrokerIoisService
+            BrokerIoisService,
         ],
     },
 ];

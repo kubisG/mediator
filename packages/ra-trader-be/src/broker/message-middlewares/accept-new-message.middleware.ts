@@ -33,7 +33,6 @@ export class AcceptNewMessageMiddleware implements MessageMiddleware {
         return data;
     }
 
-
     private createExecutionReport(msg: any) {
         const mapper = new LightMapper();
         // const raId = msg.OrgClOrdID ? msg.OrgClOrdID : msg.ClOrdID;

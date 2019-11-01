@@ -10,7 +10,7 @@ import { WebAuthModule } from "../auth/web-auth.module";
     imports: [
         CoreModule,
         AuthModule,
-        WebAuthModule
+        WebAuthModule,
     ],
     controllers: [
         UsersController,

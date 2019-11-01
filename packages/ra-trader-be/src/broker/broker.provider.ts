@@ -30,7 +30,7 @@ export const inMessageMiddlewares = [
     AckMiddleware,
     AcceptNewMessageMiddleware,
     AcceptPhoneMessageMiddleware,
-    DeQueueMiddleware
+    DeQueueMiddleware,
 ];
 
 export const outMessageMiddlewares = [
@@ -45,7 +45,7 @@ export const outMessageMiddlewares = [
     SaveMessageBrokerMiddleware,
     PhoneMessageMiddleware,
     FilterMiddleware,
-    DeQueueMiddleware
+    DeQueueMiddleware,
 ];
 
 export const brokerProviders = [
@@ -86,5 +86,5 @@ export const brokerProviders = [
             "brokerRouting",
             ...outMessageMiddlewares,
         ],
-    }
+    },
 ];

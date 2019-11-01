@@ -36,7 +36,6 @@ export class InputRulesRepository extends Repository<RaInputRules> {
         //   ORDER  BY level,id;`, [compId]);
     }
 
-
     public async getInputRules(compId?: number, type?: string) {
         const query = `SELECT relid, c."childId" id, c."rootId", c."parentId", c."companyId", rair."name", rair.value, rair."label"
          FROM   ra_input_relations c
@@ -53,8 +52,6 @@ export class InputRulesRepository extends Repository<RaInputRules> {
         if (type) {
             arg.push(type);
         }
-
-
 
         return await this.manager.query(query, arg);
     }

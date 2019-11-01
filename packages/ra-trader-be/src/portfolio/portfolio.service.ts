@@ -14,7 +14,6 @@ export class PortfolioService {
         private authService: AuthService,
     ) { }
 
-
     async findAndCount(token: string, company: boolean = false): Promise<[RaPortfolio[], number]> {
         const userData = await this.authService.getUserData<UserData>(token);
         let zaznamy;
@@ -23,7 +22,7 @@ export class PortfolioService {
         } else {
             zaznamy = await this.portfolioRep.findAndCount({
                 where: { user: userData.userId, company: userData.compId }
-                , relations: ["user"]
+                , relations: ["user"],
             });
         }
 
@@ -31,7 +30,7 @@ export class PortfolioService {
     }
 
     async findOne(id: any): Promise<RaPortfolio> {
-        return await this.portfolioRep.findOne({ id: id });
+        return await this.portfolioRep.findOne({ id });
     }
 
     async update(id: number, portfolio: any, token: string): Promise<any> {
@@ -40,7 +39,7 @@ export class PortfolioService {
         try {
             const oldMessage = await this.findOne(id);
             const updateMessage = { ...oldMessage, ...portfolio };
-            await this.portfolioRep.update({ id: id, user: <any>userData.userId }, updateMessage);
+            await this.portfolioRep.update({ id, user: userData.userId as any }, updateMessage);
         } catch (ex) {
             throw new DbException(ex, "RaPortfolio");
         }

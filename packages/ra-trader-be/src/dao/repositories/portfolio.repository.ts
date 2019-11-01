@@ -13,11 +13,11 @@ export class PortfolioRepository extends Repository<RaPortfolio> {
     public async getAccountPortfolio(compId, userId, compOrders: string) {
         const queryBuilder = this.createQueryBuilder("ord");
         const selectBuilder = queryBuilder
-            .andWhere("ord.company = :compId", { compId: compId })
+            .andWhere("ord.company = :compId", { compId })
             .orderBy("ord.id", "DESC");
 
         if (compOrders === "false") {
-            selectBuilder.andWhere("ord.user = :userId", { userId: userId });
+            selectBuilder.andWhere("ord.user = :userId", { userId });
         }
 
         return await selectBuilder.getManyAndCount();

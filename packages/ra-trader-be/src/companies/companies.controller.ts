@@ -7,8 +7,6 @@ import { Roles } from "@ra/web-auth-be/dist/decorators/roles.decorator";
 import { ApiBearerAuth, ApiImplicitParam, ApiImplicitQuery } from "@nestjs/swagger/dist";
 import { Bearer } from "@ra/web-auth-be/dist/decorators/bearer.decorator";
 
-
-
 @Controller("companies")
 @UseGuards(RolesGuard)
 @ApiBearerAuth()
@@ -31,7 +29,6 @@ export class CompaniesController {
     updateMyCompany(@Bearer() token: string, @Param("id") id, @Body() companyDto: CompanyDto) {
         return this.companiesService.myUpdate(token, id, companyDto);
     }
-
 
     @Roles("ADMIN")
     @Delete("/:id")
@@ -58,7 +55,7 @@ export class CompaniesController {
     @ApiImplicitQuery({ name: "sort", required: false })
     @ApiImplicitQuery({ name: "sortDir", required: false })
     findAll(@Query("skip") skip?: number, @Query("take") take?: number, @Query("sort") sort?: string
-        , @Query("sortDir") sortDir?: string, @Query("filter") filter?: any) {
+        ,   @Query("sortDir") sortDir?: string, @Query("filter") filter?: any) {
         return this.companiesService.findAndCount(skip, take, sort, sortDir, null);
     }
 }

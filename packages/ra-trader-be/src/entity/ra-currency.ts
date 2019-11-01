@@ -28,7 +28,7 @@ export class RaCurrency extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ type: "decimal", precision: 25, scale: 10, nullable: true })
     public price: number;
@@ -41,7 +41,7 @@ export class RaCurrency extends AEntity {
             } else {
                 return new Date();
             }
-        }
+        },
     })
     @Column({ type: "timestamptz" })
     public date: Date;

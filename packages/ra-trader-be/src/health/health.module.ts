@@ -18,7 +18,7 @@ const getTerminusOptions = (): TerminusModuleOptions => ({
         {
             url: "/ready",
             healthIndicators: [],
-        }
+        },
     ],
 });
 
@@ -30,6 +30,6 @@ const getTerminusOptions = (): TerminusModuleOptions => ({
             useFactory: () => getTerminusOptions(),
         }),
     ],
-    providers: []
+    providers: [],
 })
 export class HealthModule { }

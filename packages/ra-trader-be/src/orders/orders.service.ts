@@ -76,7 +76,7 @@ export abstract class OrdersService {
     }
 
     public async exception(token: string, client: any): Promise<Observable<ExceptionDto>> {
-        const userData = <UserData>await this.authService.getUserData(token);
+        const userData = await this.authService.getUserData(token) as UserData;
         return new Observable((observer) => {
             const subscription = this.exceptionSubject$.subscribe((data) => {
                 if (data && data.userId && data.userId === userData.userId) {
@@ -99,7 +99,7 @@ export abstract class OrdersService {
                     userId: userData.userId,
                     currentBalance: user.currentBalance,
                     openBalance: user.openBalance,
-                    type: "balance"
+                    type: "balance",
                 }));
             });
             const subscription = this.consumeInfoSubject$.subscribe((data) => {
@@ -208,7 +208,7 @@ export abstract class OrdersService {
             console.log("sending userData,", userData);
             await this.messagesRouter.sendUserMessage(data, userData, data.SenderCompID);
             this.logger.info(
-                `NEW ORDER WITH RaID: ${data.ClOrdID}  AND RAID ${data.RaID} TIMESTAMP: ${new Date().getTime()}`
+                `NEW ORDER WITH RaID: ${data.ClOrdID}  AND RAID ${data.RaID} TIMESTAMP: ${new Date().getTime()}`,
             );
         } catch (ex) {
             this.logger.error(ex);
@@ -220,7 +220,7 @@ export abstract class OrdersService {
     }
 
     public async getOrders(app: number, dates: string, token: string, compOrders: string, gtcGtd: string, clOrdLinkID?: string
-        , isPhone?: string) {
+        ,                  isPhone?: string) {
         const datesArr = dates.split("~");
         const dateFrom = datesArr[0];
         let dateTo;
@@ -252,26 +252,25 @@ export abstract class OrdersService {
         let where = {};
         let select = null;
         if ((raID) && (raID !== null)) {
-            where = { RaID: raID, company: userData.compId, app: app, OrdStatus: Not(IsNull()) }; /*, user: userData.userId*/
-            return await this.raMessage.find({ where: where, order: { TransactTime: "ASC", id: "ASC" } });
+            where = { RaID: raID, company: userData.compId, app, OrdStatus: Not(IsNull()) }; /*, user: userData.userId*/
+            return await this.raMessage.find({ where, order: { TransactTime: "ASC", id: "ASC" } });
         } else if ((symbol) && (symbol !== null)) {
             where = {
                 Currency: currency, Symbol: symbol, user: userData.userId, Side: In([Side.Sell, Side.Buy])
                 , OrdStatus: In([OrdStatus.PartiallyFilled, OrdStatus.Filled])
-                , company: userData.compId, app
+                , company: userData.compId, app,
             };
             select = ["Symbol", "TransactTime", "Side", "LastQty", "LastPx", "ExecTransType", "Canceled"];
-            return await this.raMessage.find({ select: select, where: where, order: { TransactTime: "ASC", id: "ASC" } });
+            return await this.raMessage.find({ select, where, order: { TransactTime: "ASC", id: "ASC" } });
         }
 
     }
 
     public async getParsedOrder(token: string, app: number, raID: any) {
         const userData = await this.authService.getUserData<UserData>(token);
-        const result = await this.orderStoreRepository.findOne({ app: app, RaID: raID, company: userData.compId });
+        const result = await this.orderStoreRepository.findOne({ app, RaID: raID, company: userData.compId });
         return result;
     }
-
 
     public async getParsedMessages(token: string, app: number, raID: any) {
         const result = await this.getMessages(token, app, raID);
@@ -295,8 +294,8 @@ export abstract class OrdersService {
                         }
                     }
                     this.clientProxy.send<any>(
-                        { cmd: "messageProcessing", },
-                        { ...message.getJSON(), queuePrefix: this.env.queue.prefixTrader }
+                        { cmd: "messageProcessing" },
+                        { ...message.getJSON(), queuePrefix: this.env.queue.prefixTrader },
                     ).subscribe((result) => {
                         this.consumeInfoSubject.next(result);
                     });
@@ -320,12 +319,12 @@ export abstract class OrdersService {
         side[side.length] = data.sellShort ? Side.ShortSell : "-1";
 
         const result = await this.orderStoreRepository.getOrdersForCancel(this.app,
-            side, userData.compId, userData.userId, data.filtr, data.ClientID
+            side, userData.compId, userData.userId, data.filtr, data.ClientID,
         );
 
         if (this.app === Apps.broker) {
             try {
-            result.forEach(function (order: any) {
+            result.forEach(function(order: any) {
                 order.SenderCompID = that.messagesRouter.getQueueName(userData);
                 order.TargetCompID = order.DeliverToCompID ? order.DeliverToCompID : order.TargetCompID;
                 order.company = userData.compId;
@@ -345,7 +344,7 @@ export abstract class OrdersService {
                 console.log("ex", ex);
             }
         } else {
-            result.forEach(function (order: any) {
+            result.forEach(function(order: any) {
                 order.SenderCompID = that.messagesRouter.getQueueName(userData);
                 order.TargetCompID = order.DeliverToCompID ? order.DeliverToCompID : order.TargetCompID;
                 order.company = userData.compId;
@@ -376,7 +375,7 @@ export abstract class OrdersService {
         await this.raMessage.insert(newMessage).then((savedMessage) => {
             const label = this.app === Apps.trader ? "TRADER" : "BROKER";
             this.logger.info(
-                `${label}: RESAVE MSG RaID: ${savedMessage.identifiers[0]["id"]} - ${message.getMsgType()} TIME: ${new Date().getTime()}`
+                `${label}: RESAVE MSG RaID: ${savedMessage.identifiers[0]["id"]} - ${message.getMsgType()} TIME: ${new Date().getTime()}`,
             );
         });
         await this.orderStoreRepository.update({ id: orderId }, { sended: 1 });

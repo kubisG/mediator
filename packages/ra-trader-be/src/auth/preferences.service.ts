@@ -35,5 +35,4 @@ export class PreferencesService {
         } else { return null; }
     }
 
-
 }

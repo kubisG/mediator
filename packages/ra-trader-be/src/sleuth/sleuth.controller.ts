@@ -5,7 +5,6 @@ import { SleuthService } from "./sleuth.service";
 import { Bearer } from "@ra/web-auth-be/dist/decorators/bearer.decorator";
 import { ApiBearerAuth, ApiImplicitParam } from "@nestjs/swagger";
 
-
 @Controller("sleuth")
 @ApiBearerAuth()
 @UseGuards(AuthGuard())
@@ -14,7 +13,6 @@ export class SleuthController {
     constructor(
         private readonly sleuthService: SleuthService,
     ) { }
-
 
     @Get("/:side/:symbol")
     @ApiImplicitParam({ name: "side" })

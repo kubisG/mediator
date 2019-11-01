@@ -12,7 +12,7 @@ import { FilterDto } from "../messages/dto/filter.dto";
 export class BrokerController {
 
     constructor(
-        @Inject("brokerOrderService") private brokerService: BrokerService
+        @Inject("brokerOrderService") private brokerService: BrokerService,
     ) { }
 
     @Get("/fills")
@@ -22,7 +22,7 @@ export class BrokerController {
 
     @Post("/all/")
     public async getOrders(
-        @Bearer() token: string, @Body() filters: FilterDto
+        @Bearer() token: string, @Body() filters: FilterDto,
     ) {
         const app = filters["app"];
         const dates = filters["date"];
@@ -65,7 +65,6 @@ export class BrokerController {
     public async getChildsPrice(@Bearer() token: string, @Param("clOrdLinkID") clOrdLinkID: any, @Param("side") side: any) {
         return await this.brokerService.getChildsPrice(token, clOrdLinkID, side);
     }
-
 
     @Get("/trades/:symbol/:currency")
     @ApiImplicitParam({ name: "symbol" })

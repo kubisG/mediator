@@ -10,7 +10,7 @@ export const brokerAllocationsProviders = [
             return allocationService;
         },
         inject: [
-            BrokerAllocationsService
+            BrokerAllocationsService,
         ],
     },
 ];

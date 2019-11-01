@@ -41,7 +41,7 @@ export class MessageProcessingService {
     }
 
     private async createPortfolio(raPortfolioToken: Repository<RaPortfolio>, user: RaUser, msg: any, curr: string, account: string
-        , bookPrice: number) {
+        ,                         bookPrice: number) {
         const portfolio = {
             Symbol: msg.Symbol,
             StockName: msg.SecurityDesc,
@@ -49,16 +49,16 @@ export class MessageProcessingService {
             Profit: 0,
             BookPrice: bookPrice,
             Quantity: 0,
-            user: user,
+            user,
             company: user.company,
             FirstTrade: msg.Placed,
-            Currency: curr
+            Currency: curr,
         };
         return raPortfolioToken.create(portfolio);
     }
 
     private async calculatePortfolio(
-        raPortfolioToken: Repository<RaPortfolio>, portfolio: any, value: any, msg: any, side: string
+        raPortfolioToken: Repository<RaPortfolio>, portfolio: any, value: any, msg: any, side: string,
     ) {
         portfolio["Profit"] = value + Number(portfolio["Profit"]);
 
@@ -74,9 +74,8 @@ export class MessageProcessingService {
         return portfolio;
     }
 
-
     private async reCalculatePortfolio(
-        raPortfolioToken: Repository<RaPortfolio>, portfolio: any, basicPortfolio: any, msg: any
+        raPortfolioToken: Repository<RaPortfolio>, portfolio: any, basicPortfolio: any, msg: any,
     ) {
         // move quantity from unallocated to account
         basicPortfolio.Quantity = basicPortfolio.Quantity - msg.Quantity;
@@ -110,10 +109,10 @@ export class MessageProcessingService {
                 if (msg.Account) {
                     portfolio = await raPortfolioToken.findOne({
                         Account: msg.Account, Symbol: msg.Symbol
-                        , Currency: curr, user: user, company: user.company
+                        , Currency: curr, user, company: user.company,
                     });
                 } else {
-                    portfolio = await raPortfolioToken.findOne({ Symbol: msg.Symbol, Currency: curr, user: user, company: user.company });
+                    portfolio = await raPortfolioToken.findOne({ Symbol: msg.Symbol, Currency: curr, user, company: user.company });
                 }
                 if (!portfolio) {
                     portfolio = await this.createPortfolio(raPortfolioToken, user, msg, curr, msg.Account, 0);
@@ -121,8 +120,8 @@ export class MessageProcessingService {
 
                 portfolio = await this.calculatePortfolio(raPortfolioToken, portfolio, value, msg, side);
                 return {
-                    userId: userId, currentBalance: user.currentBalance
-                    , openBalance: user.openBalance, portfolio: portfolio, type: "balance"
+                    userId, currentBalance: user.currentBalance
+                    , openBalance: user.openBalance, portfolio, type: "balance",
                 };
             } else if (msg.userId && this.isAckAllocation(msg)) {
                 if (msg.AllocAccount) {
@@ -131,12 +130,12 @@ export class MessageProcessingService {
                     const user = await raUserToken.findOne({ id: userId }, { relations: ["company"] });
                     let portfolio = await raPortfolioToken.findOne({
                         Account: msg.AllocAccount, Symbol: msg.Symbol
-                        , Currency: curr, user: user, company: user.company
+                        , Currency: curr, user, company: user.company,
                     });
 
                     const basicPortfolio = await raPortfolioToken.findOne({
                         Symbol: msg.Symbol
-                        , Currency: curr, user: user, company: user.company
+                        , Currency: curr, user, company: user.company,
                     });
 
                     if (!portfolio) {
@@ -148,8 +147,8 @@ export class MessageProcessingService {
 
                     const portfolios = await this.reCalculatePortfolio(raPortfolioToken, portfolio, basicPortfolio, msg);
                     return {
-                        userId: userId, currentBalance: user.currentBalance
-                        , openBalance: user.openBalance, portfolio: portfolios, type: "balances"
+                        userId, currentBalance: user.currentBalance
+                        , openBalance: user.openBalance, portfolio: portfolios, type: "balances",
                     };
                 }
             }

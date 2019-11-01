@@ -9,7 +9,6 @@ import { MessageRepository } from "../../dao/repositories/message.repository";
 import { logMessage } from "@ra/web-core-be/dist/utils";
 import { Logger } from "@ra/web-core-be/dist/logger/providers/logger";
 
-
 @Injectable()
 export class ReplaceTreeMiddleware implements MessageMiddleware {
 
@@ -32,20 +31,20 @@ export class ReplaceTreeMiddleware implements MessageMiddleware {
         )
         ) {
             const messages = await this.messageRepository.getPendingMessages(data.RaID, data.OrigClOrdID, context.app);
-            for (let i = 0; i < messages.length; i++) {
+            for (const message of messages) {
                 let result = null;
-                messages[i]["OnBehalfOfCompID"] = data.OnBehalfOfCompID;
-                messages[i]["DeliverToCompID"] = data.DeliverToCompID;
-                messages[i]["ClientID"] = data.ClientID;
-                messages[i]["OrderID"] = data.OrderID;
+                message["OnBehalfOfCompID"] = data.OnBehalfOfCompID;
+                message["DeliverToCompID"] = data.DeliverToCompID;
+                message["ClientID"] = data.ClientID;
+                message["OrderID"] = data.OrderID;
                 if (data.msgType === MessageType.OrderCancelReject) {
-                    if (messages[i].msgType === MessageType.Replace) {
-                        data.replaceMessage = messages[i];
+                    if (message.msgType === MessageType.Replace) {
+                        data.replaceMessage = message;
                     }
-                    result = this.orderReject.reject(messages[i], context);
+                    result = this.orderReject.reject(message, context);
                 } else if ((data.msgType === MessageType.Execution && data.ExecType === ExecType.Replace)
                     || (data.msgType === MessageType.Execution && data.ExecType === ExecType.Canceled)) {
-                    result = this.orderAccept.accept(messages[i], context);
+                    result = this.orderAccept.accept(message, context);
                 }
                 if (result !== null) {
                     await this.brokerService.sendOrderMessage(result, context.userData);

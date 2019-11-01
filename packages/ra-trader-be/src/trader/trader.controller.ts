@@ -6,14 +6,13 @@ import { Bearer } from "@ra/web-auth-be/dist/decorators/bearer.decorator";
 import { OrdersDto } from "../messages/dto/orders.dto";
 import { FilterDto } from "../messages/dto/filter.dto";
 
-
 @Controller("trader")
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
 export class TraderController {
 
     constructor(
-        @Inject("traderOrderService") private traderService: TraderService
+        @Inject("traderOrderService") private traderService: TraderService,
     ) { }
 
     @Get("/fills")
@@ -23,7 +22,7 @@ export class TraderController {
 
     @Post("/all/")
     public async getOrders(
-        @Bearer() token: string, @Body() filters: FilterDto
+        @Bearer() token: string, @Body() filters: FilterDto,
     ) {
         const app = filters["app"];
         const dates = filters["date"];
@@ -52,7 +51,6 @@ export class TraderController {
     public async getChildsQty(@Bearer() token: string, @Param("clOrdLinkID") clOrdLinkID: any) {
         return await this.traderService.getChildsQty(token, clOrdLinkID);
     }
-
 
     @Post()
     public sendMessage(@Bearer() token: string, @Body() order: OrdersDto) {

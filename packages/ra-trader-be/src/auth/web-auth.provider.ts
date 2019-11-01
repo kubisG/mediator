@@ -18,6 +18,6 @@ export const webAuthProvider = [
         inject: [
             AuthService,
             DbVerify,
-            RaUserSessionData
-        ]
+            RaUserSessionData,
+        ],
     }];

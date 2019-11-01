@@ -52,7 +52,7 @@ export const messagesRouting = [
 
             return router;
         },
-        inject: ["queueBroker", "logger", "fastRandom", EnvironmentService, "companyRepository"]
+        inject: ["queueBroker", "logger", "fastRandom", EnvironmentService, "companyRepository"],
     },
     {
         provide: "traderRouting",
@@ -79,6 +79,6 @@ export const messagesRouting = [
 
             return router;
         },
-        inject: ["queueTrader", "logger", "fastRandom", EnvironmentService, "companyRepository"]
-    }
+        inject: ["queueTrader", "logger", "fastRandom", EnvironmentService, "companyRepository"],
+    },
 ];

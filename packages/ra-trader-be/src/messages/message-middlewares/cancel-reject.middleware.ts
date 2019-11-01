@@ -29,4 +29,3 @@ export class CancelRejectMiddleware implements MessageMiddleware {
         return data;
     }
 }
-

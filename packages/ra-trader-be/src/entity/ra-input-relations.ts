@@ -33,7 +33,6 @@ export class RaInputRelations extends AEntity {
     @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
     public createDate: Date;
 
-
     @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
     public updatedDate: Date;
 

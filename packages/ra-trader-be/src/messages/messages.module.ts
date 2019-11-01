@@ -32,7 +32,7 @@ import { QueueService } from "./queue.service";
         MessagesFactoryService,
         OrderStatusMiddleware,
         QueueService,
-    ]
+    ],
 })
 export class MessagesModule {
 

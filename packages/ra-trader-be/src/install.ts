@@ -23,7 +23,7 @@ async function getConnection(env: EnvironmentService): Promise<Connection> {
         username: env.db.user,
         password: env.db.password,
         database: env.db.db,
-        entities: entities,
+        entities,
         synchronize: true,
         logging: true,
     } as PostgresConnectionOptions);
@@ -61,7 +61,7 @@ async function insertToDB(connection: Connection) {
             // SELECT setval('payments_id_seq', 21, true);
             await connection.manager.query(
                 `INSERT INTO ra_company ("${Object.keys(comapanyJson[i]).join("\",\"")}") VALUES (${params.join(",")})`,
-                values
+                values,
             );
         }
     }
@@ -83,7 +83,7 @@ async function insertToDB(connection: Connection) {
             }
             await connection.manager.query(
                 `INSERT INTO ra_user ("${Object.keys(userJson[i]).join("\",\"")}") VALUES (${params.join(",")})`,
-                values
+                values,
             );
         }
     }
@@ -111,12 +111,11 @@ async function insertToDB(connection: Connection) {
             }
             await connection.manager.query(
                 `INSERT INTO ra_input_rules ("${Object.keys(inputRulesJson[i]).join("\",\"")}") VALUES (${params.join(",")})`,
-                values
+                values,
             );
         }
     }
     await connection.manager.query("SELECT setval('ra_input_rules_id_seq', COALESCE((SELECT MAX(id)+1 FROM ra_input_rules), 1), true);");
-
 
     for (let i = 0; i < inputRelationsJson.length; i++) {
         const exists = await raInputRelations.find({ relid: inputRelationsJson[i].relid });
@@ -133,7 +132,7 @@ async function insertToDB(connection: Connection) {
             }
             await connection.manager.query(
                 `INSERT INTO ra_input_relations ("${Object.keys(inputRelationsJson[i]).join("\",\"")}") VALUES (${params.join(",")})`,
-                values
+                values,
             );
         }
     }
@@ -158,7 +157,7 @@ async function insertToDB(connection: Connection) {
             }
             await connection.manager.query(
                 `INSERT INTO ra_preference ("${Object.keys(preferenceJson[i]).join("\",\"")}") VALUES (${params.join(",")})`,
-                values
+                values,
             );
         }
     }
@@ -180,7 +179,7 @@ async function insertToDB(connection: Connection) {
             }
             await connection.manager.query(
                 `INSERT INTO ra_accounts ("${Object.keys(accountsJson[i]).join("\",\"")}") VALUES (${params.join(",")})`,
-                values
+                values,
             );
         }
     }
@@ -265,7 +264,6 @@ async function auditTables(connection: Connection) {
     const sql = fs.readFileSync(path.join(__dirname, "../db/postgres.sql")).toString();
     await connection.manager.query(sql);
 }
-
 
 async function updateToDB(connection: Connection) {
     const sql = fs.readFileSync(path.join(__dirname, "../db/update-db.sql")).toString();

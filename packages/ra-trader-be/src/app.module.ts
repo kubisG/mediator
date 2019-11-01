@@ -68,6 +68,6 @@ import { LifeCheckModule } from "@ra/web-core-be/dist/life-check/life-check.modu
     controllers: [
     ],
     providers: [
-    ]
+    ],
 })
 export class AppModule { }

@@ -17,7 +17,7 @@ import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
         AuthModule,
         MessagesModule,
         WebAuthModule,
-        EnvironmentsModule
+        EnvironmentsModule,
     ],
     controllers: [
         TraderIoisController,
@@ -26,7 +26,7 @@ import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
         TraderIoisService,
         TraderIoisGateway,
         ...traderIOIsProviders,
-    ]
+    ],
 })
 export class TraderIoisModule {
 

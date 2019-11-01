@@ -10,7 +10,7 @@ export class AllocationMessageRepository extends Repository<RaAllocationMessage>
         const queryBuilder = this.createQueryBuilder("ord");
         const selectBuilder = queryBuilder
             .where("ord.\"TransactTime\" >= :dateFrom and ord.\"TransactTime\" <= :dateTo", { dateFrom, dateTo })
-            .andWhere("ord.\"companyId\" = :compId", { compId: compId })
+            .andWhere("ord.\"companyId\" = :compId", { compId })
             .andWhere("ord.\"msgType\" = :msgType", { msgType: MessageType.Allocation })
             .orderBy("ord.id", "ASC");
 

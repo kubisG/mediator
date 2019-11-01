@@ -14,13 +14,13 @@ export class CounterPartyService {
     constructor(
         @Inject("counterPartyRepository") private raCounterPartyToken: CounterPartyRepository,
         private authService: AuthService,
-        private httpCacheService: HttpCacheService
+        private httpCacheService: HttpCacheService,
     ) { }
 
     public async getCounterParties(token: string, type?: number): Promise<RaCounterParty[]> {
         const userData = await this.authService.getUserData<UserData>(token);
         if (type) {
-            return await this.raCounterPartyToken.find({ company: userData.compId, type: type });
+            return await this.raCounterPartyToken.find({ company: userData.compId, type });
 
         } else {
             return await this.raCounterPartyToken.find({ company: userData.compId });
@@ -29,14 +29,14 @@ export class CounterPartyService {
 
     public async findOne(id: number, token: string): Promise<RaCounterParty> {
         const userData = await this.authService.getUserData<UserData>(token);
-        return await this.raCounterPartyToken.findOne({ id: id, company: userData.compId });
+        return await this.raCounterPartyToken.findOne({ id, company: userData.compId });
     }
 
     public async delete(id: number, token: string): Promise<any> {
         const userData = await this.authService.getUserData<UserData>(token);
         try {
             this.httpCacheService.setClearCache(userData.compId);
-            return await this.raCounterPartyToken.delete({ id: id, company: userData.compId });
+            return await this.raCounterPartyToken.delete({ id, company: userData.compId });
         } catch (ex) {
             throw new DbException(ex, "RaCounterParty");
         }

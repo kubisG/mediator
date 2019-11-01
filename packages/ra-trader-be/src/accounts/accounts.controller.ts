@@ -29,7 +29,6 @@ export class AccountsController {
         return this.accountService.findOne(id, token);
     }
 
-
     @UseGuards(RolesGuard)
     @ApiBearerAuth()
     @Roles("MANAGER", "ADMIN")
@@ -37,7 +36,6 @@ export class AccountsController {
     saveAccounts(@Bearer() token: string, @Body() data: AccountsDto) {
         return this.accountService.save(data, token);
     }
-
 
     @UseGuards(RolesGuard)
     @ApiBearerAuth()

@@ -37,7 +37,6 @@ export class CounterPartyController {
         return this.counterPartyService.findOne(id, token);
     }
 
-
     @UseGuards(RolesGuard)
     @ApiBearerAuth()
     @Roles("MANAGER", "ADMIN")
@@ -45,7 +44,6 @@ export class CounterPartyController {
     saveCounterParty(@Bearer() token: string, @Body() data: CounterPartyDto) {
         return this.counterPartyService.save(data, token);
     }
-
 
     @UseGuards(RolesGuard)
     @ApiBearerAuth()

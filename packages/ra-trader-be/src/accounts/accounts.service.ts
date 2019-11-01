@@ -15,7 +15,7 @@ export class AccountsService {
     constructor(
         @Inject("accountsRepository") private raAccountsToken: AccountsRepository,
         private authService: AuthService,
-        private httpCacheService: HttpCacheService
+        private httpCacheService: HttpCacheService,
     ) { }
 
     public async geAccounts(token: string): Promise<RaAccounts[]> {
@@ -25,14 +25,14 @@ export class AccountsService {
 
     public async findOne(id: number, token: string): Promise<RaAccounts> {
         const userData = await this.authService.getUserData<UserData>(token);
-        return await this.raAccountsToken.findOne({ id: id, company: userData.compId });
+        return await this.raAccountsToken.findOne({ id, company: userData.compId });
     }
 
     public async delete(id: number, token: string): Promise<any> {
         const userData = await this.authService.getUserData<UserData>(token);
         try {
             this.httpCacheService.setClearCache(userData.compId);
-            return await this.raAccountsToken.delete({ id: id, company: userData.compId });
+            return await this.raAccountsToken.delete({ id, company: userData.compId });
         } catch (ex) {
             throw new DbException(ex, "RaAccounts");
         }

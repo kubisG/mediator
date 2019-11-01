@@ -73,7 +73,6 @@ export class DownloadService {
             }
         }
 
-
         const currencies = await this.dbConnection().getRepository(RaCurrency)
             .query("select distinct upper(value) val from ra_input_rules where label='Currency'");
 
@@ -120,12 +119,12 @@ export class DownloadService {
         try {
             const select = await this.dbConnection().getRepository(RaPreference).findOne({
                 name: raPreference.name, userId: raPreference.userId
-                , companyId: raPreference.companyId
+                , companyId: raPreference.companyId,
             });
             if (select) {
                 await this.dbConnection().getRepository(RaPreference).update({
                     name: raPreference.name, userId: raPreference.userId
-                    , companyId: raPreference.companyId
+                    , companyId: raPreference.companyId,
                 }, raPreference);
             } else {
                 await this.dbConnection().getRepository(RaPreference).insert(raPreference);

@@ -13,13 +13,13 @@ import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
         AuthModule,
         MessagesModule,
         WebAuthModule,
-        EnvironmentsModule
+        EnvironmentsModule,
     ],
     controllers: [
         CompaniesController,
     ],
     providers: [
         CompaniesService,
-    ]
+    ],
 })
 export class CompaniesModule { }

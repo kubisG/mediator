@@ -92,5 +92,5 @@ export const entityProviders = [
         provide: "orderRelRepository",
         useFactory: (connection: () => Connection) => connection().getCustomRepository(OrderRelRepository),
         inject: ["DbConnection"],
-    }
+    },
 ];

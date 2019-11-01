@@ -8,14 +8,12 @@ import { ApiBearerAuth, ApiImplicitParam } from "@nestjs/swagger";
 import { RolesGuard } from "@ra/web-auth-be/dist/guards/roles.guard";
 import { Roles } from "@ra/web-auth-be/dist/decorators/roles.decorator";
 
-
 @Controller("preferences")
 export class PreferencesController {
 
     constructor(
         private readonly preferencesService: PreferencesService,
     ) { }
-
 
     @Get("/hitlist/:key")
     @ApiImplicitParam({ name: "key" })

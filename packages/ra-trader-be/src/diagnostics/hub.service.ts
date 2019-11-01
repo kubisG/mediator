@@ -37,7 +37,7 @@ export class HubService {
                     } else {
                         this.logger.warn(`TRY ACK FAILED ID: ${msg.id}`);
                     }
-                    this.statusSubject.next({ type: "broker", msg: msg });
+                    this.statusSubject.next({ type: "broker", msg });
                 });
             }
         });
@@ -56,16 +56,16 @@ export class HubService {
                     switch (msg.Text) {
                         case "Download": {
                             this.clientProxy.send<any>(
-                                { cmd: "jobDownload", },
-                                { msg: msg }
+                                { cmd: "jobDownload" },
+                                { msg },
                             ).subscribe((result) => {
                             });
                             break;
                         }
                         case "UpdateDFD": {
                             this.clientProxy.send<any>(
-                                { cmd: "jobDfdUpdate", },
-                                { msg: msg }
+                                { cmd: "jobDfdUpdate" },
+                                { msg },
                             ).subscribe((result) => {
                             });
                             break;

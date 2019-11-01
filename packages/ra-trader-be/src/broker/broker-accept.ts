@@ -58,7 +58,7 @@ export class BrokerAccept {
         const mapper = new LightMapper();
         const target = message.OnBehalfOfCompID; // SenderCompID
 
-        let result = <AcceptNew>null;
+        let result = null as AcceptNew;
         if (message.OrdStatus === OrdStatus.PendingReplace) {
             result = mapper
                 .map<AcceptNew>(AcceptNew, message);

@@ -42,8 +42,8 @@ async function bootstrap() {
 
     await app.listen(
         EnvironmentService.instance.appPort, "0.0.0.0", () => console.log(
-            `Application is listening on port ${EnvironmentService.instance.appPort}`
-        )
+            `Application is listening on port ${EnvironmentService.instance.appPort}`,
+        ),
     );
 }
 
@@ -58,7 +58,7 @@ async function workerBootstrap() {
             url: `redis://${EnvironmentService.instance.redis.host}:${EnvironmentService.instance.redis.port}`,
             // urls: [connectioString],
             // queue: EnvironmentService.instance.queue.workersQ,
-        }
+        },
     });
     appMicro.listen(() => console.log("Microservice is listening"));
 }

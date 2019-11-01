@@ -11,13 +11,13 @@ import { WebAuthModule } from "../auth/web-auth.module";
         CoreModule,
         AuthModule,
         MessagesModule,
-        WebAuthModule
+        WebAuthModule,
     ],
     controllers: [
         PreferencesController,
     ],
     providers: [
         PreferencesService,
-    ]
+    ],
 })
 export class PreferencesModule { }

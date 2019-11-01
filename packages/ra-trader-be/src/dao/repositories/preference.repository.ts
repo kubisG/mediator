@@ -14,14 +14,14 @@ export class PreferenceRepository extends Repository<RaPreference> {
         let config = await this.findOne({
             userId,
             companyId,
-            name: `layout_${name}`
+            name: `layout_${name}`,
         });
 
         if ((!config) || (config === null)) {
             config = await this.findOne({
                 userId: 0,
                 companyId: 0,
-                name: `layout_${name}`
+                name: `layout_${name}`,
             });
         }
 
@@ -41,7 +41,7 @@ export class PreferenceRepository extends Repository<RaPreference> {
         const configs: RaPreference[] = await this.find( {where: {
             userId: In([userId , 0] ),
             companyId: In([companyId, 0] ),
-            name: Like("layout_%")
+            name: Like("layout_%"),
         }, order: { userId: "ASC", name: "ASC" }});
         const configNames: string[] = [];
         for (let i = 0; i < configs.length; i++) {

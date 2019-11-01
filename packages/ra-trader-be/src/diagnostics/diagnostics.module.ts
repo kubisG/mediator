@@ -31,6 +31,6 @@ import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
         DiagnosticsService,
         HubService,
         ReadyHealthIndicator,
-    ]
+    ],
 })
 export class DiagnosticsModule { }

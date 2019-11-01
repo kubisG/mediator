@@ -6,7 +6,6 @@ import { AuthGuard } from "@nestjs/passport";
 import { Bearer } from "@ra/web-auth-be/dist/decorators/bearer.decorator";
 import { ApiBearerAuth, ApiImplicitParam } from "@nestjs/swagger/dist";
 
-
 @Controller("portfolio")
 @ApiBearerAuth()
 @UseGuards(AuthGuard())

@@ -16,7 +16,7 @@ import { WebAuthModule } from "../auth/web-auth.module";
     controllers: [
     ],
     providers: [
-    ]
+    ],
 })
 export class AllocationsModule {
 

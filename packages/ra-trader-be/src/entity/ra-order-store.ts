@@ -317,4 +317,3 @@ export class RaOrderStore extends AEntity {
         (this.Placed as any) = new Date().toISOString();
     }
 }
-

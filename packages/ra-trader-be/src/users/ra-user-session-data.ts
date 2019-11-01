@@ -30,7 +30,7 @@ export class RaUserSessionData implements SessionData {
             companyName: entry.company.companyName,
             nickName: entry.username,
             app: entry.app,
-            appPrefs: appPrefs,
+            appPrefs,
             ClientID: entry.company.ClientID,
         };
     }
@@ -56,7 +56,7 @@ export class RaUserSessionData implements SessionData {
             compQueueTrader: `${this.env.queue.prefixTrader}${entry.company.id}`,
             compQueueBroker: `${this.env.queue.prefixBroker}${entry.company.id}`,
             app: entry.app,
-            appPrefs: appPrefs,
+            appPrefs,
             ClientID: entry.company.ClientID,
         };
     }
@@ -75,7 +75,7 @@ export class RaUserSessionData implements SessionData {
             role: null,
             companyName: null,
             nickName: null,
-            app: app,
+            app,
             appPrefs: null,
         };
     }

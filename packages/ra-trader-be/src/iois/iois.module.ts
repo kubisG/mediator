@@ -11,12 +11,12 @@ import { WebAuthModule } from "../auth/web-auth.module";
         ConnectionModule,
         AuthModule,
         MessagesModule,
-        WebAuthModule
+        WebAuthModule,
     ],
     controllers: [
     ],
     providers: [
-    ]
+    ],
 })
 export class IoisModule {
 

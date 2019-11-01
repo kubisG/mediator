@@ -19,7 +19,7 @@ import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
         OrdersModule,
         AuthModule,
         WebAuthModule,
-        EnvironmentsModule
+        EnvironmentsModule,
     ],
     controllers: [
         TraderController,

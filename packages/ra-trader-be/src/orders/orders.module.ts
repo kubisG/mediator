@@ -16,7 +16,7 @@ import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
         ConnectionModule,
         MessagesModule,
         WebAuthModule,
-        EnvironmentsModule
+        EnvironmentsModule,
     ],
     controllers: [
     ],
@@ -29,7 +29,7 @@ import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
         BrokerSplitService,
         PhoneService,
         OrderUtilsService,
-    ]
+    ],
 })
 export class OrdersModule {
 

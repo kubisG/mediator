@@ -21,7 +21,7 @@ async function getConnection(env: EnvironmentService): Promise<Connection> {
         username: env.db.user,
         password: env.db.password,
         database: env.db.db,
-        entities: entities,
+        entities,
         synchronize: true,
         logging: env.logging.db,
     } as PostgresConnectionOptions);

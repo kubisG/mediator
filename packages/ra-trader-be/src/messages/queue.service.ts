@@ -28,7 +28,6 @@ export class QueueService {
         return result;
     }
 
-
     public runFromQueue(message: any, context: any): any {
         if (!message.RaID) {
             return;
@@ -50,6 +49,5 @@ export class QueueService {
         }
         return;
     }
-
 
 }

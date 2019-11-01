@@ -27,18 +27,18 @@ export class RecalculateMiddleware implements MessageMiddleware {
             this.logger.info(`${context.id} REPLACE QTY MESSAGE: '${logMessage(data)}'`);
             const messages = await this.messageRepository.find({
                 where: { RaID: data.RaID, app: context.app }  // , company: context.userData.compId , company: parseCompanyId(context.queue)
-                , order: { id: "DESC" }
+                , order: { id: "DESC" },
             });
-            for (let i = 0; i < messages.length; i++) {
-                if (!(this.exeptionsOrdStatus.indexOf(<any>messages[i].OrdStatus) > -1)) {
+            for (const message of messages) {
+                if (!(this.exeptionsOrdStatus.indexOf(message.OrdStatus as any) > -1)) {
 
-                    data.CumQty = messages[i].CumQty ? messages[i].CumQty : 0;
-                    data.AvgPx = messages[i].AvgPx ? messages[i].AvgPx : 0;
+                    data.CumQty = message.CumQty ? message.CumQty : 0;
+                    data.AvgPx = message.AvgPx ? message.AvgPx : 0;
                     // disabled stopx px and price have to be set to 0
-                    if (messages[i].StopPx && messages[i].StopPx > 0 && !data.StopPx) {
+                    if (message.StopPx && message.StopPx > 0 && !data.StopPx) {
                         data.StopPx = 0;
                     }
-                    if (messages[i].Price && messages[i].Price > 0 && !data.Price) {
+                    if (message.Price && message.Price > 0 && !data.Price) {
                         data.Price = 0;
                     }
                     if (data.CumQty > data.OrderQty) {
@@ -57,7 +57,7 @@ export class RecalculateMiddleware implements MessageMiddleware {
                     data.app = context.app;
                     await this.orderStoreRepository.update({
                         RaID: data.RaID,
-                        app: context.app // , company: <any>parseCompanyId(context.queue)
+                        app: context.app, // , company: <any>parseCompanyId(context.queue)
                     }, data);
                     this.logger.info(`${context.id} FINAL REPLACE QTY MESSAGE: '${logMessage(data)}'`);
                     return data;

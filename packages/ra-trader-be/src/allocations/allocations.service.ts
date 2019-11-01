@@ -44,14 +44,13 @@ export abstract class AllocationsService {
         raAllocationToken: Repository<RaAllocationMessage>,
         raOrderStoreToken: Repository<RaOrderStore>,
         raAllocToken: Repository<RaAllocation>,
-        consumer
+        consumer,
     );
 
     public async deleteRaidAlloc(id: any, token: string): Promise<any> {
         const userData = await this.authService.getUserData<UserData>(token);
-        return await this.raAllocations.delete({ RaID: id, company: userData.compId, user: <any>userData.userId });
+        return await this.raAllocations.delete({ RaID: id, company: userData.compId, user: userData.userId as any });
     }
-
 
     public async findRaidAlloc(id: any, token: string, transType: string = null): Promise<RaAllocation[]> {
         const userData = await this.authService.getUserData<UserData>(token);
@@ -63,7 +62,7 @@ export abstract class AllocationsService {
     }
 
     public async findOne(id: any): Promise<RaAllocation> {
-        return await this.raAllocations.findOne({ id: id });
+        return await this.raAllocations.findOne({ id });
     }
 
     public async update(id: number, allocation: any, token: string): Promise<any> {
@@ -82,7 +81,7 @@ export abstract class AllocationsService {
     public async delete(id: number, token: string): Promise<any> {
         const userData = await this.authService.getUserData<UserData>(token);
         try {
-            return await this.raAllocations.delete({ id: id, company: userData.compId, user: <any>userData.userId });
+            return await this.raAllocations.delete({ id, company: userData.compId, user: userData.userId as any });
         } catch (ex) {
             throw new DbException(ex, "RaAllocations");
         }
@@ -107,7 +106,7 @@ export abstract class AllocationsService {
         const queryBuilder = this.raOrderStore.createQueryBuilder("ord");
         const selectBuilder = queryBuilder
             .where("ord.RaID = :raID", { raID })
-            .andWhere("ord.company = :compId", { compId: compId });
+            .andWhere("ord.company = :compId", { compId });
 
         const result = await selectBuilder.getOne();
 
@@ -144,7 +143,6 @@ export abstract class AllocationsService {
 
     public onModuleInit() {
     }
-
 
     public async saveConsumedMessages() {
         const subjects = this.messagesService.getAllocationsSubjects();

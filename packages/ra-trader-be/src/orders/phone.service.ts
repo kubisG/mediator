@@ -16,7 +16,7 @@ export class PhoneService {
     }
 
     public async sendBrokerMsg(data: any, userData: any) {
-        this.consumeBrokerPhoneSubject.next({ message: data, userData: userData });
+        this.consumeBrokerPhoneSubject.next({ message: data, userData });
     }
 
     public getBrokerPhoneSubject(): Subject<any> {
@@ -24,7 +24,7 @@ export class PhoneService {
     }
 
     public async sendTraderMsg(data: any, userData: any) {
-        this.consumeTraderPhoneSubject.next({ message: data, userData: userData });
+        this.consumeTraderPhoneSubject.next({ message: data, userData });
     }
 
     public getTraderPhoneSubject(): Subject<any> {

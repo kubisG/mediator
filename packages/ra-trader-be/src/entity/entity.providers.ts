@@ -84,5 +84,5 @@ export const EntityProviders = [
         provide: "raStockDataToken",
         useFactory: (connection: () => Connection) => connection().getRepository(RaStock),
         inject: ["DbConnection"],
-    }
+    },
 ];

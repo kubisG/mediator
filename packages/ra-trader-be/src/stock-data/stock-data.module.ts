@@ -11,13 +11,13 @@ import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
         CoreModule,
         AuthModule,
         WebAuthModule,
-        EnvironmentsModule
+        EnvironmentsModule,
     ],
     controllers: [
-        StockDataController
+        StockDataController,
     ],
     providers: [
         StockDataService,
-    ]
+    ],
 })
 export class StockDataModule { }

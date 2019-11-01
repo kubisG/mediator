@@ -25,7 +25,7 @@ export class RaStock extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ type: "decimal", precision: 25, scale: 10, nullable: true })
     public startPx: number;
@@ -34,7 +34,7 @@ export class RaStock extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ type: "decimal", precision: 25, scale: 10, nullable: true })
     public lastPx: number;
@@ -43,7 +43,7 @@ export class RaStock extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ type: "decimal", precision: 25, scale: 10, nullable: true })
     public highPx: number;
@@ -52,7 +52,7 @@ export class RaStock extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ type: "decimal", precision: 25, scale: 10, nullable: true })
     public lowPx: number;
@@ -61,7 +61,7 @@ export class RaStock extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ nullable: true })
     public volume: number;
@@ -74,7 +74,7 @@ export class RaStock extends AEntity {
             } else {
                 return new Date();
             }
-        }
+        },
     })
     @Column({ type: "timestamptz" })
     public priceDate: Date;

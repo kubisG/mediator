@@ -20,7 +20,6 @@ export class BrokerReject {
         this.fastRandom = fastRandom;
     }
 
-
     public reject(message: any, context: any) {
         const mapper = new LightMapper();
         const sender = message.OnBehalfOfCompID; // SenderCompID

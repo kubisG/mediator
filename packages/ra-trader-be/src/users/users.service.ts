@@ -38,7 +38,7 @@ export class UsersService {
         const pref = await this.raPreferences.findOne({
             userId,
             companyId,
-            name: "layout.prefs"
+            name: "layout.prefs",
         });
         let json = {};
         if (pref) {
@@ -57,11 +57,10 @@ export class UsersService {
                 userId,
                 companyId,
                 name: "layout.prefs",
-                value: JSON.stringify(json)
+                value: JSON.stringify(json),
             });
         }
     }
-
 
     public init(token: string) {
         return new Observable((observer) => {
@@ -101,13 +100,13 @@ export class UsersService {
      * @param email
      */
     async resetMail(email: string): Promise<any> {
-        const user = await this.raUser.findOne({ email: email });
+        const user = await this.raUser.findOne({ email });
         const status = { message: "", statusCode: HttpStatus.OK };
 
         if (user) {
             const newpassword = generator.generate({
                 length: 10,
-                numbers: true
+                numbers: true,
             });
 
             user.password = await bcryptHash(newpassword);
@@ -125,7 +124,7 @@ export class UsersService {
      * @param id, user
      */
     async welcomeMail(email: any, token: any): Promise<any> {
-        const user = await this.raUser.findOne({ email: email });
+        const user = await this.raUser.findOne({ email });
         const status = { message: "", statusCode: HttpStatus.OK };
 
         if (user) {
@@ -176,11 +175,11 @@ export class UsersService {
     }
 
     async findOne(id: any): Promise<RaUser> {
-        return await this.raUser.findOne({ id: id }, { relations: ["company"] });
+        return await this.raUser.findOne({ id }, { relations: ["company"] });
     }
 
     async delete(id: any): Promise<any> {
-        return await this.raUser.delete({ id: id });
+        return await this.raUser.delete({ id });
     }
 
     /**
@@ -243,7 +242,7 @@ export class UsersService {
                 delete raUser.class;
             }
 
-            await this.raUser.update({ id: id }, raUser);
+            await this.raUser.update({ id }, raUser);
             const savedUser = await this.findOne(id);
             delete savedUser.password;
             return savedUser;
@@ -267,7 +266,7 @@ export class UsersService {
         return await this.raPreferences.findOne({
             userId: userData.userId,
             companyId: userData.compId,
-            name: `default_layout_${modul}`
+            name: `default_layout_${modul}`,
         });
 
     }
@@ -281,7 +280,6 @@ export class UsersService {
             companyId: userData.compId,
         });
     }
-
 
     async deleteLayoutConfig(token: string, name: string) {
         const userData: UserData = await this.authService.getUserData<UserData>(token);

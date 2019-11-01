@@ -9,10 +9,10 @@ export class IoisRepository extends Repository<RaIoi> {
         const selectBuilder = queryBuilder
             .where("((ord.createDate >= :dateFrom and ord.createDate <= :dateTo) or (ord.ValidUntilTime >= :dateFrom))"
                 , { dateFrom, dateTo })
-            .andWhere("ord.company = :compId", { compId: compId })
+            .andWhere("ord.company = :compId", { compId })
             .orderBy("ord.id", "ASC");
         if (!compOrders) {
-            selectBuilder.andWhere("(ord.user = :userId or ord.user is null)", { userId: userId });
+            selectBuilder.andWhere("(ord.user = :userId or ord.user is null)", { userId });
         }
         return await selectBuilder.getMany();
     }

@@ -48,10 +48,9 @@ export class BrokerAllocationsService extends AllocationsService implements OnMo
             authService,
             logger,
             dbConnection,
-            fastRandom
+            fastRandom,
         );
     }
-
 
     public async getAllocations(token: string, dates: string, filter: string, allmsg: string) {
         const datesArr = dates.split("~");
@@ -67,12 +66,9 @@ export class BrokerAllocationsService extends AllocationsService implements OnMo
         return await this.raAllocationMessage.getBrokerAllocations(dateFrom, dateTo, userData.compId);
     }
 
-
     /**
-    * TODO : split & validace
-    * @param data
-    * @param token
-    */
+     * TODO : split & validace
+     */
     public async sendAllocations(data: any, token: string) {
         const userData = await this.authService.getUserData<UserData>(token);
 
@@ -129,11 +125,11 @@ export class BrokerAllocationsService extends AllocationsService implements OnMo
         await raAllocationToken.update({ AllocID: msg.RefAllocID, company: parseCompanyId(consumer) },
             {
                 Canceled: "Y", AllocTransType: AllocTransType.Cancel,
-                AllocID: msg.AllocID, RefAllocID: msg.RefAllocID
+                AllocID: msg.AllocID, RefAllocID: msg.RefAllocID,
             }).then(() => {
                 this.logger.info(
                     `CANCELED ALLOC WITH ID: ${msg.id} - ${msg.msgType} TIMESTAMP: ` +
-                    `${new Date().getTime()}`
+                    `${new Date().getTime()}`,
                 );
             });
     }
@@ -153,14 +149,14 @@ export class BrokerAllocationsService extends AllocationsService implements OnMo
         }
 
         await raAllocToken.update({
-            RaID: msg.RaID, company: parseCompanyId(consumer), AllocTransType: AllocTransType.New, AllocStatus: AllocStatus.New
+            RaID: msg.RaID, company: parseCompanyId(consumer), AllocTransType: AllocTransType.New, AllocStatus: AllocStatus.New,
         },
             { AllocStatus: msg.AllocStatus, AllocID: msg.AllocID }).then((savedOrder) => {
                 this.logger.info(`UPD ALLOC WITH ID: ${msg.RaID} TIMESTAMP: ${new Date().getTime()}`);
             });
 
         await raAllocationToken.update({
-            RaID: msg.RaID, company: parseCompanyId(consumer), AllocTransType: AllocTransType.New, AllocStatus: AllocStatus.New
+            RaID: msg.RaID, company: parseCompanyId(consumer), AllocTransType: AllocTransType.New, AllocStatus: AllocStatus.New,
         },
             { AllocStatus: msg.AllocStatus, AllocID: msg.AllocID }).then((savedOrder) => {
                 this.logger.info(`UPD ALLOCMESSAGE WITH ID: ${msg.RaID} TIMESTAMP: ${new Date().getTime()}`);
@@ -168,10 +164,10 @@ export class BrokerAllocationsService extends AllocationsService implements OnMo
     }
 
     protected async saveMessageTransaction(msg,
-        raAllocationToken: Repository<RaAllocationMessage>,
-        raOrderStoreToken: Repository<RaOrderStore>,
-        raAllocToken: Repository<RaAllocation>,
-        consumer) {
+                                           raAllocationToken: Repository<RaAllocationMessage>,
+                                           raOrderStoreToken: Repository<RaOrderStore>,
+                                           raAllocToken: Repository<RaAllocation>,
+                                           consumer) {
         const mapper = new LightMapper();
         const newMessage = mapper.map(RaAllocationMessage, msg);
 
@@ -186,7 +182,7 @@ export class BrokerAllocationsService extends AllocationsService implements OnMo
 
             await raAllocationToken.insert(newMessage).then((savedMessage) => {
                 this.logger.info(`NEW ALLOC WITH ID: ${savedMessage.identifiers[0]["id"]} - ${msg.msgType} TIMESTAMP: ` +
-                    `${new Date().getTime()}`
+                    `${new Date().getTime()}`,
                 );
             });
 
