@@ -20,12 +20,12 @@ export class MiddlewareRunner {
     }
 
     public async runOnly(data: any, context: ContextMiddlewareInterface, runMid: string[]) {
-        for (let i = 0; i < this.middlewares.length; i++) {
-            if (runMid.indexOf(this.middlewares[i].constructor.name) > -1) {
-                this.logger.debug(`${context.id} RUNNING ${this.middlewares[i].constructor.name} MIDDLEWARE`);
-                data = await this.middlewares[i].resolve(data, context);
+        for (const middleware of this.middlewares) {
+            if (runMid.indexOf(middleware.constructor.name) > -1) {
+                this.logger.debug(`${context.id} RUNNING ${middleware.constructor.name} MIDDLEWARE`);
+                data = await middleware.resolve(data, context);
                 if (!data) {
-                    throw new NoDataError(`${this.middlewares[i].constructor.name} MIDDLEWARE return ${data}`);
+                    throw new NoDataError(`${middleware.constructor.name} MIDDLEWARE return ${data}`);
                 }
             }
         }
@@ -39,14 +39,14 @@ export class MiddlewareRunner {
         if (runMid.length > 0) {
             return this.runOnly(data, context, runMid);
         }
-        for (let i = 0; i < this.middlewares.length; i++) {
-            this.logger.silly(`${context.id} RUNNING ${this.middlewares[i].constructor.name} MIDDLEWARE`);
-            data = await this.middlewares[i].resolve(data, context);
+        for (const middleware of this.middlewares) {
+            this.logger.silly(`${context.id} RUNNING ${middleware.constructor.name} MIDDLEWARE`);
+            data = await middleware.resolve(data, context);
             if ((!data) && (context.finish) && (context.finish === true)) {
                 return;
             }
             if (!data) {
-                throw new NoDataError(`${this.middlewares[i].constructor.name} MIDDLEWARE return ${data}`);
+                throw new NoDataError(`${middleware.constructor.name} MIDDLEWARE return ${data}`);
             }
         }
         this.logger.silly(`${context.id} ----END MIDDLEWARE RUNNER----`);

@@ -63,10 +63,10 @@ export class PreferenceRepository extends Repository<RaPreference> {
         });
 
         const layouts: any[] = [];
-        for (let i = 0; i < configs.length; i++) {
-            if (configs[i].name.indexOf(`layout_`) > -1) {
-                const name = configs[i].name.split("_");
-                layouts.push({ name: name[1], flag: configs[i].flag, userId: configs[i].userId });
+        for (const config of configs) {
+            if (config.name.indexOf(`layout_`) > -1) {
+                const name = config.name.split("_");
+                layouts.push({ name: name[1], flag: config.flag, userId: config.userId });
             }
         }
         return layouts;
@@ -85,10 +85,10 @@ export class PreferenceRepository extends Repository<RaPreference> {
         });
 
         const hitlists: any[] = [];
-        for (let i = 0; i < configs.length; i++) {
-            if (configs[i].name.indexOf(`hitlist_` + hitlist + "~") > -1) {
-                const name = configs[i].name.split("~");
-                hitlists.push({ name: name[1], flag: configs[i].flag, userId: configs[i].userId });
+        for (const config of configs) {
+            if (config.name.indexOf(`hitlist_` + hitlist + "~") > -1) {
+                const name = config.name.split("~");
+                hitlists.push({ name: name[1], flag: config.flag, userId: config.userId });
             }
         }
         return hitlists;

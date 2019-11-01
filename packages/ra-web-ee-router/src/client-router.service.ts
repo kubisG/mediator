@@ -59,9 +59,9 @@ export class ClientRouterService implements ClientRouter {
 
     public pushToAccount(account: string, data: any, clients?: string[]) {
         const registeredClients = this.getRegisteredClients(account);
-        for (let i = 0; i < registeredClients.length; i++) {
-            if ((!clients) || (clients && clients.indexOf(registeredClients[i]) > -1)) {
-                this.pushToClient(registeredClients[i], data);
+        for (const regClient of registeredClients) {
+            if ((!clients) || (clients && clients.indexOf(regClient) > -1)) {
+                this.pushToClient(regClient, data);
             }
         }
     }
@@ -78,8 +78,8 @@ export class ClientRouterService implements ClientRouter {
     public getAccountSubjects(account: string): Subject<any>[] {
         const subjects: Subject<any>[] = [];
         const registeredClients = this.getRegisteredClients(account);
-        for (let i = 0; i < registeredClients.length; i++) {
-            subjects.push(this.getClientSubject(registeredClients[i]));
+        for (const regClient of registeredClients) {
+            subjects.push(this.getClientSubject(regClient));
         }
         return subjects;
     }
