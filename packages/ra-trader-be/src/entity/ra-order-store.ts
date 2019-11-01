@@ -34,7 +34,7 @@ export class RaOrderStore extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ nullable: true })
     public OrderQty: number;
@@ -52,7 +52,7 @@ export class RaOrderStore extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ type: "decimal", precision: 25, scale: 10, nullable: true })
     @Index()
@@ -91,7 +91,7 @@ export class RaOrderStore extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ type: "decimal", precision: 25, scale: 10, nullable: true })
     public StopPx: number;
@@ -100,7 +100,7 @@ export class RaOrderStore extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ nullable: true })
     public CumQty: number;
@@ -109,7 +109,7 @@ export class RaOrderStore extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ type: "decimal", precision: 25, scale: 10, nullable: true })
     public AvgPx: number;
@@ -126,7 +126,7 @@ export class RaOrderStore extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ nullable: true })
     public LastQty: number;
@@ -135,7 +135,7 @@ export class RaOrderStore extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ type: "decimal", precision: 25, scale: 10, nullable: true })
     public LastPx: number;
@@ -144,7 +144,7 @@ export class RaOrderStore extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ nullable: true })
     public LeavesQty: number;
@@ -176,7 +176,7 @@ export class RaOrderStore extends AEntity {
         requirement: MappingRequirement.NULLABLE,
         transformation: (date: string) => {
             return new Date(date);
-        }
+        },
     })
     @Column({
         type: "timestamptz",
@@ -205,7 +205,7 @@ export class RaOrderStore extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ type: "decimal", precision: 25, scale: 10, nullable: true })
     public Profit: number;
@@ -214,7 +214,7 @@ export class RaOrderStore extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (userId: number) => {
             return new RaUser(userId);
-        }
+        },
     })
     @ManyToOne(() => RaUser, (raUser) => raUser.store, { nullable: true })
     public user: RaUser;
@@ -226,7 +226,7 @@ export class RaOrderStore extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (companyId: number) => {
             return new RaCompany(companyId);
-        }
+        },
     })
     @ManyToOne(() => RaCompany, (raCompany) => raCompany.store)
     public company: RaCompany;
@@ -312,10 +312,9 @@ export class RaOrderStore extends AEntity {
     @Column({ nullable: true })
     public replaceMessage: string;
 
-
     @BeforeInsert()
     public setPlaced() {
         (this.Placed as any) = new Date().toISOString();
     }
 }
-
+

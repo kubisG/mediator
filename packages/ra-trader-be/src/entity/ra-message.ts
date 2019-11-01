@@ -57,7 +57,7 @@ export class RaMessage extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ nullable: true })
     public OrderQty: number;
@@ -66,7 +66,7 @@ export class RaMessage extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ type: "decimal", precision: 25, scale: 10, nullable: true })
     @Index()
@@ -84,7 +84,7 @@ export class RaMessage extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ type: "decimal", precision: 25, scale: 10, nullable: true })
     public StopPx: number;
@@ -93,7 +93,7 @@ export class RaMessage extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ nullable: true })
     public CumQty: number;
@@ -102,7 +102,7 @@ export class RaMessage extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ type: "decimal", precision: 25, scale: 10, nullable: true })
     public AvgPx: number;
@@ -111,7 +111,7 @@ export class RaMessage extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ nullable: true })
     public LastQty: number;
@@ -120,7 +120,7 @@ export class RaMessage extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ type: "decimal", precision: 25, scale: 10, nullable: true })
     public LastPx: number;
@@ -129,7 +129,7 @@ export class RaMessage extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value: any) => {
             return value === "" ? null : value;
-        }
+        },
     })
     @Column({ nullable: true })
     public LeavesQty: number;
@@ -151,7 +151,7 @@ export class RaMessage extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (date: string) => {
             return new Date(date);
-        }
+        },
     })
     @Column({
         type: "timestamptz",
@@ -222,7 +222,7 @@ export class RaMessage extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (companyId: number) => {
             return new RaCompany(companyId);
-        }
+        },
     })
     @ManyToOne(() => RaCompany, (raCompany) => raCompany.message, { nullable: true })
     @Index()
@@ -232,7 +232,7 @@ export class RaMessage extends AEntity {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (userId: number) => {
             return new RaUser(userId);
-        }
+        },
     })
     @ManyToOne(() => RaUser, (raUser) => raUser.message, { nullable: true })
     @Index()
@@ -255,7 +255,7 @@ export class RaMessage extends AEntity {
             } else {
                 return new Date();
             }
-        }
+        },
     })
     @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP"})
     public createDate: Date;

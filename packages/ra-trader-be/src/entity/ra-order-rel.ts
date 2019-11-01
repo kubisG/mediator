@@ -5,7 +5,6 @@ import { AEntity } from "@ra/web-core-be/dist/db/a-entity";
 import { RaUser } from "./ra-user";
 import { RaCompany } from "./ra-company";
 
-
 @Entity()
 export class RaOrderRel extends AEntity {
 
@@ -43,15 +42,13 @@ export class RaOrderRel extends AEntity {
     @ManyToOne(() => RaUser, (raUser) => raUser.orderRel, { nullable: true })
     public user: RaUser;
 
-
     @Mapping({
         requirement: MappingRequirement.REQUIRED,
         transformation: (companyId: number) => {
             return new RaCompany(companyId);
-        }
+        },
     })
     @ManyToOne(() => RaCompany, (raCompany) => raCompany.orderRel)
     public company: RaCompany;
-
 
 }

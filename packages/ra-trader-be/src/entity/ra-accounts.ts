@@ -59,7 +59,7 @@ export class RaAccounts extends AEntity {
         requirement: MappingRequirement.REQUIRED,
         transformation: (companyId: number) => {
             return new RaCompany(companyId);
-        }
+        },
     })
     @ManyToOne(() => RaCompany, (raCompany) => raCompany.account, { nullable: true })
     @Index()

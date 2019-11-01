@@ -54,7 +54,6 @@ export class RaCounterParty extends AEntity {
     @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
     public createDate: Date;
 
-
     @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
     public updatedDate: Date;
 
@@ -62,7 +61,7 @@ export class RaCounterParty extends AEntity {
         requirement: MappingRequirement.REQUIRED,
         transformation: (companyId: number) => {
             return new RaCompany(companyId);
-        }
+        },
     })
     @ManyToOne(() => RaCompany, (raCompany) => raCompany.counterParty, { nullable: true })
     @Index()
@@ -73,5 +72,4 @@ export class RaCounterParty extends AEntity {
         this.updatedDate = new Date();
     }
 }
-
-
+

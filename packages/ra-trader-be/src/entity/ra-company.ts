@@ -10,7 +10,6 @@ import { RaAccounts } from "./ra-accounts";
 import { RaCounterParty } from "./ra-counter-party";
 import { RaOrderRel } from "./ra-order-rel";
 
-
 @Entity()
 export class RaCompany extends AEntity {
 

@@ -72,7 +72,7 @@ export class RaPortfolio extends AEntity {
         requirement: MappingRequirement.REQUIRED,
         transformation: (userId: number) => {
             return new RaUser(userId);
-        }
+        },
     })
     @ManyToOne(() => RaUser, (raUser) => raUser.portfolio)
     public user: RaUser;
@@ -81,7 +81,7 @@ export class RaPortfolio extends AEntity {
         requirement: MappingRequirement.REQUIRED,
         transformation: (companyId: number) => {
             return new RaCompany(companyId);
-        }
+        },
     })
     @ManyToOne(() => RaCompany, (raCompany) => raCompany.portfolio)
     public company: RaCompany;
@@ -94,5 +94,4 @@ export class RaPortfolio extends AEntity {
     @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
     public updateDate: Date;
 }
-
-
+
