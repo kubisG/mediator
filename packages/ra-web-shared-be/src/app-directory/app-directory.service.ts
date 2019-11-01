@@ -37,7 +37,7 @@ export class AppDirectoryService {
         const mappedIntents: AppDirectoryIntentDto[] = [];
         for (const intent of mappedItem.intents) {
             mappedIntents.push(
-                mapper.map<AppDirectoryIntentDto>(AppDirectoryIntentDto, intent)
+                mapper.map<AppDirectoryIntentDto>(AppDirectoryIntentDto, intent),
             );
         }
         mappedItem.intents = mappedIntents;

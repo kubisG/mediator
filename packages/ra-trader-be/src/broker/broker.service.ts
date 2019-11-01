@@ -213,4 +213,9 @@ export class BrokerService extends OrdersService implements OnModuleInit {
         });
     }
 
+    public async getClients(token) {
+        const userData = await this.authService.getUserData<UserData>(token);
+        return await this.orderStoreRepository.getClients(userData.compId, Apps.broker);
+    }
+
 }

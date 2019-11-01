@@ -31,7 +31,7 @@ export class CompaniesService {
     async findOne(token: string, id: number): Promise<RaCompany> {
         const userData = await this.authService.getUserData<UserData>(token);
         if ((userData.role === "ADMIN") || (Number(userData.compId) === Number(id))) {
-            return await this.companyRep.findOne({ id: id });
+            return await this.companyRep.findOne({ id });
         } else {
             return null;
         }
@@ -39,7 +39,7 @@ export class CompaniesService {
 
     async delete(id: any): Promise<any> {
         try {
-            return await this.companyRep.delete({ id: id });
+            return await this.companyRep.delete({ id });
         } catch (ex) {
             throw new DbException(ex, "RaCompany");
         }
@@ -70,10 +70,10 @@ export class CompaniesService {
         try {
             const mapper = new LightMapper();
             const newCompany = mapper.map<RaCompany>(RaCompany, company);
-            await this.companyRep.update({ id: id }, newCompany);
+            await this.companyRep.update({ id }, newCompany);
             return await this.findOne(token, id);
         } catch (ex) {
-            console.log("err",ex);
+            console.log("err", ex);
             throw new DbException(ex, "RaCompany");
         }
     }
@@ -89,7 +89,7 @@ export class CompaniesService {
             try {
                 const mapper = new LightMapper();
                 const newCompany = mapper.map<RaCompany>(RaCompany, company);
-                await this.companyRep.update({ id: id }, newCompany);
+                await this.companyRep.update({ id }, newCompany);
                 return await this.findOne(token, id);
             } catch (ex) {
                 throw new DbException(ex, "RaCompany");
@@ -98,6 +98,5 @@ export class CompaniesService {
             throw new DbException({ message: "No rights!" }, "RaCompany");
         }
     }
-
 
 }

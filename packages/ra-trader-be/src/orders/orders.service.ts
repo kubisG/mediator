@@ -31,6 +31,7 @@ import { UserRepository } from "../dao/repositories/user.repository";
 import { OrderRelRepository } from "../dao/repositories/order-rel.repository";
 import { RaMessage } from "../entity/ra-message";
 import { UserData } from "../users/user-data.interface";
+import { ExecTransType } from "@ra/web-core-be/dist/enums/exec-trans-type.enum";
 
 export abstract class OrdersService {
 
@@ -203,13 +204,15 @@ export abstract class OrdersService {
 
     public async sendOrderMessage(data: any, userData: any) {
         try {
+            console.log("sending data,", data);
+            console.log("sending userData,", userData);
             await this.messagesRouter.sendUserMessage(data, userData, data.SenderCompID);
             this.logger.info(
                 `NEW ORDER WITH RaID: ${data.ClOrdID}  AND RAID ${data.RaID} TIMESTAMP: ${new Date().getTime()}`
             );
         } catch (ex) {
-            this.exceptionSubject.next(ex.message);
             this.logger.error(ex);
+            this.exceptionSubject.next(ex.message);
             if (ex instanceof QueueConnectionError) {
                 // await this.saveNotSendedMessage(message, order, userData.compId, orderId, userData);
             }
@@ -231,16 +234,10 @@ export abstract class OrdersService {
             compOrders, gtcGtd, clOrdLinkID, isPhone);
     }
 
-    public async getNewMessages(token) {
+    public async getNewMessages(token, app: number) {
         const userData = await this.authService.getUserData<UserData>(token);
-        const today = new Date();
-        today.setHours(0);
-        today.setMinutes(0);
-        today.setSeconds(0);
-        const result = await this.raMessage.find({
-            TransactTime: MoreThan(today), company: userData.compId,
-            ExecType: In([ExecType.PartialFill, ExecType.Fill, ExecType.Trade])
-        });
+        const result = await this.raMessage.getFillMessage(app, userData.compId );
+
         return result.map((val) => {
             const msg = JSON.parse(val.JsonMessage);
             msg["uniqueId"] = this.fastRandom.nextInt();
@@ -271,7 +268,7 @@ export abstract class OrdersService {
 
     public async getParsedOrder(token: string, app: number, raID: any) {
         const userData = await this.authService.getUserData<UserData>(token);
-        const result = await this.orderStoreRepository.findOne( { app: app, RaID: raID, company: userData.compId } );
+        const result = await this.orderStoreRepository.findOne({ app: app, RaID: raID, company: userData.compId });
         return result;
     }
 
@@ -316,7 +313,7 @@ export abstract class OrdersService {
     public async cancelAllOrder(data: any, token: string): Promise<number> {
         const that = this;
         const userData = await this.authService.getUserData<UserData>(token);
-        // TODO - data pro cancel
+
         const side = [];
         side[side.length] = data.sell ? Side.Sell : "-1";
         side[side.length] = data.buy ? Side.Buy : "-1";
@@ -325,21 +322,45 @@ export abstract class OrdersService {
         const result = await this.orderStoreRepository.getOrdersForCancel(this.app,
             side, userData.compId, userData.userId, data.filtr, data.ClientID
         );
-        result.forEach(function (order: any) {
-            order.SenderCompID = that.messagesRouter.getQueueName(userData);
-            order.TargetCompID = order.DeliverToCompID ? order.DeliverToCompID : order.TargetCompID;
-            order.company = userData.compId;
-            order.compQueue = userData.compQueue;
-            order.RequestType = RequestType.Trader;
-            order.OrigClOrdID = order.ClOrdID;
-            order.ClOrdID = `${that.fastRandom.nextInt()}`;
-            order.msgType = MessageType.Cancel;
-            order.TransactTime = new Date().toISOString();
-            // order.Placed = order.Placed ? order.Placed : new Date().toISOString();
-            order.OrdStatus = OrdStatus.PendingCancel;
-            delete order.JsonMessage;
-            that.sendOrderMessage(order, userData);
-        });
+
+        if (this.app === Apps.broker) {
+            try {
+            result.forEach(function (order: any) {
+                order.SenderCompID = that.messagesRouter.getQueueName(userData);
+                order.TargetCompID = order.DeliverToCompID ? order.DeliverToCompID : order.TargetCompID;
+                order.company = userData.compId;
+                order.compQueue = userData.compQueue;
+                order.RequestType = RequestType.Broker;
+                order.ExecTransType = ExecTransType.New;
+                order.LeavesQty = 0;
+                order.ExecType = ExecType.Canceled;
+                order.ExecID = `EX${that.fastRandom.nextInt()}`;
+                order.OrdStatus = OrdStatus.Canceled;
+                order.TransactTime = new Date().toISOString();
+                order.msgType = MessageType.Execution;
+                delete order.JsonMessage;
+                that.sendOrderMessage(order, userData);
+            });
+            } catch (ex) {
+                console.log("ex", ex);
+            }
+        } else {
+            result.forEach(function (order: any) {
+                order.SenderCompID = that.messagesRouter.getQueueName(userData);
+                order.TargetCompID = order.DeliverToCompID ? order.DeliverToCompID : order.TargetCompID;
+                order.company = userData.compId;
+                order.compQueue = userData.compQueue;
+                order.RequestType = RequestType.Trader;
+                order.OrigClOrdID = order.ClOrdID;
+                order.ClOrdID = `${that.fastRandom.nextInt()}`;
+                order.msgType = MessageType.Cancel;
+                order.TransactTime = new Date().toISOString();
+                // order.Placed = order.Placed ? order.Placed : new Date().toISOString();
+                order.OrdStatus = OrdStatus.PendingCancel;
+                delete order.JsonMessage;
+                that.sendOrderMessage(order, userData);
+            });
+        }
         return result.length;
     }
 

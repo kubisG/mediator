@@ -1,5 +1,5 @@
 import { Mapping, MappingRequirement } from "light-mapper";
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiModelProperty } from "@nestjs/swagger";
 
 export class AppDirectoryIntentDto {
 
@@ -16,7 +16,7 @@ export class AppDirectoryIntentDto {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value) => {
             return value === null ? undefined : value;
-        }
+        },
     })
     contexts: string[];
 
@@ -25,7 +25,7 @@ export class AppDirectoryIntentDto {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value) => {
             return value === null ? undefined : value;
-        }
+        },
     })
     customConfig: any;
 }

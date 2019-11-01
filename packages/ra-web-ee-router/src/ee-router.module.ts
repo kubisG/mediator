@@ -5,23 +5,23 @@ const inMiddlewaresProvider = {
     provide: "inMiddlewares",
     useFactory: (): MessageMiddleware[] => {
         return [];
-    }
+    },
 };
 const outMiddlewaresProvider = {
     provide: "outMiddlewares",
     useFactory: (): MessageMiddleware[] => {
         return [];
-    }
+    },
 };
 
 @Module({
     providers: [
         inMiddlewaresProvider,
-        outMiddlewaresProvider
+        outMiddlewaresProvider,
     ],
     exports: [
         inMiddlewaresProvider,
-        outMiddlewaresProvider
-    ]
+        outMiddlewaresProvider,
+    ],
 })
 export class EERouterModule { }

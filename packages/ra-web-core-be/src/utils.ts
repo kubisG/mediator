@@ -30,7 +30,7 @@ export async function bcryptHash(password: string): Promise<string> {
 
 export async function bcryptCompare(password: string, hash: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-        bcrypt.compare(password, hash, function(err, res) {
+        bcrypt.compare(password, hash, (err, res) => {
             if (res) {
                 resolve(true);
             } else {

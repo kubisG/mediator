@@ -91,7 +91,7 @@ export class TraderService extends OrdersService {
     }
 
     public async getNewMessages(token) {
-        return super.getNewMessages(token);
+        return super.getNewMessages(token, Apps.trader);
     }
 
     public async getOrders(app: number, dates: string, token: string, compOrders: string, gtcGtd: string, clOrdLinkID?: string

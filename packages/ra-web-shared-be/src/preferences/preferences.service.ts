@@ -21,7 +21,7 @@ export class PreferencesService {
     async getAppPref(name: string) {
         const pref = await this.raPreference.findOne({
             name, userId: 0, companyId: 0,
-            version: this.env.appVersion ? this.env.appVersion : "1.0.0"
+            version: this.env.appVersion ? this.env.appVersion : "1.0.0",
         });
         if (pref) {
             return JSON.parse(pref.value);

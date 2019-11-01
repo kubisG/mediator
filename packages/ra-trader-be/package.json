@@ -23,7 +23,7 @@
         "test:all": "npm run test && npm run test:e2e",
         "lint:fix": "tslint -c tslint.json --project ./tsconfig.json --fix",
         "lint:sa": "tslint --type-check --project tsconfig.json -c tslintsa.json 'src/**/*.ts' --exclude 'src/**/*.spec.ts'",
-        "lint": "tslint -c tslint.json 'src/**/*.ts'",
+        "lint": "tslint -c tslint.json --project ./tsconfig.json",
         "exportdb": "node dist/data-export.js",
         "inst": "node dist/install.js",
         "downstocks": "node dist/download-data.js",

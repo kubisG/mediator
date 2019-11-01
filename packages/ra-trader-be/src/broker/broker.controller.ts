@@ -73,4 +73,9 @@ export class BrokerController {
     public async geTrades(@Bearer() token: string, @Param("symbol") symbol: any, @Param("currency") currency: any) {
         return await this.brokerService.getMessagesBroker(token, null, symbol, currency);
     }
+
+    @Get("/clients")
+    public async getClients(@Bearer() token: string) {
+        return await this.brokerService.getClients(token);
+    }
 }

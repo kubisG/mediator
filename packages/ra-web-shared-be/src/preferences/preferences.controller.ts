@@ -7,7 +7,6 @@ import { ApiBearerAuth, ApiImplicitParam } from "@nestjs/swagger";
 import { RolesGuard } from "@ra/web-auth-be/dist/guards/roles.guard";
 import { Roles } from "@ra/web-auth-be/dist/decorators/roles.decorator";
 
-
 @Controller("preferences")
 @ApiBearerAuth()
 @UseGuards(AuthGuard())

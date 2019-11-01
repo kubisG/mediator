@@ -15,6 +15,7 @@
         "test:cov": "jest --coverage --passWithNoTests",
         "test:e2e": "jest --config ./test/jest-e2e.json",
         "webpack": "webpack --config webpack.config.js",
+        "lint": "tslint -c tslint.json --project ./tsconfig.json",
         "lint:fix": "tslint -c tslint.json --project ./tsconfig.json --fix"
     },
     "dependencies": {

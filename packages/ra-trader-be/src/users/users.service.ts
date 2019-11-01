@@ -15,6 +15,7 @@ import { UserRepository } from "../dao/repositories/user.repository";
 import { PreferenceRepository } from "../dao/repositories/preference.repository";
 import { RaUser } from "../entity/ra-user";
 import { UserData } from "./user-data.interface";
+import { environment } from "@ra/web-env-be/dist/environment";
 
 @Injectable()
 export class UsersService {
@@ -119,6 +120,34 @@ export class UsersService {
         return status;
     }
 
+    /**
+     * TODO : text to config/db
+     * @param id, user
+     */
+    async welcomeMail(email: any, token: any): Promise<any> {
+        const user = await this.raUser.findOne({ email: email });
+        const status = { message: "", statusCode: HttpStatus.OK };
+
+        if (user) {
+            const text = "Hello " + user.firstName + " " + user.lastName + "," + "\n"
+                + "An RA Order Manager account has now been set up for you." + "\n"
+                + "Username: " + user.email + "\n"
+                + " " + "\n"
+                + "Please use the link provided below and reset your password." + "\n"
+                + environment.appUrl.url() + "auth/login?email=" + user.email + " \n"
+                + " " + "\n"
+                + "If you have any further question then please ask your administrator." + "\n"
+                + "Many Thanks," + "\n"
+                + "Administrator (RA Order Manager)" + "\n"
+                ;
+            this.emailsService.send("info@rapidaddition.com", user.email, "RappidAdditon Order Manager - Welcome", text);
+            status.message = "Welcome mail sended";
+        } else {
+            throw new HttpException("Email doesnt exists", HttpStatus.NOT_FOUND);
+        }
+        return status;
+    }
+
     async logOut(token: string): Promise<any> {
         return await this.authService.destroySession(token);
     }
@@ -171,8 +200,9 @@ export class UsersService {
             const raUser = mapper.map<RaUser>(RaUser, user);
             raUser.password = await bcryptHash(user.password);
             const newUser = await this.raUser.save(raUser);
-            delete newUser.password;
-            return newUser;
+            const savedUser = await this.findOne(newUser.id);
+            delete savedUser.password;
+            return savedUser;
         } catch (ex) {
             throw new DbException(ex, "RaUser");
         }

@@ -2,7 +2,6 @@ import { EntityRepository, Repository, In, Like, MoreThan, Raw, IsNull } from "t
 import { RaPreference } from "../../db/entity/ra-preference";
 import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 
-
 @EntityRepository(RaPreference)
 export class PreferenceRepository extends Repository<RaPreference> {
 
@@ -60,7 +59,7 @@ export class PreferenceRepository extends Repository<RaPreference> {
                 companyId: In([companyId, 0]),
                 name: Like("layout_%"),
                 version: this.env.appVersion ? this.env.appVersion : "1.0.0",
-            }, order: { userId: "ASC", name: "ASC" }
+            }, order: { userId: "ASC", name: "ASC" },
         });
 
         const layouts: any[] = [];
