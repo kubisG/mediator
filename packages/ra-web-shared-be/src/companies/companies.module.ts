@@ -16,6 +16,6 @@ import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
     ],
     providers: [
         CompaniesService,
-    ]
+    ],
 })
 export class CompaniesModule { }

@@ -152,7 +152,8 @@ export class DownloadService {
 
     private async insertToDB(raStock: RaStock) {
         try {
-            const select = await this.dbConnection().getRepository(RaStock).findOne({ symbol: raStock.symbol, priceDate: raStock.priceDate });
+            const select = await this.dbConnection().getRepository(RaStock).findOne(
+                { symbol: raStock.symbol, priceDate: raStock.priceDate });
             if (select) {
                 await this.dbConnection().getRepository(RaStock).update({ id: select.id }, raStock);
             } else {

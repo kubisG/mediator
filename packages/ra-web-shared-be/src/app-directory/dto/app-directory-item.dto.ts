@@ -1,6 +1,6 @@
 import { AppDirectoryIntentDto } from "./app-directory-intent.dto";
 import { Mapping, MappingRequirement } from "light-mapper";
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiModelProperty } from "@nestjs/swagger";
 
 export class AppDirectoryItemDto {
 
@@ -25,7 +25,7 @@ export class AppDirectoryItemDto {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value) => {
             return value === null ? undefined : value;
-        }
+        },
     })
     version: string;
 
@@ -34,7 +34,7 @@ export class AppDirectoryItemDto {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value) => {
             return value === null ? undefined : value;
-        }
+        },
     })
     title: string;
 
@@ -43,7 +43,7 @@ export class AppDirectoryItemDto {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value) => {
             return value === null ? undefined : value;
-        }
+        },
     })
     tooltip: string;
 
@@ -52,7 +52,7 @@ export class AppDirectoryItemDto {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value) => {
             return value === null ? undefined : value;
-        }
+        },
     })
     description: string;
 
@@ -65,7 +65,7 @@ export class AppDirectoryItemDto {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value) => {
             return value === null ? undefined : value;
-        }
+        },
     })
     contactEmail: string;
 
@@ -74,7 +74,7 @@ export class AppDirectoryItemDto {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value) => {
             return value === null ? undefined : value;
-        }
+        },
     })
     supportEmail: string;
 
@@ -83,7 +83,7 @@ export class AppDirectoryItemDto {
         requirement: MappingRequirement.OPTIONAL,
         transformation: (value) => {
             return value === null ? undefined : value;
-        }
+        },
     })
     publisher: string;
 

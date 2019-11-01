@@ -2,7 +2,6 @@ import { Repository, EntityRepository } from "typeorm";
 import { RaAppDirectoryType } from "../entities/ra-app-directory-type";
 import { RaAppDirectory } from "../entities/ra-app-directory";
 
-
 export class AppDirectoryTypeRepository {
 
     private repo;

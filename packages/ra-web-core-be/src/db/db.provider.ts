@@ -12,7 +12,7 @@ export function dataseProviders(entities: any[], subscribers: any[] = []) {
                 logger.silly(entities);
                 const connectionManager: ConnectionManager = getConnectionManager();
                 let connection: Connection;
-                let driver: Driver;
+                const driver: Driver = null;
                 if (connectionManager.has("default")) {
                     connection = connectionManager.get("default");
                     return () => {

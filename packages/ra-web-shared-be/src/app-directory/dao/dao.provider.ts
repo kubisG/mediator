@@ -37,5 +37,5 @@ export const repositoriesProvider = [
             return databaseRepos(form, repo);
         },
         inject: ["DbConnection"],
-    }
+    },
 ];

@@ -11,4 +11,4 @@ export const userSessionDataProvider = {
 export const userAuthVerifyProvider = {
     provide: VerifyService,
     useClass: UserAuthVerify,
-}
+};

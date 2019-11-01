@@ -2,6 +2,7 @@ import { EntityRepository, Repository } from "typeorm";
 import { MessageType } from "@ra/web-core-be/dist/enums/message-type.enum";
 import { OrdStatus } from "@ra/web-core-be/dist/enums/ord-status.enum";
 import { RaMessage } from "../../entity/ra-message";
+import { ExecType } from "@ra/web-core-be/dist/enums/exec-type.enum";
 
 @EntityRepository(RaMessage)
 export class MessageRepository extends Repository<RaMessage> {
@@ -29,4 +30,27 @@ export class MessageRepository extends Repository<RaMessage> {
         return result;
     }
 
+    public async getFillMessage(app: number, compId: number) {
+        const today = new Date();
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+
+        const result = await this.createQueryBuilder("ord")
+            .where("ord.\"app\"=:app and ord.\"companyId\"=:company and ord.\"TransactTime\">=:time"
+                , { app: app, company: compId, time: today })
+            .andWhere("ord.\"ExecType\" in (:...AexecType)", {
+                AexecType:
+                    [ExecType.PartialFill, ExecType.Fill, ExecType.Trade]
+            })
+            .andWhere("not exists (select id from ra_order_store ros" +
+                " where ros.\"RaID\"=ord.\"RaID\" and ros.\"app\"=:app and ros.\"companyId\"=:company and ros.\"specType\"='phone')"
+                , {
+                    app: app, company: compId
+                })
+            .getMany();
+
+        console.log("result", result);
+        return result;
+    }
 }

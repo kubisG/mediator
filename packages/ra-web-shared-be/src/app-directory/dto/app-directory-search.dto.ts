@@ -1,5 +1,5 @@
 import { Mapping, MappingRequirement } from "light-mapper";
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiModelProperty } from "@nestjs/swagger";
 
 export class AppDirectorySearchDto {
 

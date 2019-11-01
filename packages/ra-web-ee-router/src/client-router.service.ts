@@ -17,7 +17,7 @@ export class ClientRouterService implements ClientRouter {
     private registerClient<T>(clinetId: string): Observable<T> {
         const clientSubject = new Subject<T>();
         this.clients[clinetId] = {
-            subject: clientSubject
+            subject: clientSubject,
         };
         return clientSubject.asObservable();
     }
