@@ -98,9 +98,9 @@ export class UsersService {
         .where("pref.userId > 0 AND pref.companyId > 0 AND pref.name = 'layout.prefs'")
         .getMany();
         const buff = {};
-        for (let i = 0; i < prefs.length; i++) {
-            const json = JSON.parse(prefs[i].value);
-            buff[`${prefs[i].userId}-${prefs[i].companyId}`] = json;
+        for (const pref of prefs) {
+            const json = JSON.parse(pref.value);
+            buff[`${pref.userId}-${pref.companyId}`] = json;
         }
         return buff;
     }
