@@ -16,7 +16,7 @@
         "prestart:prod": "rm -rf dist && tsc",
         "start:prod": "node dist/main.js",
         "start:hmr": "node dist/server",
-        "test": "npm run clean && jest",
+        "test": "npm run clean && jest --passWithNoTests",
         "jest": "jest --showConfig",
         "test:cov": "npm run clean && jest --coverage --passWithNoTests",
         "test:e2e": "npm run clean && jest --config ./tests/jest-e2e.json",

@@ -12,7 +12,7 @@
     },
     "scripts": {
         "clean": "rimraf ./src/**/*.js ./src/**/*.js.map ./src/**/*.d.ts",
-        "test": "echo \"Error: run tests from root\" && exit 1",
+        "test": "npm run clean && jest --passWithNoTests",
         "bundle": "npm run clean && rm -rf dist && tsc -p tsconfig.json",
         "lint": "tslint -c tslint.json --project ./tsconfig.json",
         "lint:fix": "tslint -c tslint.json --project ./tsconfig.json --fix",
