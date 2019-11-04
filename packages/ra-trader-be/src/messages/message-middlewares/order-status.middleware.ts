@@ -48,9 +48,9 @@ export class OrderStatusMiddleware implements MessageMiddleware {
         this.logger.warn(`${context.id} STATUS ${logMessage(data)}`);
         if (messages.length > 0) {
             if (this.exeptionsMsgType.indexOf(data.msgType) > -1) {
-                for (let i = 0; i < messages.length; i++) {
-                    if (!(this.exeptionsOrdStatus.indexOf(messages[i].OrdStatus as any) > -1)) {
-                        data.OrdStatus = messages[i].OrdStatus;
+                for (const mess of messages) {
+                    if (!(this.exeptionsOrdStatus.indexOf(mess.OrdStatus as any) > -1)) {
+                        data.OrdStatus = mess.OrdStatus;
                         break;
                     }
                 }

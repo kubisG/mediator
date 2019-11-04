@@ -34,36 +34,31 @@ export class InputRulesService {
     }
 
     private async saveInputTree(tree, compId, rootId = null, parentId = null) {
-        console.log("tree", tree );
-        console.log("compId", compId );
-        console.log("rootId", rootId );
-        console.log("parentId", parentId );
-        for (let i = 0; i < tree.length; i++) {
-            if (tree[i].item.id === -1) {
-                delete tree[i].item.id;
+        for (const row of tree) {
+            if (row.item.id === -1) {
+                delete row.item.id;
             }
-            tree[i].item.rootId = rootId;
-            tree[i].item.parentId = parentId;
-            tree[i].item.companyId = compId;
-            const item = await this.raInputRulesToken.save(tree[i].item);
-            tree[i].item.childId = item.id;
-            const rel = await this.raInputRelationsToken.save(tree[i].item);
-            if (tree[i].childs.length > 0) {
-                await this.saveInputTree(tree[i].childs, compId, (rootId === null ? rel.relid : rootId), rel.relid);
+            row.item.rootId = rootId;
+            row.item.parentId = parentId;
+            row.item.companyId = compId;
+            const item = await this.raInputRulesToken.save(row.item);
+            row.item.childId = item.id;
+            const rel = await this.raInputRelationsToken.save(row.item);
+            if (row.childs.length > 0) {
+                await this.saveInputTree(row.childs, compId, (rootId === null ? rel.relid : rootId), rel.relid);
             }
         }
     }
 
     public async saveInputs(token: any, data: { companyId: number, inputs: any[], del: any[] }) {
         if (data.del.length > 0) {
-            console.log("del", data.del);
-            for (let i = 0; i < data.del.length; i++) {
-                await this.raInputRelationsToken.delete(data.del[i]);
+            for (const del of data.del) {
+                await this.raInputRelationsToken.delete(del);
                 // test if still exists in relations...
-                const exists = await this.raInputRelationsToken.find({ childId: data.del[i].id });
+                const exists = await this.raInputRelationsToken.find({ childId: del.id });
 
                 if ((!exists) || (exists.length === 0)) {
-                    await this.raInputRulesToken.delete(data.del[i]);
+                    await this.raInputRulesToken.delete(del);
                 }
             }
         }
@@ -74,12 +69,12 @@ export class InputRulesService {
 
     private transformRules(result: any[], level = 1, parentId = null) {
         const tree = {};
-        for (let i = 0; i < result.length; i++) {
-            if (result[i].level === level && result[i].parentId === parentId) {
-                if (!tree[result[i].label]) {
-                    tree[result[i].label] = [];
+        for (const res of result) {
+            if (res.level === level && res.parentId === parentId) {
+                if (!tree[res.label]) {
+                    tree[res.label] = [];
                 }
-                tree[result[i].label].push({ ...result[i], childs: this.transformRules(result, level + 1, result[i].relid) });
+                tree[res.label].push({ ...res, childs: this.transformRules(result, level + 1, res.relid) });
             }
         }
         return tree;

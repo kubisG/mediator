@@ -27,9 +27,9 @@ export class DiagnosticIndicator extends HealthIndicator {
             this.env,
         );
         const status = await diag.getSystemStatus();
-        for (let i = 0; i < status.length; i++) {
-            if (!status[i].status) {
-                this.generateError(status[i].name);
+        for (const stat of status) {
+            if (!stat.status) {
+                this.generateError(stat.name);
                 return;
             }
         }

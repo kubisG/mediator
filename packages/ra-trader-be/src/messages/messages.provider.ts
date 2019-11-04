@@ -45,9 +45,9 @@ export const messagesRouting = [
             );
 
             const companies = await companyRepository.find();
-            for (let i = 0; i < companies.length; i++) {
-                logger.info(`MESSAGE PROVIDER: CREATING BROKER QUEUE: ${env.queue.prefixBroker}${companies[i].id}`);
-                await router.initConsumeMessages(null, `${env.queue.prefixBroker}${companies[i].id}`);
+            for (const comp of companies) {
+                logger.info(`MESSAGE PROVIDER: CREATING BROKER QUEUE: ${env.queue.prefixBroker}${comp.id}`);
+                await router.initConsumeMessages(null, `${env.queue.prefixBroker}${comp.id}`);
             }
 
             return router;
@@ -72,9 +72,9 @@ export const messagesRouting = [
                 Apps.trader,
             );
             const companies = await companyRepository.find();
-            for (let i = 0; i < companies.length; i++) {
-                logger.info(`MESSAGE PROVIDER: CREATING TRADER QUEUE: ${env.queue.prefixTrader}${companies[i].id}`);
-                await router.initConsumeMessages(null, `${env.queue.prefixTrader}${companies[i].id}`);
+            for (const comp of companies) {
+                logger.info(`MESSAGE PROVIDER: CREATING TRADER QUEUE: ${env.queue.prefixTrader}${comp.id}`);
+                await router.initConsumeMessages(null, `${env.queue.prefixTrader}${comp.id}`);
             }
 
             return router;

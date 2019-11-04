@@ -45,22 +45,22 @@ async function insertToDB(connection: Connection) {
     const raAccounts = connection.getRepository(RaAccounts);
 
     // select * from ra_company where id=1;
-    for (let i = 0; i < comapanyJson.length; i++) {
-        const exists = await raCompany.find({ id: comapanyJson[i].id });
+    for (const json of comapanyJson) {
+        const exists = await raCompany.find({ id: json.id });
         if (exists.length === 0) {
             const params = [];
             const values = [];
             let j = 1;
-            for (const key in comapanyJson[i]) {
-                if (comapanyJson[i][key] !== undefined) {
+            for (const key in json) {
+                if (json[key] !== undefined) {
                     params.push("$" + j);
-                    values.push(comapanyJson[i][key]);
+                    values.push(json[key]);
                     j += 1;
                 }
             }
             // SELECT setval('payments_id_seq', 21, true);
             await connection.manager.query(
-                `INSERT INTO ra_company ("${Object.keys(comapanyJson[i]).join("\",\"")}") VALUES (${params.join(",")})`,
+                `INSERT INTO ra_company ("${Object.keys(json).join("\",\"")}") VALUES (${params.join(",")})`,
                 values,
             );
         }
@@ -68,21 +68,21 @@ async function insertToDB(connection: Connection) {
     await connection.manager.query("SELECT setval('ra_company_id_seq', COALESCE((SELECT MAX(id)+1 FROM ra_company), 1), true);");
 
     // select * from ra_user where id=13;
-    for (let i = 0; i < userJson.length; i++) {
-        const exists = await raUser.find({ id: userJson[i].id });
+    for (const json of userJson) {
+        const exists = await raUser.find({ id: json.id });
         if (exists.length === 0) {
             const params = [];
             const values = [];
             let j = 1;
-            for (const key in userJson[i]) {
-                if (userJson[i][key] !== undefined) {
+            for (const key in json) {
+                if (json[key] !== undefined) {
                     params.push("$" + j);
-                    values.push(userJson[i][key]);
+                    values.push(json[key]);
                     j += 1;
                 }
             }
             await connection.manager.query(
-                `INSERT INTO ra_user ("${Object.keys(userJson[i]).join("\",\"")}") VALUES (${params.join(",")})`,
+                `INSERT INTO ra_user ("${Object.keys(json).join("\",\"")}") VALUES (${params.join(",")})`,
                 values,
             );
         }
@@ -96,42 +96,42 @@ async function insertToDB(connection: Connection) {
     // ( "companyId"=1 and label in ('Symbol','SecurityDesc','SecurityID','SecurityIDSource') and id>600)
     // or ( "companyId"=8 and label in ('ExDestination'))
     // or ("companyId"=0 and label in ('Currency') and id>90 and "parentId" is null);
-    for (let i = 0; i < inputRulesJson.length; i++) {
-        const exists = await raInputRules.find({ id: inputRulesJson[i].id });
+    for (const json of inputRulesJson) {
+        const exists = await raInputRules.find({ id: json.id });
         if (exists.length === 0) {
             const params = [];
             const values = [];
             let j = 1;
-            for (const key in inputRulesJson[i]) {
-                if (inputRulesJson[i][key] !== undefined) {
+            for (const key in json) {
+                if (json[key] !== undefined) {
                     params.push("$" + j);
-                    values.push(inputRulesJson[i][key]);
+                    values.push(json[key]);
                     j += 1;
                 }
             }
             await connection.manager.query(
-                `INSERT INTO ra_input_rules ("${Object.keys(inputRulesJson[i]).join("\",\"")}") VALUES (${params.join(",")})`,
+                `INSERT INTO ra_input_rules ("${Object.keys(json).join("\",\"")}") VALUES (${params.join(",")})`,
                 values,
             );
         }
     }
     await connection.manager.query("SELECT setval('ra_input_rules_id_seq', COALESCE((SELECT MAX(id)+1 FROM ra_input_rules), 1), true);");
 
-    for (let i = 0; i < inputRelationsJson.length; i++) {
-        const exists = await raInputRelations.find({ relid: inputRelationsJson[i].relid });
+    for (const json of inputRelationsJson) {
+        const exists = await raInputRelations.find({ relid: json.relid });
         if (exists.length === 0) {
             const params = [];
             const values = [];
             let j = 1;
-            for (const key in inputRelationsJson[i]) {
-                if (inputRelationsJson[i][key] !== undefined) {
+            for (const key in json) {
+                if (json[key] !== undefined) {
                     params.push("$" + j);
-                    values.push(inputRelationsJson[i][key]);
+                    values.push(json[key]);
                     j += 1;
                 }
             }
             await connection.manager.query(
-                `INSERT INTO ra_input_relations ("${Object.keys(inputRelationsJson[i]).join("\",\"")}") VALUES (${params.join(",")})`,
+                `INSERT INTO ra_input_relations ("${Object.keys(json).join("\",\"")}") VALUES (${params.join(",")})`,
                 values,
             );
         }
@@ -142,21 +142,21 @@ async function insertToDB(connection: Connection) {
     // select * from ra_preference where name in ('order_store_lists', 'portfolio_columns','eikon',
     // 'messageFilters','portfolio_sum_columns','app','portfolio_detail_columns','allocations_columns','init.params',
     // 'broker_store_columns','order_store_columns','brokeralloc_columns');
-    for (let i = 0; i < preferenceJson.length; i++) {
-        const exists = await raPreference.find({ name: preferenceJson[i].name, userId: preferenceJson[i].userId });
+    for (const json of preferenceJson) {
+        const exists = await raPreference.find({ name: json.name, userId: json.userId });
         if (exists.length === 0) {
             const params = [];
             const values = [];
             let j = 1;
-            for (const key in preferenceJson[i]) {
-                if (preferenceJson[i][key] !== undefined) {
+            for (const key in json) {
+                if (json[key] !== undefined) {
                     params.push("$" + j);
-                    values.push(preferenceJson[i][key]);
+                    values.push(json[key]);
                     j += 1;
                 }
             }
             await connection.manager.query(
-                `INSERT INTO ra_preference ("${Object.keys(preferenceJson[i]).join("\",\"")}") VALUES (${params.join(",")})`,
+                `INSERT INTO ra_preference ("${Object.keys(json).join("\",\"")}") VALUES (${params.join(",")})`,
                 values,
             );
         }
@@ -164,21 +164,21 @@ async function insertToDB(connection: Connection) {
     // await connection.manager.query("SELECT setval('ra_preference_id_seq', 1000, true);");
 
     // select * from ra_accounts where "companyId" = 1;
-    for (let i = 0; i < accountsJson.length; i++) {
-        const exists = await raAccounts.find({ id: accountsJson[i].id });
+    for (const json of accountsJson) {
+        const exists = await raAccounts.find({ id: json.id });
         if (exists.length === 0) {
             const params = [];
             const values = [];
             let j = 1;
-            for (const key in accountsJson[i]) {
-                if (accountsJson[i][key] !== undefined) {
+            for (const key in json) {
+                if (json[key] !== undefined) {
                     params.push("$" + j);
-                    values.push(accountsJson[i][key]);
+                    values.push(json[key]);
                     j += 1;
                 }
             }
             await connection.manager.query(
-                `INSERT INTO ra_accounts ("${Object.keys(accountsJson[i]).join("\",\"")}") VALUES (${params.join(",")})`,
+                `INSERT INTO ra_accounts ("${Object.keys(json).join("\",\"")}") VALUES (${params.join(",")})`,
                 values,
             );
         }

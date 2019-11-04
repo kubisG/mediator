@@ -324,7 +324,7 @@ export abstract class OrdersService {
 
         if (this.app === Apps.broker) {
             try {
-            result.forEach(function(order: any) {
+            result.forEach((order: any) => {
                 order.SenderCompID = that.messagesRouter.getQueueName(userData);
                 order.TargetCompID = order.DeliverToCompID ? order.DeliverToCompID : order.TargetCompID;
                 order.company = userData.compId;
@@ -344,7 +344,7 @@ export abstract class OrdersService {
                 console.log("ex", ex);
             }
         } else {
-            result.forEach(function(order: any) {
+            result.forEach((order: any) => {
                 order.SenderCompID = that.messagesRouter.getQueueName(userData);
                 order.TargetCompID = order.DeliverToCompID ? order.DeliverToCompID : order.TargetCompID;
                 order.company = userData.compId;

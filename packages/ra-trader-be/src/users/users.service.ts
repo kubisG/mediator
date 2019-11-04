@@ -167,9 +167,9 @@ export class UsersService {
     async getUsersLayoutPreferences() {
         const prefs = await this.raPreferences.getUsersLayoutPrefs();
         const buff = {};
-        for (let i = 0; i < prefs.length; i++) {
-            const json = JSON.parse(prefs[i].value);
-            buff[`${prefs[i].userId}-${prefs[i].companyId}`] = json;
+        for (const pref of prefs) {
+            const json = JSON.parse(pref.value);
+            buff[`${pref.userId}-${pref.companyId}`] = json;
         }
         return buff;
     }

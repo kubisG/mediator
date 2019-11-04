@@ -82,12 +82,12 @@ async function getData(connection: Connection, env: EnvironmentService) {
 
     const currArray = ["USD", "GBP", "EUR"];
 
-    for (let i = 0; i < currArray.length; i++) {
+    for (const curr of currArray) {
         const val = {};
         for (let j = 0; j < currencies.length; j++) {
             const currency = currencies[j].val;
             let url = env.stockDataService.currUrl + "&apikey=" + env.stockDataService.apiKey;
-            url = url + "&from_currency=" + currArray[i] + "&to_currency=" + currency;
+            url = url + "&from_currency=" + curr + "&to_currency=" + currency;
 
             if ((j % 5) === 1) {
                 console.log("sleeping 60");
@@ -101,7 +101,7 @@ async function getData(connection: Connection, env: EnvironmentService) {
                 const raCurrency = new RaCurrency();
                 price = Number(response.data["Realtime Currency Exchange Rate"]["5. Exchange Rate"]);
                 myDate = response.data["Realtime Currency Exchange Rate"]["6. Last Refreshed"];
-                raCurrency.from = currArray[i];
+                raCurrency.from = curr;
                 raCurrency.to = currency;
                 raCurrency.price = price;
                 raCurrency.date = new Date(myDate);
@@ -110,7 +110,7 @@ async function getData(connection: Connection, env: EnvironmentService) {
             }
         }
         const raPreference = new RaPreference();
-        raPreference.name = currArray[i] + "_transfers";
+        raPreference.name = curr + "_transfers";
         raPreference.userId = 0;
         raPreference.companyId = 0;
         raPreference.value = JSON.stringify(val);

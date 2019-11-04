@@ -44,8 +44,8 @@ export class PreferenceRepository extends Repository<RaPreference> {
             name: Like("layout_%"),
         }, order: { userId: "ASC", name: "ASC" }});
         const configNames: string[] = [];
-        for (let i = 0; i < configs.length; i++) {
-            const name = configs[i].name.split("_");
+        for (const config of configs) {
+            const name = config.name.split("_");
             configNames.push(name[1]);
         }
         return configNames;

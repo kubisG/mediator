@@ -180,14 +180,14 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
                 { gtd, gtc })
             .getMany();
 
-        for (let i = 0; i < orders.length; i++) {
+        for (const order of orders) {
             let ordStatus = OrdStatus.DoneForDay;
-            if ((orders[i].CumQty === 0) && (orders[i].LeavesQty > 0)) {
+            if ((order.CumQty === 0) && (order.LeavesQty > 0)) {
                 ordStatus = OrdStatus.New;
-            } else if ((orders[i].CumQty > 0) && (orders[i].LeavesQty > 0)) {
+            } else if ((order.CumQty > 0) && (order.LeavesQty > 0)) {
                 ordStatus = OrdStatus.PartiallyFilled;
             }
-            this.update({ id: orders[i].id }, { OrdStatus: ordStatus });
+            this.update({ id: order.id }, { OrdStatus: ordStatus });
         }
     }
 }
