@@ -11,10 +11,14 @@ export class PreferenceRepository extends Repository<RaPreference> {
 
     public async getLayoutConfig(userId: number, companyId: number, name: string) {
         let config = await this.findOne({
-            userId,
-            companyId,
-            name: `layout_${name}`,
-            version: this.env.appVersion ? this.env.appVersion : "1.0.0",
+            where: {
+                userId: Raw(`
+            "userId" AND ("userId" IN (0,` + userId + `) OR "flag" = 'Public')
+            `),
+                companyId,
+                name: `layout_${name}`,
+                version: this.env.appVersion ? this.env.appVersion : "1.0.0",
+            },
         });
 
         if ((!config) || (config === null)) {
