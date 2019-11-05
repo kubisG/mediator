@@ -50,7 +50,6 @@ export class MessageRepository extends Repository<RaMessage> {
                 })
             .getMany();
 
-        console.log("result", result);
         return result;
     }
 }

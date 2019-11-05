@@ -190,4 +190,39 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
             this.update({ id: order.id }, { OrdStatus: ordStatus });
         }
     }
+
+    public async getOrdersForExpiration(input: any) {
+        const gtc = TIF.GoodTillCancel;
+        const gtd = TIF.GoodTillDate;
+        const orders = await this.createQueryBuilder("ord")
+            .where("ord.\"OrdStatus\" in (:...AordStatus) and ord.\"app\"=1 and ord.\"createDate\" > NOW() - INTERVAL '10 DAY'",
+                {
+                    AordStatus:
+                        [OrdStatus.New, OrdStatus.PartiallyFilled, OrdStatus.Filled,
+                        OrdStatus.Replaced, OrdStatus.PendingNew, OrdStatus.PendingReplace, OrdStatus.PendingCancel],
+                })
+            .andWhere("("
+                + "(ord.\"TimeInForce\" not in (:gtd) or ord.\"ExpireDate\" < NOW())"
+                + " and (ord.\"TimeInForce\" not in (:gtc))"
+                + " or (ord.\"TimeInForce\" is null))"
+                , {
+                    gtd, gtc, BordStatus:
+                        [OrdStatus.Canceled],
+                })
+            .getMany();
+
+        for (const data of orders) {
+            if (data.JsonMessage) {
+                const jsonMessage = JSON.parse(data.JsonMessage);
+                for (const messid in jsonMessage) {
+                    if ((messid) && (!data[messid])) {
+                        data[messid] = jsonMessage[messid];
+                    }
+                }
+                data.JsonMessage = null;
+            }
+        }
+
+        return orders;
+    }
 }

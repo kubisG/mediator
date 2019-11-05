@@ -16,16 +16,12 @@ export class DeQueueMiddleware implements MessageMiddleware {
         this.logger.warn(`${context.id} DEQUEUING ${logMessage(data)}`);
         const next = this.queueService.runFromQueue(data, context);
 
-        console.log("next", next);
-
         if (next) {
             this.logger.warn(`${context.id}  RESENDING NEXT ${logMessage(next.message)} TO ${next.context.side} - ${next.context.queue}`);
             if (next.context.side === "IN") {
-                console.log("Internal");
                 context.messageRouter.sendInternalMessage({ ...next.message }, next.context.nextQueue ?
                     next.context.nextQueue : next.context.queue);
             } else {
-                console.log("External");
                 context.messageRouter.sendUserMessage({ ...next.message }, next.context.userData,
                     next.context.resendQueue);
             }

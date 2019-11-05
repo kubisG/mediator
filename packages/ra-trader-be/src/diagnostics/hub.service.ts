@@ -7,6 +7,7 @@ import { Queue } from "@ra/web-queue/dist/providers/queue.interface";
 import { Logger } from "@ra/web-core-be/dist/logger/providers/logger";
 import { StatusDto } from "./dto/status.dto";
 import { ClientProxy, Closeable } from "@nestjs/microservices";
+import { ExpiredDto } from "./dto/expired.dto";
 
 @Injectable()
 export class HubService {
@@ -16,6 +17,9 @@ export class HubService {
 
     private statusSubject: Subject<any> = new Subject<any>();
     public statusSubject$: Observable<any> = this.statusSubject.asObservable();
+
+    private expiredSubject: Subject<any> = new Subject<any>();
+    public expiredSubject$: Observable<any> = this.expiredSubject.asObservable();
 
     constructor(
         private env: EnvironmentService,
@@ -70,6 +74,10 @@ export class HubService {
                             });
                             break;
                         }
+                        case "UpdateExpired": {
+                            this.expiredSubject.next({ type: "jobExpiredUpdate", msg });
+                            break;
+                        }
                         default: {
                         }
                     }
@@ -94,6 +102,14 @@ export class HubService {
         return new Observable((observer) => {
             this.statusSubject$.subscribe((message) => {
                 observer.next(new StatusDto(message));
+            });
+        });
+    }
+
+    public getUpdateExpired(): Observable<ExpiredDto> {
+        return new Observable((observer) => {
+            this.expiredSubject$.subscribe((message) => {
+                observer.next(new ExpiredDto(message));
             });
         });
     }

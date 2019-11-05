@@ -9,4 +9,5 @@ export enum OrdStatus {
     DoneForDay = "DoneForDay",
     Canceled = "Canceled",
     Rejected = "Rejected",
+    Expired = "Expired",
 }

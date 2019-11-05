@@ -14,10 +14,8 @@ export class QueueMiddleware implements MessageMiddleware {
 
     async resolve(data: any, context: ContextMiddlewareInterface): Promise<any> {
         this.logger.warn(`${context.id} QUEUING ${logMessage(data)}`);
-        console.log("data", data);
         const result = this.queueService.addToQueue(data, context);
 
-        console.log("QueueMiddleware result", result);
         if (result) {
             context.finish = false;
             return data;
