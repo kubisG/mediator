@@ -9,9 +9,6 @@ export class PreferenceRepository extends Repository<RaPreference> {
         super();
     }
 
-    //     userId: Raw(`
-    // "userId" AND ("userId" IN (0, ${userId} ) OR "flag" = 'Public')
-
     public async getLayoutConfig(userId: number, companyId: number, name: string) {
         let config = await this.findOne({
             where:
