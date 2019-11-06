@@ -12,7 +12,7 @@ export class PreferenceRepository extends Repository<RaPreference> {
     public async getLayoutConfig(userId: number, companyId: number, name: string) {
         let config = await this.findOne({
             where: {
-                userId: Raw((alias) => `${alias} AND (${alias} IN (0, ${userId}) OR "flag" = 'Public')`),
+                userId: Raw((alias) => `(${alias} IN (0, ${userId}) OR "flag" = 'Public')`),
                 companyId,
                 name: `layout_${name}`,
                 version: this.env.appVersion ? this.env.appVersion : "1.0.0",
@@ -55,7 +55,7 @@ export class PreferenceRepository extends Repository<RaPreference> {
     public async getLayoutsName(userId: number, companyId: number) {
         const configs: RaPreference[] = await this.find({
             where: {
-                userId: Raw((alias) => `${alias} AND (${alias} IN (0, ${userId}) OR "flag" = 'Public')`),
+                userId: Raw((alias) => `(${alias} IN (0, ${userId}) OR "flag" = 'Public')`),
                 companyId: In([companyId, 0]),
                 name: Like("layout_%"),
                 version: this.env.appVersion ? this.env.appVersion : "1.0.0",
@@ -75,7 +75,7 @@ export class PreferenceRepository extends Repository<RaPreference> {
     public async getHitlistsName(hitlist: string, userId: number, companyId: number, version: string) {
         const configs: RaPreference[] = await this.find({
             where: {
-                userId: Raw((alias) => `${alias} AND (${alias} IN (0, ${userId}) OR "flag" = 'Public')`),
+                userId: Raw((alias) => `(${alias} IN (0, ${userId}) OR "flag" = 'Public')`),
                 companyId: In([companyId, 0]),
                 name: Like("hitlist_" + hitlist + "~%"),
                 version: version ? version : "1.0.0",
