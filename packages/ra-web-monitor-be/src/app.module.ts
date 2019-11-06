@@ -8,6 +8,9 @@ import { UserSessionData } from "@ra/web-shared-be/dist/users/user-session-data"
 import { UserAuthVerify } from "@ra/web-shared-be/dist/users/user-auth-verify";
 import { AppDirectoryModule } from "@ra/web-shared-be/dist/app-directory/app-directory.module";
 import { PreferencesModule } from "@ra/web-shared-be/dist/preferences/preferences.module";
+import { TerminusModule } from "@nestjs/terminus";
+import { LifeCheckService } from "@ra/web-core-be/dist/life-check/life-check.service";
+import { LifeCheckModule } from "@ra/web-core-be/dist/life-check/life-check.module";
 
 @Module({
     imports: [
@@ -21,6 +24,10 @@ import { PreferencesModule } from "@ra/web-shared-be/dist/preferences/preference
         PreferencesModule,
         LayoutModule,
         AppDirectoryModule,
+        TerminusModule.forRootAsync({
+            imports: [LifeCheckModule],
+            useClass: LifeCheckService,
+        }),
     ],
     controllers: [AppController],
     providers: [

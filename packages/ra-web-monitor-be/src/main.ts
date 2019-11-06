@@ -32,17 +32,17 @@ async function bootstrap() {
         console.log("NO CORS");
     }
     // if (!EnvironmentService.instance.production) {
-    console.log("SWAGGER INIT");
-    const options = new DocumentBuilder()
-        .setTitle("RA Monitor")
-        .setDescription("API")
-        .setVersion(module.exports.version)
-        .setBasePath("/api/v1")
-        .addBearerAuth("Authorization", "header")
-        .addTag("Trader")
-        .build();
-    const document = SwaggerModule.createDocument(app, options);
-    SwaggerModule.setup("api", app, document);
+    // console.log("SWAGGER INIT");
+    // const options = new DocumentBuilder()
+    //     .setTitle("RA Monitor")
+    //     .setDescription("API")
+    //     .setVersion(module.exports.version)
+    //     .setBasePath("/api/v1")
+    //     .addBearerAuth("Authorization", "header")
+    //     .addTag("Trader")
+    //     .build();
+    // const document = SwaggerModule.createDocument(app, options);
+    // SwaggerModule.setup("api", app, document);
     // }
 
     await app.listen(

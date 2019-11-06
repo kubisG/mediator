@@ -1,0 +1,17 @@
+config:
+    target: "{{$processEnvironment.TARGET_HOST}}"
+    processor: ../hooks.js
+    phases:
+        - duration: 60
+          arrivalRate: 10
+scenarios:
+    - name: "REST AUTH"
+      flow:
+          - get:
+                url: "/api/v1/users/user"
+                headers:
+                    Authorization: "Bearer {{$processEnvironment.AUTH_TOKEN}}"
+          - get:
+                url: "/api/v1/users/company"
+                headers:
+                    Authorization: "Bearer {{$processEnvironment.AUTH_TOKEN}}"
