@@ -11,21 +11,12 @@ export class PreferenceRepository extends Repository<RaPreference> {
 
     public async getLayoutConfig(userId: number, companyId: number, name: string) {
         let config = await this.findOne({
-            where:
-                [
-                    {
-                        userId: In([userId, 0]),
-                        companyId,
-                        name: `layout_${name}`,
-                        version: this.env.appVersion ? this.env.appVersion : "1.0.0",
-                    },
-                    {
-                        flag: "Public",
-                        companyId,
-                        name: `layout_${name}`,
-                        version: this.env.appVersion ? this.env.appVersion : "1.0.0",
-                    },
-                ],
+            where: {
+                userId: Raw((alias) => `${alias} AND (${alias} IN (0, ${userId}) OR "flag" = 'Public')`),
+                companyId,
+                name: `layout_${name}`,
+                version: this.env.appVersion ? this.env.appVersion : "1.0.0",
+            },
         });
 
         if ((!config) || (config === null)) {
@@ -63,22 +54,12 @@ export class PreferenceRepository extends Repository<RaPreference> {
 
     public async getLayoutsName(userId: number, companyId: number) {
         const configs: RaPreference[] = await this.find({
-            where:
-                [
-                    {
-                        userId: In([userId, 0]),
-                        companyId: In([companyId, 0]),
-                        name: Like("layout_%"),
-                        version: this.env.appVersion ? this.env.appVersion : "1.0.0",
-                    },
-                    {
-                        flag: "Public",
-                        companyId: In([companyId, 0]),
-                        name: Like("layout_%"),
-                        version: this.env.appVersion ? this.env.appVersion : "1.0.0",
-                    },
-                ]
-            , order: { userId: "ASC", name: "ASC" },
+            where: {
+                userId: Raw((alias) => `${alias} AND (${alias} IN (0, ${userId}) OR "flag" = 'Public')`),
+                companyId: In([companyId, 0]),
+                name: Like("layout_%"),
+                version: this.env.appVersion ? this.env.appVersion : "1.0.0",
+            }, order: { userId: "ASC", name: "ASC" },
         });
 
         const layouts: any[] = [];
@@ -93,22 +74,12 @@ export class PreferenceRepository extends Repository<RaPreference> {
 
     public async getHitlistsName(hitlist: string, userId: number, companyId: number, version: string) {
         const configs: RaPreference[] = await this.find({
-            where:
-                [
-                    {
-                        userId: In([userId, 0]),
-                        companyId: In([companyId, 0]),
-                        name: Like(`hitlist_${hitlist}~%`),
-                        version: version ? version : "1.0.0",
-                    },
-                    {
-                        flag: "Public",
-                        companyId: In([companyId, 0]),
-                        name: Like(`hitlist_${hitlist}~%`),
-                        version: version ? version : "1.0.0",
-                    },
-                ]
-            , order: { userId: "ASC", name: "ASC" },
+            where: {
+                userId: Raw((alias) => `${alias} AND (${alias} IN (0, ${userId}) OR "flag" = 'Public')`),
+                companyId: In([companyId, 0]),
+                name: Like("hitlist_" + hitlist + "~%"),
+                version: version ? version : "1.0.0",
+            }, order: { userId: "ASC", name: "ASC" },
         });
 
         const hitlists: any[] = [];
