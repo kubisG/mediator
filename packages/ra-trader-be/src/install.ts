@@ -266,7 +266,9 @@ async function auditTables(connection: Connection) {
 }
 
 async function updateToDB(connection: Connection) {
-    const sql = fs.readFileSync(path.join(__dirname, "../db/update-db.sql")).toString();
+    let sql = fs.readFileSync(path.join(__dirname, "../db/update-db.sql")).toString();
+    await connection.manager.query(sql);
+    sql = fs.readFileSync(path.join(__dirname, "../db/2.0.1_postgres.sql")).toString();
     await connection.manager.query(sql);
 }
 
@@ -280,10 +282,10 @@ async function install() {
     let connection;
     try {
         connection = await getConnection(new EnvironmentService());
-        //    await auditTables(connection);
         await insertToDB(connection);
         //    await afterInsertToDB(connection);
         await updateToDB(connection);
+        await auditTables(connection);
     } catch (e) {
         console.error(e);
     } finally {
