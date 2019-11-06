@@ -22,9 +22,9 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
                 AordStatus:
                     [OrdStatus.New, OrdStatus.PartiallyFilled, OrdStatus.Replaced, OrdStatus.PendingNew, OrdStatus.PendingReplace],
             })
-            .andWhere("((ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo)"
+            .andWhere("(ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo)"
                 + " or (ord.\"TimeInForce\" IN (:gtd) and ord.\"ExpireDate\" >= NOW())"
-                + " or (ord.\"TimeInForce\" IN (:gtc) and ord.\"OrdStatus\" not in (:...BordStatus)))"
+                + " or (ord.\"TimeInForce\" IN (:gtc) and ord.\"OrdStatus\" not in (:...BordStatus))"
                 , {
                     dateFrom, dateTo, gtd, gtc, BordStatus:
                         [OrdStatus.Canceled],
@@ -65,11 +65,9 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
             const gtd = TIF.GoodTillDate;
 
             selectBuilder
-                .where("(((ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo)"
+                .where("(ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo)"
                     + " or (ord.\"TimeInForce\" IN (:gtd) and ord.\"ExpireDate\" >= NOW())"
-                    + " or (ord.\"TimeInForce\" IN (:gtc) and ord.\"OrdStatus\" not in (:...ordStatus)))"
-                    //                    + " and ord.\"OrdStatus\" not in (:done)"
-                    + ")"
+                    + " or (ord.\"TimeInForce\" IN (:gtc) and ord.\"OrdStatus\" not in (:...ordStatus))"
                     , {
                         dateFrom, dateTo, gtd, gtc, done: OrdStatus.DoneForDay, ordStatus:
                             [OrdStatus.Canceled],
@@ -157,9 +155,9 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
                 AordStatus:
                     [OrdStatus.New, OrdStatus.PartiallyFilled, OrdStatus.Replaced, OrdStatus.PendingNew, OrdStatus.PendingReplace],
             })
-            .andWhere("((ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo)"
+            .andWhere("(ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo)"
                 + " or (ord.\"TimeInForce\" IN (:gtd) and ord.\"ExpireDate\" >= NOW())"
-                + " or (ord.\"TimeInForce\" IN (:gtc) and ord.\"OrdStatus\" not in (:...BordStatus)))"
+                + " or (ord.\"TimeInForce\" IN (:gtc) and ord.\"OrdStatus\" not in (:...BordStatus))"
                 , {
                     dateFrom, dateTo, gtd, gtc, BordStatus:
                         [OrdStatus.Canceled],
@@ -189,5 +187,40 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
             }
             this.update({ id: order.id }, { OrdStatus: ordStatus });
         }
+    }
+
+    public async getOrdersForExpiration(input: any) {
+        const gtc = TIF.GoodTillCancel;
+        const gtd = TIF.GoodTillDate;
+        const orders = await this.createQueryBuilder("ord")
+            .where("ord.\"OrdStatus\" in (:...AordStatus) and ord.\"app\"=1 and ord.\"createDate\" > NOW() - INTERVAL '10 DAY'",
+                {
+                    AordStatus:
+                        [OrdStatus.New, OrdStatus.PartiallyFilled, OrdStatus.Filled,
+                        OrdStatus.Replaced, OrdStatus.PendingNew, OrdStatus.PendingReplace, OrdStatus.PendingCancel],
+                })
+            .andWhere(
+                "(ord.\"TimeInForce\" not in (:gtd) or ord.\"ExpireDate\" < NOW())"
+                + " and (ord.\"TimeInForce\" not in (:gtc))"
+                + " or (ord.\"TimeInForce\" is null)"
+                , {
+                    gtd, gtc, BordStatus:
+                        [OrdStatus.Canceled],
+                })
+            .getMany();
+
+        for (const data of orders) {
+            if (data.JsonMessage) {
+                const jsonMessage = JSON.parse(data.JsonMessage);
+                for (const messid in jsonMessage) {
+                    if ((messid) && (!data[messid])) {
+                        data[messid] = jsonMessage[messid];
+                    }
+                }
+                data.JsonMessage = null;
+            }
+        }
+
+        return orders;
     }
 }
