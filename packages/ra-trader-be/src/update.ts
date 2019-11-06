@@ -18,25 +18,26 @@ function exitOk() {
     process.exit(0);
 }
 
-async function install(connection: Connection) {
+async function install(connection: Connection, enviroment: EnvironmentService) {
     await connection.close();
     process.env.DB_SYNCH = "true";
     process.env.DB_LOGGING = "true";
     const app: INestApplication = await InstallUtils.initDbFromModule(AppModule);
     const newConnection = app.get("DbConnection");
-    await afterInsertToDB(newConnection());
+    await updateToDB(newConnection(), enviroment);
     app.close();
 }
 
-async function afterInsertToDB(connection: Connection) {
-    let sql = fs.readFileSync("./db/01_postgres.sql").toString();
-    await connection.manager.query(sql);
-    sql = fs.readFileSync("./db/2.0.1_postgres.sql").toString();
-    await connection.manager.query(sql);
+async function updateToDB(connection: Connection, enviroment: EnvironmentService) {
+    const sql = fs.readFileSync(path.join(__dirname, `../db/${enviroment.appVersion}_postgres.sql`)).toString();
+    if (sql) {
+        await connection.manager.query(sql);
+    }
 }
 
-InstallUtils.tryCreateDbConnection(new EnvironmentService(), 10).then((connection: Connection) => {
-    install(connection).then(() => {
+const env = new EnvironmentService();
+InstallUtils.tryCreateDbConnection(env, 10).then((connection: Connection) => {
+    install(connection, env).then(() => {
         exitOk();
     }).catch((err) => {
         exitErr(err);

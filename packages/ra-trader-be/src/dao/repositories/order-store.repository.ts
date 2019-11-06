@@ -59,7 +59,7 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
 
         const actDate = new Date();
         actDate.setHours(0, 0, 0, 0);
-
+        console.log("gtcGtd", gtcGtd);
         if ((gtcGtd === "true" || gtcGtd === true) && (new Date(dateFrom).getTime() === actDate.getTime())) {
             const gtc = TIF.GoodTillCancel;
             const gtd = TIF.GoodTillDate;
