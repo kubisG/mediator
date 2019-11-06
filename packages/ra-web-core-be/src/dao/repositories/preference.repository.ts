@@ -9,21 +9,31 @@ export class PreferenceRepository extends Repository<RaPreference> {
         super();
     }
 
+    //     userId: Raw(`
+    // "userId" AND ("userId" IN (0, ${userId} ) OR "flag" = 'Public')
+
     public async getLayoutConfig(userId: number, companyId: number, name: string) {
         let config = await this.findOne({
-            where: {
-                userId: Raw(`
-            "userId" AND ("userId" IN (0,` + userId + `) OR "flag" = 'Public')
-            `),
-                companyId,
-                name: `layout_${name}`,
-                version: this.env.appVersion ? this.env.appVersion : "1.0.0",
-            },
+            where:
+                [
+                    {
+                        userId: In([userId, 0]),
+                        companyId,
+                        name: `layout_${name}`,
+                        version: this.env.appVersion ? this.env.appVersion : "1.0.0",
+                    },
+                    {
+                        flag: "Public",
+                        companyId,
+                        name: `layout_${name}`,
+                        version: this.env.appVersion ? this.env.appVersion : "1.0.0",
+                    },
+                ],
         });
 
         if ((!config) || (config === null)) {
             config = await this.findOne({
-                flag: "public",
+                flag: "Public",
                 userId: MoreThan(0),
                 companyId,
                 name: `layout_${name}`,
@@ -32,7 +42,7 @@ export class PreferenceRepository extends Repository<RaPreference> {
 
             if ((!config) || (config === null)) {
                 config = await this.findOne({
-                    flag: "public",
+                    flag: "Public",
                     userId: 0,
                     companyId: 0,
                     name: `layout_${name}`,
@@ -56,14 +66,22 @@ export class PreferenceRepository extends Repository<RaPreference> {
 
     public async getLayoutsName(userId: number, companyId: number) {
         const configs: RaPreference[] = await this.find({
-            where: {
-                userId: Raw(`
-                "userId" AND ("userId" IN (0,` + userId + `) OR "flag" = 'Public')
-                `),
-                companyId: In([companyId, 0]),
-                name: Like("layout_%"),
-                version: this.env.appVersion ? this.env.appVersion : "1.0.0",
-            }, order: { userId: "ASC", name: "ASC" },
+            where:
+                [
+                    {
+                        userId: In([userId, 0]),
+                        companyId: In([companyId, 0]),
+                        name: Like("layout_%"),
+                        version: this.env.appVersion ? this.env.appVersion : "1.0.0",
+                    },
+                    {
+                        flag: "Public",
+                        companyId: In([companyId, 0]),
+                        name: Like("layout_%"),
+                        version: this.env.appVersion ? this.env.appVersion : "1.0.0",
+                    },
+                ]
+            , order: { userId: "ASC", name: "ASC" },
         });
 
         const layouts: any[] = [];
@@ -78,19 +96,27 @@ export class PreferenceRepository extends Repository<RaPreference> {
 
     public async getHitlistsName(hitlist: string, userId: number, companyId: number, version: string) {
         const configs: RaPreference[] = await this.find({
-            where: {
-                userId: Raw(`
-                "userId" AND ("userId" IN (0,` + userId + `) OR "flag" = 'Public')
-                `),
-                companyId: In([companyId, 0]),
-                name: Like("hitlist_" + hitlist + "~%"),
-                version: version ? version : "1.0.0",
-            }, order: { userId: "ASC", name: "ASC" },
+            where:
+                [
+                    {
+                        userId: In([userId, 0]),
+                        companyId: In([companyId, 0]),
+                        name: Like(`hitlist_${hitlist}~%`),
+                        version: version ? version : "1.0.0",
+                    },
+                    {
+                        flag: "Public",
+                        companyId: In([companyId, 0]),
+                        name: Like(`hitlist_${hitlist}~%`),
+                        version: version ? version : "1.0.0",
+                    },
+                ]
+            , order: { userId: "ASC", name: "ASC" },
         });
 
         const hitlists: any[] = [];
         for (const config of configs) {
-            if (config.name.indexOf(`hitlist_` + hitlist + "~") > -1) {
+            if (config.name.indexOf(`hitlist_${hitlist}~`) > -1) {
                 const name = config.name.split("~");
                 hitlists.push({ name: name[1], flag: config.flag, userId: config.userId });
             }
