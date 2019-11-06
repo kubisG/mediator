@@ -1,0 +1,20 @@
+#!/bin/sh
+
+username=$1
+password=$2
+host=$3
+folder=$4
+
+if [ "$1" = "help" ]; then
+    echo "./run [username] [password] [host] [folder] [arrivalRate] [duration] [iterations]"
+    exit 0;
+fi;
+
+payload='{"email":"'${username}'", "password":"'${password}'"}';
+auth=$(curl -d "${payload}" -H "Content-Type: application/json" -X POST ${host}/api/v1/users/auth)
+accessToken=$(node ./parse-auth-token.js ${auth})
+echo "$accessToken"
+export AUTH_TOKEN="$accessToken"
+export TARGET_HOST="$host"
+artillery run "./$folder/rest.yaml"
+artillery run "./$folder/socket.yaml"
