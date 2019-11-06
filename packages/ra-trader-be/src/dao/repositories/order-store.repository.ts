@@ -22,9 +22,9 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
                 AordStatus:
                     [OrdStatus.New, OrdStatus.PartiallyFilled, OrdStatus.Replaced, OrdStatus.PendingNew, OrdStatus.PendingReplace],
             })
-            .andWhere("((ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo)"
+            .andWhere("(ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo)"
                 + " or (ord.\"TimeInForce\" IN (:gtd) and ord.\"ExpireDate\" >= NOW())"
-                + " or (ord.\"TimeInForce\" IN (:gtc) and ord.\"OrdStatus\" not in (:...BordStatus)))"
+                + " or (ord.\"TimeInForce\" IN (:gtc) and ord.\"OrdStatus\" not in (:...BordStatus))"
                 , {
                     dateFrom, dateTo, gtd, gtc, BordStatus:
                         [OrdStatus.Canceled],
@@ -65,11 +65,9 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
             const gtd = TIF.GoodTillDate;
 
             selectBuilder
-                .where("(((ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo)"
+                .where("(ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo)"
                     + " or (ord.\"TimeInForce\" IN (:gtd) and ord.\"ExpireDate\" >= NOW())"
-                    + " or (ord.\"TimeInForce\" IN (:gtc) and ord.\"OrdStatus\" not in (:...ordStatus)))"
-                    //                    + " and ord.\"OrdStatus\" not in (:done)"
-                    + ")"
+                    + " or (ord.\"TimeInForce\" IN (:gtc) and ord.\"OrdStatus\" not in (:...ordStatus))"
                     , {
                         dateFrom, dateTo, gtd, gtc, done: OrdStatus.DoneForDay, ordStatus:
                             [OrdStatus.Canceled],
@@ -157,9 +155,9 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
                 AordStatus:
                     [OrdStatus.New, OrdStatus.PartiallyFilled, OrdStatus.Replaced, OrdStatus.PendingNew, OrdStatus.PendingReplace],
             })
-            .andWhere("((ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo)"
+            .andWhere("(ord.\"createDate\" >= :dateFrom and ord.\"createDate\" <= :dateTo)"
                 + " or (ord.\"TimeInForce\" IN (:gtd) and ord.\"ExpireDate\" >= NOW())"
-                + " or (ord.\"TimeInForce\" IN (:gtc) and ord.\"OrdStatus\" not in (:...BordStatus)))"
+                + " or (ord.\"TimeInForce\" IN (:gtc) and ord.\"OrdStatus\" not in (:...BordStatus))"
                 , {
                     dateFrom, dateTo, gtd, gtc, BordStatus:
                         [OrdStatus.Canceled],
@@ -201,10 +199,10 @@ export class OrderStoreRepository extends Repository<RaOrderStore> {
                         [OrdStatus.New, OrdStatus.PartiallyFilled, OrdStatus.Filled,
                         OrdStatus.Replaced, OrdStatus.PendingNew, OrdStatus.PendingReplace, OrdStatus.PendingCancel],
                 })
-            .andWhere("("
-                + "(ord.\"TimeInForce\" not in (:gtd) or ord.\"ExpireDate\" < NOW())"
+            .andWhere(
+                "(ord.\"TimeInForce\" not in (:gtd) or ord.\"ExpireDate\" < NOW())"
                 + " and (ord.\"TimeInForce\" not in (:gtc))"
-                + " or (ord.\"TimeInForce\" is null))"
+                + " or (ord.\"TimeInForce\" is null)"
                 , {
                     gtd, gtc, BordStatus:
                         [OrdStatus.Canceled],
