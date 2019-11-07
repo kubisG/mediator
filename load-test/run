@@ -6,7 +6,7 @@ host=$3
 folder=$4
 
 if [ "$1" = "help" ]; then
-    echo "./run [username] [password] [host] [folder] [arrivalRate] [duration] [iterations]"
+    echo "./run [username] [password] [host] [folder]"
     exit 0;
 fi;
 
