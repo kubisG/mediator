@@ -24,7 +24,6 @@ export class PreferencesController {
     @Put("/hitlist/:key")
     @ApiImplicitParam({ name: "key" })
     setStorage(@Bearer() auth: string, @Param("key") key, @Body() storage: any) {
-        console.log("auth", auth);
         return this.preferencesService.saveUserPref(auth, "hitlist_" + key, storage.body);
     }
 

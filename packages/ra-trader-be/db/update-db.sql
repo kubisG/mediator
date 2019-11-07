@@ -43,6 +43,7 @@ update ra_preference set value='{
             "StopPx",
             "TargetCompID",
             "Commission",
+            "SettlCurrency",
             "CommType"
         ]
     },
@@ -103,6 +104,7 @@ update ra_preference set value='{
             "ClientID",
             "StopPx",
             "TargetCompID",
+            "SettlCurrency",
             "Commission",
             "CommType"            
         ]
@@ -165,6 +167,7 @@ update ra_preference set value='{
             "SecurityIDSource",
             "SenderCompID",
             "TargetCompID",
+            "SettlCurrency",            
             "Commission",
             "CommType"            
         ]
@@ -278,8 +281,6 @@ update ra_preference set value='{
         ]
     }    
 }' where name like 'messageFilters';
-
-
 
 update ra_preference set value='["BookingType",ExDestination", "Side","OrdType","Symbol","Currency","ExecInst","TimeInForce","OrderCapacity","SecurityID","SecurityDesc","SecurityIDSource","DeliverToSubID","TargetCompID","Reject","AllocRejCode", "CommType", "LastCapacity","HandlInst"]' where name like 'order_store_lists';
 
