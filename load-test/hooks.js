@@ -66,6 +66,10 @@ const testSocketQuery = function (context, events, done) {
     attachEventListeners(events);
 }
 
+const testSocketQueryTimeOut = function (context, events, done) {
+
+}
+
 module.exports = {
     testSocketInit,
     testSocketQuery
