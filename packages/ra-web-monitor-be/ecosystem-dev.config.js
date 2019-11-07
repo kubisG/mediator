@@ -3,7 +3,7 @@ module.exports = {
         {
             name: "ra-web-monitor-be",
             script: "./dist/main.js",
-            instances: 1,
+            instances: 2,
             exec_mode: "cluster",
             env: {
                 "NODE_ENV": "dev",
