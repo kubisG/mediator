@@ -1,4 +1,9 @@
 config:
+    plugins:
+    statsd:
+        host: "{{$processEnvironment.STATSD_HOST}}"
+        port: 8125
+        prefix: "web-{{$processEnvironment.PROJECT_FOLDER}}"
     target: "{{$processEnvironment.TARGET_HOST}}/monitor"
     socketio:
         query: "token={{$processEnvironment.AUTH_TOKEN}}"
