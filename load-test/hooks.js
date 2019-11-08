@@ -20,11 +20,6 @@ function unsubscribeAll() {
     });
 }
 
-function lengthInUtf8Bytes(str) {
-    var m = encodeURIComponent(str).match(/%[89ABab]/g);
-    return str.length + (m ? m.length : 0);
-}
-
 function closeClient(client) {
     if (client) {
         client.close();
@@ -138,8 +133,10 @@ const testSocketQueryTimeOut = function (context, events, done) {
 
         client.on("data", function (data) {
             msgCnt++;
-            sdcClient.counter('ws.msg.size.counter', lengthInUtf8Bytes(JSON.stringify(data)));
-            sdcClient.gauge('ws.msg.size.gauge', lengthInUtf8Bytes(JSON.stringify(data)));
+            if (data.data) {
+                sdcClient.counter('ws.msg.size.counter', data.data.length);
+                sdcClient.gauge('ws.msg.size.gauge', data.data.length);
+            }
         });
 
         setTimeout(function (args) {
@@ -151,7 +148,7 @@ const testSocketQueryTimeOut = function (context, events, done) {
             args.sdcClient.gauge('ws.msg.count.gauge', msgCnt);
             closeClient(args.client);
             done();
-        }, 600000, {
+        }, 300000, {
             client,
             channel,
             sdcClient,
