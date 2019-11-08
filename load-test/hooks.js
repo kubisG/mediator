@@ -121,7 +121,7 @@ const testSocketQuery = function (context, events, done) {
 const testSocketQueryTimeOut = function (context, events, done) {
     var channel = `testChannel_${itr}`;
     itr++;
-    getNewConnection(context.vars.target, context.vars.$processEnvironment.AUTH_TOKEN, function (client) {
+    getSocketClient(context.vars.target, context.vars.$processEnvironment.AUTH_TOKEN, function (client) {
         var msgCnt = 0;
         client.emit("response", {});
         client.emit("request", {
