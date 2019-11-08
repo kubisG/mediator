@@ -20,5 +20,5 @@ export TARGET_HOST="$host"
 export DD_API_KEY=75ac1280f5939acb99b2b22f4b24362e
 export PROJECT_FOLDER="$folder"
 export STATSD_HOST="$statsdhost"
-# artillery run "./$folder/rest.yaml"
+artillery run "./$folder/rest.yaml"
 artillery run "./$folder/socket.yaml"

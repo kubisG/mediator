@@ -14,14 +14,14 @@ config:
         response:
             - response
     phases:
-        - duration: 10
-          arrivalRate: 1
+        - duration: 500
+          arrivalRate: 10
 scenarios:
     - name: "SOCKET.IO"
       engine: "socketio"
       flow:
           - loop:
-                - function: "testSocketQuery"
+                - function: "testSocketQueryTimeOut"
                 - emit:
                       channel: "dummy"
                       data: "{}"
