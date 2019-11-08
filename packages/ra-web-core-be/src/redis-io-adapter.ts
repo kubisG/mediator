@@ -9,8 +9,10 @@ export class RedisIoAdapter extends IoAdapter {
     }
 
     createIOServer(port: number, options?: any): any {
-        console.log(this.redisAdapter);
-        const server = super.createIOServer(port, options);
+        const server = super.createIOServer(port, {
+            ...options,
+            transports: ["websocket", "polling"],
+        });
         server.adapter(this.redisAdapter);
         return server;
     }

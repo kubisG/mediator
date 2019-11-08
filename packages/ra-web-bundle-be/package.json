@@ -38,6 +38,7 @@
         "@nestjs/terminus": "6.5.2",
         "@nestjs/websockets": "6.5.3",
         "socket.io-redis": "5.2.0",
+        "socketio-sticky-session": "0.4.3",
         "@ra/web-auth-be": "1.1.0",
         "@ra/web-core-be": "^1.1.0",
         "@ra/web-ee-router": "^1.1.0",
