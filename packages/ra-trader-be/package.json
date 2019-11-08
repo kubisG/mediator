@@ -46,6 +46,7 @@
         "@ra/web-core-be": "1.1.0",
         "@ra/web-env-be": "1.1.0",
         "@ra/web-queue": "^1.1.0",
+        "socket.io-redis": "5.2.0",
         "amqp-connection-manager": "2.3.0",
         "amqplib": "0.5.2",
         "axios": "0.18.0",
