@@ -14,7 +14,7 @@ config:
         response:
             - response
     phases:
-        - duration: 300
+        - duration: 50
           arrivalRate: 10
 scenarios:
     - name: "SOCKET.IO"
