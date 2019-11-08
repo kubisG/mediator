@@ -1,5 +1,6 @@
 const axios = require("axios");
 const io = require("socket.io-client");
+var client;
 
 var eventsListenerInitialized = false;
 var itr = 0;
@@ -9,6 +10,26 @@ function closeClient(client) {
         client.close();
         client = undefined;
     }
+}
+
+function getSocketClient(target, token, onConnect) {
+    if (client) {
+        onConnect(client);
+        return;
+    }
+    client = io(target, { query: { token } });
+    client.on("connect", function () {
+        onConnect(client);
+    });
+    client.on("exception", function (err) {
+        throw Error(err);
+    });
+    client.on("connection", function (connection) {
+        onConnect(client);
+    });
+    client.on("disconnect", function (disconnect) {
+        client = undefined;
+    });
 }
 
 const attachEventListeners = function (events) {
@@ -27,26 +48,23 @@ const attachEventListeners = function (events) {
 }
 
 const testSocketInit = function (context, events, done) {
-    var client = io(context.vars.target, { query: { token: context.vars.$processEnvironment.AUTH_TOKEN } });
-    client.on("connect", function (data) {
+    getSocketClient(context.vars.target, context.vars.$processEnvironment.AUTH_TOKEN, function (client) {
         client.emit("response", {});
         client.emit("request", {
             type: "init"
         });
-    });
-    client.on("initOk", function (data) {
-        closeClient(client);
-        done();
+        client.on("initOk", function (data) {
+            closeClient(client);
+            done();
+        });
     });
     attachEventListeners(events);
 }
 
 const testSocketQuery = function (context, events, done) {
-    var channel;
-    var client = io(context.vars.target, { query: { token: context.vars.$processEnvironment.AUTH_TOKEN } });
-    client.on("connect", function (data) {
-        channel = `testChannel_${itr}`;
-        itr++;
+    var channel = `testChannel_${itr}`;
+    itr++;
+    getSocketClient(context.vars.target, context.vars.$processEnvironment.AUTH_TOKEN, function (client) {
         client.emit("response", {});
         client.emit("request", {
             query: "OS.*",
@@ -54,14 +72,15 @@ const testSocketQuery = function (context, events, done) {
             type: "subscribe",
             page: 0,
         });
-    });
-    client.on("data", function (data) {
-        client.emit("request", {
-            channelId: channel,
-            type: "unsubscribe",
+        client.on("data", function (data) {
+            console.log("data", data);
+            client.emit("request", {
+                channelId: channel,
+                type: "unsubscribe",
+            });
+            // closeClient(client);
+            done();
         });
-        closeClient(client);
-        done();
     });
     attachEventListeners(events);
 }

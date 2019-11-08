@@ -42,7 +42,7 @@ export class MiddlewareRunner {
         for (const middleware of this.middlewares) {
             this.logger.silly(`${context.id} RUNNING ${middleware.constructor.name} MIDDLEWARE`);
             data = await middleware.resolve(data, context);
-            if ((!data) && (context.finish) && (context.finish === true)) {
+            if (!data && context.finish && context.finish === true) {
                 return;
             }
             if (!data) {
