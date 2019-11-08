@@ -15,7 +15,7 @@ config:
             - response
     phases:
         - duration: 5
-          arrivalRate: 10
+          arrivalRate: 5
 scenarios:
     - name: "SOCKET.IO"
       engine: "socketio"
