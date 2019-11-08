@@ -68,7 +68,7 @@ function getNewConnection(target, token, onConnect) {
         onConnect(client);
     });
     client.on("disconnect", function (disconnect) {
-        client = undefined;
+        // client = undefined;
     });
 }
 
