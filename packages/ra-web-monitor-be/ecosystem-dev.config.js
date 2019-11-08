@@ -9,7 +9,7 @@ module.exports = {
                 "NODE_ENV": "dev",
                 "APP_MODE": "master",
             },
-            node_args: "--nouse-idle-notification --max-new-space-size=2048 --max-old-space-size=2048"
+            node_args: "--nouse-idle-notification --max-old-space-size=2048"
         }
     ]
 }
