@@ -24,7 +24,6 @@ export class QueueService {
         } else {
             this.messages[id].queue.push({ message, context });
         }
-        console.log("ADDTOQUEUE,", this.messages);
         return result;
     }
 
@@ -33,9 +32,6 @@ export class QueueService {
             return;
         }
         const id = context.app + "A" + message.RaID;
-
-        console.log("id", id);
-        console.log("FROMQUEUE,", this.messages);
 
         if ((this.messages[id]) && (this.messages[id].queue) && (this.messages[id].queue.length > 1)) {
             // if we have more messages, return next and keep it in array

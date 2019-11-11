@@ -3,22 +3,13 @@ module.exports = {
         {
             name: "ra-web-monitor-be",
             script: "./dist/main.js",
-            instances: 1,
+            instances: 2,
             exec_mode: "cluster",
             env: {
                 "NODE_ENV": "dev",
                 "APP_MODE": "master",
-            }
-        },
-        {
-            name: "ra-web-monitor-be-workers",
-            script: "./dist/main.js",
-            instances: 1,
-            exec_mode: "cluster",
-            env: {
-                "NODE_ENV": "dev",
-                "APP_MODE": "worker",
-            }
+            },
+            node_args: "--nouse-idle-notification --max-old-space-size=2048"
         }
     ]
 }

@@ -1,0 +1,28 @@
+config:
+    plugins:
+    statsd:
+        host: "{{$processEnvironment.STATSD_HOST}}"
+        port: 8125
+        prefix: "web-{{$processEnvironment.PROJECT_FOLDER}}"
+    target: "{{$processEnvironment.TARGET_HOST}}/monitor"
+    socketio:
+        query: "token={{$processEnvironment.AUTH_TOKEN}}"
+    processor: ../hooks.js
+    variables:
+        request:
+            - request
+        response:
+            - response
+    phases:
+        - duration: 20
+          arrivalRate: 10
+scenarios:
+    - name: "SOCKET.IO"
+      engine: "socketio"
+      flow:
+          - loop:
+                - function: "testSocketQueryTimeOut"
+                - emit:
+                      channel: "dummy"
+                      data: "{}"
+            count: 1

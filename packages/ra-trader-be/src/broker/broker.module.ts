@@ -16,6 +16,7 @@ import {
 } from "./broker.provider";
 import { WebAuthModule } from "../auth/web-auth.module";
 import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
+import { DiagnosticsModule } from "../diagnostics/diagnostics.module";
 @Module({
     imports: [
         CoreModule,
@@ -25,6 +26,7 @@ import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
         OrdersModule,
         WebAuthModule,
         EnvironmentsModule,
+        DiagnosticsModule,
     ],
     controllers: [
         BrokerController,

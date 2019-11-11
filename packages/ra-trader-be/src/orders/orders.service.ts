@@ -204,8 +204,6 @@ export abstract class OrdersService {
 
     public async sendOrderMessage(data: any, userData: any) {
         try {
-            console.log("sending data,", data);
-            console.log("sending userData,", userData);
             await this.messagesRouter.sendUserMessage(data, userData, data.SenderCompID);
             this.logger.info(
                 `NEW ORDER WITH RaID: ${data.ClOrdID}  AND RAID ${data.RaID} TIMESTAMP: ${new Date().getTime()}`,

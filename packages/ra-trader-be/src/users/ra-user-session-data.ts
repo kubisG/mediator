@@ -71,7 +71,7 @@ export class RaUserSessionData implements SessionData {
             compQueueTrader: `${this.env.queue.prefixTrader}${companyId}`,
             compQueueBroker: `${this.env.queue.prefixBroker}${companyId}`,
             compId: Number(companyId),
-            userId: null,
+            userId: userId ? Number(userId) : null,
             role: null,
             companyName: null,
             nickName: null,

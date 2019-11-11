@@ -119,7 +119,6 @@ export class MessagesRouter {
         return new Promise((resolve, reject) => {
             this.id++;
             this.logger.info(`${this.id} RUNNING OUT`);
-
             this.middlewareRunnerOut.run(msg, {
                 messageRouter: this,
                 userData,
@@ -159,6 +158,7 @@ export class MessagesRouter {
             if (!this.subscripions[queue]) {
                 this.logger.info(`MESSAGE ROUTER: CONNECTED TO CONSUME QUEUE: ${queue}`);
                 this.subscripions[queue] = this.queue.consumeQueue(queue).subscribe((msg) => {
+
                     this.id++;
                     this.logger.info(`${this.id} RUNNING IN`);
 
@@ -171,8 +171,6 @@ export class MessagesRouter {
                         id: this.id,
                         side: "IN",
                     }).then((data) => {
-                        console.log("data", data);
-                        console.log("msg", msg);
                         // message is empty.. end...
                         if (!data) {
                             return;

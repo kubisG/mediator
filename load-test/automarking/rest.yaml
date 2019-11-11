@@ -1,0 +1,22 @@
+config:
+    plugins:
+        statsd:
+            host: "{{$processEnvironment.STATSD_HOST}}"
+            port: 8125
+            prefix: "web-{{$processEnvironment.PROJECT_FOLDER}}"
+    target: "{{$processEnvironment.TARGET_HOST}}"
+    processor: ../hooks.js
+    phases:
+        - duration: 1
+          arrivalRate: 1
+scenarios:
+    - name: "REST AUTH"
+      flow:
+          - get:
+                url: "/api/v1/users/user"
+                headers:
+                    Authorization: "Bearer {{$processEnvironment.AUTH_TOKEN}}"
+          - get:
+                url: "/api/v1/users/company"
+                headers:
+                    Authorization: "Bearer {{$processEnvironment.AUTH_TOKEN}}"

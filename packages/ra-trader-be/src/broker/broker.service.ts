@@ -29,6 +29,9 @@ import { UserRepository } from "../dao/repositories/user.repository";
 import { OrderRelRepository } from "../dao/repositories/order-rel.repository";
 import { RaMessage } from "../entity/ra-message";
 import { UserData } from "../users/user-data.interface";
+import { HubService } from "../diagnostics/hub.service";
+import { RequestType } from "@ra/web-core-be/dist/enums/request-type.enum";
+import { ExecTransType } from "@ra/web-core-be/dist/enums/exec-trans-type.enum";
 
 @Injectable()
 export class BrokerService extends OrdersService implements OnModuleInit {
@@ -54,6 +57,7 @@ export class BrokerService extends OrdersService implements OnModuleInit {
         @Inject("orderRelRepository") orderRelRepository: OrderRelRepository,
         orderUtilsService: OrderUtilsService,
         phoneService: PhoneService,
+        private hubService: HubService,
     ) {
         super(
             brokerRouting,
@@ -75,6 +79,7 @@ export class BrokerService extends OrdersService implements OnModuleInit {
 
         this.consumeParentMsg();
         this.consumePhoneMsg();
+        this.consumeExpired();
         this.app = Apps.broker;
     }
 
@@ -215,6 +220,33 @@ export class BrokerService extends OrdersService implements OnModuleInit {
     public async getClients(token) {
         const userData = await this.authService.getUserData<UserData>(token);
         return await this.orderStoreRepository.getClients(userData.compId, Apps.broker);
+    }
+
+    public consumeExpired() {
+        this.hubService.getUpdateExpired().subscribe(async (data) => {
+            const that = this;
+            const orders = await this.orderStoreRepository.getOrdersForExpiration(data);
+            orders.forEach((order: any) => {
+                const userData = this.authService.createDummyToken(order.companyId, order.userId, Apps.broker);
+                const target = order.OnBehalfOfCompID ? order.OnBehalfOfCompID : order.SenderCompID;
+
+                order.SenderCompID = order.DeliverToCompID ? order.DeliverToCompID : order.TargetCompID;
+                order.TargetCompID = target;
+                order.company = userData.compId;
+                order.compQueue = userData.compQueueBroker;
+                order.RequestType = RequestType.Broker;
+                order.ExecTransType = ExecTransType.New;
+                order.LeavesQty = 0;
+                order.ExecType = ExecType.Expired;
+                order.ExecID = `EX${that.fastRandom.nextInt()}`;
+                order.OrdStatus = OrdStatus.Expired;
+                order.TransactTime = new Date().toISOString();
+                order.msgType = MessageType.Execution;
+                delete order.JsonMessage;
+                delete order.fields;
+                this.sendOrderMessage(order, userData);
+            });
+        });
     }
 
 }
