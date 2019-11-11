@@ -10,15 +10,23 @@ import { AppModule } from "./app.module";
 import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 
+import { RedisIoAdapter } from "@ra/web-core-be/dist/redis-io-adapter";
+import * as redisIoAdapter from "socket.io-redis";
+
 export const closeHandlers: (() => Promise<void>)[] = [];
 
 let app;
 
 async function bootstrap() {
+    const redisAdapter = redisIoAdapter({ host: process.env.REDIS_HOST, port: process.env.REDIS_PORT });
+
     const fastify = new FastifyAdapter();
     fastify.use(morgan("dev"));
 
     app = await NestFactory.create(AppModule, fastify);
+    const wsAdapter = new RedisIoAdapter(app);
+    wsAdapter.setAdapter(redisAdapter);
+    app.useWebSocketAdapter(wsAdapter);
     // Starts listening to shutdown hooks
     app.enableShutdownHooks();
 
