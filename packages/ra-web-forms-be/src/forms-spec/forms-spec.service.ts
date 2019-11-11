@@ -6,6 +6,7 @@ import { SystemChannelService } from "../system-channel/system-channel.service";
 import { FormsSpecRepository } from "../forms-dao/repositories/forms-spec.repository";
 import { RaFormsSpec } from "../forms-dao/entity/ra-forms-specification";
 import { UserData } from "@ra/web-shared-be/dist/users/user-data.interface";
+import { In } from "typeorm";
 
 @Injectable()
 export class FormsSpecService {
@@ -19,13 +20,30 @@ export class FormsSpecService {
     }
 
     /**
+     * Find many admin
+     */
+    public async findManyAdmin(token: string) {
+        const userData = await this.authService.getUserData(token) as UserData;
+        try {
+            return await this.formsSpecRep.find({
+                relations: ["company"], order: { id: "ASC" },
+            });
+        } catch (ex) {
+            ex.userId = userData.userId;
+            this.systemService.sendException(ex);
+            this.logger.error(ex);
+            return null;
+        }
+    }
+
+    /**
      * Find many
-     * @param token
      */
     public async findMany(token: string) {
         const userData = await this.authService.getUserData(token) as UserData;
         try {
             return await this.formsSpecRep.find({
+                where: { company: In([0, userData.compId]) },
                 relations: ["company"], order: { id: "ASC" },
             });
         } catch (ex) {
