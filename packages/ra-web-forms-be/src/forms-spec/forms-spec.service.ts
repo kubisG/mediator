@@ -26,7 +26,7 @@ export class FormsSpecService {
         const userData = await this.authService.getUserData(token) as UserData;
         try {
             return await this.formsSpecRep.find({
-                relations: ["company"], order: { id: "ASC" },
+                order: { id: "ASC" },
             });
         } catch (ex) {
             ex.userId = userData.userId;
@@ -43,8 +43,8 @@ export class FormsSpecService {
         const userData = await this.authService.getUserData(token) as UserData;
         try {
             return await this.formsSpecRep.find({
-                where: { company: In([0, userData.compId]) },
-                relations: ["company"], order: { id: "ASC" },
+                where: { companyId: In([0, userData.compId]) },
+                order: { id: "ASC" },
             });
         } catch (ex) {
             ex.userId = userData.userId;
@@ -58,7 +58,7 @@ export class FormsSpecService {
         const userData = await this.authService.getUserData(token) as UserData;
 
         try {
-            return await this.formsSpecRep.findOne({ id, company: (userData.compId as any) });
+            return await this.formsSpecRep.findOne({ id, companyId: (userData.compId as any) });
         } catch (ex) {
             ex.userId = userData.userId;
             this.systemService.sendException(ex);
@@ -70,7 +70,7 @@ export class FormsSpecService {
     public async delete(token: string, id: any) {
         const userData = await this.authService.getUserData(token) as UserData;
         try {
-            return await this.formsSpecRep.delete({ id, company: (userData.compId as any) });
+            return await this.formsSpecRep.delete({ id, companyId: (userData.compId as any) });
         } catch (ex) {
             ex.userId = userData.userId;
             this.systemService.sendException(ex);
@@ -85,7 +85,7 @@ export class FormsSpecService {
     public async saveData(token: string, data: any) {
         const userData = await this.authService.getUserData(token) as UserData;
         try {
-            data.company = data.company ? data.company.id : userData.compId;
+            data.companyId = data.companyId || data.companyId  === 0 ? data.companyId : userData.compId;
             const mapper = new LightMapper();
             const newData = mapper.map<RaFormsSpec>(RaFormsSpec, data);
             if (data.type === "N") {
@@ -94,10 +94,10 @@ export class FormsSpecService {
             } else {
                 newData.id = data.id;
                 newData.updatedBy = userData.nickName;
+                newData.companyId = data.companyId;
             }
-
             const res = await this.formsSpecRep.save(newData);
-            return await this.formsSpecRep.findOne({ where: { id: res.id }, relations: ["company"] });
+            return await this.formsSpecRep.findOne({ id: res.id });
         } catch (ex) {
             ex.userId = userData.userId;
             this.systemService.sendException(ex);

@@ -1,11 +1,10 @@
 import { Column, Entity, PrimaryColumn, OneToMany, PrimaryGeneratedColumn, ManyToOne, Index, BeforeUpdate, Unique } from "typeorm";
 
 import { AEntity } from "@ra/web-core-be/dist/db/a-entity";
-import { RaCompany } from "@ra/web-core-be/dist/db/entity/ra-company";
 import { MappingRequirement, Mapping } from "light-mapper";
 
 @Entity()
-@Unique(["dataType", "company"])
+@Unique(["dataType", "companyId"])
 export class RaFormsSpec extends AEntity {
 
     constructor(id?: number) {
@@ -44,14 +43,8 @@ export class RaFormsSpec extends AEntity {
     @Column({ nullable: true })
     public updatedBy: string;
 
-    @Mapping({
-        requirement: MappingRequirement.REQUIRED,
-        transformation: (companyId: number) => {
-            return new RaCompany(companyId);
-        },
-    })
-    @ManyToOne(() => RaCompany, (raCompany) => raCompany.user)
-    public company: RaCompany;
+    @Column()
+    public companyId: number;
 
     @Column({ type: "timestamptz", nullable: true, default: () => "CURRENT_TIMESTAMP" })
     public createDate: Date;
