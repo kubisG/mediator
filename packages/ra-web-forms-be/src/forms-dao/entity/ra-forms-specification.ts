@@ -5,7 +5,7 @@ import { RaCompany } from "@ra/web-core-be/dist/db/entity/ra-company";
 import { MappingRequirement, Mapping } from "light-mapper";
 
 @Entity()
-// @Unique(["dataType"])
+// @Unique(["dataType"]) TODO add company
 export class RaFormsSpec extends AEntity {
 
     constructor(id?: number) {
