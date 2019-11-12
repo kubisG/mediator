@@ -7,8 +7,8 @@ config:
     target: "{{$processEnvironment.TARGET_HOST}}"
     processor: ../hooks.js
     phases:
-        - duration: 60
-          arrivalRate: 10
+        - duration: 1
+          arrivalRate: 1
 scenarios:
     - name: "REST AUTH"
       flow:

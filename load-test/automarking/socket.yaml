@@ -7,7 +7,6 @@ config:
     target: "{{$processEnvironment.TARGET_HOST}}/monitor"
     socketio:
         query: "token={{$processEnvironment.AUTH_TOKEN}}"
-        transports: ["websocket"]
     processor: ../hooks.js
     variables:
         request:
@@ -15,15 +14,15 @@ config:
         response:
             - response
     phases:
-        - duration: 60
+        - duration: 20
           arrivalRate: 10
 scenarios:
     - name: "SOCKET.IO"
       engine: "socketio"
       flow:
           - loop:
-                - function: "testSocketQuery"
+                - function: "testSocketQueryTimeOut"
                 - emit:
                       channel: "dummy"
                       data: "{}"
-            count: 10
+            count: 1
