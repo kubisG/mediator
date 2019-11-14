@@ -29,8 +29,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
   // start app
-  // '0.0.0.0' - allow other hosts than just a localhost
-  await app.listen(configService.port, '0.0.0.0');
+  // allow other hosts than just a localhost
+  await app.listen(configService.port, configService.host);
 }
 
 bootstrap();
