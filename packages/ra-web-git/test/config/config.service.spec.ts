@@ -1,7 +1,7 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { ConfigService } from '../../src/config/config.service';
+import { Test, TestingModule } from "@nestjs/testing";
+import { ConfigService } from "../../src/config/config.service";
 
-describe('ConfigService', () => {
+describe("ConfigService", () => {
   let service: ConfigService;
 
   beforeEach(async () => {
@@ -9,7 +9,7 @@ describe('ConfigService', () => {
       providers: [
         {
           provide: ConfigService,
-          useValue: new ConfigService(`${process.env.NODE_ENV || 'development'}.env`),
+          useValue: new ConfigService(`${process.env.NODE_ENV || "development"}.env`),
         },
       ],
     }).compile();
@@ -17,7 +17,7 @@ describe('ConfigService', () => {
     service = module.get<ConfigService>(ConfigService);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(service).toBeDefined();
   });
 });
