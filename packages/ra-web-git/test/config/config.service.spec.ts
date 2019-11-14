@@ -1,12 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ConfigService } from './config.service';
+import { ConfigService } from '../../src/config/config.service';
 
 describe('ConfigService', () => {
   let service: ConfigService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ConfigService],
+      providers: [
+        {
+          provide: ConfigService,
+          useValue: new ConfigService(`${process.env.NODE_ENV || 'development'}.env`),
+        },
+      ],
     }).compile();
 
     service = module.get<ConfigService>(ConfigService);
