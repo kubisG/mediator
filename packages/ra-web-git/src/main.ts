@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ConfigService } from './config/config.service';
 import { INestApplication } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder, SwaggerBaseConfig } from '@nestjs/swagger';
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 
 import * as pjson from '../package.json';
 
@@ -17,7 +18,7 @@ function getSwaggerConfig(apiVersion: string): SwaggerBaseConfig {
 }
 
 async function bootstrap() {
-  const app: INestApplication = await NestFactory.create(AppModule);
+  const app: INestApplication = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
   const configService: ConfigService = app.get(ConfigService);
   const version = 'v1';
 
@@ -28,7 +29,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
   // start app
-  await app.listen(configService.port);
+  // '0.0.0.0' - allow other hosts than just a localhost
+  await app.listen(configService.port, '0.0.0.0');
 }
 
 bootstrap();
