@@ -1,6 +1,6 @@
-import * as dotenv from 'dotenv';
-import * as Joi from '@hapi/joi';
-import * as fs from 'fs';
+import * as dotenv from "dotenv";
+import * as Joi from "@hapi/joi";
+import * as fs from "fs";
 
 export type EnvConfig = Record<string, string>;
 
@@ -18,9 +18,10 @@ export class ConfigService {
   private validateInput(envConfig: EnvConfig): EnvConfig {
     const envVarsSchema: Joi.ObjectSchema = Joi.object({
       NODE_ENV: Joi.string()
-        .valid('development', 'production', 'test')
-        .default('development'),
+        .valid("development", "production", "test")
+        .default("development"),
       PORT: Joi.number().default(3001),
+      HOST: Joi.string().default("0.0.0.0"),
       API_AUTH_ENABLED: Joi.boolean().required(),
     });
 
@@ -39,6 +40,10 @@ export class ConfigService {
 
   get port(): number {
     return Number(this.envConfig.PORT);
+  }
+
+  get host(): string {
+    return this.envConfig.HOST;
   }
 
   get isApiAuthEnabled(): boolean {

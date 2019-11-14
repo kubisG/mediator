@@ -1,9 +1,9 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
-import * as pjson from '../package.json';
+import { Test, TestingModule } from "@nestjs/testing";
+import * as request from "supertest";
+import { AppModule } from "./../src/app.module";
+import * as pjson from "../package.json";
 
-describe('AppController (e2e)', () => {
+describe("AppController (e2e)", () => {
   let app;
 
   beforeEach(async () => {
@@ -15,13 +15,13 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('should return application info', () => {
+  it("should return application info", () => {
     // prepare
     const expectedInfo = { version: pjson.version, name: pjson.name };
 
     // execute & verify
     return request(app.getHttpServer())
-      .get('/')
+      .get("/")
       .expect(200)
       .expect(expectedInfo);
   });

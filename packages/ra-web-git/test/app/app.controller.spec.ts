@@ -1,9 +1,9 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from '../../src/app.controller';
-import { AppService } from '../../src/app.service';
-import * as pjson from '../../package.json';
+import { Test, TestingModule } from "@nestjs/testing";
+import { AppController } from "../../src/app.controller";
+import { AppService } from "../../src/app.service";
+import * as pjson from "../../package.json";
 
-describe('AppController', () => {
+describe("AppController", () => {
   let appController: AppController;
   let appService: AppService;
 
@@ -17,10 +17,10 @@ describe('AppController', () => {
     appService = app.get<AppService>(AppService);
   });
 
-  it('should return application info', () => {
+  it("should return application info", () => {
     // prepare
     const expectedInfo = { version: pjson.version, name: pjson.name };
-    jest.spyOn(appService, 'getInfo').mockImplementation(() => expectedInfo);
+    jest.spyOn(appService, "getInfo").mockImplementation(() => expectedInfo);
 
     // execute
     const info = appController.getInfo();
