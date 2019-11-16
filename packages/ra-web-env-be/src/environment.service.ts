@@ -59,6 +59,8 @@ export class EnvironmentService {
             expiresIn: this.conf.get("auth.expiresIn"),
             secretKey: this.conf.get("auth.secretKey"),
             sessionStore: this.conf.get("auth.sessionStore"),
+            type: process.env.AUTH_TYPE,
+            serviceUrl: process.env.AUTH_SERVICE_URL,
         };
     }
 

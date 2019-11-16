@@ -1,0 +1,50 @@
+0 silly argv {
+0 silly argv   _: [ 'clean' ],
+0 silly argv   yes: true,
+0 silly argv   y: true,
+0 silly argv   lernaVersion: '3.13.3',
+0 silly argv   '$0': 'node_modules\\lerna\\cli.js'
+0 silly argv }
+1 notice cli v3.13.3
+2 verbose rootPath C:\Users\Gois\ra-web
+3 info versioning independent
+4 info clean removing C:\Users\Gois\ra-web\packages\ra-trader-be\node_modules
+5 silly rimrafDir C:\Users\Gois\ra-web\packages\ra-trader-be\node_modules
+6 info clean removing C:\Users\Gois\ra-web\packages\ra-web-auth-be\node_modules
+7 silly rimrafDir C:\Users\Gois\ra-web\packages\ra-web-auth-be\node_modules
+8 info clean removing C:\Users\Gois\ra-web\packages\ra-web-bundle-be\node_modules
+9 silly rimrafDir C:\Users\Gois\ra-web\packages\ra-web-bundle-be\node_modules
+10 info clean removing C:\Users\Gois\ra-web\packages\ra-web-core-be\node_modules
+11 silly rimrafDir C:\Users\Gois\ra-web\packages\ra-web-core-be\node_modules
+12 info clean removing C:\Users\Gois\ra-web\packages\ra-web-ee-router\node_modules
+13 silly rimrafDir C:\Users\Gois\ra-web\packages\ra-web-ee-router\node_modules
+14 info clean removing C:\Users\Gois\ra-web\packages\ra-web-env-be\node_modules
+15 silly rimrafDir C:\Users\Gois\ra-web\packages\ra-web-env-be\node_modules
+16 info clean removing C:\Users\Gois\ra-web\packages\ra-web-forms-be\node_modules
+17 silly rimrafDir C:\Users\Gois\ra-web\packages\ra-web-forms-be\node_modules
+18 info clean removing C:\Users\Gois\ra-web\packages\ra-web-git\node_modules
+19 silly rimrafDir C:\Users\Gois\ra-web\packages\ra-web-git\node_modules
+20 verbose rimrafDir removed C:\Users\Gois\ra-web\packages\ra-web-ee-router\node_modules
+21 info clean removing C:\Users\Gois\ra-web\packages\ra-web-monitor-be\node_modules
+22 silly rimrafDir C:\Users\Gois\ra-web\packages\ra-web-monitor-be\node_modules
+23 verbose rimrafDir removed C:\Users\Gois\ra-web\packages\ra-web-core-be\node_modules
+24 info clean removing C:\Users\Gois\ra-web\packages\ra-web-platform-be\node_modules
+25 silly rimrafDir C:\Users\Gois\ra-web\packages\ra-web-platform-be\node_modules
+26 verbose rimrafDir removed C:\Users\Gois\ra-web\packages\ra-trader-be\node_modules
+27 info clean removing C:\Users\Gois\ra-web\packages\ra-web-queue\node_modules
+28 silly rimrafDir C:\Users\Gois\ra-web\packages\ra-web-queue\node_modules
+29 verbose rimrafDir removed C:\Users\Gois\ra-web\packages\ra-web-env-be\node_modules
+30 info clean removing C:\Users\Gois\ra-web\packages\ra-web-shared-be\node_modules
+31 silly rimrafDir C:\Users\Gois\ra-web\packages\ra-web-shared-be\node_modules
+32 verbose rimrafDir removed C:\Users\Gois\ra-web\packages\ra-web-shared-be\node_modules
+33 info clean removing C:\Users\Gois\ra-web\packages\ra-web-shared\node_modules
+34 silly rimrafDir C:\Users\Gois\ra-web\packages\ra-web-shared\node_modules
+35 verbose rimrafDir removed C:\Users\Gois\ra-web\packages\ra-web-queue\node_modules
+36 verbose rimrafDir removed C:\Users\Gois\ra-web\packages\ra-web-forms-be\node_modules
+37 verbose rimrafDir removed C:\Users\Gois\ra-web\packages\ra-web-monitor-be\node_modules
+38 verbose rimrafDir removed C:\Users\Gois\ra-web\packages\ra-web-shared\node_modules
+39 verbose rimrafDir removed C:\Users\Gois\ra-web\packages\ra-web-platform-be\node_modules
+40 verbose rimrafDir removed C:\Users\Gois\ra-web\packages\ra-web-bundle-be\node_modules
+41 error Error: Command failed: C:\Program Files\nodejs\node.exe C:\Users\Gois\ra-web\node_modules\@lerna\rimraf-dir\node_modules\rimraf\bin.js --no-glob C:\Users\Gois\ra-web\packages\ra-web-git\node_modules\
+41 error     at makeError (C:\Users\Gois\ra-web\node_modules\execa\index.js:174:9)
+41 error     at C:\Users\Gois\ra-web\node_modules\execa\index.js:278:16
