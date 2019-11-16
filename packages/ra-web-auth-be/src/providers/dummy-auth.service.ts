@@ -1,8 +1,8 @@
-import { Injectable, NotImplementedException } from "@nestjs/common";
+import { Injectable, NotImplementedException, Logger, Inject } from "@nestjs/common";
 import { BearerToken } from "src/interfaces/bearer-token.interface";
 import { AuthDto } from "src/dto/auth.dto";
 import { BearerData } from "src/interfaces/bearer-data.interface";
-import { IAuthService } from "./auth-service.interface";
+import { IAuthService } from "../interfaces/auth-service.interface";
 
 const DUMMY_TOKEN = {
     expiresIn: 1, accessToken: "accessToken", firstName: "firstName", lastName: "lastName", companyName: "companyName",
@@ -14,6 +14,8 @@ const DUMMY_DATA = { email: "dummy@test.com", sid: DUMMY_SID } as BearerData;
 
 @Injectable()
 export class DummyAuthService implements IAuthService {
+
+    constructor(@Inject("logger") private logger: Logger) {}
 
     async createToken(auth: AuthDto): Promise<BearerToken> {
         return DUMMY_TOKEN;
@@ -28,22 +30,23 @@ export class DummyAuthService implements IAuthService {
     }
 
     async destroySession(token: string) {
-        throw new NotImplementedException("Dummy auth service don't implement this method");
+        this.logger.error("Dummy auth service don't implement this method");
     }
 
     async getUserData<T>(token: string): Promise<T> {
-        throw new NotImplementedException("Dummy auth service don't implement this method");
+        this.logger.error("Dummy auth service don't implement this method");
+        return {} as T;
     }
 
     createDummyToken(...args: any[]): any {
-        throw new NotImplementedException("Dummy auth service don't implement this method");
+        this.logger.error("Dummy auth service don't implement this method");
     }
 
     setVerifyService(verify) {
-        throw new NotImplementedException("Dummy auth service don't implement this method");
+        this.logger.error("Dummy auth service don't implement this method");
     }
 
     setSessionDataService(sessionData) {
-        throw new NotImplementedException("Dummy auth service don't implement this method");
+        this.logger.error("Dummy auth service don't implement this method");
     }
 }

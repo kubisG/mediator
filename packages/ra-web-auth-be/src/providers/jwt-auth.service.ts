@@ -3,7 +3,7 @@ import { JwtService } from "@nestjs/jwt";
 import { SessionStore } from "@ra/web-core-be/dist/sessions/providers/session-store.interface";
 import { VerifyService } from "src/verify/verify.service";
 import { SessionDataService } from "src/session-data/session-data.service";
-import { IAuthService } from "./auth-service.interface";
+import { IAuthService } from "../interfaces/auth-service.interface";
 import { BearerData } from "src/interfaces/bearer-data.interface";
 import { AuthDto } from "src/dto/auth.dto";
 import { BearerToken } from "src/interfaces/bearer-token.interface";

@@ -1,8 +1,8 @@
 import { Verify } from "../verify/verify.interface";
 import { SessionDataService } from "../session-data/session-data.service";
-import { BearerToken } from "../interfaces/bearer-token.interface";
+import { BearerToken } from "./bearer-token.interface";
 import { AuthDto } from "src/dto/auth.dto";
-import { BearerData } from "../interfaces/bearer-data.interface";
+import { BearerData } from "./bearer-data.interface";
 
 export interface IAuthService {
 
@@ -14,7 +14,7 @@ export interface IAuthService {
 
     createDummyToken(...args: any[]): any;
 
-    verifyToken(token: string): BearerData;
+    verifyToken(token: string): BearerData | Promise<BearerData>;
 
     createToken(auth: AuthDto): Promise<BearerToken>;
 

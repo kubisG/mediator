@@ -3,7 +3,7 @@ import { AuthDto } from "./dto/auth.dto";
 import { BearerData } from "./interfaces/bearer-data.interface";
 import { BearerToken } from "./interfaces/bearer-token.interface";
 import { SessionDataService } from "./session-data/session-data.service";
-import { IAuthService } from "./providers/auth-service.interface";
+import { IAuthService } from "./interfaces/auth-service.interface";
 import { Verify } from "./verify/verify.interface";
 
 @Injectable()
@@ -31,7 +31,7 @@ export class AuthService {
         await this.authService.destroySession(token);
     }
 
-    verifyToken(token: string): BearerData {
+    verifyToken(token: string): BearerData | Promise<BearerData> {
         return this.authService.verifyToken(token);
     }
 

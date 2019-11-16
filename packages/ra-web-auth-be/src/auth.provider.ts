@@ -5,7 +5,11 @@ import { JwtService } from "@nestjs/jwt";
 import { VerifyService } from "./verify/verify.service";
 import { Logger } from "@nestjs/common";
 import { JwtAuthService } from "./providers/jwt-auth.service";
-import { IAuthService } from "./providers/auth-service.interface";
+import { IAuthService } from "./interfaces/auth-service.interface";
+import { SessionStore } from "@ra/web-core-be/dist/sessions/providers/session-store.interface";
+import { AuthType } from "./enum/auth-type.enum";
+import { HttpClient } from "./http-client.service";
+import { RemoteAuthService } from "./providers/remote-auth.service";
 
 export const authServiceFactory = {
     provide: "authService",
@@ -16,21 +20,22 @@ export const authServiceFactory = {
         sessionDataService: SessionDataService,
         sessions: SessionStore,
         logger: Logger,
+        httpClient: HttpClient,
     ): IAuthService => {
-        switch (env.auth) {
-            case authService.jwt: {
+        switch (env.auth.type) {
+            case AuthType.Jwt: {
                 return new JwtAuthService(jwtService, verifyService, sessionDataService, sessions, logger);
             }
-            case authService.remote: {
-                return new RemoteAuthService();
+            case AuthType.Remote: {
+                return new RemoteAuthService(httpClient, env, logger);
             }
-            case authService.dummy: {
-                return new DummyAuthService();
+            case AuthType.Remote: {
+                return new DummyAuthService(logger);
             }
             default: {
-                return new JwtAuthService();
+                return new JwtAuthService(jwtService, verifyService, sessionDataService, sessions, logger);
             }
         }
     },
-    inject: [EnvironmentService, SessionDataService, JwtService, VerifyService, SessionDataService, "session", "logger"],
+    inject: [EnvironmentService, SessionDataService, JwtService, VerifyService, SessionDataService, "session", "logger", HttpClient],
 };
