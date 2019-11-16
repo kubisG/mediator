@@ -1,7 +1,7 @@
-import { Injectable, NotImplementedException, Logger, Inject } from "@nestjs/common";
-import { BearerToken } from "src/interfaces/bearer-token.interface";
-import { AuthDto } from "src/dto/auth.dto";
-import { BearerData } from "src/interfaces/bearer-data.interface";
+import { Injectable, Logger, Inject } from "@nestjs/common";
+import { BearerToken } from "../interfaces/bearer-token.interface";
+import { AuthDto } from "../dto/auth.dto";
+import { BearerData } from "../interfaces/bearer-data.interface";
 import { IAuthService } from "../interfaces/auth-service.interface";
 
 const DUMMY_TOKEN = {

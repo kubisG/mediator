@@ -1,13 +1,13 @@
 import { Inject, Injectable, Logger } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { SessionStore } from "@ra/web-core-be/dist/sessions/providers/session-store.interface";
-import { VerifyService } from "src/verify/verify.service";
-import { SessionDataService } from "src/session-data/session-data.service";
+import { VerifyService } from "../verify/verify.service";
+import { SessionDataService } from "../session-data/session-data.service";
 import { IAuthService } from "../interfaces/auth-service.interface";
-import { BearerData } from "src/interfaces/bearer-data.interface";
-import { AuthDto } from "src/dto/auth.dto";
-import { BearerToken } from "src/interfaces/bearer-token.interface";
-import { Verify } from "src/verify/verify.interface";
+import { BearerData } from "../interfaces/bearer-data.interface";
+import { AuthDto } from "../dto/auth.dto";
+import { BearerToken } from "../interfaces/bearer-token.interface";
+import { Verify } from "../verify/verify.interface";
 
 import * as uuid from "uuid/v4";
 

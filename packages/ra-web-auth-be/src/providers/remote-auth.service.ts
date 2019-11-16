@@ -1,10 +1,10 @@
-import { Injectable, Inject, Logger, NotImplementedException } from "@nestjs/common";
-import { HttpClient } from "src/http-client.service";
-import { AuthDto } from "src/dto/auth.dto";
-import { BearerToken } from "src/interfaces/bearer-token.interface";
-import { BearerData } from "src/interfaces/bearer-data.interface";
+import { Injectable, Inject, Logger } from "@nestjs/common";
+import { HttpClient } from "../http-client.service";
+import { AuthDto } from "../dto/auth.dto";
+import { BearerToken } from "../interfaces/bearer-token.interface";
+import { BearerData } from "../interfaces/bearer-data.interface";
 import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
-import { IAuthService } from "src/interfaces/auth-service.interface";
+import { IAuthService } from "../interfaces/auth-service.interface";
 
 @Injectable()
 export class RemoteAuthService implements IAuthService {

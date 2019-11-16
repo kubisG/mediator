@@ -1,7 +1,6 @@
 import { Module, DynamicModule } from "@nestjs/common";
 import { PassportModule } from "@nestjs/passport";
 import { JwtModule } from "@nestjs/jwt";
-
 import { AuthService } from "./auth.service";
 import { CoreModule } from "@ra/web-core-be/dist/core.module";
 import { JwtStrategy } from "./jwt.strategy";
@@ -11,6 +10,10 @@ import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
 import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { SessionDataService } from "./session-data/session-data.service";
 import { VerifyService } from "./verify/verify.service";
+import { DummyAuthService } from "./providers/dummy-auth.service";
+import { RemoteAuthService } from "./providers/remote-auth.service";
+import { JwtAuthService } from "./providers/jwt-auth.service";
+import { authServiceFactory } from "./auth.provider";
 
 @Module({
     imports: [
@@ -29,6 +32,9 @@ import { VerifyService } from "./verify/verify.service";
     providers: [
         AuthService,
         JwtStrategy,
+        DummyAuthService,
+        RemoteAuthService,
+        JwtAuthService,
         WsAuthGuard,
         RolesGuard,
         SessionDataService,
@@ -37,6 +43,7 @@ import { VerifyService } from "./verify/verify.service";
             provide: "test",
             useValue: "AuthModule",
         },
+        authServiceFactory,
     ],
     exports: [
         AuthService,
@@ -47,6 +54,7 @@ import { VerifyService } from "./verify/verify.service";
         VerifyService,
         JwtModule,
         PassportModule,
+        authServiceFactory,
     ],
 })
 
