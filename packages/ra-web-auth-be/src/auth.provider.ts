@@ -37,5 +37,5 @@ export const authServiceFactory = {
             }
         }
     },
-    inject: [EnvironmentService, SessionDataService, JwtService, VerifyService, SessionDataService, "session", "logger", HttpClient],
+    inject: [EnvironmentService, SessionDataService, JwtService, VerifyService, SessionDataService, "sessions", "logger", HttpClient],
 };

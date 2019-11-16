@@ -14,6 +14,7 @@ import { DummyAuthService } from "./providers/dummy-auth.service";
 import { RemoteAuthService } from "./providers/remote-auth.service";
 import { JwtAuthService } from "./providers/jwt-auth.service";
 import { authServiceFactory } from "./auth.provider";
+import { HttpClient } from "./http-client.service";
 
 @Module({
     imports: [
@@ -44,6 +45,7 @@ import { authServiceFactory } from "./auth.provider";
             useValue: "AuthModule",
         },
         authServiceFactory,
+        HttpClient,
     ],
     exports: [
         AuthService,
