@@ -23,6 +23,11 @@ export class ConfigService {
       PORT: Joi.number().default(3001),
       HOST: Joi.string().default("0.0.0.0"),
       API_AUTH_ENABLED: Joi.boolean().required(),
+      REDIS_PREFIX: Joi.string().default("ra-web-git").required(),
+      REDIS_HOST: Joi.string().default("web-dev.aws.rapidaddition.net").required(),
+      REDIS_PORT: Joi.number().default(6379).required(),
+      REDIS_DB: Joi.number().default(1).required(),
+      AUTH_TYPE: Joi.string().default("dummy"),
     });
 
     const { error, value: validatedEnvConfig } = envVarsSchema.validate(
