@@ -1,4 +1,4 @@
-import { NestFactory } from "@nestjs/core";
+import { NestFactory, Reflector } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { ConfigService } from "./config/config.service";
 import { INestApplication } from "@nestjs/common";
@@ -27,6 +27,7 @@ async function bootstrap() {
   const app: INestApplication = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
   const configService: ConfigService = app.get(ConfigService);
   const authService: AuthService = app.get(AuthService);
+  const reflector = app.get(Reflector);
   const logger = app.get("logger");
   const version = "v1";
 
@@ -37,7 +38,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup("api", app, document);
   // set up guard for every route
-  app.useGlobalGuards(new TokenAuthGuard(authService, logger));
+  app.useGlobalGuards(new TokenAuthGuard(reflector, authService, logger));
   // start app
   await app.listen(configService.port, configService.host);
 }
