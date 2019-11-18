@@ -25,6 +25,7 @@ select
 from ra_locates_data rap
 where 1=0;
 
+
 CREATE OR REPLACE FUNCTION raFormsDataAudit
 () RETURNS TRIGGER AS
 $BODY$
@@ -44,7 +45,7 @@ BEGIN
         "triggeredCount",
         "data",
         "wsResponse",
-        "company",
+        "companyId",
         "createdBy",
         "updatedBy",
         "createDate",
@@ -64,7 +65,7 @@ BEGIN
             old."triggeredCount",
             old."data",
             old."wsResponse",
-            old."company",
+            old."companyId",
             old."createdBy",
             old."updatedBy",
             old."createDate",
@@ -89,7 +90,7 @@ BEGIN
         "triggeredCount",
         "data",
         "wsResponse",
-        "company",
+        "companyId",
         "createdBy",
         "updatedBy",
         "createDate",
@@ -108,7 +109,7 @@ BEGIN
             new."triggeredCount",
             new."data",
             new."wsResponse",
-            new."company",
+            new."companyId",
             new."createdBy",
             new."updatedBy",
             new."createDate",
@@ -139,7 +140,7 @@ BEGIN
         "subType",
         "name",
         "spec",
-        "company",
+        "companyId",
         "createDate",
         "updatedDate",
         "archDate",
@@ -150,7 +151,7 @@ BEGIN
             old."subType",
             old."name",
             old."spec",
-            old."company",
+            old."companyId",
             old."createDate",
             old."updatedDate",
             now(),
@@ -165,7 +166,7 @@ BEGIN
         "subType",
         "name",
         "spec",
-        "company",
+        "companyId",
         "createDate",
         "updatedDate",
         "archDate",
@@ -175,11 +176,9 @@ BEGIN
             new."subType",
             new."name",
             new."spec",
-            new."company",
+            new."companyId",
             new."createDate",
             new."updatedDate",
-            new."archDate",
-            new."archType",
             now(),
             TG_OP);
     RETURN new;
@@ -199,15 +198,12 @@ BEGIN
     INSERT INTO
         ra_locates_data_audit
         ("id",
-        "type",
+        "reqType",
         "user",
         "symbol",
         "quantity",
         "broker",
         "comment",
-        "goodShares",
-        "noGoodShares",
-        "pendingShares",
         "usedShares",
         "availableShares",
         "orderId",
@@ -215,7 +211,7 @@ BEGIN
         "status",
         "poolType",
         "wsResponse",
-        "company",
+        "companyId",
         "createdBy",
         "updatedBy",
         "createDate",
@@ -224,15 +220,12 @@ BEGIN
         "archType")
     VALUES(
             old."id",
-            old."type",
+            old."reqType",
             old."user",
             old."symbol",
             old."quantity",
             old."broker",
             old."comment",
-            old."goodShares",
-            old."noGoodShares",
-            old."pendingShares",
             old."usedShares",
             old."availableShares",
             old."orderId",
@@ -240,11 +233,9 @@ BEGIN
             old."status",
             old."poolType",
             old."wsResponse",
-            old."company",
+            old."companyId",
             old."createdBy",
             old."updatedBy",
-            old."createDate",
-            old."updatedDate",
             old."createDate",
             old."updatedDate",
             now(),
@@ -254,17 +245,14 @@ BEGIN
     ((TG_OP = 'UPDATE') OR
     (TG_OP = 'INSERT')) THEN
     INSERT INTO
-        ra_forms_data_audit
+        ra_locates_data_audit
         ("id",
-        "type",
+        "reqType",
         "user",
         "symbol",
         "quantity",
         "broker",
         "comment",
-        "goodShares",
-        "noGoodShares",
-        "pendingShares",
         "usedShares",
         "availableShares",
         "orderId",
@@ -272,7 +260,7 @@ BEGIN
         "status",
         "poolType",
         "wsResponse",
-        "company",
+        "companyId",
         "createdBy",
         "updatedBy",
         "createDate",
@@ -280,15 +268,12 @@ BEGIN
         "archDate",
         "archType")
     VALUES(new."id",
-        new."type",
+        new."reqType",
         new."user",
         new."symbol",
         new."quantity",
         new."broker",
         new."comment",
-        new."goodShares",
-        new."noGoodShares",
-        new."pendingShares",
         new."usedShares",
         new."availableShares",
         new."orderId",
@@ -296,7 +281,7 @@ BEGIN
         new."status",
         new."poolType",
         new."wsResponse",
-        new."company",
+        new."companyId",
         new."createdBy",
        new."updatedBy",
         new."createDate",
@@ -313,7 +298,7 @@ $BODY$
 language plpgsql;
 
 
-DROP TRIGGER IF EXISTS ra_locates_data_audit_u_trigger
+DROP TRIGGER IF EXISTS ra_flocates_data_audit_u_trigger
 ON ra_locates_data;
 CREATE TRIGGER ra_flocates_data_audit_u_trigger AFTER
 UPDATE ON ra_locates_data
@@ -345,8 +330,11 @@ EXECUTE PROCEDURE raFormsSpecAudit
 
 DROP TRIGGER IF EXISTS ra_locates_data_audit_d_trigger
 ON ra_locates_data;
+
+DROP TRIGGER IF EXISTS ra_locates_data_audit_d_trigger
+ON ra_forms_data;
 CREATE TRIGGER ra_locates_data_audit_d_trigger AFTER
-DELETE ON ra_forms_data
+DELETE ON ra_locates_data
 FOR EACH
 ROW
 EXECUTE PROCEDURE raLocatesDataAudit
