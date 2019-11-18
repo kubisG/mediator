@@ -7,4 +7,5 @@ export class PageResponse implements Response {
     hosts: { channelId: string, clientId: string }[];
     newPage: number;
     newPageCount: number;
+    purgeData: boolean;
 }
