@@ -6,6 +6,7 @@ import { SwaggerModule, DocumentBuilder, SwaggerBaseConfig } from "@nestjs/swagg
 import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
 
 import * as pjson from "../package.json";
+import { TokenAuthGuard } from "./token-auth.guard";
 
 function getSwaggerConfig(apiVersion: string): SwaggerBaseConfig {
   return new DocumentBuilder()
@@ -28,6 +29,7 @@ async function bootstrap() {
   const swaggerConfig: SwaggerBaseConfig = getSwaggerConfig(version);
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup("api", app, document);
+  app.useGlobalGuards(new TokenAuthGuard());
   // start app
   await app.listen(configService.port, configService.host);
 }
