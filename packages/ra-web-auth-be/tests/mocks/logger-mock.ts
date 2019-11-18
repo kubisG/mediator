@@ -31,8 +31,4 @@ export class LoggerMock implements Logger {
         console.log(msg);
     }
 
-    createToken(any): BearerToken {
-        return {} as BearerToken;
-    }
-
 }
