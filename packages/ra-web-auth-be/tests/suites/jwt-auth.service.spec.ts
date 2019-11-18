@@ -67,12 +67,16 @@ describe("JwtAuthService", () => {
       // prepare results and inputs
       const input = { email: "invalid@email", password: "invalid" } as AuthDto;
       // prepare functions
-      jest.spyOn(verifyService, "find").mockImplementation(async () => null);
+      const findFn = jest.spyOn(verifyService, "find").mockImplementation(async () => null);
+      const signFn = jest.spyOn(jwtService, "sign").mockReturnValue(null);
 
       // execute
       const result = await jwtAuthService.createToken(input);
 
-      // verify
+      // verify function calls
+      expect(findFn).toHaveBeenCalledWith(input);
+      expect(signFn).not.toHaveBeenCalled();
+      // verify result
       expect(result).toBeNull();
     });
 
