@@ -29,7 +29,7 @@ export const authServiceFactory = {
             case AuthType.Remote: {
                 return new RemoteAuthService(httpClient, env, logger);
             }
-            case AuthType.Remote: {
+            case AuthType.Dummy: {
                 return new DummyAuthService(logger);
             }
             default: {
