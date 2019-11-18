@@ -17,8 +17,8 @@ describe("AuthService", () => {
       providers: [
         AuthService,
         {
-            provide: "authService",
-            useClass: JwtAuthService,
+          provide: "authService",
+          useClass: JwtAuthService,
         },
       ],
     }).compile();
@@ -27,22 +27,18 @@ describe("AuthService", () => {
     authService = app.get<AuthService>(AuthService);
   });
 
-  describe("createToken()", () => {
+  it("should create token", async () => {
+    // prepare
+    const input = { email: "test@test.cz", password: "test" } as AuthDto;
+    const expectedResult = { firstName: "test", lastName: "test" } as BearerToken;
+    jest.spyOn(jwtAuthService, "createToken").mockImplementation(async () => expectedResult);
 
-    it("should create token", async () => {
-      // prepare
-      const input = { email: "test@test.cz", password: "test" } as AuthDto;
-      const expectedResult =  { firstName: "test", lastName: "test" } as BearerToken;
-      jest.spyOn(jwtAuthService, "createToken").mockImplementation(async () => expectedResult );
+    // execute
+    const result = await authService.createToken(input);
 
-      // execute
-      const result = await authService.createToken(input);
-
-      // verify
-      expect(result).toBeDefined();
-      expect(result.firstName).toEqual(expectedResult.firstName);
-      expect(result.lastName).toEqual(expectedResult.lastName);
-    });
-
+    // verify
+    expect(result).toBeDefined();
+    expect(result.firstName).toEqual(expectedResult.firstName);
+    expect(result.lastName).toEqual(expectedResult.lastName);
   });
 });
