@@ -38,7 +38,7 @@ describe("AuthService", () => {
       // execute
       const result = await authService.createToken(input);
 
-      // veirfy
+      // verify
       expect(result).toBeDefined();
       expect(result.firstName).toEqual(expectedResult.firstName);
       expect(result.lastName).toEqual(expectedResult.lastName);
