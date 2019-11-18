@@ -1,4 +1,5 @@
 import { Logger } from "@ra/web-core-be/dist/logger/providers/logger";
+import { BearerToken } from "../../src/interfaces/bearer-token.interface";
 
 export class LoggerMock implements Logger {
 
@@ -30,5 +31,8 @@ export class LoggerMock implements Logger {
         console.log(msg);
     }
 
+    createToken(any): BearerToken {
+        return {} as BearerToken;
+    }
 
 }
