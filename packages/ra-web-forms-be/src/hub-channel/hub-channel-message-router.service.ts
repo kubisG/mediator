@@ -20,7 +20,6 @@ import { LightMapper } from "light-mapper";
 import { RaLocatesData } from "../forms-dao/entity/ra-locates-data";
 import { CompanyRepository } from "@ra/web-core-be/dist/dao/repositories/company.repository";
 import { AuditTrailRepository } from "@ra/web-core-be/dist/dao/repositories/audit-trail.repository";
-import { ExceptionDto } from "../system-channel/dto/exception.dto";
 
 @Injectable()
 export class HubMessageRouterService extends BaseMessageRouter<Response, Request> {

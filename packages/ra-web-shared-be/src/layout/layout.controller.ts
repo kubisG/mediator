@@ -46,9 +46,9 @@ export class LayoutController {
         return await this.layoutService.setLayoutDefault(auth, modul, data.name);
     }
 
-    @Post("layout-settings/:state")
+    @Post("layout-settings/:name")
     @UseGuards(AuthGuard())
-    async setPublicPrivate(@Bearer() auth: string, @Body() data: any, @Param("state") state: string): Promise<any> {
-        return await this.layoutService.setLayoutPublicPrivate(auth, state, data.name);
+    async setPublicPrivate(@Bearer() auth: string, @Body() data: any, @Param("name") name: string): Promise<any> {
+        return await this.layoutService.setLayoutPublicPrivate(auth, data.state, name);
     }
 }

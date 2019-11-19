@@ -98,14 +98,25 @@ export class PreferenceRepository extends Repository<RaPreference> {
         });
     }
 
-    public async setPublicPrivateLayout(userId: number, companyId: number, state: any, name: string) {
+    public async setPublicPrivate(userId: number, companyId: number, state: any, name: string) {
         return await this.update({
-            name: `layout_${name}`,
+            name,
             version: this.env.appVersion ? this.env.appVersion : "1.0.0",
             userId,
             companyId,
         }, {
                 flag: state,
             });
+    }
+
+    public async getPublicPrivate(userId: number, companyId: number, name: string) {
+        return await this.findOne({
+            where: {
+                userId: Raw((alias) => `(${alias} IN (0, ${userId}) OR "flag" = 'Public')`),
+                companyId,
+                name,
+                version: this.env.appVersion ? this.env.appVersion : "1.0.0",
+            },
+        });
     }
 }
