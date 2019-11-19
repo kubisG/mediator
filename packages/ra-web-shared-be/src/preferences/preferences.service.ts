@@ -186,4 +186,32 @@ export class PreferencesService {
         return await this.raPreference.getHitlistsName(hitlist, userData.userId, userData.compId, this.env.appVersion);
     }
 
+    async getDefault(token: string, modul: string) {
+        const userData: UserData = await this.authService.getUserData<UserData>(token);
+        return await this.raPreference.findOne({
+            userId: userData.userId,
+            companyId: userData.compId,
+            name: modul,
+        });
+    }
+
+    async setDefault(token: string, modul: string, name: any) {
+        const userData: UserData = await this.authService.getUserData<UserData>(token);
+        return await this.raPreference.save({
+            name: modul,
+            value: name,
+            userId: userData.userId,
+            companyId: userData.compId,
+        });
+    }
+
+    async setPublicPrivate(token: string, state: string, name: any) {
+        const userData: UserData = await this.authService.getUserData<UserData>(token);
+        return await this.raPreference.setPublicPrivate(userData.userId, userData.compId, state, name);
+    }
+
+    async getPublicPrivate(token: string, name: any) {
+        const userData: UserData = await this.authService.getUserData<UserData>(token);
+        return await this.raPreference.getPublicPrivate(userData.userId, userData.compId, name);
+    }
 }

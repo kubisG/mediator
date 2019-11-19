@@ -53,7 +53,7 @@ export class LayoutService {
     async setLayoutPublicPrivate(token: string, state: string, name: any) {
         const userData: UserData = await this.authService.getUserData<UserData>(token);
 
-        return await this.raPreferences.setPublicPrivateLayout(userData.userId, userData.compId, state, name);
+        return await this.raPreferences.setPublicPrivate(userData.userId, userData.compId, state, `layout_${name}`);
     }
 
 }

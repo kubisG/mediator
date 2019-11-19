@@ -15,6 +15,7 @@ import { RemoteAuthService } from "./providers/remote-auth.service";
 import { JwtAuthService } from "./providers/jwt-auth.service";
 import { authServiceFactory } from "./auth.provider";
 import { HttpClient } from "./http-client.service";
+import { TokenAuthGuard } from "./guards/token-auth.guard";
 
 @Module({
     imports: [
@@ -38,6 +39,7 @@ import { HttpClient } from "./http-client.service";
         JwtAuthService,
         WsAuthGuard,
         RolesGuard,
+        TokenAuthGuard,
         SessionDataService,
         VerifyService,
         {
@@ -52,6 +54,7 @@ import { HttpClient } from "./http-client.service";
         JwtStrategy,
         WsAuthGuard,
         RolesGuard,
+        TokenAuthGuard,
         SessionDataService,
         VerifyService,
         JwtModule,

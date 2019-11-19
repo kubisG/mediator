@@ -1,11 +1,17 @@
-import { NestFactory } from "@nestjs/core";
+import { NestFactory, Reflector } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { ConfigService } from "./config/config.service";
 import { INestApplication } from "@nestjs/common";
 import { SwaggerModule, DocumentBuilder, SwaggerBaseConfig } from "@nestjs/swagger";
 import { FastifyAdapter, NestFastifyApplication } from "@nestjs/platform-fastify";
+import { TokenAuthGuard } from "@ra/web-auth-be/dist/guards/token-auth.guard";
+import { AuthService } from "@ra/web-auth-be/dist/auth.service";
 
+import * as dotenv from "dotenv";
 import * as pjson from "../package.json";
+
+// beacause of environment service
+dotenv.config({ path: `./${process.env.NODE_ENV || "development"}.env` });
 
 function getSwaggerConfig(apiVersion: string): SwaggerBaseConfig {
   return new DocumentBuilder()
@@ -20,6 +26,9 @@ function getSwaggerConfig(apiVersion: string): SwaggerBaseConfig {
 async function bootstrap() {
   const app: INestApplication = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
   const configService: ConfigService = app.get(ConfigService);
+  const authService: AuthService = app.get(AuthService);
+  const reflector = app.get(Reflector);
+  const logger = app.get("logger");
   const version = "v1";
 
   // set up global api prefix
@@ -28,6 +37,8 @@ async function bootstrap() {
   const swaggerConfig: SwaggerBaseConfig = getSwaggerConfig(version);
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup("api", app, document);
+  // set up guard for every route
+  app.useGlobalGuards(new TokenAuthGuard(reflector, authService, logger));
   // start app
   await app.listen(configService.port, configService.host);
 }

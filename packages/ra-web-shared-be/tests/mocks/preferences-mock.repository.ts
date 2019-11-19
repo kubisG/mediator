@@ -68,7 +68,13 @@ export class PreferencesMockRepository {
         return Promise.resolve([{ result: "OK" }]);
     }
 
-    setPublicPrivateLayout(userId, compId, state, name) {
+    setPublicPrivate(userId, compId, state, name) {
         return Promise.resolve({ result: "OK" });
+    }
+
+    getPublicPrivate(userId: number, companyId: number, name: string): Promise<RaPreference> {
+        const result = new RaPreference();
+        result.value = "OK";
+        return Promise.resolve(result);
     }
 }
