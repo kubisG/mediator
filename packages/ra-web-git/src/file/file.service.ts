@@ -4,7 +4,6 @@ import { ConfigService } from "src/config/config.service";
 
 import * as _fs from "fs";
 import * as _path from "path";
-import { noop } from "@babel/types";
 
 @Injectable()
 export class FileService {
@@ -15,12 +14,23 @@ export class FileService {
         this.basePath = _path.resolve(configService.basePath);
     }
 
+    /**
+     * method returns file/dir names (recursively if needed)
+     * 
+     * @param userName 
+     * @param repoKey 
+     * @param relativeFilePath 
+     * @param recursive 
+     * 
+     * @returns Promise<FileDto[]>
+     * @throws InternalServerErrorException if file system operation failed
+     */
     async getFiles(userName: string, repoKey: string, relativeFilePath: string, recursive?: boolean): Promise<FileDto[]> {
         const path: string = _path.join(this.basePath, userName, repoKey, relativeFilePath);
         return (recursive) ? await this.getFilesByPathRecursively(path) : await this.getFilesByPath(path);
     }
 
-    async getFilesByPath(path: string): Promise<FileDto[]> {
+    private async getFilesByPath(path: string): Promise<FileDto[]> {
         const files: FileDto[] = [];
         let dir: _fs.Dir;
 
@@ -42,7 +52,7 @@ export class FileService {
         return files;
     }
 
-    async getFilesByPathRecursively(path: string): Promise<FileDto[]> {
+    private async getFilesByPathRecursively(path: string): Promise<FileDto[]> {
         const files: FileDto[] = [];
         let dir: _fs.Dir;
 
