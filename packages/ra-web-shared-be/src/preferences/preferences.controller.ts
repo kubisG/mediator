@@ -97,4 +97,28 @@ export class PreferencesController {
     async getHitlistsName(@Bearer() auth: string, @Param("hitlist") hitlist: string) {
         return await this.preferencesService.getHitlistsName(hitlist, auth);
     }
+
+    @Get("default/:modul")
+    @UseGuards(AuthGuard())
+    async getDefault(@Bearer() auth: string, @Param("modul") modul: string): Promise<any> {
+        return await this.preferencesService.getDefault(auth, modul);
+    }
+
+    @Post("default/:modul")
+    @UseGuards(AuthGuard())
+    async setDefault(@Bearer() auth: string, @Body() data: any, @Param("modul") modul: string): Promise<any> {
+        return await this.preferencesService.setDefault(auth, modul, data.name);
+    }
+
+    @Post("settings/:name")
+    @UseGuards(AuthGuard())
+    async setPublicPrivate(@Bearer() auth: string, @Body() data: any, @Param("name") name: string): Promise<any> {
+        return await this.preferencesService.setPublicPrivate(auth, data.state, name);
+    }
+
+    @Get("settings/:name")
+    @UseGuards(AuthGuard())
+    async getPublicPrivate(@Bearer() auth: string, @Param("name") name: string): Promise<any> {
+        return await this.preferencesService.getPublicPrivate(auth, name);
+    }
 }
