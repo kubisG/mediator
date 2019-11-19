@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { FileDto } from "./dto/file.dto";
 import { ConfigService } from "src/config/config.service";
 
@@ -21,28 +21,44 @@ export class FileService {
 
     async getFilesByPath(path: string): Promise<FileDto[]> {
         const files: FileDto[] = [];
-        const dir = await _fs.promises.opendir(path);
+        let dir: _fs.Dir;
 
-        for await (const dirent of dir) {
-            const path: string = _path.join(dir.path, dirent.name);
-            const directory: boolean = dirent.isDirectory()
-            files.push({ name: dirent.name, path, directory });
+        try {
+            dir = await _fs.promises.opendir(path);
+
+            for await (const dirent of dir) {
+                const path: string = _path.join(dir.path, dirent.name);
+                const directory: boolean = dirent.isDirectory()
+                files.push({ name: dirent.name, path, directory });
+            }
+        } catch (error) {
+            throw new InternalServerErrorException(`Fail during processing file: ${error.path}`, error);
+        } finally {
+            dir.close();
         }
         return files;
     }
 
     async getFilesByPathRecursively(path: string): Promise<FileDto[]> {
         const files: FileDto[] = [];
-        const dir = await _fs.promises.opendir(path);
+        let dir: _fs.Dir;
 
-        for await (const dirent of dir) {
-            const path: string = _path.join(dir.path, dirent.name);
-            if (dirent.isDirectory()) {
-                const innerFiles: FileDto[] = await this.getFilesByPathRecursively(path);
-                files.push({ name: dirent.name, path, directory: true, files: innerFiles });
-            } else {
-                files.push({ name: dirent.name, path, directory: false });
+        try {
+            dir = await _fs.promises.opendir(path);
+
+            for await (const dirent of dir) {
+                const path: string = _path.join(dir.path, dirent.name);
+                if (dirent.isDirectory()) {
+                    const innerFiles: FileDto[] = await this.getFilesByPathRecursively(path);
+                    files.push({ name: dirent.name, path, directory: true, files: innerFiles });
+                } else {
+                    files.push({ name: dirent.name, path, directory: false });
+                }
             }
+        } catch (error) {
+            throw new InternalServerErrorException(`Fail during processing file: ${error.path}`, error);
+        } finally {
+            dir.close();
         }
         return files;
     }
