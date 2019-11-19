@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { FileDto } from "./dto/file.dto";
-import { ConfigService } from "src/config/config.service";
+import { ConfigService } from "../config/config.service";
 
 import * as _fs from "fs";
 import * as _path from "path";
@@ -8,11 +8,7 @@ import * as _path from "path";
 @Injectable()
 export class FileService {
 
-    private basePath: string;
-
-    constructor(configService: ConfigService) {
-        this.basePath = _path.resolve(configService.basePath);
-    }
+    constructor(private configService: ConfigService) {}
 
     /**
      * method returns file/dir names (recursively if needed)
@@ -26,7 +22,8 @@ export class FileService {
      * @throws InternalServerErrorException if file system operation failed
      */
     async getFiles(userName: string, repoKey: string, relativeFilePath: string, recursive?: boolean): Promise<FileDto[]> {
-        const path: string = _path.join(this.basePath, userName, repoKey, relativeFilePath);
+        const basePath = _path.resolve(this.configService.basePath);
+        const path: string = _path.join(basePath, userName, repoKey, relativeFilePath);
         return (recursive) ? await this.getFilesByPathRecursively(path) : await this.getFilesByPath(path);
     }
 
@@ -36,7 +33,7 @@ export class FileService {
 
         try {
             dir = await _fs.promises.opendir(path);
-
+            
             for await (const dirent of dir) {
                 const path: string = _path.join(dir.path, dirent.name);
                 const directory: boolean = dirent.isDirectory()
