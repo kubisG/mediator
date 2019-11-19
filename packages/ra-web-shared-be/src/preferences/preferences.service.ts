@@ -186,7 +186,6 @@ export class PreferencesService {
         return await this.raPreference.getHitlistsName(hitlist, userData.userId, userData.compId, this.env.appVersion);
     }
 
-
     async getDefault(token: string, modul: string) {
         const userData: UserData = await this.authService.getUserData<UserData>(token);
         return await this.raPreference.findOne({

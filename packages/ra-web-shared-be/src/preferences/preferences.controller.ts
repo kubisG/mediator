@@ -98,7 +98,6 @@ export class PreferencesController {
         return await this.preferencesService.getHitlistsName(hitlist, auth);
     }
 
-
     @Get("default/:modul")
     @UseGuards(AuthGuard())
     async getDefault(@Bearer() auth: string, @Param("modul") modul: string): Promise<any> {
