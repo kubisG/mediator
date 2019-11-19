@@ -4,6 +4,7 @@ import { ConfigService } from "src/config/config.service";
 
 import * as _fs from "fs";
 import * as _path from "path";
+import { noop } from "@babel/types";
 
 @Injectable()
 export class FileService {
@@ -34,7 +35,9 @@ export class FileService {
         } catch (error) {
             throw new InternalServerErrorException(`Fail during processing file: ${error.path}`, error);
         } finally {
-            dir.close();
+            if (dir) {
+                dir.close();
+            }
         }
         return files;
     }
@@ -58,7 +61,9 @@ export class FileService {
         } catch (error) {
             throw new InternalServerErrorException(`Fail during processing file: ${error.path}`, error);
         } finally {
-            dir.close();
+            if (dir) {
+                dir.close();
+            }
         }
         return files;
     }
