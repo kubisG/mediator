@@ -30,5 +30,4 @@ export class LoggerMock implements Logger {
         console.log(msg);
     }
 
-
 }

@@ -1,61 +1,44 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { LoggerMock } from "../mocks/logger-mock";
-import { Subscription } from "rxjs/internal/Subscription";
-import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
-import { EnvironmentMockService } from "../mocks/environment-mock.service";
-import { JwtService } from "@nestjs/jwt";
-import { JwtMockService } from "../mocks/jwt-mock.service";
-import { SessionsStoreMock } from "../mocks/sessios.store-mock.service.";
 import { AuthService } from "../../src/auth.service";
-import { VerifyService } from "../../src/verify/verify.service";
-import { SessionDataService } from "../../src/session-data/session-data.service";
+import { JwtAuthService } from "../../src/providers/jwt-auth.service";
+import { BearerToken } from "../../src/interfaces/bearer-token.interface";
+import { AuthDto } from "../../src/dto/auth.dto";
+
+// mock services
+jest.mock("../../src/providers/jwt-auth.service");
 
 describe("AuthService", () => {
   let app: TestingModule;
-  let service: AuthService;
-  const subscriptions: Subscription[] = [];
+  let authService: AuthService;
+  let jwtAuthService: JwtAuthService;
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
       providers: [
         AuthService,
-        VerifyService,
-        SessionDataService,
         {
-          provide: EnvironmentService,
-          useClass: EnvironmentMockService,
-        },
-        {
-            provide: "logger",
-            useClass: LoggerMock,
-        },
-        {
-            provide: JwtService,
-            useClass: JwtMockService,
-        },
-        {
-            provide: "sessions",
-            useClass: SessionsStoreMock,
+          provide: "authService",
+          useClass: JwtAuthService,
         },
       ],
     }).compile();
-    service = app.get<AuthService>(AuthService);
+
+    jwtAuthService = app.get<JwtAuthService>("authService");
+    authService = app.get<AuthService>(AuthService);
   });
 
-  afterEach(() => {
-    for (const sub of subscriptions) {
-      sub.unsubscribe();
-    }
+  it("should create token", async () => {
+    // prepare
+    const input = { email: "test@test.cz", password: "test" } as AuthDto;
+    const expectedResult = { firstName: "test", lastName: "test" } as BearerToken;
+    jest.spyOn(jwtAuthService, "createToken").mockImplementation(async () => expectedResult);
+
+    // execute
+    const result = await authService.createToken(input);
+
+    // verify
+    expect(result).toBeDefined();
+    expect(result.firstName).toEqual(expectedResult.firstName);
+    expect(result.lastName).toEqual(expectedResult.lastName);
   });
-
-  describe("createToken()", () => {
-    it("should createToken", async () => {
-      const token = "AAAAA";
-      const result = await service.createToken({ email: "test@test.cz", password: "test" });
-      expect(result).toBeDefined();
-      expect(result.email).toEqual("test@test.cz");
-    });
-  });
-
-
 });
