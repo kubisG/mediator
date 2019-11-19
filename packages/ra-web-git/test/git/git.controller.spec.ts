@@ -1,5 +1,5 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { GitController } from "./git.controller";
+import { GitController } from "../../src/git/git.controller";
 
 describe("Git Controller", () => {
   let controller: GitController;

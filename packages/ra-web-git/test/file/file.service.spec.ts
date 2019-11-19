@@ -1,15 +1,15 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { GitService } from "./git.service";
+import { FileService } from "../../src/file/file.service";
 
-describe("GitService", () => {
-  let service: GitService;
+describe("FileService", () => {
+  let service: FileService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [GitService],
+      providers: [FileService],
     }).compile();
 
-    service = module.get<GitService>(GitService);
+    service = module.get<FileService>(FileService);
   });
 
   it("should be defined", () => {
