@@ -28,6 +28,7 @@ export class ConfigService {
       REDIS_PORT: Joi.number().default(6379).required(),
       REDIS_DB: Joi.number().default(1).required(),
       AUTH_TYPE: Joi.string().default("dummy"),
+      REPOSITORY_BASE_PATH: Joi.string().required(),
     });
 
     const { error, value: validatedEnvConfig } = envVarsSchema.validate(
@@ -49,6 +50,10 @@ export class ConfigService {
 
   get host(): string {
     return this.envConfig.HOST;
+  }
+
+  get basePath(): string {
+    return this.envConfig.REPOSITORY_BASE_PATH;
   }
 
   get isApiAuthEnabled(): boolean {
