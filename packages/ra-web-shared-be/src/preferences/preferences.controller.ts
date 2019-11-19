@@ -119,7 +119,7 @@ export class PreferencesController {
 
     @Get("settings/:name")
     @UseGuards(AuthGuard())
-    async getPublicPrivate(@Bearer() auth: string, @Body() data: any, @Param("name") name: string): Promise<any> {
+    async getPublicPrivate(@Bearer() auth: string, @Param("name") name: string): Promise<any> {
         return await this.preferencesService.getPublicPrivate(auth, name);
     }
 }

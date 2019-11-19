@@ -50,7 +50,7 @@ describe("LayoutController", () => {
         {
           provide: "logger",
           useClass: LoggerMock,
-        }
+        },
       ],
     }).compile();
     controller = app.get(LayoutController);
@@ -62,8 +62,6 @@ describe("LayoutController", () => {
       sub.unsubscribe();
     }
   });
-
-
 
   describe("getLayout()", () => {
     it("should get Layout for user", async () => {
@@ -115,10 +113,10 @@ describe("LayoutController", () => {
     });
   });
 
-  describe("setPublicPrivate(:state)", () => {
+  describe("setPublicPrivate(:name)", () => {
     it("should cahnge public/private property", async () => {
       const token = "AAAAA";
-      const result = await controller.setPublicPrivate(token, { name: "test" }, "Public");
+      const result = await controller.setPublicPrivate(token, { state: "Public" }, "test");
       expect(result.result).toEqual("OK");
     });
   });

@@ -83,7 +83,6 @@ describe("PreferencesController", () => {
     });
   });
 
-
   describe("findAll()", () => {
     it("should find all result", async () => {
       const token = "AAAAA";
@@ -91,7 +90,6 @@ describe("PreferencesController", () => {
       expect(result.pref.result).toEqual("OK");
     });
   });
-
 
   describe("create()", () => {
     it("should create record", async () => {
@@ -153,4 +151,38 @@ describe("PreferencesController", () => {
     });
   });
 
+  describe("getPublicPrivate()", () => {
+    it("should get public/private", async () => {
+      const token = "AAAAA";
+      const result = await controller.getPublicPrivate(token, "test");
+      const json = (result as any).value;
+      expect(json).toEqual("OK");
+    });
+  });
+
+  describe("setPublicPrivate(:name)", () => {
+    it("should chnage public/private property", async () => {
+      const token = "AAAAA";
+      const result = await controller.setPublicPrivate(token, { state: "Public" }, "test");
+      expect(result.result).toEqual("OK");
+    });
+  });
+
+  describe("setDefault(:modul)", () => {
+    it("should change default property", async () => {
+      const token = "AAAAA";
+      const result = await controller.setDefault(token, { name: "Layout 1" }, "hitlist");
+      const json = JSON.parse((result as any).value);
+      expect(json.result).toEqual("OK");
+    });
+  });
+
+  describe("getDefault(:modul)", () => {
+    it("should get default property", async () => {
+      const token = "AAAAA";
+      const result = await controller.getDefault(token, "hitlist");
+      const json = JSON.parse((result as any).value);
+      expect(json.result).toEqual("OK");
+    });
+  });
 });
