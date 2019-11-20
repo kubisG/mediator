@@ -23,18 +23,19 @@
   "dependencies": {
     "@ra/web-core-be": "1.1.0",
     "@ra/web-env-be": "1.1.0",
-    "@ra/web-auth-be": "1.1.0",
     "@hapi/joi": "^16.1.7",
     "@nestjs/common": "^6.9.0",
     "@nestjs/core": "^6.9.0",
     "@nestjs/platform-express": "^6.9.0",
     "@nestjs/platform-fastify": "^6.9.0",
     "@nestjs/swagger": "^3.1.0",
+    "@ra/web-auth-be": "1.1.0",
     "dotenv": "^8.2.0",
     "fastify-swagger": "^2.4.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
+    "simple-git": "^1.126.0",
     "swagger-ui-express": "^4.1.2"
   },
   "devDependencies": {
@@ -49,6 +50,7 @@
     "@types/node": "^12.7.5",
     "@types/supertest": "^2.0.8",
     "jest": "^24.9.0",
+    "mock-fs": "^4.10.3",
     "prettier": "^1.18.2",
     "supertest": "^4.0.2",
     "ts-jest": "^24.1.0",
