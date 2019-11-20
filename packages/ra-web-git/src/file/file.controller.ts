@@ -14,8 +14,8 @@ export class FileController {
         @Param("userName") userName: string,
         @Param("repoKey") repoKey: string,
         @Param("path") path: string,
-        @Query("recursive") recursive: boolean,
+        @Query("recursive") recursive: string,
     ): Promise<FileDto[]> {
-        return await this.fileService.getFiles(userName, repoKey, path, recursive);
+        return await this.fileService.getFiles(userName, repoKey, path, eval(recursive));
     }
 }
