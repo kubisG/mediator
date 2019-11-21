@@ -60,7 +60,7 @@ test:
     - sh ci/awsPublish.sh $DISTRIBUTION_FILE ra-web/$IMAGE_NAME/$DISTRIBUTION_FILE
     
 .docker-template: &docker
-  image: registry.gitlab.com/rapid-addition/ra-ci/docker-aws
+  image: registry.gitlab.com/rapid-addition/automation/ra-ci/docker-aws
   dependencies: []
   when: manual
   services:
