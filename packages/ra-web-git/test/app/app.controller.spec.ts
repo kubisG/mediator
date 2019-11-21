@@ -31,7 +31,7 @@ describe("AppController", () => {
     await app.init();
   });
 
-  it("should return application info wihout any authorization", async (done) => {
+  it("should return application info without any authorization", async (done) => {
     // prepare
     const url = "/";
     const expectedInfo = { version: pjson.version, name: pjson.name };
