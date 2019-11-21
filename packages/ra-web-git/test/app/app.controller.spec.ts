@@ -34,7 +34,8 @@ describe("AppController", () => {
   it("should return application info wihout any authorization", async (done) => {
     // prepare
     const url = "/";
-    const expectedInfo = { version: pjson.version, name: "sdfa" };
+    const expectedInfo = { version: pjson.version, name: pjson.name };
+    // prepare functions
     getInfoFn = jest.spyOn(appService, "getInfo").mockReturnValue(expectedInfo);
 
     // execute
