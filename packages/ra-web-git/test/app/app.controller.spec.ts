@@ -11,7 +11,7 @@ jest.mock("../../src/app.service");
 
 describe("AppController", () => {
   let app: any;
-  let requester: any;
+  let requester: request.SuperTest<request.Test>;
   let appService: AppService;
 
   // mock functions
