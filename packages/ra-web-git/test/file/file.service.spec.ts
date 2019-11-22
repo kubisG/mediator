@@ -4,6 +4,8 @@ import { ConfigService } from "../../src/config/config.service";
 import { InternalServerErrorException } from "@nestjs/common";
 
 import * as _fs from "fs";
+import * as _path from "path";
+import { FileContentDto } from "src/file/dto/file-content.dto";
 
 // mock services
 jest.mock("../../src/config/config.service");
@@ -11,6 +13,12 @@ jest.mock("../../src/config/config.service");
 describe("FileService", () => {
   let fileService: FileService;
   let configService: ConfigService;
+
+  const userName = "testUserName";
+  const repoKey = "testRepoKey";
+  const relativeFilePath = "testRelativeFilePath";
+  const basePath = _path.resolve("testBasePath");
+  const path = _path.join(basePath, userName, repoKey, relativeFilePath);
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -28,10 +36,6 @@ describe("FileService", () => {
 
   describe("Test getFiles method", () => {
     let readdirFn;
-
-    const userName = "testUserName";
-    const repoKey = "testRepoKey";
-    const relativeFilePath = "testRelativeFilePath";
     // set up directories
     const dir1 = new _fs.Dirent();
     const file1 = new _fs.Dirent();
@@ -130,6 +134,63 @@ describe("FileService", () => {
     afterEach(() => {
       // needs to be called after each test, otherwise it's accumulate calls from previous tests
       readdirFn.mockReset();
+    });
+  });
+
+  describe("Test getFile method", () => {
+    let readFileFn;
+    const fileContent: string = "Text content of file";
+
+    beforeEach(async () => {
+      jest.spyOn(configService, "basePath", "get").mockReturnValue("testBasePath");
+    });
+
+    it("should return file content with default encoding", async () => {
+      // prepare input and results
+      const encoding: BufferEncoding = "utf-8";
+      const expectedResult = { type: "json", content: fileContent } as FileContentDto;
+      const currPath = _path.join(path, "file.json");
+      // prepare functions
+      readFileFn = jest.spyOn(_fs.promises, "readFile").mockResolvedValue(fileContent);
+
+      // execute
+      const result = await fileService.getFile(userName, repoKey, `${relativeFilePath}/file.json`);
+
+      // verify function calls
+      expect(readFileFn).toHaveBeenCalledTimes(1);
+      expect(readFileFn).toHaveBeenCalledWith(currPath, { encoding });
+      // verify result
+      expect(result).toEqual(expectedResult);
+    });
+
+    it("should return error if file system operation fails", async () => {
+      // prepare input and results
+      let result = null;
+      let errorResult = null;
+      const encoding: BufferEncoding = "ascii";
+      const currPath = _path.join(path, "file.json");
+      const expectedError = new InternalServerErrorException("Fail during processing file: undefined");
+      // prepare functions
+      readFileFn = jest.spyOn(_fs.promises, "readFile").mockRejectedValue(new Error("ENOENT"));
+
+      // execute
+      try {
+        result = await fileService.getFile(userName, repoKey, `${relativeFilePath}/file.json`, encoding);
+      } catch (error) {
+        errorResult = error;
+      }
+
+      // verify function calls
+      expect(readFileFn).toHaveBeenCalledTimes(1);
+      expect(readFileFn).toHaveBeenCalledWith(currPath, { encoding });
+      // verify result
+      expect(result).toBeNull();
+      expect(errorResult.message).toMatchObject(expectedError.message);
+    });
+
+    afterEach(() => {
+      // needs to be called after each test, otherwise it's accumulate calls from previous tests
+      readFileFn.mockReset();
     });
   });
 });

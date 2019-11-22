@@ -23,8 +23,7 @@ export class FileService {
      * @returns Promise<FileContentDto>
      * @throws InternalServerErrorException if file system operation failed
      */
-    async getFile(userName: string, repoKey: string, relativeFilePath: string, encoding?: BufferEncoding): Promise<FileContentDto> {
-        encoding = (encoding) ? encoding : "utf-8";
+    async getFile(userName: string, repoKey: string, relativeFilePath: string, encoding: BufferEncoding = "utf-8"): Promise<FileContentDto> {
         const path: string = this.createPath(userName, repoKey, relativeFilePath);
         const type = this.getFileExtension(path);
         let content: string = null;
