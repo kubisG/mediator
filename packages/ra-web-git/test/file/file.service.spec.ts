@@ -2,10 +2,10 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { FileService } from "../../src/file/file.service";
 import { ConfigService } from "../../src/config/config.service";
 import { InternalServerErrorException } from "@nestjs/common";
+import { FileContentDto } from "../../src/file/dto/file-content.dto";
 
 import * as _fs from "fs";
 import * as _path from "path";
-import { FileContentDto } from "src/file/dto/file-content.dto";
 
 // mock services
 jest.mock("../../src/config/config.service");
