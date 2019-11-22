@@ -1,14 +1,39 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { FileDto } from "./dto/file.dto";
 import { ConfigService } from "../config/config.service";
+import { FileContentDto } from "./dto/file-content.dto";
 
 import * as _fs from "fs";
 import * as _path from "path";
+import * as _ from "lodash";
 
 @Injectable()
 export class FileService {
 
     constructor(private configService: ConfigService) {}
+
+    /**
+     * method returns file content
+     *
+     * @param userName
+     * @param repoKey
+     * @param relativeFilePath
+     *
+     * @returns Promise<FileContentDto>
+     */
+    async getFile(userName: string, repoKey: string, relativeFilePath: string, encoding?: BufferEncoding): Promise<FileContentDto> {
+        encoding = (encoding) ? encoding : "utf-8";
+        const path: string = this.createPath(userName, repoKey, relativeFilePath);
+        const type = this.getFileExtension(path);
+        let content = null;
+
+        try {
+            content = await _fs.promises.readFile(path, { encoding });
+        } catch (error) {
+            throw new InternalServerErrorException(`Fail during processing file: ${error.path}`);
+        }
+        return { type, content } as FileContentDto;
+    }
 
     /**
      * method returns file/dir names (recursively if needed)
@@ -22,8 +47,7 @@ export class FileService {
      * @throws InternalServerErrorException if file system operation failed
      */
     async getFiles(userName: string, repoKey: string, relativeFilePath: string, recursive?: boolean): Promise<FileDto[]> {
-        const basePath = _path.resolve(this.configService.basePath);
-        const path: string = _path.join(basePath, userName, repoKey, relativeFilePath);
+        const path: string = this.createPath(userName, repoKey, relativeFilePath);
         return (recursive) ? await this.getFilesByPathRecursively(path) : await this.getFilesByPath(path);
     }
 
@@ -77,5 +101,15 @@ export class FileService {
             throw new InternalServerErrorException(`Fail during processing file: ${error.path}`);
         }
         return files;
+    }
+
+    private createPath(userName: string, repoKey: string, relativePath: string): string {
+        const basePath = _path.resolve(this.configService.basePath);
+        return _path.join(basePath, userName, repoKey, relativePath);
+    }
+
+    private getFileExtension(path: string): string {
+        const dotExtension: string = _path.extname(path);
+        return (dotExtension) ? dotExtension.split(".")[1] : null;
     }
 }
