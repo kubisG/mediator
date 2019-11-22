@@ -81,11 +81,6 @@ describe("FileService", () => {
       expect(result).toBeDefined();
     });
 
-    afterEach(() => {
-      // needs to be called after each test, otherwise it's accumulate calls from previous tests
-      readdirFn.mockReset();
-    });
-
     it("should throw exception if file system operation failed", async () => {
       // prepare results and inputs
       let result = null;
@@ -130,6 +125,11 @@ describe("FileService", () => {
       // verify result
       expect(result).toBeNull();
       expect(errorResult.message).toMatchObject(expectedError.message);
+    });
+
+    afterEach(() => {
+      // needs to be called after each test, otherwise it's accumulate calls from previous tests
+      readdirFn.mockReset();
     });
   });
 });
