@@ -18,14 +18,16 @@ export class FileService {
      * @param userName
      * @param repoKey
      * @param relativeFilePath
+     * @param encoding If encoding is not provided, it defaults to utf-8.
      *
      * @returns Promise<FileContentDto>
+     * @throws InternalServerErrorException if file system operation failed
      */
     async getFile(userName: string, repoKey: string, relativeFilePath: string, encoding?: BufferEncoding): Promise<FileContentDto> {
         encoding = (encoding) ? encoding : "utf-8";
         const path: string = this.createPath(userName, repoKey, relativeFilePath);
         const type = this.getFileExtension(path);
-        let content = null;
+        let content: string = null;
 
         try {
             content = await _fs.promises.readFile(path, { encoding });
