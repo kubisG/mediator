@@ -3,9 +3,9 @@ import { FileController } from "../../src/file/file.controller";
 import { FileService } from "../../src/file/file.service";
 import { FileDto } from "src/file/dto/file.dto";
 import { HttpStatus, InternalServerErrorException } from "@nestjs/common";
+import { FileContentDto } from "src/file/dto/file-content.dto";
 
 import * as request from "supertest";
-import { FileContentDto } from "src/file/dto/file-content.dto";
 
 // mock services
 jest.mock("../../src/file/file.service");
