@@ -64,7 +64,7 @@ export class PreferenceRepository extends Repository<RaPreference> {
         const layouts: any[] = [];
         for (const config of configs) {
             if (config.name.indexOf(`layout_`) > -1) {
-                const name = config.name.split("_");
+                const name = config.name.split(/_(.+)/);
                 layouts.push({ name: name[1], flag: config.flag, userId: config.userId });
             }
         }
@@ -84,7 +84,7 @@ export class PreferenceRepository extends Repository<RaPreference> {
         const hitlists: any[] = [];
         for (const config of configs) {
             if (config.name.indexOf(`hitlist_${hitlist}~`) > -1) {
-                const name = config.name.split("~");
+                const name = config.name.split(/~(.+)/);
                 hitlists.push({ name: name[1], flag: config.flag, userId: config.userId });
             }
         }
