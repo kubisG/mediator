@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, LoggerService, Inject } from "@nestjs/common";
+import { Injectable, InternalServerErrorException, Logger, Inject } from "@nestjs/common";
 import { FileDto } from "./dto/file.dto";
 import { ConfigService } from "../config/config.service";
 import { FileContentDto } from "./dto/file-content.dto";
@@ -14,7 +14,7 @@ export class FileService {
 
     constructor(
         private configService: ConfigService,
-        @Inject("logger") private logger: LoggerService,
+        @Inject("logger") private logger: Logger,
     ) { }
 
     private createPath(userName: string, repoKey: string, relativePath: string): string {
