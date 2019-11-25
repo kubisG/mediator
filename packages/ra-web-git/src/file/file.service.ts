@@ -7,6 +7,8 @@ import * as _fs from "fs";
 import * as _path from "path";
 import * as _ from "lodash";
 
+const MAX_CALLS = 99999;
+
 @Injectable()
 export class FileService {
 
@@ -26,22 +28,27 @@ export class FileService {
     }
 
     /**
-     * get files recursively
+     * get files recursively ()
      *
      * Note: always try to avoid using 'fs.promises.opendir' cause it's hardly testable with mocks
      *
      * @param path
+     * @param calls
      */
-    private async getFilesByPathRecursively(path: string): Promise<FileDto[]> {
+    private async getFilesByPathRecursively(path: string, calls: number): Promise<FileDto[]> {
         const files: FileDto[] = [];
+        calls++;
 
         try {
+            if (calls > MAX_CALLS) {
+                throw new Error(`Exceeded max number of function calls. Max number is: ${MAX_CALLS}`);
+            }
             const dirents: _fs.Dirent[] = await _fs.promises.readdir(path, { withFileTypes: true });
 
             for (const dirent of dirents) {
                 const newPath: string = _path.join(path, dirent.name);
                 if (dirent.isDirectory()) {
-                    const innerFiles: FileDto[] = await this.getFilesByPathRecursively(newPath);
+                    const innerFiles: FileDto[] = await this.getFilesByPathRecursively(newPath, calls);
                     files.push({ name: dirent.name, path: newPath, directory: true, files: innerFiles });
                 } else {
                     files.push({ name: dirent.name, path: newPath, directory: false });
@@ -117,6 +124,7 @@ export class FileService {
      */
     async getFiles(userName: string, repoKey: string, relativeFilePath: string, recursive?: boolean): Promise<FileDto[]> {
         const path: string = this.createPath(userName, repoKey, relativeFilePath);
-        return (recursive) ? await this.getFilesByPathRecursively(path) : await this.getFilesByPath(path);
+        const calls = 0;
+        return (recursive) ? await this.getFilesByPathRecursively(path, calls) : await this.getFilesByPath(path);
     }
 }
