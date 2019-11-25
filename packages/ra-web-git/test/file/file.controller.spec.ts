@@ -174,7 +174,7 @@ describe("FileController", () => {
       expect(createOrUpdateFileFn).toHaveBeenCalledTimes(1);
       expect(createOrUpdateFileFn).toHaveBeenCalledWith(userName, repoKey, `${relativePath}/file.json`, fileContent);
       // verify result
-      expect(response.status).toBe(HttpStatus.OK);
+      expect(response.status).toBe(HttpStatus.CREATED);
 
       // call done when finish
       done();
