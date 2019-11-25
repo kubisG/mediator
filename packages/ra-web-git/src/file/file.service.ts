@@ -119,4 +119,30 @@ export class FileService {
         const path: string = this.createPath(userName, repoKey, relativeFilePath);
         return (recursive) ? await this.getFilesByPathRecursively(path) : await this.getFilesByPath(path);
     }
+
+    /**
+     * method create/update file content
+     *
+     * @param userName
+     * @param repoKey
+     * @param relativeFilePath
+     * @param encoding
+     * @param fileContent
+     */
+    async createOrUpdateFile(
+        userName: string,
+        repoKey: string,
+        relativeFilePath: string,
+        fileContent: FileContentDto,
+        encoding: BufferEncoding = "utf-8",
+    ): Promise<void> {
+        const path: string = this.createPath(userName, repoKey, relativeFilePath);
+
+        try {
+            await _fs.promises.writeFile(path, fileContent.content, encoding);
+        } catch (error) {
+            this.logger.error(error);
+            throw new InternalServerErrorException(`Fail during processing file: ${error.path}`);
+        }
+    }
 }
