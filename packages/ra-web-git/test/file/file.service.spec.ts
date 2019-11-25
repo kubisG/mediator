@@ -92,6 +92,30 @@ describe("FileService", () => {
       expect(result).toBeDefined();
     });
 
+    it("should throw exception if max number of calls exceeded", async () => {
+      // prepare results and inputs
+      const maxCalls = 999;
+      const recursive = true;
+      let result = null;
+      let errorResult = null;
+      const expectedError = new InternalServerErrorException("Fail during processing file: undefined");
+      // prepare functions
+      readdirFn = jest.spyOn(_fs.promises, "readdir").mockImplementation(async () => [file1, file2, dir1]); // CREATE CALL CYCLE
+
+      // execute
+      try {
+        result = await fileService.getFiles(userName, repoKey, relativeFilePath, recursive);
+      } catch (error) {
+        errorResult = error;
+      }
+
+      // verify function calls
+      expect(readdirFn).toHaveBeenCalledTimes(maxCalls);
+      // verify result
+      expect(result).toBeNull();
+      expect(errorResult.message).toMatchObject(expectedError.message);
+    });
+
     it("should throw exception if file system operation failed", async () => {
       // prepare results and inputs
       let result = null;

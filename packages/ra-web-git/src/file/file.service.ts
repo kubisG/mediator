@@ -7,7 +7,7 @@ import * as _fs from "fs";
 import * as _path from "path";
 import * as _ from "lodash";
 
-const MAX_CALLS = 99999;
+const MAX_CALLS = 999;
 
 @Injectable()
 export class FileService {
