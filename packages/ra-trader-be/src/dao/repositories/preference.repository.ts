@@ -52,6 +52,11 @@ export class PreferenceRepository extends Repository<RaPreference> {
     }
 
     public async deleteLayoutConfig(userId: number, companyId: number, name: string) {
+        // if we have it like default, we need to remove it....
+        const key = name.split("~")[0];
+        const subName = name.split("~")[1];
+
+        await this.delete({ name: `default_layout_${key}`, value: subName, userId, companyId });
         return await this.delete({ name: `layout_${name}`, userId, companyId });
     }
 
