@@ -92,6 +92,30 @@ describe("FileService", () => {
       expect(result).toBeDefined();
     });
 
+    it("should throw exception if max number of calls exceeded", async () => {
+      // prepare results and inputs
+      const maxCalls = 999;
+      const recursive = true;
+      let result = null;
+      let errorResult = null;
+      const expectedError = new InternalServerErrorException("Fail during processing file: undefined");
+      // prepare functions
+      readdirFn = jest.spyOn(_fs.promises, "readdir").mockImplementation(async () => [file1, file2, dir1]); // CREATE CALL CYCLE
+
+      // execute
+      try {
+        result = await fileService.getFiles(userName, repoKey, relativeFilePath, recursive);
+      } catch (error) {
+        errorResult = error;
+      }
+
+      // verify function calls
+      expect(readdirFn).toHaveBeenCalledTimes(maxCalls);
+      // verify result
+      expect(result).toBeNull();
+      expect(errorResult.message).toMatchObject(expectedError.message);
+    });
+
     it("should throw exception if file system operation failed", async () => {
       // prepare results and inputs
       let result = null;
@@ -198,6 +222,60 @@ describe("FileService", () => {
     afterEach(() => {
       // needs to be called after each test, otherwise it's accumulate calls from previous tests
       readFileFn.mockReset();
+    });
+  });
+
+  describe("Test createOrUpdateFile method", () => {
+    let createOrUpdateFileFn;
+    const fileContent = { type: "json", content: "Text file content."} as FileContentDto;
+
+    beforeEach(async () => {
+      jest.spyOn(configService, "basePath", "get").mockReturnValue("testBasePath");
+    });
+
+    it("should create/update file", async () => {
+      // prepare input and results
+      const encoding: BufferEncoding = "utf-8";
+      const currPath = _path.join(path, "file.json");
+      // prepare functions
+      createOrUpdateFileFn = jest.spyOn(_fs.promises, "writeFile").mockImplementation(async () => {});
+
+      // execute
+      await fileService.createOrUpdateFile(userName, repoKey, `${relativeFilePath}/file.json`, fileContent);
+
+      // verify function calls
+      expect(createOrUpdateFileFn).toHaveBeenCalledTimes(1);
+      expect(createOrUpdateFileFn).toHaveBeenCalledWith(currPath, fileContent.content, encoding);
+    });
+
+    it("should return error if create/update file failed", async () => {
+      // prepare input and results
+      let result = null;
+      let errorResult = null;
+      const encoding: BufferEncoding = "ascii";
+      const currPath = _path.join(path, "file.json");
+      const expectedError = new InternalServerErrorException("Fail during processing file: undefined");
+      // prepare functions
+      createOrUpdateFileFn = jest.spyOn(_fs.promises, "writeFile").mockRejectedValue(new Error("ENOENT"));
+
+      // execute
+      try {
+        result = await fileService.createOrUpdateFile(userName, repoKey, `${relativeFilePath}/file.json`, fileContent, encoding);
+      } catch (error) {
+        errorResult = error;
+      }
+
+      // verify function calls
+      expect(createOrUpdateFileFn).toHaveBeenCalledTimes(1);
+      expect(createOrUpdateFileFn).toHaveBeenCalledWith(currPath, fileContent.content, encoding);
+      // verify result
+      expect(result).toBeNull();
+      expect(errorResult.message).toMatchObject(expectedError.message);
+    });
+
+    afterEach(() => {
+      // needs to be called after each test, otherwise it's accumulate calls from previous tests
+      createOrUpdateFileFn.mockReset();
     });
   });
 });

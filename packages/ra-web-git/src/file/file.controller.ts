@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from "@nestjs/common";
+import { Controller, Get, Param, Query, Body, Post } from "@nestjs/common";
 import { ApiUseTags } from "@nestjs/swagger";
 import { FileDto } from "./dto/file.dto";
 import { FileService } from "./file.service";
@@ -27,5 +27,15 @@ export class FileController {
         @Query("recursive") recursive: string,
     ): Promise<FileDto[]> {
         return await this.fileService.getFiles(userName, repoKey, path, (recursive === "true"));
+    }
+
+    @Post("/:userName/:repoKey/:path")
+    async createOrUpdateFile(
+        @Param("userName") userName: string,
+        @Param("repoKey") repoKey: string,
+        @Param("path") path: string,
+        @Body() fileContent: FileContentDto,
+    ): Promise<void> {
+        await this.fileService.createOrUpdateFile(userName, repoKey, path, fileContent);
     }
 }

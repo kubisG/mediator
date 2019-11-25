@@ -15,7 +15,7 @@ describe("AppService", () => {
     appService = module.get<AppService>(AppService);
   });
 
-  it("should get list of files recursively", async () => {
+  it("should return application info", async () => {
     // prepare input and results
     const expectedInfo = { version: pjson.version, name: pjson.name };
 

@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, LoggerService, Inject } from "@nestjs/common";
+import { Injectable, InternalServerErrorException, Logger, Inject } from "@nestjs/common";
 import { FileDto } from "./dto/file.dto";
 import { ConfigService } from "../config/config.service";
 import { FileContentDto } from "./dto/file-content.dto";
@@ -7,14 +7,14 @@ import * as _fs from "fs";
 import * as _path from "path";
 import * as _ from "lodash";
 
-const MAX_CALLS = 99999;
+const MAX_CALLS = 999;
 
 @Injectable()
 export class FileService {
 
     constructor(
         private configService: ConfigService,
-        @Inject("logger") private logger: LoggerService,
+        @Inject("logger") private logger: Logger,
     ) { }
 
     private createPath(userName: string, repoKey: string, relativePath: string): string {
@@ -126,5 +126,31 @@ export class FileService {
         const path: string = this.createPath(userName, repoKey, relativeFilePath);
         const calls = 0;
         return (recursive) ? await this.getFilesByPathRecursively(path, calls) : await this.getFilesByPath(path);
+    }
+
+    /**
+     * method create/update file content
+     *
+     * @param userName
+     * @param repoKey
+     * @param relativeFilePath
+     * @param encoding
+     * @param fileContent file content so save/update
+     */
+    async createOrUpdateFile(
+        userName: string,
+        repoKey: string,
+        relativeFilePath: string,
+        fileContent: FileContentDto,
+        encoding: BufferEncoding = "utf-8",
+    ): Promise<void> {
+        const path: string = this.createPath(userName, repoKey, relativeFilePath);
+
+        try {
+            await _fs.promises.writeFile(path, fileContent.content, encoding);
+        } catch (error) {
+            this.logger.error(error);
+            throw new InternalServerErrorException(`Fail during processing file: ${error.path}`);
+        }
     }
 }
