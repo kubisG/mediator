@@ -54,7 +54,7 @@ describe("FileController", () => {
       expect(getFileFn).toHaveBeenCalledWith(userName, repoKey, `${relativePath}/file.json`); // verify all url params has been bind correctly
       // verify result
       expect(response.status).toBe(HttpStatus.OK);
-      expect(response.body).toMatchObject(expectedResult)
+      expect(response.body).toMatchObject(expectedResult);
 
       // call done when finish
       done();
