@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import { Injectable, InternalServerErrorException, LoggerService, Inject } from "@nestjs/common";
 import { FileDto } from "./dto/file.dto";
 import { ConfigService } from "../config/config.service";
 import { FileContentDto } from "./dto/file-content.dto";
@@ -10,7 +10,10 @@ import * as _ from "lodash";
 @Injectable()
 export class FileService {
 
-    constructor(private configService: ConfigService) {}
+    constructor(
+        private configService: ConfigService,
+        @Inject("logger") private logger: LoggerService,
+    ) { }
 
     /**
      * method returns file content
@@ -31,6 +34,7 @@ export class FileService {
         try {
             content = await _fs.promises.readFile(path, { encoding });
         } catch (error) {
+            this.logger.error(error);
             throw new InternalServerErrorException(`Fail during processing file: ${error.path}`);
         }
         return { type, content } as FileContentDto;
@@ -71,6 +75,7 @@ export class FileService {
                 files.push({ name: dirent.name, path: newPath, directory });
             }
         } catch (error) {
+            this.logger.error(error);
             throw new InternalServerErrorException(`Fail during processing file: ${error.path}`);
         }
         return files;
@@ -99,6 +104,7 @@ export class FileService {
                 }
             }
         } catch (error) {
+            this.logger.error(error);
             throw new InternalServerErrorException(`Fail during processing file: ${error.path}`);
         }
         return files;

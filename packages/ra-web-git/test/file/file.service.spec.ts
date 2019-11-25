@@ -1,7 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { FileService } from "../../src/file/file.service";
 import { ConfigService } from "../../src/config/config.service";
-import { InternalServerErrorException } from "@nestjs/common";
+import { InternalServerErrorException, Logger } from "@nestjs/common";
 import { FileContentDto } from "../../src/file/dto/file-content.dto";
 
 import * as _fs from "fs";
@@ -13,6 +13,7 @@ jest.mock("../../src/config/config.service");
 describe("FileService", () => {
   let fileService: FileService;
   let configService: ConfigService;
+  let logger: Logger;
 
   const userName = "testUserName";
   const repoKey = "testRepoKey";
@@ -25,13 +26,19 @@ describe("FileService", () => {
       providers: [
         FileService,
         ConfigService,
+        {
+          provide: "logger",
+          useClass: Logger,
+      },
       ],
     }).compile();
 
     configService = module.get<ConfigService>(ConfigService);
     fileService = module.get<FileService>(FileService);
+    logger = module.get<Logger>("logger");
     // mock getter, cannot be mocked by jest
     Object.defineProperty(configService, "basePath", { configurable: true, get: jest.fn(() => "testBasePath") });
+    jest.spyOn(logger, "error").mockImplementation(() => {});
   });
 
   describe("Test getFiles method", () => {
