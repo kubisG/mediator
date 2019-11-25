@@ -151,4 +151,59 @@ describe("FileController", () => {
       readdirFn.mockReset();
     });
   });
+
+  describe("Test createOrUpdateFile method", () => {
+    let createOrUpdateFileFn;
+    // set up url and url parts
+    const userName: string = "testUserName";
+    const repoKey: string = "testRepoKey";
+    const relativePath: string = "testRelativePath";
+    const url: string = `/files/${userName}/${repoKey}/${relativePath}%2Ffile.json`;
+    const fileContent = { type: "json", content: "Text file content."};
+
+    beforeEach(async () => { });
+
+    it("should create/update file", async (done) => {
+      // prepare functions
+      createOrUpdateFileFn = jest.spyOn(fileService, "createOrUpdateFile").mockImplementation(async () => {});
+
+      // execute
+      const response = await requester.post(url).send(fileContent);
+
+      // verify method calls
+      expect(createOrUpdateFileFn).toHaveBeenCalledTimes(1);
+      expect(createOrUpdateFileFn).toHaveBeenCalledWith(userName, repoKey, `${relativePath}/file.json`, fileContent);
+      // verify result
+      expect(response.status).toBe(HttpStatus.OK);
+
+      // call done when finish
+      done();
+    });
+
+    it("should return error If create or update file method fails", async (done) => {
+      // prepare
+      const error = new InternalServerErrorException("Failed");
+      const expectedResult = { statusCode: 500, error: "Internal Server Error", message: "Failed" };
+      // prepare functions
+      createOrUpdateFileFn = jest.spyOn(fileService, "createOrUpdateFile").mockRejectedValue(error);
+
+      // execute
+      const response = await requester.post(url).send(fileContent);
+
+      // verify method calls
+      expect(createOrUpdateFileFn).toHaveBeenCalledTimes(1);
+      expect(createOrUpdateFileFn).toHaveBeenCalledWith(userName, repoKey, `${relativePath}/file.json`, fileContent);
+      // verify result
+      expect(response.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
+      expect(response.body).toMatchObject(expectedResult);
+
+      // call done when finish
+      done();
+    });
+
+    afterEach(() => {
+      // needs to be called after each test, otherwise it's accumulate calls from previous tests
+      createOrUpdateFileFn.mockReset();
+    });
+  });
 });
