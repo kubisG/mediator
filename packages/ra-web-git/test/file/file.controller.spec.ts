@@ -1,8 +1,9 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { FileController } from "../../src/file/file.controller";
 import { FileService } from "../../src/file/file.service";
-import { FileDto } from "src/file/dto/file.dto";
+import { FileDto } from "../../src/file/dto/file.dto";
 import { HttpStatus, InternalServerErrorException } from "@nestjs/common";
+import { FileContentDto } from "../../src/file/dto/file-content.dto";
 
 import * as request from "supertest";
 
@@ -28,7 +29,65 @@ describe("FileController", () => {
     await app.init();
   });
 
-  describe("Test get files", () => {
+  describe("Test getFile method", () => {
+    let getFileFn;
+    // set up url and url parts
+    const userName: string = "testUserName";
+    const repoKey: string = "testRepoKey";
+    const relativePath: string = "testRelativePath";
+    const url: string = `/files/${userName}/${repoKey}/${relativePath}%2Ffile.json/content`;
+
+    beforeEach(async () => { });
+
+    it("should return file content", async (done) => {
+      // prepare
+      const file = { type: "properties", content: "Text file content"} as FileContentDto;
+      const expectedResult = file;
+      // prepare functions
+      getFileFn = jest.spyOn(fileService, "getFile").mockResolvedValue({ type: "properties", content: "Text file content"});
+
+      // execute
+      const response = await requester.get(url);
+
+      // verify method calls
+      expect(getFileFn).toHaveBeenCalledTimes(1);
+      expect(getFileFn).toHaveBeenCalledWith(userName, repoKey, `${relativePath}/file.json`); // verify all url params has been bind correctly
+      // verify result
+      expect(response.status).toBe(HttpStatus.OK);
+      expect(response.body).toMatchObject(expectedResult);
+
+      // call done when finish
+      done();
+    });
+
+    it("should return error If get info method fails", async (done) => {
+      // prepare
+      const error = new InternalServerErrorException("Failed");
+      const expectedResult = { statusCode: 500, error: "Internal Server Error", message: "Failed" };
+      // prepare functions
+      getFileFn = jest.spyOn(fileService, "getFile").mockRejectedValue(error);
+
+      // execute
+      const response = await requester.get(url);
+
+      // verify method calls
+      expect(getFileFn).toHaveBeenCalledTimes(1);
+      expect(getFileFn).toHaveBeenCalledWith(userName, repoKey, `${relativePath}/file.json`); // verify all url params has been bind correctly
+      // verify result
+      expect(response.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
+      expect(response.body).toMatchObject(expectedResult);
+
+      // call done when finish
+      done();
+    });
+
+    afterEach(() => {
+      // needs to be called after each test, otherwise it's accumulate calls from previous tests
+      getFileFn.mockReset();
+    });
+  });
+
+  describe("Test getFiles method", () => {
     let readdirFn;
     const basePath: string = "/path/base/";
     // set up url and url parts
@@ -90,6 +149,61 @@ describe("FileController", () => {
     afterEach(() => {
       // needs to be called after each test, otherwise it's accumulate calls from previous tests
       readdirFn.mockReset();
+    });
+  });
+
+  describe("Test createOrUpdateFile method", () => {
+    let createOrUpdateFileFn;
+    // set up url and url parts
+    const userName: string = "testUserName";
+    const repoKey: string = "testRepoKey";
+    const relativePath: string = "testRelativePath";
+    const url: string = `/files/${userName}/${repoKey}/${relativePath}%2Ffile.json`;
+    const fileContent = { type: "json", content: "Text file content."};
+
+    beforeEach(async () => { });
+
+    it("should create/update file", async (done) => {
+      // prepare functions
+      createOrUpdateFileFn = jest.spyOn(fileService, "createOrUpdateFile").mockImplementation(async () => {});
+
+      // execute
+      const response = await requester.post(url).send(fileContent);
+
+      // verify method calls
+      expect(createOrUpdateFileFn).toHaveBeenCalledTimes(1);
+      expect(createOrUpdateFileFn).toHaveBeenCalledWith(userName, repoKey, `${relativePath}/file.json`, fileContent);
+      // verify result
+      expect(response.status).toBe(HttpStatus.CREATED);
+
+      // call done when finish
+      done();
+    });
+
+    it("should return error If create or update file method fails", async (done) => {
+      // prepare
+      const error = new InternalServerErrorException("Failed");
+      const expectedResult = { statusCode: 500, error: "Internal Server Error", message: "Failed" };
+      // prepare functions
+      createOrUpdateFileFn = jest.spyOn(fileService, "createOrUpdateFile").mockRejectedValue(error);
+
+      // execute
+      const response = await requester.post(url).send(fileContent);
+
+      // verify method calls
+      expect(createOrUpdateFileFn).toHaveBeenCalledTimes(1);
+      expect(createOrUpdateFileFn).toHaveBeenCalledWith(userName, repoKey, `${relativePath}/file.json`, fileContent);
+      // verify result
+      expect(response.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
+      expect(response.body).toMatchObject(expectedResult);
+
+      // call done when finish
+      done();
+    });
+
+    afterEach(() => {
+      // needs to be called after each test, otherwise it's accumulate calls from previous tests
+      createOrUpdateFileFn.mockReset();
     });
   });
 });
