@@ -2,6 +2,7 @@ import { Injectable, InternalServerErrorException, Logger, Inject } from "@nestj
 import { FileDto } from "./dto/file.dto";
 import { ConfigService } from "../config/config.service";
 import { FileContentDto } from "./dto/file-content.dto";
+import { getFileExtension, createPath } from "../utils";
 
 import * as _fs from "fs";
 import * as _path from "path";
@@ -16,16 +17,6 @@ export class FileService {
         private configService: ConfigService,
         @Inject("logger") private logger: Logger,
     ) { }
-
-    private createPath(userName: string, repoKey: string, relativePath: string): string {
-        const basePath = _path.resolve(this.configService.basePath);
-        return _path.join(basePath, userName, repoKey, relativePath);
-    }
-
-    private getFileExtension(path: string): string {
-        const dotExtension: string = _path.extname(path);
-        return (dotExtension) ? dotExtension.split(".")[1] : null;
-    }
 
     /**
      * get files recursively ()
@@ -98,8 +89,8 @@ export class FileService {
      * @throws InternalServerErrorException if file system operation failed
      */
     async getFile(userName: string, repoKey: string, relativeFilePath: string, encoding: BufferEncoding = "utf-8"): Promise<FileContentDto> {
-        const path: string = this.createPath(userName, repoKey, relativeFilePath);
-        const type = this.getFileExtension(path);
+        const path: string = createPath(this.configService.basePath, userName, repoKey, relativeFilePath);
+        const type = getFileExtension(path);
         let content: string = null;
 
         try {
@@ -123,7 +114,7 @@ export class FileService {
      * @throws InternalServerErrorException if file system operation failed
      */
     async getFiles(userName: string, repoKey: string, relativeFilePath: string, recursive?: boolean): Promise<FileDto[]> {
-        const path: string = this.createPath(userName, repoKey, relativeFilePath);
+        const path: string = createPath(this.configService.basePath, userName, repoKey, relativeFilePath);
         const calls = 0;
         return (recursive) ? await this.getFilesByPathRecursively(path, calls) : await this.getFilesByPath(path);
     }
@@ -144,7 +135,7 @@ export class FileService {
         fileContent: FileContentDto,
         encoding: BufferEncoding = "utf-8",
     ): Promise<void> {
-        const path: string = this.createPath(userName, repoKey, relativeFilePath);
+        const path: string = createPath(this.configService.basePath, userName, repoKey, relativeFilePath);
 
         try {
             await _fs.promises.writeFile(path, fileContent.content, encoding);
