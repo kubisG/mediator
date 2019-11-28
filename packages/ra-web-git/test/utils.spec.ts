@@ -15,6 +15,17 @@ describe("Utils", () => {
         expect(result).toEqual(expectedResult);
     });
 
+    it("should return null if input string is null", () => {
+        // prepare
+        const input = null;
+
+        // execute
+        const result = utils.getFileExtension(input);
+
+        // verify
+        expect(result).toBeNull();
+    });
+
     it("should return directory name", () => {
         // prepare
         const input = "gitlab.com/rapid-addition/ra-platform/ra-web/ra-web-fe.git";
@@ -38,17 +49,6 @@ describe("Utils", () => {
         expect(result).toBeNull();
     });
 
-    it("should return null if url does not contain .git", () => {
-        // prepare
-        const input = "gitlab.com/rapid-addition/ra-platform/ra-web/ra-web-fe";
-
-        // execute
-        const result = utils.getDirectoryName(input);
-
-        // verrify
-        expect(result).toBeNull();
-    });
-
     it("should return sanitized file path", () => {
         // prepare
         const basePath = _path.resolve("testBasePath");
@@ -61,6 +61,19 @@ describe("Utils", () => {
 
         // verify
         expect(result).toEqual(expectedResult);
+    });
+
+    it("should return null if any part of file path is null", () => {
+        // prepare
+        const basePath = _path.resolve("testBasePath");
+        const testPart1 = null;
+        const testPart2 = "testPart2";
+
+        // execute
+        const result = utils.createPath(basePath, testPart1, testPart2);
+
+        // verify
+        expect(result).toBeNull();
     });
 
 });
