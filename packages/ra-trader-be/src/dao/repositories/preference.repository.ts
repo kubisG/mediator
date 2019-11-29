@@ -43,7 +43,7 @@ export class PreferenceRepository extends Repository<RaPreference> {
                 userId: In([userId, 0]),
                 companyId: In([companyId, 0]),
                 name: Like("layout_%"),
-            }, order: { userId: "ASC", name: "ASC" }
+            }, order: { userId: "ASC", name: "ASC" },
         });
         const configNames: string[] = [];
         for (const config of configs) {
