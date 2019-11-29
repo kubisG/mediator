@@ -33,6 +33,15 @@ async function afterInsertToDB(connection: Connection) {
     await connection.manager.query(sql);
     sql = fs.readFileSync("./db/2.0.1_postgres.sql").toString();
     await connection.manager.query(sql);
+
+    const mail = process.env.ADMIN_MAIL;
+    const company = process.env.ADMIN_COMPANY;
+
+    sql = `update ra_company set \"companyName\"='${company}',\"companyMail\"='${mail}'`;
+    await connection.manager.query(sql);
+    sql = `update ra_user set \"username\"='${mail}',\"email\"='${mail}'`;
+    await connection.manager.query(sql);
+
 }
 
 InstallUtils.tryCreateDbConnection(new EnvironmentService(), 10).then((connection: Connection) => {
