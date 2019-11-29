@@ -28,6 +28,8 @@ services:
             DB_DATABASE: ra-web
             DB_SYNCH: "true"
             DB_LOGGING: "true"
+            ADMIN_MAIL: "support@rapidaddition.com"
+            ADMIN_COMPANY: "Rapid"
         container_name: web-be
     redis:
         image: redis:latest
