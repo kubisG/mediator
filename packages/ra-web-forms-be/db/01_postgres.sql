@@ -421,7 +421,7 @@ Insert into ra_preference ("name","value","userId","companyId","createDate","upd
                     "templateOptions": {
                         "label": "Quantity",
                         "type": "number",
-                        "required": false,
+                        "required": true,
                         "placeholder": "Quantity"
                     }
                 },
