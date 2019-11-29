@@ -18,10 +18,14 @@ export class PreferencesService {
         private env: EnvironmentService,
     ) { }
 
+    getVersion() {
+        return this.env.appVersion ? this.env.appVersion : "1.0.0";
+    }
+
     async getAppPref(name: string) {
         const pref = await this.raPreference.findOne({
             name, userId: 0, companyId: 0,
-            version: this.env.appVersion ? this.env.appVersion : "1.0.0",
+            version: this.getVersion(),
         });
         if (pref) {
             return JSON.parse(pref.value);
@@ -47,13 +51,13 @@ export class PreferencesService {
     async findPrefs(userId) {
         let userPref = await this.raPreference.createQueryBuilder("pref")
             .where("pref.userId=:user and pref.name='layout.prefs' and pref.version=:version"
-                , { user: userId, version: this.env.appVersion ? this.env.appVersion : "1.0.0" })
+                , { user: userId, version: this.getVersion() })
             .getOne();
         // we dont have preferences for user, so we try to find default prefs
         if ((!userPref) || (userPref === null)) {
             userPref = await this.raPreference.createQueryBuilder("pref")
                 .where("pref.userId=:user and pref.name='layout.prefs' and pref.version=:version"
-                    , { user: 0, version: this.env.appVersion ? this.env.appVersion : "1.0.0" })
+                    , { user: 0, version: this.getVersion() })
                 .getOne();
         }
         return userPref;
@@ -81,7 +85,7 @@ export class PreferencesService {
         try {
             let storedPref = await this.raPreference.findOne({
                 userId: userData.userId, companyId: userData.compId, name: "layout.prefs"
-                , version: this.env.appVersion ? this.env.appVersion : "1.0.0",
+                , version: this.getVersion(),
             });
             if (!storedPref) {
                 storedPref = new RaPreference();
@@ -104,13 +108,13 @@ export class PreferencesService {
     async findPref(userId, compId, key): Promise<any> {
         let pref = await this.raPreference.createQueryBuilder("pref")
             .where("pref.userId=:user and pref.name=:name and pref.companyId=:comp and pref.version=:version"
-                , { user: userId, comp: compId, name: key, version: this.env.appVersion ? this.env.appVersion : "1.0.0" })
+                , { user: userId, comp: compId, name: key, version: this.getVersion() })
             .getOne();
         // we dont have preferences for user, so we try to find default prefs
         if ((!pref) || (pref === null)) {
             pref = await this.raPreference.createQueryBuilder("pref")
                 .where("pref.userId=:user and pref.name=:name and pref.companyId=:comp and pref.version=:version"
-                    , { user: 0, comp: 0, name: key, version: this.env.appVersion ? this.env.appVersion : "1.0.0" })
+                    , { user: 0, comp: 0, name: key, version: this.getVersion() })
                 .getOne();
         }
 
@@ -153,7 +157,7 @@ export class PreferencesService {
                 value: pref.value,
                 userId: pref.newUserId,
                 companyId: pref.newCompanyId,
-                version: this.env.appVersion,
+                version: this.getVersion(),
             });
         }
         return await this.raPreference.update(
@@ -161,29 +165,29 @@ export class PreferencesService {
                 name: pref.name,
                 userId: pref.userId,
                 companyId: pref.companyId,
-                version: this.env.appVersion ? this.env.appVersion : "1.0.0",
+                version: this.getVersion(),
             },
             {
                 value: pref.value,
                 userId: pref.newUserId,
                 companyId: pref.newCompanyId,
-                version: this.env.appVersion,
+                version: this.getVersion(),
             },
         );
     }
 
     public async deletePreference(name: any, user: number, company: number) {
-        return await this.raPreference.delete({ name, userId: user, companyId: company, version: this.env.appVersion });
+        return await this.raPreference.delete({ name, userId: user, companyId: company, version: this.getVersion() });
     }
 
     public async deleteUserPreference(name: any, token: string) {
         const userData: UserData = await this.authService.getUserData<UserData>(token);
-        return await this.raPreference.delete({ name, userId: userData.userId, companyId: userData.compId, version: this.env.appVersion });
+        return await this.raPreference.delete({ name, userId: userData.userId, companyId: userData.compId, version: this.getVersion() });
     }
 
     async getHitlistsName(hitlist: string, token: string) {
         const userData: UserData = await this.authService.getUserData<UserData>(token);
-        return await this.raPreference.getHitlistsName(hitlist, userData.userId, userData.compId, this.env.appVersion);
+        return await this.raPreference.getHitlistsName(hitlist, userData.userId, userData.compId, this.getVersion());
     }
 
     async getDefault(token: string, modul: string) {
@@ -192,6 +196,7 @@ export class PreferencesService {
             userId: userData.userId,
             companyId: userData.compId,
             name: modul,
+            version: this.getVersion(),
         });
     }
 
@@ -202,16 +207,17 @@ export class PreferencesService {
             value: name,
             userId: userData.userId,
             companyId: userData.compId,
+            version: this.getVersion(),
         });
     }
 
     async setPublicPrivate(token: string, state: string, name: any) {
         const userData: UserData = await this.authService.getUserData<UserData>(token);
-        return await this.raPreference.setPublicPrivate(userData.userId, userData.compId, state, name);
+        return await this.raPreference.setPublicPrivate(userData.userId, userData.compId, state, name, this.getVersion());
     }
 
     async getPublicPrivate(token: string, name: any) {
         const userData: UserData = await this.authService.getUserData<UserData>(token);
-        return await this.raPreference.getPublicPrivate(userData.userId, userData.compId, name);
+        return await this.raPreference.getPublicPrivate(userData.userId, userData.compId, name, this.getVersion());
     }
 }

@@ -5,6 +5,7 @@ import { LayoutService } from "./layout.service";
 import { JwtModule } from "@nestjs/jwt";
 import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { PassportModule } from "@nestjs/passport";
+import { EnvironmentsModule } from "@ra/web-env-be/dist/environments.module";
 
 @Module({
     imports: [
@@ -16,6 +17,7 @@ import { PassportModule } from "@nestjs/passport";
                 expiresIn: EnvironmentService.instance.auth.expiresIn,
             },
         }),
+        EnvironmentsModule,
     ],
     controllers: [
         LayoutController,

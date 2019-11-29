@@ -12,6 +12,7 @@ import { LightMapper } from "light-mapper";
 import { DbException } from "@ra/web-core-be/dist/exceptions/db.exception";
 import { Subject } from "rxjs/internal/Subject";
 import { Observable } from "rxjs/internal/Observable";
+import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 
 @Injectable()
 export class UsersService {
@@ -24,7 +25,12 @@ export class UsersService {
         @Inject("preferenceRepository") private preferenceRepository: PreferenceRepository,
         @Inject("userRepository") private raUser: UserRepository,
         @Inject("mailer") private emailsService,
+        private env: EnvironmentService,
     ) { }
+
+    getVersion() {
+        return this.env.appVersion ? this.env.appVersion : "1.0.0";
+    }
 
     async logIn(auth: AuthDto): Promise<any> {
         const bearerToken = await this.authService.createToken(auth);
@@ -186,22 +192,22 @@ export class UsersService {
 
     async getLayoutConfig(token: string, name: string) {
         const userData: UserData = await this.authService.getUserData<UserData>(token);
-        return await this.preferenceRepository.getLayoutConfig(userData.userId, userData.compId, name);
+        return await this.preferenceRepository.getLayoutConfig(userData.userId, userData.compId, name, this.getVersion());
     }
 
     async setLayoutConfig(token: string, config: any, name: string) {
         const userData: UserData = await this.authService.getUserData<UserData>(token);
-        return await this.preferenceRepository.setLayoutConfig(userData.userId, userData.compId, config, name);
+        return await this.preferenceRepository.setLayoutConfig(userData.userId, userData.compId, config, name, this.getVersion());
     }
 
     async deleteLayoutConfig(token: string, name: string) {
         const userData: UserData = await this.authService.getUserData<UserData>(token);
-        return await this.preferenceRepository.deleteLayoutConfig(userData.userId, userData.compId, name);
+        return await this.preferenceRepository.deleteLayoutConfig(userData.userId, userData.compId, name, this.getVersion());
     }
 
     async getLayoutsName(token: string) {
         const userData: UserData = await this.authService.getUserData<UserData>(token);
-        return await this.preferenceRepository.getLayoutsName(userData.userId, userData.compId);
+        return await this.preferenceRepository.getLayoutsName(userData.userId, userData.compId, this.getVersion());
     }
 
 }
