@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, Body, Post } from "@nestjs/common";
+import { Controller, Get, Param, Query, Body, Post, Delete } from "@nestjs/common";
 import { ApiUseTags } from "@nestjs/swagger";
 import { FileDto } from "./dto/file.dto";
 import { FileService } from "./file.service";
@@ -37,5 +37,14 @@ export class FileController {
         @Body() fileContent: FileContentDto,
     ): Promise<void> {
         await this.fileService.createOrUpdateFile(userName, repoKey, path, fileContent);
+    }
+
+    @Delete("/:userName/:repoKey/:path")
+    async deleteFile(
+        @Param("userName") userName: string,
+        @Param("repoKey") repoKey: string,
+        @Param("path") path: string,
+    ): Promise<void> {
+        await this.fileService.deleteFile(userName, repoKey, path);
     }
 }

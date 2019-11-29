@@ -206,4 +206,58 @@ describe("FileController", () => {
       createOrUpdateFileFn.mockReset();
     });
   });
+
+  describe("Test deleteFile method", () => {
+    let deleteFileFn;
+    // set up url and url parts
+    const userName: string = "testUserName";
+    const repoKey: string = "testRepoKey";
+    const relativePath: string = "testRelativePath";
+    const url: string = `/files/${userName}/${repoKey}/${relativePath}%2Ffile.json`;
+
+    beforeEach(async () => { });
+
+    it("should delete file", async (done) => {
+      // prepare functions
+      deleteFileFn = jest.spyOn(fileService, "deleteFile").mockImplementation(async () => {});
+
+      // execute
+      const response = await requester.delete(url);
+
+      // verify method calls
+      expect(deleteFileFn).toHaveBeenCalledTimes(1);
+      expect(deleteFileFn).toHaveBeenCalledWith(userName, repoKey, `${relativePath}/file.json`);
+      // verify result
+      expect(response.status).toBe(HttpStatus.OK);
+
+      // call done when finish
+      done();
+    });
+
+    it("should return error If delete method failed", async (done) => {
+      // prepare
+      const error = new InternalServerErrorException("Failed");
+      const expectedResult = { statusCode: 500, error: "Internal Server Error", message: "Failed" };
+      // prepare functions
+      deleteFileFn = jest.spyOn(fileService, "deleteFile").mockRejectedValue(error);
+
+      // execute
+      const response = await requester.delete(url);
+
+      // verify method calls
+      expect(deleteFileFn).toHaveBeenCalledTimes(1);
+      expect(deleteFileFn).toHaveBeenCalledWith(userName, repoKey, `${relativePath}/file.json`);
+      // verify result
+      expect(response.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
+      expect(response.body).toMatchObject(expectedResult);
+
+      // call done when finish
+      done();
+    });
+
+    afterEach(() => {
+      // needs to be called after each test, otherwise it's accumulate calls from previous tests
+      deleteFileFn.mockReset();
+    });
+  });
 });

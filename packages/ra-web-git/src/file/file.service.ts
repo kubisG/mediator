@@ -144,4 +144,28 @@ export class FileService {
             throw new InternalServerErrorException(`Fail during processing file: ${error.path}`);
         }
     }
+
+    /**
+     * method delete file
+     *
+     * @param userName
+     * @param repoKey
+     * @param relativeFilePath
+     *
+     * @returns Promise<void>
+     */
+    async deleteFile(
+        userName: string,
+        repoKey: string,
+        relativeFilePath: string,
+    ): Promise<void> {
+        const path: string = createPath(this.configService.basePath, userName, repoKey, relativeFilePath);
+
+        try {
+            await _fs.promises.unlink(path);
+        } catch (error) {
+            this.logger.error(error);
+            throw new InternalServerErrorException(`Delete file failed.`, error.message);
+        }
+    }
 }
