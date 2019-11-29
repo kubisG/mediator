@@ -85,7 +85,9 @@ export class PreferenceRepository extends Repository<RaPreference> {
         for (const config of configs) {
             if (config.name.indexOf(`hitlist_${hitlist}~`) > -1) {
                 const name = config.name.split(/~(.+)/);
-                hitlists.push({ name: name[1], flag: config.flag, userId: config.userId });
+                if (name.length > 0) {
+                    hitlists.push({ name: name[1], flag: config.flag, userId: config.userId });
+                }
             }
         }
         return hitlists;
@@ -93,8 +95,13 @@ export class PreferenceRepository extends Repository<RaPreference> {
 
     public async deleteLayoutConfig(userId: number, companyId: number, name: string, version: string) {
         // if we have it like default, we need to remove it....
-        const key = name.split(/\-(.+)/)[0];
-        const subName = name.split(/\-(.+)/)[1];
+        const splitted = name.split(/\-(.+)/);
+        let key = name;
+        let subName = name;
+        if (splitted.length > 0) {
+            key = splitted[0];
+            subName = splitted[1];
+        }
 
         await this.delete({ name: `default_layout_${key}`, value: subName, userId, companyId, version: version ? version : "1.0.0" });
         return await this.delete({

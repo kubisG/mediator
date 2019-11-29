@@ -113,7 +113,6 @@ export class PreferencesController {
     @Post("settings/:name")
     @UseGuards(AuthGuard())
     async setPublicPrivate(@Bearer() auth: string, @Body() data: any, @Param("name") name: string): Promise<any> {
-        console.log("settings", data, name);
         return await this.preferencesService.setPublicPrivate(auth, data.state, name);
     }
 
