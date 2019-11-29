@@ -29,7 +29,7 @@ describe("FileService", () => {
         {
           provide: "logger",
           useClass: Logger,
-      },
+        },
       ],
     }).compile();
 
