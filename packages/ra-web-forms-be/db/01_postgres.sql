@@ -467,11 +467,11 @@ Insert into ra_preference ("name","value","userId","companyId","createDate","upd
         ON CONFLICT DO NOTHING;
 
 Insert into ra_company ("id","companyName","street","city","numInStreet","state","createDate","updatedDate","flgDel","clientId","companyMail")
-values (1,'Rapid Addition','Pobřežní','Prague','3','CZ',NOW(),NOW(),null,'RAPID','support@rapidaddition.com')
+values (1,'Company','Street','City','1','UK',NOW(),NOW(),null,'','support@rapidaddition.com')
 ON CONFLICT DO NOTHING;
 
 Insert into ra_user ("id","app","username","password","firstName","lastName","deskPhone","mobile","email","createDate","lastLogin","lastAction","class","flgDel","updatedDate","companyId")
-values (1,1,'rapid.support','$2a$10$IpJ8uGQD9TtmypANpE/FM.1p9CBLdGMUdA7hOgXeurwafOQ8ybklm','Rapid','Support','+420 456551','+420 999911','support@rapidaddition.com',NOW(),null,null,'ADMIN',null,NOW(),1)
+values (1,1,'rapid.support','$2a$10$IpJ8uGQD9TtmypANpE/FM.1p9CsBLdGMUdA7hOgXeurwafOQ8ybklm','Admin','Support','','','support@rapidaddition.com',NOW(),null,null,'ADMIN',null,NOW(),1)
 ON CONFLICT DO NOTHING;
 
 CREATE OR REPLACE FUNCTION NOTIFY_TRG() RETURNS trigger AS
