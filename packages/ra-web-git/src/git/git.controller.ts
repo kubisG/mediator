@@ -12,7 +12,7 @@ export class GitController {
         @Param("userName") userName: string,
         @Param("repoKey") repoKey: string,
         @Body() body: CloneRequestDto,
-    ): Promise<void> {
-        await this.gitService.clone(userName, repoKey, body);
+    ): Promise<string> {
+        return await this.gitService.clone(userName, repoKey, body);
     }
 }

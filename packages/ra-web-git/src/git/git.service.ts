@@ -13,14 +13,14 @@ export class GitService {
         @Inject("logger") private logger: Logger,
     ) { }
 
-    async clone(userName: string, repoKey: string, cloneRequest: CloneRequestDto): Promise<void> {
+    async clone(userName: string, repoKey: string, cloneRequest: CloneRequestDto): Promise<string> {
         const git = simplegit();
         const encodedPassword: string = encodeURIComponent(cloneRequest.password); // encode chars like ?,=,/,&,:
         const directory: string = (cloneRequest.directory) ? cloneRequest.directory : getDirectoryName(cloneRequest.repoPath);
         const path: string = createPath(this.configService.basePath, userName, repoKey, directory);
         const remote: string = `https://${cloneRequest.userName}:${encodedPassword}@${cloneRequest.repoPath}`;
         try {
-            await git.silent(true).clone(remote, path);
+            return await git.silent(true).clone(remote, path);
         } catch (error) {
             this.logger.error(error);
             throw new InternalServerErrorException("Cloning repository failed.", error.message);
