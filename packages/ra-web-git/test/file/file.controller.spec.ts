@@ -102,11 +102,12 @@ describe("FileController", () => {
 
     beforeEach(async () => { });
 
-    it("should get list of files", async (done) => {
+    it("should return list of files", async (done) => {
       // prepare
       const files = [file1, file2, dir1] as FileDto[];
       const expectedResult = files;
       const recursive = false;
+      const searchText = undefined;
       // prepare functions
       readdirFn = jest.spyOn(fileService, "getFiles").mockResolvedValue(files);
 
@@ -115,7 +116,7 @@ describe("FileController", () => {
 
       // verify method calls
       expect(readdirFn).toHaveBeenCalledTimes(1);
-      expect(readdirFn).toHaveBeenCalledWith(userName, repoKey, relativePath, recursive); // verify all url params has been bind correctly
+      expect(readdirFn).toHaveBeenCalledWith(userName, repoKey, relativePath, recursive, undefined); // verify all url params has been bind correctly
       // verify result
       expect(response.status).toBe(HttpStatus.OK); // always use HttpStatus over number value
       expect(response.body).toMatchObject(expectedResult); // user toMatchObject over toBe (serialization)
@@ -124,11 +125,35 @@ describe("FileController", () => {
       done();
     });
 
-    it("should return error If get info method fails", async (done) => {
+    it("should return list of files filtered by given searchText", async (done) => {
+      // prepare
+      const files = [file1] as FileDto[];
+      const expectedResult = files;
+      const recursive = false;
+      const searchText = "file1";
+      // prepare functions
+      readdirFn = jest.spyOn(fileService, "getFiles").mockResolvedValue(files);
+
+      // execute
+      const response = await requester.get(url).query({recursive, searchText}); // query params here
+
+      // verify method calls
+      expect(readdirFn).toHaveBeenCalledTimes(1);
+      expect(readdirFn).toHaveBeenCalledWith(userName, repoKey, relativePath, recursive, "file1"); // verify all url params has been bind correctly
+      // verify result
+      expect(response.status).toBe(HttpStatus.OK); // always use HttpStatus over number value
+      expect(response.body).toMatchObject(expectedResult); // user toMatchObject over toBe (serialization)
+
+      // call done when finish
+      done();
+    });
+
+    it("should return error If get files method fails", async (done) => {
       // prepare
       const error = new InternalServerErrorException("Failed");
       const expectedResult = { statusCode: 500, error: "Internal Server Error", message: "Failed" };
       const recursive = true;
+      const searchText = undefined;
       // prepare functions
       readdirFn = jest.spyOn(fileService, "getFiles").mockRejectedValue(error);
 
@@ -137,7 +162,7 @@ describe("FileController", () => {
 
       // verify method calls
       expect(readdirFn).toHaveBeenCalledTimes(1);
-      expect(readdirFn).toHaveBeenCalledWith(userName, repoKey, relativePath, recursive); // verify all url params has been bind correctly
+      expect(readdirFn).toHaveBeenCalledWith(userName, repoKey, relativePath, recursive, searchText); // verify all url params has been bind correctly
       // verify result
       expect(response.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR); // always use HttpStatus over number value
       expect(response.body).toMatchObject(expectedResult); // user toMatchObject over toBe (serialization)
