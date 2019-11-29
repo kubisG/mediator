@@ -107,7 +107,6 @@ describe("FileController", () => {
       const files = [file1, file2, dir1] as FileDto[];
       const expectedResult = files;
       const recursive = false;
-      const searchText = undefined;
       // prepare functions
       readdirFn = jest.spyOn(fileService, "getFiles").mockResolvedValue(files);
 
