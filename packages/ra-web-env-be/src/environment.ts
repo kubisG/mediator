@@ -8,6 +8,7 @@ export const environment = {
         db: config.get("logging.db"),
     },
     appPort: config.get("app.port"),
+    appVersion: config.get("app.version"),
     appUrl: {
         url: () => {
             return process.env.FE_URL;
