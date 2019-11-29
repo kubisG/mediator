@@ -20,6 +20,8 @@ describe("GitService", () => {
   let logger: Logger;
 
   let logErrorFn = null;
+  let createPathFn = null;
+  let getDirectoryNameFn = null;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -44,13 +46,15 @@ describe("GitService", () => {
   describe("Test clone method", () => {
     const userName = "testUserName";
     const repoKey = "testRepoKey";
-    const repoPath = "testRepoPath";
+    const repoPath = "testRepoPath/test.git";
     const gitUserName = "testGitUserName";
     const gitPassword = "testGitPassword";
     const cloneRequest = { userName: gitUserName, repoPath, password: gitPassword } as CloneRequestDto;
     let createGitFn = null;
 
     beforeEach(async () => {
+      createPathFn = jest.spyOn(utils, "createPath").mockReturnValue(`${configService.basePath}/${userName}/${repoKey}`);
+      getDirectoryNameFn = jest.spyOn(utils, "getDirectoryName").mockReturnValue("test");
     });
 
     it("should successfully call clone method", async () => {
@@ -70,13 +74,16 @@ describe("GitService", () => {
       expect(result).toEqual(expectedResult);
       // verify function calls
       expect(createGitFn).toHaveBeenCalled();
+      expect(createPathFn).toHaveBeenCalled();
+      expect(getDirectoryNameFn).toHaveBeenCalled();
       expect(logErrorFn).not.toHaveBeenCalled();
     });
 
     it("should return error if git clone function fails", async () => {
-      // prepare functions
+      // prepare results
       let result = null;
       let errorResult = null;
+      // prepare functions
       const expectedError = new InternalServerErrorException("Cloning repository failed.", "Clone method failed.");
       createGitFn = (simplegit as jest.Mock).mockImplementation(() => ({ // returns object with function silent
         silent: jest.fn().mockImplementation(() => ({ // returns object with function clone
@@ -96,6 +103,8 @@ describe("GitService", () => {
       expect(errorResult.message).toMatchObject(expectedError.message);
       // verify method calls
       expect(createGitFn).toHaveBeenCalled();
+      expect(createPathFn).toHaveBeenCalled();
+      expect(getDirectoryNameFn).toHaveBeenCalled();
       expect(logErrorFn).toHaveBeenCalled();
     });
 
