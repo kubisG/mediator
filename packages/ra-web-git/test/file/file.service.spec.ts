@@ -297,4 +297,55 @@ describe("FileService", () => {
       createOrUpdateFileFn.mockReset();
     });
   });
+
+  describe("Test deleteFile method", () => {
+    let deleteFileFn;
+
+    beforeEach(async () => {
+      jest.spyOn(configService, "basePath", "get").mockReturnValue("testBasePath");
+    });
+
+    it("should delete file", async () => {
+      // prepare input and results
+      const currPath = _path.join(path, "file.json");
+      // prepare functions
+      deleteFileFn = jest.spyOn(_fs.promises, "unlink").mockImplementation(async () => {});
+
+      // execute
+      await fileService.deleteFile(userName, repoKey, `${relativeFilePath}/file.json`);
+
+      // verify function calls
+      expect(deleteFileFn).toHaveBeenCalledTimes(1);
+      expect(deleteFileFn).toHaveBeenCalledWith(currPath);
+    });
+
+    it("should return error if delete file failed", async () => {
+      // prepare input and results
+      let result = null;
+      let errorResult = null;
+      const currPath = _path.join(path, "file.json");
+      const expectedError = new InternalServerErrorException("Delete file failed.", "ENOENT");
+      // prepare functions
+      deleteFileFn = jest.spyOn(_fs.promises, "unlink").mockRejectedValue(new Error("ENOENT"));
+
+      // execute
+      try {
+        result = await fileService.deleteFile(userName, repoKey, `${relativeFilePath}/file.json`);
+      } catch (error) {
+        errorResult = error;
+      }
+
+      // verify function calls
+      expect(deleteFileFn).toHaveBeenCalledTimes(1);
+      expect(deleteFileFn).toHaveBeenCalledWith(currPath);
+      // verify result
+      expect(result).toBeNull();
+      expect(errorResult.message).toMatchObject(expectedError.message);
+    });
+
+    afterEach(() => {
+      // needs to be called after each test, otherwise it's accumulate calls from previous tests
+      deleteFileFn.mockReset();
+    });
+  });
 });
