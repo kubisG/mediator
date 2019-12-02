@@ -5,6 +5,7 @@ import { createPath } from "../utils";
 import { PullSummaryDto } from "./dto/pull-summary.dto";
 
 import * as simplegit from "simple-git/promise";
+import * as _ from "lodash";
 
 @Injectable()
 export class GitService {
@@ -13,6 +14,15 @@ export class GitService {
         private configService: ConfigService,
         @Inject("logger") private logger: Logger,
     ) { }
+
+    // TODO: don't remove, will be used when max number of commits is specified
+    private async getNumberOfCommits(userName: string, repoKey: string): Promise<number> {
+        const path: string = createPath(this.configService.basePath, userName, repoKey);
+        const commands = ["rev-list", "--all", "--count"];
+        const git = simplegit(path);
+        const count = await git.silent(true).raw(commands);
+        return Number(count);
+    }
 
     async clone(userName: string, repoKey: string, cloneRequest: CloneRequestDto): Promise<string> {
         const git = simplegit();
@@ -48,6 +58,19 @@ export class GitService {
         } catch (error) {
             this.logger.error(error);
             throw new InternalServerErrorException("Checkout branch failed.", error.message);
+        }
+    }
+
+    async commit(userName: string, repoKey: string, message: string): Promise<void> {
+        const path: string = createPath(this.configService.basePath, userName, repoKey);
+        const git = simplegit(path).silent(true);
+        try {
+            const status = await git.status();
+            await git.add([...status.not_added, ...status.deleted, ...status.modified]);
+            await git.commit(message);
+        } catch (error) {
+            this.logger.error(error);
+            throw new InternalServerErrorException("Commit changes failed.", error.message);
         }
     }
 }
