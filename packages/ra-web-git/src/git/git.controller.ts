@@ -1,6 +1,7 @@
 import { Controller, Post, Param, Body, Put } from "@nestjs/common";
 import { CloneRequestDto } from "./dto/clone-request.dto";
 import { GitService } from "./git.service";
+import { PullSummaryDto } from "./dto/pull-summary.dto";
 
 @Controller("git")
 export class GitController {
@@ -20,7 +21,7 @@ export class GitController {
     async pull(
         @Param("userName") userName: string,
         @Param("repoKey") repoKey: string,
-    ): Promise<void> {
-        await this.gitService.pull(userName, repoKey);
+    ): Promise<PullSummaryDto> {
+        return await this.gitService.pull(userName, repoKey);
     }
 }

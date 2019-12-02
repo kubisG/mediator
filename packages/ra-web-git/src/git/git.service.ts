@@ -1,7 +1,8 @@
 import { Injectable, Inject, Logger, InternalServerErrorException } from "@nestjs/common";
 import { CloneRequestDto } from "./dto/clone-request.dto";
 import { ConfigService } from "../config/config.service";
-import { createPath, getDirectoryName } from "../utils";
+import { createPath } from "../utils";
+import { PullSummaryDto } from "./dto/pull-summary.dto";
 
 import * as simplegit from "simple-git/promise";
 
@@ -26,14 +27,16 @@ export class GitService {
         }
     }
 
-    async pull(userName: string, repoKey: string): Promise<void> {
+    async pull(userName: string, repoKey: string): Promise<PullSummaryDto> {
         const path: string = createPath(this.configService.basePath, userName, repoKey);
         const git = simplegit(path);
+        let summary: PullSummaryDto = null;
         try {
-            await git.silent(true).pull();
+            summary = (await git.silent(true).pull()).summary;
         } catch (error) {
             this.logger.error(error);
             throw new InternalServerErrorException("Pulling changes failed.", error.message);
         }
+        return summary;
     }
 }
