@@ -53,7 +53,6 @@ describe("GitService", () => {
     const cloneRequest = { userName: gitUserName, repoPath, password: gitPassword } as CloneRequestDto;
     const cloneUrl = "https://testGitUserName:testGitPassword@testRepoPath/test.git";
     let cloneToPath = null;
-    let createGitFn = null;
 
     beforeEach(async () => {
       cloneToPath = `${configService.basePath}/${userName}/${repoKey}`; // have to be here cause otherwise 'configService.basePath' is unedefined
