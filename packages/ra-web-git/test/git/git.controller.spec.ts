@@ -3,9 +3,9 @@ import { GitController } from "../../src/git/git.controller";
 import { GitService } from "../../src/git/git.service";
 import { CloneRequestDto } from "src/git/dto/clone-request.dto";
 import { HttpStatus, InternalServerErrorException } from "@nestjs/common";
+import { PullSummaryDto } from "src/git/dto/pull-summary.dto";
 
 import * as request from "supertest";
-import { PullSummaryDto } from "src/git/dto/pull-summary.dto";
 
 jest.mock("../../src/git/git.service");
 
