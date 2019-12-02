@@ -54,7 +54,6 @@ describe("GitService", () => {
 
     beforeEach(async () => {
       createPathFn = jest.spyOn(utils, "createPath").mockReturnValue(`${configService.basePath}/${userName}/${repoKey}`);
-      getDirectoryNameFn = jest.spyOn(utils, "getDirectoryName").mockReturnValue("test");
     });
 
     it("should successfully call clone method", async () => {
@@ -75,7 +74,6 @@ describe("GitService", () => {
       // verify function calls
       expect(createGitFn).toHaveBeenCalled();
       expect(createPathFn).toHaveBeenCalled();
-      expect(getDirectoryNameFn).toHaveBeenCalled();
       expect(logErrorFn).not.toHaveBeenCalled();
     });
 
@@ -104,7 +102,6 @@ describe("GitService", () => {
       // verify method calls
       expect(createGitFn).toHaveBeenCalled();
       expect(createPathFn).toHaveBeenCalled();
-      expect(getDirectoryNameFn).toHaveBeenCalled();
       expect(logErrorFn).toHaveBeenCalled();
     });
 
