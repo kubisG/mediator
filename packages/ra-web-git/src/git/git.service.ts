@@ -39,4 +39,15 @@ export class GitService {
         }
         return summary;
     }
+
+    async checkout(userName: string, repoKey: string, branch: string): Promise<void> {
+        const path: string = createPath(this.configService.basePath, userName, repoKey);
+        const git = simplegit(path);
+        try {
+            await git.silent(true).checkout(branch);
+        } catch (error) {
+            this.logger.error(error);
+            throw new InternalServerErrorException("Checkout branch failed.", error.message);
+        }
+    }
 }

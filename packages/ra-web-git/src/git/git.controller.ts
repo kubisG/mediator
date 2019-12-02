@@ -24,4 +24,13 @@ export class GitController {
     ): Promise<PullSummaryDto> {
         return await this.gitService.pull(userName, repoKey);
     }
+
+    @Put("/:userName/:repoKey/:branch")
+    async checkout(
+        @Param("userName") userName: string,
+        @Param("repoKey") repoKey: string,
+        @Param("branch") branch: string,
+    ): Promise<void> {
+        await this.gitService.checkout(userName, repoKey, branch);
+    }
 }
