@@ -36,11 +36,14 @@ async function afterInsertToDB(connection: Connection) {
 
     const mail = process.env.ADMIN_MAIL;
     const company = process.env.ADMIN_COMPANY;
-
-    sql = `update ra_company set \"companyName\"='${company}',\"companyMail\"='${mail}'`;
-    await connection.manager.query(sql);
-    sql = `update ra_user set \"username\"='${mail}',\"email\"='${mail}'`;
-    await connection.manager.query(sql);
+    try {
+        sql = `update ra_company set \"companyName\"='${company}',\"companyMail\"='${mail}'`;
+        await connection.manager.query(sql);
+        sql = `update ra_user set \"username\"='${mail}',\"email\"='${mail}'`;
+        await connection.manager.query(sql);
+    } catch (ex) {
+        console.log("More then one user exists");
+    }
 
 }
 
