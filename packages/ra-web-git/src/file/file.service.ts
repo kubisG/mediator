@@ -19,14 +19,17 @@ export class FileService {
     ) { }
 
     /**
-     * get files recursively ()
+     * get files recursively
      *
      * Note: always try to avoid using 'fs.promises.opendir' cause it's hardly testable with mocks
      *
      * @param path
      * @param calls
+     * @param searchText
+     *
+     * @returns  Promise<FileDto[]>
      */
-    private async getFilesByPathRecursively(path: string, calls: number): Promise<FileDto[]> {
+    private async getFilesByPathRecursively(path: string, calls: number, searchText?: string): Promise<FileDto[]> {
         const files: FileDto[] = [];
         calls++;
 
@@ -41,7 +44,7 @@ export class FileService {
                 if (dirent.isDirectory()) {
                     const innerFiles: FileDto[] = await this.getFilesByPathRecursively(newPath, calls);
                     files.push({ name: dirent.name, path: newPath, directory: true, files: innerFiles });
-                } else {
+                } else if (!searchText || (searchText && dirent.name.includes(searchText))) {
                     files.push({ name: dirent.name, path: newPath, directory: false });
                 }
             }
@@ -59,7 +62,7 @@ export class FileService {
      *
      * @param path
      */
-    private async getFilesByPath(path: string): Promise<FileDto[]> {
+    private async getFilesByPath(path: string, searchText?: string): Promise<FileDto[]> {
         const files: FileDto[] = [];
 
         try {
@@ -68,7 +71,9 @@ export class FileService {
             for (const dirent of dirents) {
                 const newPath: string = _path.join(path, dirent.name);
                 const directory: boolean = dirent.isDirectory();
-                files.push({ name: dirent.name, path: newPath, directory });
+                if (!searchText || (searchText && dirent.name.includes(searchText))) {
+                    files.push({ name: dirent.name, path: newPath, directory });
+                }
             }
         } catch (error) {
             this.logger.error(error);
@@ -113,10 +118,10 @@ export class FileService {
      * @returns Promise<FileDto[]>
      * @throws InternalServerErrorException if file system operation failed
      */
-    async getFiles(userName: string, repoKey: string, relativeFilePath: string, recursive?: boolean): Promise<FileDto[]> {
-        const path: string = createPath(this.configService.basePath, userName, repoKey, relativeFilePath);
+    async getFiles(userName: string, repoKey: string, relativeFilePath: string, recursive?: boolean, searchText?: string): Promise<FileDto[]> {
         const calls = 0;
-        return (recursive) ? await this.getFilesByPathRecursively(path, calls) : await this.getFilesByPath(path);
+        const path: string = createPath(this.configService.basePath, userName, repoKey, relativeFilePath);
+        return (recursive) ? await this.getFilesByPathRecursively(path, calls, searchText) : await this.getFilesByPath(path, searchText);
     }
 
     /**
