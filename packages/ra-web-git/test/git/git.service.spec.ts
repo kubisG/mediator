@@ -21,6 +21,7 @@ describe("GitService", () => {
 
   let logErrorFn = null;
   let createPathFn = null;
+  let createGitFn = null;
 
   const userName = "testUserName";
   const repoKey = "testRepoKey";
@@ -114,7 +115,6 @@ describe("GitService", () => {
   });
 
   describe("Test pull method", () => {
-    let createGitFn = null;
 
     beforeEach(async () => {
       createPathFn = jest.spyOn(utils, "createPath").mockReturnValue(`${configService.basePath}/${userName}/${repoKey}`);
@@ -176,7 +176,6 @@ describe("GitService", () => {
 
   describe("Test checkout branch method", () => {
     const branch = "testBranchName";
-    let createGitFn = null;
 
     beforeEach(async () => {
       createPathFn = jest.spyOn(utils, "createPath").mockReturnValue(`${configService.basePath}/${userName}/${repoKey}`);
@@ -230,6 +229,81 @@ describe("GitService", () => {
       expect(createGitFn).toHaveBeenCalled();
       expect(createPathFn).toHaveBeenCalledWith(configService.basePath, userName, repoKey);
       expect(checkoutFn).toHaveBeenCalledWith(branch);
+      expect(logErrorFn).toHaveBeenCalled();
+    });
+  });
+
+  describe("Test commit local changes method", () => {
+    const message = "Test commit message";
+    const not_added = ["notAddedFile1.txt", "notAddedFile2.txt"]; // newly created
+    const deleted = ["deletedFile1.txt", "deletedFile2.txt"];
+    const modified = ["modiefiedFile1.txt", "modifiedFile2.txt"];
+    const summary = { not_added, deleted, modified };
+
+    beforeEach(async () => {
+      createPathFn = jest.spyOn(utils, "createPath").mockReturnValue(`${configService.basePath}/${userName}/${repoKey}`);
+    });
+
+    it("should commit local changes", async () => {
+      // prepare functions
+      const statusFn = jest.fn().mockResolvedValue(summary);
+      const addFn = jest.fn().mockImplementation(async () => {});
+      const commitFn = jest.fn().mockImplementation(async () => {});
+      createGitFn = (simplegit as jest.Mock).mockImplementation(() => ({ // returns object with function silent
+        silent: jest.fn().mockImplementation(() => ({ // returns object with function clone
+          status: statusFn,
+          add: addFn,
+          commit: commitFn,
+        })),
+      }));
+
+      // execute
+      const result = await gitService.commit(userName, repoKey, message);
+
+      // verify results
+      expect(result).toBeUndefined();
+      // verify function calls
+      expect(createGitFn).toHaveBeenCalled();
+      expect(createPathFn).toHaveBeenCalledWith(configService.basePath, userName, repoKey);
+      expect(statusFn).toHaveBeenCalledWith();
+      expect(addFn).toHaveBeenCalledWith([...summary.not_added, ...summary.deleted, ...summary.modified]);
+      expect(commitFn).toHaveBeenCalledWith(message);
+      expect(logErrorFn).not.toHaveBeenCalled();
+    });
+
+    it("should return error if commit local changes failed", async () => {
+      // prepare results
+      const expectedError = new InternalServerErrorException("Commit changes failed.", "Commit local changes method failed.");
+      let result = null;
+      let errorResult = null;
+      // prepare functions
+      const statusFn = jest.fn().mockResolvedValue(summary);
+      const addFn = jest.fn().mockImplementation(async () => {});
+      const commitFn = jest.fn().mockRejectedValue(new Error("Commit local changes method failed."));
+      createGitFn = (simplegit as jest.Mock).mockImplementation(() => ({ // returns object with function silent
+        silent: jest.fn().mockImplementation(() => ({ // returns object with function clone
+          status: statusFn,
+          add: addFn,
+          commit: commitFn,
+        })),
+      }));
+
+      // execute
+      try {
+        result = await gitService.commit(userName, repoKey, message);
+      } catch (error) {
+        errorResult = error;
+      }
+
+      // verify result
+      expect(result).toBeNull();
+      expect(errorResult.message).toMatchObject(expectedError.message);
+      // verify method calls
+      expect(createGitFn).toHaveBeenCalled();
+      expect(createPathFn).toHaveBeenCalledWith(configService.basePath, userName, repoKey);
+      expect(statusFn).toHaveBeenCalledWith();
+      expect(addFn).toHaveBeenCalledWith([...summary.not_added, ...summary.deleted, ...summary.modified]);
+      expect(commitFn).toHaveBeenCalledWith(message);
       expect(logErrorFn).toHaveBeenCalled();
     });
   });
