@@ -173,4 +173,64 @@ describe("GitService", () => {
       expect(logErrorFn).toHaveBeenCalled();
     });
   });
+
+  describe("Test checkout branch method", () => {
+    const branch = "testBranchName";
+    let createGitFn = null;
+
+    beforeEach(async () => {
+      createPathFn = jest.spyOn(utils, "createPath").mockReturnValue(`${configService.basePath}/${userName}/${repoKey}`);
+    });
+
+    it("should successfully call pull method", async () => {
+      // prepare functions
+      const checkoutFn = jest.fn().mockImplementation(async () => {});
+      createGitFn = (simplegit as jest.Mock).mockImplementation(() => ({ // returns object with function silent
+        silent: jest.fn().mockImplementation(() => ({ // returns object with function clone
+          checkout: checkoutFn,
+        })),
+      }));
+
+      // execute
+      const result = await gitService.checkout(userName, repoKey, branch);
+
+      // verify results
+      expect(result).toBeUndefined();
+      // verify function calls
+      expect(createGitFn).toHaveBeenCalled();
+      expect(createPathFn).toHaveBeenCalledWith(configService.basePath, userName, repoKey);
+      expect(checkoutFn).toHaveBeenCalledWith(branch);
+      expect(logErrorFn).not.toHaveBeenCalled();
+    });
+
+    it("should return error if git pull function fails", async () => {
+      // prepare results
+      const expectedError = new InternalServerErrorException("Checkout branch failed.", "Checkout method failed.");
+      let result = null;
+      let errorResult = null;
+      // prepare functions
+      const checkoutFn = jest.fn().mockRejectedValue(new Error("Checkout method failed."));
+      createGitFn = (simplegit as jest.Mock).mockImplementation(() => ({ // returns object with function silent
+        silent: jest.fn().mockImplementation(() => ({ // returns object with function clone
+          checkout: checkoutFn,
+        })),
+      }));
+
+      // execute
+      try {
+        result = await gitService.checkout(userName, repoKey, branch);
+      } catch (error) {
+        errorResult = error;
+      }
+
+      // verify result
+      expect(result).toBeNull();
+      expect(errorResult.message).toMatchObject(expectedError.message);
+      // verify method calls
+      expect(createGitFn).toHaveBeenCalled();
+      expect(createPathFn).toHaveBeenCalledWith(configService.basePath, userName, repoKey);
+      expect(checkoutFn).toHaveBeenCalledWith(branch);
+      expect(logErrorFn).toHaveBeenCalled();
+    });
+  });
 });
