@@ -64,6 +64,7 @@ export class GitService {
     async commit(userName: string, repoKey: string, message: string): Promise<void> {
         const path: string = createPath(this.configService.basePath, userName, repoKey);
         const git = simplegit(path).silent(true);
+        console.log("sotttan", message);
         try {
             const status = await git.status();
             await git.add([...status.not_added, ...status.deleted, ...status.modified]);

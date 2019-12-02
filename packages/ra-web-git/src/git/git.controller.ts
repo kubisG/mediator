@@ -25,15 +25,6 @@ export class GitController {
         return await this.gitService.pull(userName, repoKey);
     }
 
-    @Put("/:userName/:repoKey/:branch")
-    async checkout(
-        @Param("userName") userName: string,
-        @Param("repoKey") repoKey: string,
-        @Param("branch") branch: string,
-    ): Promise<void> {
-        await this.gitService.checkout(userName, repoKey, branch);
-    }
-
     @Put("/:userName/:repoKey/commit")
     async commit(
         @Param("userName") userName: string,
@@ -41,5 +32,14 @@ export class GitController {
         @Body("message") message: string,
     ): Promise<void> {
         await this.gitService.commit(userName, repoKey, message);
+    }
+
+    @Put("/:userName/:repoKey/:branch")
+    async checkout(
+        @Param("userName") userName: string,
+        @Param("repoKey") repoKey: string,
+        @Param("branch") branch: string,
+    ): Promise<void> {
+        await this.gitService.checkout(userName, repoKey, branch);
     }
 }
