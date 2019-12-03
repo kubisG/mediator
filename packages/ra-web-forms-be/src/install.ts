@@ -25,14 +25,14 @@ function createRandomPassword(): string {
 }
 
 async function isAdminInitialized(connection: Connection): Promise<boolean> {
-    const adminMail = process.env.ADMIN_EMAIL_ADDRESS;
+    const adminMail = process.env.ADMIN_MAIL;
     const findQuery = `select \"email\" from ra_user where \"email\"='${adminMail}'`;
     const result = await connection.manager.query(findQuery);
     return !_.isEmpty(result);
 }
 
 async function isCompanyInitialized(connection: Connection): Promise<boolean> {
-    const companyMail = process.env.COMPANY_NAME;
+    const companyMail = process.env.ADMIN_COMPANY;
     const findQuery = `select \"companyMail\" from ra_company where \"companyMail\"='${companyMail}'`;
     const result = await connection.manager.query(findQuery);
     return !_.isEmpty(result);
@@ -49,8 +49,8 @@ async function install(connection: Connection) {
 }
 
 async function afterInsertToDB(connection: Connection) {
-    const mail = process.env.ADMIN_EMAIL_ADDRESS;
-    const company = process.env.COMPANY_NAME;
+    const mail = process.env.ADMIN_MAIL;
+    const company = process.env.ADMIN_COMPANY;
     const adminInitialized = await isAdminInitialized(connection);
     const companyInitialized = await isCompanyInitialized(connection);
     const randPassword: string = createRandomPassword();
