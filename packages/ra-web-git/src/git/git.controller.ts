@@ -17,12 +17,21 @@ export class GitController {
         return await this.gitService.clone(userName, repoKey, body);
     }
 
-    @Put("/:userName/:repoKey")
+    @Put("/:userName/:repoKey/pull")
     async pull(
         @Param("userName") userName: string,
         @Param("repoKey") repoKey: string,
     ): Promise<PullSummaryDto> {
         return await this.gitService.pull(userName, repoKey);
+    }
+
+    @Put("/:userName/:repoKey/commit")
+    async commit(
+        @Param("userName") userName: string,
+        @Param("repoKey") repoKey: string,
+        @Body("message") message: string,
+    ): Promise<void> {
+        await this.gitService.commit(userName, repoKey, message);
     }
 
     @Put("/:userName/:repoKey/:branch")

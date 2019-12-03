@@ -93,7 +93,7 @@ describe("Git Controller", () => {
   describe("Test pull method", () => {
     let pullFn;
 
-    const url: string = `/git/${userName}/${repoKey}`;
+    const url: string = `/git/${userName}/${repoKey}/pull`;
 
     beforeEach(async () => { });
 
@@ -196,6 +196,60 @@ describe("Git Controller", () => {
     afterEach(() => {
       // needs to be called after each test, otherwise it's accumulate calls from previous tests
       checkoutFn.mockReset();
+    });
+  });
+
+  describe("Test commit local chnages method", () => {
+    let commitFn;
+
+    const message = "User defined message";
+    const url: string = `/git/${userName}/${repoKey}/commit`;
+
+    beforeEach(async () => { });
+
+    it("should commit local changes", async (done) => {
+      // prepare functions
+      commitFn = jest.spyOn(gitService, "commit").mockImplementation(async () => {});
+
+      // execute
+      const response = await requester.put(url).send({message});
+
+      // verify method calls
+      expect(commitFn).toHaveBeenCalledTimes(1);
+      expect(commitFn).toHaveBeenCalledWith(userName, repoKey, message);
+      // verify result
+      expect(response.status).toBe(HttpStatus.OK);
+      expect(response.body).toEqual({});
+
+      // call done when finish
+      done();
+    });
+
+    it("should return error If commit local chnages failed", async (done) => {
+      // prepare results
+      const error = new InternalServerErrorException("Failed");
+      const expectedResult = { statusCode: 500, error: "Internal Server Error", message: "Failed" };
+      // prepare functions
+      commitFn = jest.spyOn(gitService, "commit").mockRejectedValue(error);
+
+      // execute
+      const response = await requester.put(url).send({message});
+
+      // verify method calls
+      expect(commitFn).toHaveBeenCalledTimes(1);
+      expect(commitFn).toHaveBeenCalledWith(userName, repoKey, message);
+      // verify result
+      // verify result
+      expect(response.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
+      expect(response.body).toMatchObject(expectedResult);
+
+      // call done when finish
+      done();
+    });
+
+    afterEach(() => {
+      // needs to be called after each test, otherwise it's accumulate calls from previous tests
+      commitFn.mockReset();
     });
   });
 });
