@@ -3,6 +3,7 @@ import { EnvironmentService } from "@ra/web-env-be/dist/environment.service";
 import { Connection } from "typeorm";
 import { InstallUtils } from "@ra/web-core-be/dist/install/install-utils";
 import { INestApplication } from "@nestjs/common";
+import { bcryptHash } from "@ra/web-core-be/dist/utils";
 
 import * as dotenv from "dotenv";
 import * as fs from "fs";
@@ -17,6 +18,10 @@ function exitErr(err: any) {
 
 function exitOk() {
     process.exit(0);
+}
+
+function createRandomPassword(): string {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }
 
 async function isAdminInitialized(connection: Connection): Promise<boolean> {
@@ -45,11 +50,13 @@ async function install(connection: Connection) {
 
 async function afterInsertToDB(connection: Connection) {
     const mail = process.env.ADMIN_EMAIL_ADDRESS;
-    const company = process.env.COMPANY_EMAIL_ADDRESS;
-    const updateAdminQuery = `update ra_user set \"username\"='${mail}',\"email\"='${mail}'`;
-    const updateCompanyQuery = `update ra_company set \"companyName\"='${company}',\"companyMail\"='${mail}'`;
+    const company = process.env.COMPANY_NAME;
     const adminInitialized = await isAdminInitialized(connection);
     const companyInitialized = await isCompanyInitialized(connection);
+    const randPassword: string = createRandomPassword();
+    const password = await bcryptHash(randPassword);
+    const updateAdminQuery = `update ra_user set \"username\"='${mail}',\"email\"='${mail}',\"password\"='${password}'`;
+    const updateCompanyQuery = `update ra_company set \"companyName\"='${company}',\"companyMail\"='${mail}'`;
 
     let sql = fs.readFileSync("./db/01_postgres.sql").toString();
     await connection.manager.query(sql);
