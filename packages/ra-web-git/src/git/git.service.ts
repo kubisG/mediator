@@ -85,7 +85,7 @@ export class GitService {
                 deleted: result.deleted, conflicted: result.conflicted } as RepoStatusDto;
         } catch (error) {
             this.logger.error(error);
-            throw new InternalServerErrorException("Commit changes failed.", error.message);
+            throw new InternalServerErrorException("Get repository status failed.", error.message);
         }
         return status;
     }
