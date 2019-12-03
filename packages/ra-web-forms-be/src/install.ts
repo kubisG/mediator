@@ -32,7 +32,7 @@ async function isAdminInitialized(connection: Connection): Promise<boolean> {
 }
 
 async function isCompanyInitialized(connection: Connection): Promise<boolean> {
-    const companyMail = process.env.COMPANY_EMAIL_ADDRESS;
+    const companyMail = process.env.COMPANY_NAME;
     const findQuery = `select \"companyMail\" from ra_company where \"companyMail\"='${companyMail}'`;
     const result = await connection.manager.query(findQuery);
     return !_.isEmpty(result);
