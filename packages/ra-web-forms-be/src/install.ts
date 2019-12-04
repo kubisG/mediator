@@ -12,7 +12,6 @@ import * as _ from "lodash";
 dotenv.config();
 
 function exitErr(err: any) {
-    console.log("ERR", err);
     process.exit(1);
 }
 
@@ -25,17 +24,15 @@ function createRandomPassword(): string {
 }
 
 async function isAdminInitialized(connection: Connection): Promise<boolean> {
-    const adminMail = process.env.ADMIN_MAIL;
-    const findQuery = `select \"email\" from ra_user where \"email\"='${adminMail}'`;
-    const result = await connection.manager.query(findQuery);
-    return !_.isEmpty(result);
+    const findQuery = `select \"initialized\" from ra_user fetch first row only`;
+    const admin = (await connection.manager.query(findQuery))[0]; // always be at least one user
+    return admin.initialized;
 }
 
 async function isCompanyInitialized(connection: Connection): Promise<boolean> {
-    const companyMail = process.env.ADMIN_COMPANY;
-    const findQuery = `select \"companyMail\" from ra_company where \"companyMail\"='${companyMail}'`;
-    const result = await connection.manager.query(findQuery);
-    return !_.isEmpty(result);
+    const findQuery = `select \"initialized\" from ra_company fetch first row only`;
+    const company = (await connection.manager.query(findQuery))[0]; // always be at least one company
+    return company.initialized;
 }
 
 async function install(connection: Connection) {
@@ -55,8 +52,8 @@ async function afterInsertToDB(connection: Connection) {
     const companyInitialized = await isCompanyInitialized(connection);
     const randPassword: string = createRandomPassword();
     const password = await bcryptHash(randPassword);
-    const updateAdminQuery = `update ra_user set \"username\"='${mail}',\"email\"='${mail}',\"password\"='${password}'`;
-    const updateCompanyQuery = `update ra_company set \"companyName\"='${company}',\"companyMail\"='${mail}'`;
+    const updateAdminQuery = `update ra_user set \"username\"='${mail}',\"email\"='${mail}',\"password\"='${password}', \"initialized\"='true'`;
+    const updateCompanyQuery = `update ra_company set \"companyName\"='${company}',\"companyMail\"='${mail}', \"initialized\"='true'`;
 
     let sql = fs.readFileSync("./db/01_postgres.sql").toString();
     await connection.manager.query(sql);

@@ -57,6 +57,9 @@ export class RaCompany extends AEntity {
     @Column({ nullable: true })
     public flgDel: string;
 
+    @Column({ nullable: true, default: false })
+    public initialized: boolean;
+
     @OneToMany(() => RaUser, (raUser) => raUser.company)
     public user: RaUser[];
 
