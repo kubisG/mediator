@@ -24,13 +24,13 @@ function createRandomPassword(): string {
 }
 
 async function isAdminInitialized(connection: Connection): Promise<boolean> {
-    const findQuery = `select \"initialized\" from ra_user fetch first row only`;
+    const findQuery = `select \"initialized\" from ra_user order by \"id\" fetch first row only `;
     const admin = (await connection.manager.query(findQuery))[0]; // always be at least one user
     return admin.initialized;
 }
 
 async function isCompanyInitialized(connection: Connection): Promise<boolean> {
-    const findQuery = `select \"initialized\" from ra_company fetch first row only`;
+    const findQuery = `select \"initialized\" from ra_company order by \"id\" fetch first row only`;
     const company = (await connection.manager.query(findQuery))[0]; // always be at least one company
     return company.initialized;
 }
