@@ -12,6 +12,7 @@ import * as _ from "lodash";
 dotenv.config();
 
 function exitErr(err: any) {
+    console.log("ERR", err); // needs to be here, don't remove
     process.exit(1);
 }
 
