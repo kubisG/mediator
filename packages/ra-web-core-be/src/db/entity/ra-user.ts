@@ -66,6 +66,9 @@ export class RaUser extends AEntity {
     @Column({ nullable: true })
     public flgDel: string;
 
+    @Column({ nullable: true, default: false })
+    public initialized: boolean;
+
     @Mapping({
         requirement: MappingRequirement.REQUIRED,
         transformation: (companyId: number) => {
