@@ -5,9 +5,10 @@ stages:
   - distribution-archive
   - distribution-docker
 
-image: node:12.13.0
-before_script:
-  - DISTRIBUTION_TAG="$CI_COMMIT_REF_NAME.$(date +"%Y%m%d").$CI_COMMIT_SHORT_SHA"
+default:
+  image: node:12.13.0
+  before_script:
+    - DISTRIBUTION_TAG="$CI_COMMIT_REF_NAME.$(date +"%Y%m%d").$CI_COMMIT_SHORT_SHA"
 
 lint:
   stage: lint
@@ -69,11 +70,13 @@ test:
   script:
     - DOCKER_REGISTRY="612810951372.dkr.ecr.eu-west-1.amazonaws.com"
     - DOCKER_IMAGE_NAME="$DOCKER_REGISTRY/$IMAGE_NAME"
-    - docker build --build-arg project="$PROJECT_NAME" --tag $DOCKER_IMAGE_NAME:$DISTRIBUTION_TAG-gitlab .
+    - docker build --build-arg project="$PROJECT_NAME" --build-arg applicationVersion="$DISTRIBUTION_TAG" --tag $DOCKER_IMAGE_NAME:$DISTRIBUTION_TAG .
     - export AWS_ACCESS_KEY_ID="$DIST_AWS_ACCESS_KEY_ID"
     - export AWS_SECRET_ACCESS_KEY="$DIST_AWS_SECRET_ACCESS_KEY"
     - $(aws ecr get-login --no-include-email --region eu-west-1)
-    - docker push $DOCKER_IMAGE_NAME:$DISTRIBUTION_TAG-gitlab
+    - docker push $DOCKER_IMAGE_NAME:$DISTRIBUTION_TAG
+    - docker tag $DOCKER_IMAGE_NAME:$DISTRIBUTION_TAG $DOCKER_IMAGE_NAME:$CI_COMMIT_REF_NAME
+    - docker push $DOCKER_IMAGE_NAME:$CI_COMMIT_REF_NAME
 
 oms-archive:
   <<: *archive
