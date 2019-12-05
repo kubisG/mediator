@@ -36,6 +36,7 @@ RUN node ./scripts/builder/builder.js --project $project
 
 FROM keymetrics/pm2:latest-alpine as start
 ARG project
+ARG applicationVersion
 
 RUN adduser -S rapidnode
 
@@ -53,7 +54,7 @@ COPY --from=bundle /usr/src/bundle/packages/$project/dist ./dist
 COPY --from=bundle /usr/src/bundle/packages/$project/package*.json ./
 COPY --from=bundle /usr/src/bundle/packages/$project/ecosystem.config.js ./
 COPY --from=bundle /usr/src/bundle/packages/$project/db ./db
-
+RUN echo "${applicationVersion}" > version.txt
 EXPOSE 3000
 # --log-date-format="YYYY-MM-DD HH:mm Z"
 CMD ["pm2-runtime", "ecosystem.config.js","--log-date-format","'YYYY-MM-DD HH:mm Z'"]
