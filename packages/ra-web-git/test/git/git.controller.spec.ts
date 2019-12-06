@@ -1,9 +1,10 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { GitController } from "../../src/git/git.controller";
 import { GitService } from "../../src/git/git.service";
-import { CloneRequestDto } from "src/git/dto/clone-request.dto";
+import { CloneRequestDto } from "../../src/git/dto/clone-request.dto";
 import { HttpStatus, InternalServerErrorException } from "@nestjs/common";
-import { PullSummaryDto } from "src/git/dto/pull-summary.dto";
+import { PullSummaryDto } from "../../src/git/dto/pull-summary.dto";
+import { RepoStatusDto } from "../../src/git/dto/repository-status.dto";
 
 import * as request from "supertest";
 
@@ -76,7 +77,6 @@ describe("Git Controller", () => {
       expect(cloneFn).toHaveBeenCalledTimes(1);
       expect(cloneFn).toHaveBeenCalledWith(userName, repoKey, cloneRequest);
       // verify result
-      // verify result
       expect(response.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
       expect(response.body).toMatchObject(expectedResult);
 
@@ -131,7 +131,6 @@ describe("Git Controller", () => {
       expect(pullFn).toHaveBeenCalledTimes(1);
       expect(pullFn).toHaveBeenCalledWith(userName, repoKey);
       // verify result
-      // verify result
       expect(response.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
       expect(response.body).toMatchObject(expectedResult);
 
@@ -185,7 +184,6 @@ describe("Git Controller", () => {
       expect(checkoutFn).toHaveBeenCalledTimes(1);
       expect(checkoutFn).toHaveBeenCalledWith(userName, repoKey, branch);
       // verify result
-      // verify result
       expect(response.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
       expect(response.body).toMatchObject(expectedResult);
 
@@ -225,7 +223,7 @@ describe("Git Controller", () => {
       done();
     });
 
-    it("should return error If commit local chnages failed", async (done) => {
+    it("should return error If commit local changes failed", async (done) => {
       // prepare results
       const error = new InternalServerErrorException("Failed");
       const expectedResult = { statusCode: 500, error: "Internal Server Error", message: "Failed" };
@@ -239,7 +237,6 @@ describe("Git Controller", () => {
       expect(commitFn).toHaveBeenCalledTimes(1);
       expect(commitFn).toHaveBeenCalledWith(userName, repoKey, message);
       // verify result
-      // verify result
       expect(response.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
       expect(response.body).toMatchObject(expectedResult);
 
@@ -250,6 +247,65 @@ describe("Git Controller", () => {
     afterEach(() => {
       // needs to be called after each test, otherwise it's accumulate calls from previous tests
       commitFn.mockReset();
+    });
+  });
+
+  describe("Test get status method", () => {
+    let getStatusFn;
+
+    const unstaged = ["notAddedFile1.txt", "notAddedFile2.txt"]; // newly created
+    const deleted = ["deletedFile1.txt", "deletedFile2.txt"];
+    const modified = ["modiefiedFile1.txt", "modifiedFile2.txt"];
+    const conflicted = ["conflictedFile1.txt"];
+    const url: string = `/git/${userName}/${repoKey}`;
+    const status: RepoStatusDto = { unstaged, modified, deleted, conflicted };
+
+    beforeEach(async () => { });
+
+    it("should return repository status for active branch", async (done) => {
+      // prepare result
+      const exoectedResult = status;
+      // prepare functions
+      getStatusFn = jest.spyOn(gitService, "getStatus").mockResolvedValue(status);
+
+      // execute
+      const response = await requester.get(url);
+
+      // verify method calls
+      expect(getStatusFn).toHaveBeenCalledTimes(1);
+      expect(getStatusFn).toHaveBeenCalledWith(userName, repoKey);
+      // verify result
+      expect(response.status).toBe(HttpStatus.OK);
+      expect(response.body).toEqual(exoectedResult);
+
+      // call done when finish
+      done();
+    });
+
+    it("should return error If get repo status failed", async (done) => {
+      // prepare results
+      const error = new InternalServerErrorException("Failed");
+      const expectedResult = { statusCode: 500, error: "Internal Server Error", message: "Failed" };
+      // prepare functions
+      getStatusFn = jest.spyOn(gitService, "getStatus").mockRejectedValue(error);
+
+      // execute
+      const response = await requester.get(url);
+
+      // verify method calls
+      expect(getStatusFn).toHaveBeenCalledTimes(1);
+      expect(getStatusFn).toHaveBeenCalledWith(userName, repoKey);
+      // verify result
+      expect(response.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
+      expect(response.body).toMatchObject(expectedResult);
+
+      // call done when finish
+      done();
+    });
+
+    afterEach(() => {
+      // needs to be called after each test, otherwise it's accumulate calls from previous tests
+      getStatusFn.mockReset();
     });
   });
 });
