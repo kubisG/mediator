@@ -1,12 +1,21 @@
-import { Controller, Post, Param, Body, Put } from "@nestjs/common";
+import { Controller, Post, Param, Body, Put, Get } from "@nestjs/common";
 import { CloneRequestDto } from "./dto/clone-request.dto";
 import { GitService } from "./git.service";
 import { PullSummaryDto } from "./dto/pull-summary.dto";
+import { RepoStatusDto } from "./dto/repository-status.dto";
 
 @Controller("git")
 export class GitController {
 
     constructor(private gitService: GitService) { }
+
+    @Get("/:userName/:repoKey")
+    async getStatus(
+        @Param("userName") userName: string,
+        @Param("repoKey") repoKey: string,
+    ): Promise<RepoStatusDto> {
+        return await this.gitService.getStatus(userName, repoKey);
+    }
 
     @Post("/:userName/:repoKey")
     async clone(

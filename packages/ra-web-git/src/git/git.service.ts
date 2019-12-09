@@ -6,6 +6,7 @@ import { PullSummaryDto } from "./dto/pull-summary.dto";
 
 import * as simplegit from "simple-git/promise";
 import * as _ from "lodash";
+import { RepoStatusDto } from "./dto/repository-status.dto";
 
 @Injectable()
 export class GitService {
@@ -72,5 +73,20 @@ export class GitService {
             this.logger.error(error);
             throw new InternalServerErrorException("Commit changes failed.", error.message);
         }
+    }
+
+    async getStatus(userName: string, repoKey: string): Promise<RepoStatusDto> {
+        const path: string = createPath(this.configService.basePath, userName, repoKey);
+        const git = simplegit(path).silent(true);
+        let status: RepoStatusDto = null;
+        try {
+            const result = await git.status();
+            status = { unstaged: result.not_added, modified: result.modified,
+                deleted: result.deleted, conflicted: result.conflicted } as RepoStatusDto;
+        } catch (error) {
+            this.logger.error(error);
+            throw new InternalServerErrorException("Get repository status failed.", error.message);
+        }
+        return status;
     }
 }
