@@ -370,4 +370,61 @@ describe("GitService", () => {
       expect(logErrorFn).toHaveBeenCalled();
     });
   });
+
+  describe("Test push local changes method", () => {
+    beforeEach(async () => {
+      createPathFn = jest.spyOn(utils, "createPath").mockReturnValue(`${configService.basePath}/${userName}/${repoKey}`);
+    });
+
+    it("should commit local changes", async () => {
+      // prepare functions
+      const pushFn = jest.fn().mockImplementation(async () => {});
+      createGitFn = (simplegit as jest.Mock).mockImplementation(() => ({ // returns object with function silent
+        silent: jest.fn().mockImplementation(() => ({ // returns object with function clone
+          push: pushFn,
+        })),
+      }));
+
+      // execute
+      const result = await gitService.push(userName, repoKey);
+
+      // verify results
+      expect(result).toBeUndefined();
+      // verify function calls
+      expect(createGitFn).toHaveBeenCalled();
+      expect(createPathFn).toHaveBeenCalledWith(configService.basePath, userName, repoKey);
+      expect(pushFn).toHaveBeenCalledWith();
+      expect(logErrorFn).not.toHaveBeenCalled();
+    });
+
+    it("should return error if push changes failed", async () => {
+      // prepare results
+      const expectedError = new InternalServerErrorException("Push changes failed.", "Cannot push local changes failed.");
+      let result = null;
+      let errorResult = null;
+      // prepare functions
+      const pushFn = jest.fn().mockRejectedValue(new Error("Cannot push local changes failed."));
+      createGitFn = (simplegit as jest.Mock).mockImplementation(() => ({ // returns object with function silent
+        silent: jest.fn().mockImplementation(() => ({ // returns object with function clone
+          push: pushFn,
+        })),
+      }));
+
+      // execute
+      try {
+        result = await gitService.push(userName, repoKey);
+      } catch (error) {
+        errorResult = error;
+      }
+
+      // verify result
+      expect(result).toBeNull();
+      expect(errorResult.message).toMatchObject(expectedError.message);
+      // verify method calls
+      expect(createGitFn).toHaveBeenCalled();
+      expect(createPathFn).toHaveBeenCalledWith(configService.basePath, userName, repoKey);
+      expect(pushFn).toHaveBeenCalledWith();
+      expect(logErrorFn).toHaveBeenCalled();
+    });
+  });
 });
