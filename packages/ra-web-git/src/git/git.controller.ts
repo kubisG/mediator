@@ -43,6 +43,14 @@ export class GitController {
         await this.gitService.commit(userName, repoKey, message);
     }
 
+    @Put("/:userName/:repoKey/push")
+    async push(
+        @Param("userName") userName: string,
+        @Param("repoKey") repoKey: string,
+    ): Promise<void> {
+        await this.gitService.push(userName, repoKey);
+    }
+
     @Put("/:userName/:repoKey/:branch")
     async checkout(
         @Param("userName") userName: string,

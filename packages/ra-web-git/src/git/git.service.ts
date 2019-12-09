@@ -75,6 +75,17 @@ export class GitService {
         }
     }
 
+    async push(userName: string, repoKey: string): Promise<void> {
+        const path: string = createPath(this.configService.basePath, userName, repoKey);
+        const git = simplegit(path).silent(true);
+        try {
+            await git.push();
+        } catch (error) {
+            this.logger.error(error);
+            throw new InternalServerErrorException("Push changes failed.", error.message);
+        }
+    }
+
     async getStatus(userName: string, repoKey: string): Promise<RepoStatusDto> {
         const path: string = createPath(this.configService.basePath, userName, repoKey);
         const git = simplegit(path).silent(true);

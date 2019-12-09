@@ -308,4 +308,55 @@ describe("Git Controller", () => {
       getStatusFn.mockReset();
     });
   });
+
+  describe("Test get status method", () => {
+    let pushFn;
+    const url: string = `/git/${userName}/${repoKey}/push`;
+
+    beforeEach(async () => { });
+
+    it("should push local changes", async (done) => {
+      // prepare functions
+      pushFn = jest.spyOn(gitService, "push").mockImplementation(async () => {});
+
+      // execute
+      const response = await requester.put(url);
+
+      // verify method calls
+      expect(pushFn).toHaveBeenCalledTimes(1);
+      expect(pushFn).toHaveBeenCalledWith(userName, repoKey);
+      // verify result
+      expect(response.status).toBe(HttpStatus.OK);
+      expect(response.body).toEqual({});
+
+      // call done when finish
+      done();
+    });
+
+    it("should return error If get repo status failed", async (done) => {
+      // prepare results
+      const error = new InternalServerErrorException("Failed");
+      const expectedResult = { statusCode: 500, error: "Internal Server Error", message: "Failed" };
+      // prepare functions
+      pushFn = jest.spyOn(gitService, "push").mockRejectedValue(error);
+
+      // execute
+      const response = await requester.put(url);
+
+      // verify method calls
+      expect(pushFn).toHaveBeenCalledTimes(1);
+      expect(pushFn).toHaveBeenCalledWith(userName, repoKey);
+      // verify result
+      expect(response.status).toBe(HttpStatus.INTERNAL_SERVER_ERROR);
+      expect(response.body).toMatchObject(expectedResult);
+
+      // call done when finish
+      done();
+    });
+
+    afterEach(() => {
+      // needs to be called after each test, otherwise it's accumulate calls from previous tests
+      pushFn.mockReset();
+    });
+  });
 });
